@@ -1,0 +1,19 @@
+RPG Game things to include
+
+- use dependency injection (guice library by google)
+- traits (interfaces in java), abstracts
+- scalable (Single player game can be easily turned into multiplayer)
+- cloud save?
+
+
+GameDataSaver trait 
+- could make it a trait for specific intances of what is being saved (local play vs online play)
+	- JsonDataSaver (local)
+	- DatabaseDataSaver (online)
+
+
+Enemy Class and bind it to a json enemy or a database enemy (which are the classes)
+
+Create a wrapper class that is saved as one thing into a json file (can be done better using injection)
+
+module and composition not inheritance
