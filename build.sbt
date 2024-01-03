@@ -21,8 +21,8 @@ libraryDependencies ++= Seq(
   "com.badlogicgames.gdx" % "gdx" % libgdxVersion,
   "com.badlogicgames.gdx" % "gdx-backend-lwjgl3" % libgdxVersion,
   "com.badlogicgames.gdx" % "gdx-platform" % libgdxVersion,
-
-  "com.badlogicgames.gdx" % "gdx-platform" % libgdxVersion classifier "natives-desktop"
+  "com.badlogicgames.gdx" % "gdx-platform" % libgdxVersion classifier "natives-desktop",
+  "com.google.inject" % "guice" % "5.1.0"
 )
 javaOptions ++= Seq(
   "-XstartOnFirstThread"
@@ -37,7 +37,6 @@ scalacOptions ++= Seq(
   "-unchecked",
   "-deprecation",
   "-feature",
-  "-rewrite", "-indent",
   "-encoding", "UTF-8",
 )
 exportJars := true

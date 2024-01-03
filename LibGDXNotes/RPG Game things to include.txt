@@ -7,7 +7,7 @@ RPG Game things to include
 
 
 GameDataSaver trait 
-- could make it a trait for specific intances of what is being saved (local play vs online play)
+- could make it a trait for specific instances of what is being saved (local play vs online play)
 	- JsonDataSaver (local)
 	- DatabaseDataSaver (online)
 
@@ -17,3 +17,13 @@ Enemy Class and bind it to a json enemy or a database enemy (which are the class
 Create a wrapper class that is saved as one thing into a json file (can be done better using injection)
 
 module and composition not inheritance
+
+
+
+use inheritance to create entity structure and use entity 'provider' to handle
+- supply the provider the input for creating entity
+- using a provider = functional (basically a underlining factory)
+- factory is a class that creates stuff
+- provider gives us the factory class (doesnt take any arguements)
+    - use a provider when you want state for an object
+    - factory may have mutable state that wants to be changed for every new instance of it created
