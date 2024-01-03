@@ -1,4 +1,4 @@
-package com.rpg.game.entity.player
+package com.rpg.game.entity.animate.player
 
 import com.rpg.game.entity.Entity
 

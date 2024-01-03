@@ -17,7 +17,7 @@ trait Entity {
   def getEntityTypeId: String
   /**
    * Unique identifier for each entity
-   * keep a running tally of each reoccurring entity and use that as entity Id (ie: skeleton 1, skeleton 2 etc.)
+   * keep a running tally of each entity as it is used and use that as entity Id (ie: numOfSkeletons = 1, numOfSkeletons = 2 etc.)
    * */
   def getEntityId: String
 

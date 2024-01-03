@@ -1,4 +1,4 @@
-package com.rpg.game.entity.player
+package com.rpg.game.entity.animate.player
 
 /**
  * everything included in the Set is that object
