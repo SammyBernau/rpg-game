@@ -7,13 +7,14 @@ import com.rpg.game.entity.data.EntityAccess
  * An entity encompasses all game objects (player, items, enemies, etc.)
  * */
 trait Entity {
+  //TODO maybe add a size field to entity? A width/height as well?
   
   def entityAccess: EntityAccess
   
-  /* 
+  /*
    * Name for groups of entities
    * Example: Undead Skeleton = entity type
-   * 
+   *
    * For more unique entities like special weapons EntityType will be the name of that item even if theres only one.
    * Example: Great Sword of Azoth = entity type
    * */

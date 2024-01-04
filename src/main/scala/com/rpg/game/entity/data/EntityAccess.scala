@@ -5,7 +5,7 @@ import com.rpg.game.data.DataAccess
 
 trait EntityAccess {
   //more of an entity parser using read and write on DataAccess
-  def dataAccess: DataAccess = ???
+//  def datAccess: DataAccess = ???
   
   //get data from data access and locate data based off entity id
 

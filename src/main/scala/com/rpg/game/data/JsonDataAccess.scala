@@ -1,12 +1,17 @@
 package com.rpg.game.data
 
+import com.badlogic.gdx.files.FileHandle
+import com.badlogic.gdx.utils.JsonValue
+import com.google.inject.Inject
 
 
+class JsonDataAccess extends DataAccess[JsonValue] {
 
-class JsonDataAccess extends DataAccess {
-
-  override def read(): Unit = ???
-
-  override def write(): Boolean = ???
+  override def read(dataSource: String): Option[JsonValue] = {
+    ???
+  }
+  override def write(dataSource: String, data: JsonValue): Boolean = {
+    ???
+  }
 
 }

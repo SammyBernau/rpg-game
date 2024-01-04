@@ -1,11 +1,8 @@
 package com.rpg.game.data
 
-trait DataAccess {
+trait DataAccess[T] {
   
-  //TODO figure out how these will work with a database and JSON
-  //read
-  def read(): Unit //Unit is a placeholder
-  def write(): Boolean //maybe return success on write?
-  //write
+  def read(dataSource: String): Option[T]
+  def write(dataSource: String, data: T): Boolean //return success on write?
 
 }
