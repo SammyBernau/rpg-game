@@ -10,12 +10,16 @@ trait Entity {
   
   def entityAccess: EntityAccess
   
-  /** 
+  /* 
    * Name for groups of entities
    * Example: Undead Skeleton = entity type
+   * 
+   * For more unique entities like special weapons EntityType will be the name of that item even if theres only one.
+   * Example: Great Sword of Azoth = entity type
    * */
+  //TODO if an item is meant to only ever have on occurrence in the game have some logic to check that only 1 spawns?
   def getEntityTypeId: String
-  /**
+  /*
    * Unique identifier for each entity
    * keep a running tally of each entity as it is used and use that as entity Id (ie: numOfSkeletons = 1, numOfSkeletons = 2 etc.)
    * */

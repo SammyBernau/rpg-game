@@ -1,5 +1,13 @@
 package com.rpg.game.entity.animate
 
+import com.rpg.game.entity.item.equipment.BaseEquipmentEntity
+
+
+/**
+ * The parameters name, level, age, stamina, strength, agility, intellect, spirit, criticalStrikeChance, haste, physicalDefense,
+ * physicalDamage,magicDefense,magicDamage,sprintingSpeed,walkingSpeed,walkingState,x,y are all defined in [[BaseAnimateEntity]]
+ */
+//TODO not sure if animals need any more params then base ones given in BaseEquipmentEntity
 class Animal(var name: String,
                   var level: Double,
                   var age: Int,
@@ -16,12 +24,14 @@ class Animal(var name: String,
                   var magicDamage: Double,
                   var sprintingSpeed: Double,
                   var walkingSpeed: Double,
-                  var walkingState: Boolean) extends BaseAnimateEntity {
+                  var walkingState: Boolean,
+                  var x: Float,
+                  var y: Float) extends BaseAnimateEntity {
   // Animals-specific fields and methods
   
   
   //test method
   def makeAnimalSound(): Unit = {
-    print("moo")
+    println("moo")
   }
 }
