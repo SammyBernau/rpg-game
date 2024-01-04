@@ -17,7 +17,7 @@ trait Entity {
    * For more unique entities like special weapons EntityType will be the name of that item even if theres only one.
    * Example: Great Sword of Azoth = entity type
    * */
-  //TODO if an item is meant to only ever have on occurrence in the game have some logic to check that only 1 spawns?
+  //TODO if an item is meant to only ever have one occurrence in the game have some logic to check that only one exists?
   def getEntityTypeId: String
   /*
    * Unique identifier for each entity

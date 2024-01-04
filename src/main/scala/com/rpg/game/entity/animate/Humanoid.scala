@@ -51,9 +51,5 @@ class Humanoid(var name: String,
   def getWeaponTwoSlot: Weapon = equipment.weaponTwoSlot
   def setWeaponTwoSlot(newWeaponTwo: Weapon): Unit = equipment.weaponTwoSlot = newWeaponTwo
 
-
-
-
-
 }
 
