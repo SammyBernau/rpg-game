@@ -14,26 +14,28 @@ package com.rpg.game.entity.item.equipment
  *
  * Note: for weaponOneSlot and weaponTwoSlot if a two-handed weapon is equipped in the first slot, a secondary weapon is not allowed in the 2nd slot
  */
-class BaseHumanoidEquipmentSetup (var headSlot: Armor,
-                                  var neckSlot: Armor,
-                                  var chestSlot: Armor,
-                                  var backSlot: Armor,
-                                  var handsSlot: Armor,
-                                  var legsSlot: Armor,
-                                  var feetSlot: Armor,
-                                  var weaponOneSlot: Weapon,
-                                  var weaponTwoSlot: Weapon) {
+class BaseHumanoidEquipmentSetup (var headSlot: Option[Armor],
+                                  var neckSlot:Option[Armor],
+                                  var chestSlot: Option[Armor],
+                                  var backSlot: Option[Armor],
+                                  var handsSlot: Option[Armor],
+                                  var legsSlot: Option[Armor],
+                                  var feetSlot: Option[Armor],
+                                  var weaponOneSlot: Option[Weapon],
+                                  var weaponTwoSlot: Option[Weapon]) {
 
 
 
 
   /*Checks the first weapon slot to see if its a 2 handed weapon and if so return true, indicating that weaponTwoSlot must be empty*/
-  //TODO create the logic to ensure that weaponTwoSlot is empty when weaponOneSlot is set to two-handed
+  //create an enum for "Two-handed" "One-handed" etc. 
   def checkFor2Hand: Boolean = {
-    if(weaponOneSlot.getEquipmentType.equalsIgnoreCase("Two-Handed")){
-      return true
+    weaponOneSlot match {
+      case Some(weapon) if weapon.getEquipmentType.equalsIgnoreCase("Two-handed") => 
+        weaponTwoSlot = None
+        true
+      case _ => false
     }
-    false
   }
 
 

@@ -5,7 +5,7 @@ import com.rpg.game.entity.item.equipment.{Armor, BaseHumanoidEquipmentSetup, En
 /**
  * The parameters name, level, age, stamina, strength, agility, intellect, spirit, criticalStrikeChance, haste, physicalDefense,
  * physicalDamage,magicDefense,magicDamage,sprintingSpeed,walkingSpeed,walkingState,x,y are all defined in [[BaseAnimateEntity]]
- * 
+ *
  * @param equipment: equipment that humanoid entity is wearing
  */
 class Humanoid(var name: String,
@@ -29,27 +29,33 @@ class Humanoid(var name: String,
                var y: Float,
                var equipment: BaseHumanoidEquipmentSetup) extends BaseAnimateEntity {
 
-  
-  //TODO have some logic 
+
+
+  //Notes for later
+  /*equipment.getHeadSlot match {
+    case Some(armor) => // do something with armor
+    case None => // handle the case where there is no armor in the head slot
+  }*/
+
   /*Basic setters & getters */
-  def getHeadSlot: Armor = equipment.headSlot
-  def setHeadSlot(newArmor: Armor): Unit = equipment.headSlot = newArmor
-  def getNeckSlot: Armor = equipment.neckSlot
-  def setNeckSlot(newNeck: Armor): Unit = equipment.neckSlot = newNeck
-  def getChestSlot: Armor = equipment.chestSlot
-  def setChestSlot(newChest: Armor): Unit = equipment.chestSlot = newChest
-  def getBackSlot: Armor = equipment.backSlot
-  def setBackSlot(newBack: Armor): Unit = equipment.backSlot = newBack
-  def getHandsSlot: Armor = equipment.handsSlot
-  def setHandsSlot(newHands: Armor): Unit = equipment.handsSlot = newHands
-  def getLegsSlot: Armor = equipment.legsSlot
-  def setLegsSlot(newLegs: Armor): Unit = equipment.legsSlot = newLegs
-  def getFeetSlot: Armor = equipment.feetSlot
-  def setFeetSlot(newFeet: Armor): Unit = equipment.feetSlot = newFeet
-  def getWeaponOneSlot: Weapon = equipment.weaponOneSlot
-  def setWeaponOneSlot(newWeaponOne: Weapon): Unit = equipment.weaponOneSlot = newWeaponOne
-  def getWeaponTwoSlot: Weapon = equipment.weaponTwoSlot
-  def setWeaponTwoSlot(newWeaponTwo: Weapon): Unit = equipment.weaponTwoSlot = newWeaponTwo
+  def getHeadSlot: Option[Armor] = equipment.headSlot
+  def setHeadSlot(newArmor: Option[Armor]): Unit = equipment.headSlot = newArmor
+  def getNeckSlot: Option[Armor] = equipment.neckSlot
+  def setNeckSlot(newNeck: Option[Armor]): Unit = equipment.neckSlot = newNeck
+  def getChestSlot: Option[Armor] = equipment.chestSlot
+  def setChestSlot(newChest: Option[Armor]): Unit = equipment.chestSlot = newChest
+  def getBackSlot: Option[Armor] = equipment.backSlot
+  def setBackSlot(newBack: Option[Armor]): Unit = equipment.backSlot = newBack
+  def getHandsSlot: Option[Armor] = equipment.handsSlot
+  def setHandsSlot(newHands: Option[Armor]): Unit = equipment.handsSlot = newHands
+  def getLegsSlot: Option[Armor] = equipment.legsSlot
+  def setLegsSlot(newLegs: Option[Armor]): Unit = equipment.legsSlot = newLegs
+  def getFeetSlot: Option[Armor] = equipment.feetSlot
+  def setFeetSlot(newFeet: Option[Armor]): Unit = equipment.feetSlot = newFeet
+  def getWeaponOneSlot: Option[Weapon] = equipment.weaponOneSlot
+  def setWeaponOneSlot(newWeaponOne: Option[Weapon]): Unit = equipment.weaponOneSlot = newWeaponOne
+  def getWeaponTwoSlot: Option[Weapon] = equipment.weaponTwoSlot
+  def setWeaponTwoSlot(newWeaponTwo: Option[Weapon]): Unit = equipment.weaponTwoSlot = newWeaponTwo
 
 }
 
