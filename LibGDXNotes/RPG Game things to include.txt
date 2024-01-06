@@ -27,3 +27,9 @@ use inheritance to create entity structure and use entity 'provider' to handle
 - provider gives us the factory class (doesnt take any arguements)
     - use a provider when you want state for an object
     - factory may have mutable state that wants to be changed for every new instance of it created
+    
+TODO ITEMS
+Look up how to design a tick rate
+    - updates entities
+    - essentially a big running thread that updates every so often and in between ticks do calculations
+    - based on time elapsed versus or use delta time given by libGDX

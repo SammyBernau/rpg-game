@@ -25,6 +25,9 @@ trait Entity {
    * keep a running tally of each entity as it is used and use that as entity Id (ie: numOfSkeletons = 1, numOfSkeletons = 2 etc.)
    * */
   def getEntityId: String
+  
+  //maybe every entity has its up tick update method
+  //look into game tick designs
 
   
   

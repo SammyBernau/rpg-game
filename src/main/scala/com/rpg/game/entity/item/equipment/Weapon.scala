@@ -18,14 +18,14 @@ import com.rpg.game.entity.data.EntityAccess
  */
 
 //TODO convert material and weaponType to enums?
-class Weapon(var material: String,
-             var price: Double,
-             var weight: Double,
-             var equipmentType: String,
-             var durability: Double,
-             var enchant: Enchant,
-             var physicalDamage: Double,
-             var magicalDamage: Double) extends BaseEquipmentEntity {
+case class Weapon(material: String,
+                  price: Double,
+                  weight: Double,
+                  equipmentType: String,
+                  durability: Double,
+                  enchant: Enchant,
+                  physicalDamage: Double,
+                  magicalDamage: Double) extends BaseEquipmentEntity {
 
 
   override def entityAccess: EntityAccess = ???
@@ -35,9 +35,9 @@ class Weapon(var material: String,
   
   /*Basic setters & getters */
   def getPhysicalDamage: Double = physicalDamage
-  def setPhysicalDamage(newPhysicalDamage: Double): Unit = physicalDamage = newPhysicalDamage
+  def setPhysicalDamage(newPhysicalDamage: Double): Unit
   def getMagicalDamage: Double = magicalDamage
-  def setMagicalDamage(newMagicalDamage: Double): Unit = magicalDamage = newMagicalDamage
+  def setMagicalDamage(newMagicalDamage: Double): Unit
   
 
 }

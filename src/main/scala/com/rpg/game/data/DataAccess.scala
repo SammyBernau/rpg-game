@@ -1,8 +1,8 @@
 package com.rpg.game.data
 
-trait DataAccess[T] {
+trait DataAccess[Source,Output] {
   
-  def read(dataSource: String): Option[T]
-  def write(dataSource: String, data: T): Boolean //return success on write?
+  def read(dataSource: Source): Option[Output]
+  def write(dataSource: Source, data: Output): Boolean //return success on write?
 
 }

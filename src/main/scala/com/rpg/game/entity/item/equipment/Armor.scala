@@ -15,23 +15,23 @@ import com.rpg.game.entity.data.EntityAccess
  * @param magicalDefense: protection level against magical attacks
  */
 //TODO convert material and covering to enums?
-class Armor(var material: String,
-            var price: Double,
-            var weight: Double,
-            var equipmentType: String,
-            var durability: Double,
-            var enchant: Enchant,
-            var physicalDefense: Double,
-            var magicalDefense: Double) extends BaseEquipmentEntity {
+case class Armor(material: String,
+                 price: Double,
+                 weight: Double,
+                 equipmentType: String,
+                 durability: Double,
+                 enchant: Enchant,
+                 physicalDefense: Double,
+                 magicalDefense: Double) extends BaseEquipmentEntity {
   override def entityAccess: EntityAccess = ???
   override def getEntityId: String = ???
   override def getEntityTypeId: String = ???
 
   /*Basic getters & setters*/
   def getPhysicalDefense: Double = physicalDefense
-  def setPhysicalDefense(newPhysicalDefense: Double): Unit = physicalDefense = newPhysicalDefense
+  def setPhysicalDefense(newPhysicalDefense: Double): Unit
   def getMagicalDefense: Double = magicalDefense
-  def setMagicalDefense(newMagicalDefense: Double): Unit = magicalDefense = newMagicalDefense
+  def setMagicalDefense(newMagicalDefense: Double): Unit
 
 
 

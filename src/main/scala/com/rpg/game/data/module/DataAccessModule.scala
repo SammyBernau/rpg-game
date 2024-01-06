@@ -12,7 +12,7 @@ class DataAccessModule extends AbstractModule {
     else configureDatabase()
   }
 
-  private def configureDatabase(): Unit = bind(classOf[DataAccess[String]]).to(classOf[DatabaseDataAccess])
+  private def configureDatabase(): Unit = bind(classOf[DataAccess[String,String]]).to(classOf[DatabaseDataAccess])
   private def configureJson(): Unit = bind(classOf[DataAccess[JsonValue]]).to(classOf[JsonDataAccess])
 
 

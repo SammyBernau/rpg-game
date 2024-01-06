@@ -10,17 +10,17 @@ import com.rpg.game.entity.data.EntityAccess
 trait BaseEquipmentEntity extends Entity{
 
   /*what the equipment is made of (leather, iron, steel, wood, etc.)*/
-  var material: String
+  val material: String
   /*price buyer pays to obtain item from player or humanoid entity*/
-  var price: Double
+  val price: Double
   /*physical weight of equipment*/
-  var weight: Double
+  val weight: Double
   /*type of equipment according to its use (longsword = Two-handed weapon, dagger = one-handed weapon, helmet = head piece, cloak = back piece, etc.)*/
-  var equipmentType: String
+  val equipmentType: String
   /*durability of equipment that degrades during use until it is considered broken at 1/x (x being the max durability of specific equipment)*/
-  var durability: Double
+  val durability: Double
   /*Enchant applied to equipment that transfers to humanoid using it*/
-  var enchant: Enchant
+  val enchant: Enchant
 
 
   override def entityAccess: EntityAccess = ???
@@ -30,15 +30,15 @@ trait BaseEquipmentEntity extends Entity{
   /*Basic setters & getters*/
 
   def getMaterial: String = material
-  def setMaterial(newMaterial: String): Unit = material = newMaterial
+  def setMaterial(newMaterial: String): Unit
   def getPrice: Double = price
-  def setPrice(newPrice: Double): Unit = price = newPrice
+  def setPrice(newPrice: Double): Unit
   def getWeight: Double = weight
-  def setWeight(newWeight: Double): Unit = weight = newWeight
+  def setWeight(newWeight: Double): Unit
   def getEquipmentType: String = equipmentType
-  def setEquipmentType(newEquipmentType: String): Unit = equipmentType = newEquipmentType
+  def setEquipmentType(newEquipmentType: String): Unit
   def getDurability: Double = durability
-  def setDurability(newDurability: Double): Unit = durability = newDurability
+  def setDurability(newDurability: Double): Unit
   def getEnchant: Enchant = enchant
 
 }

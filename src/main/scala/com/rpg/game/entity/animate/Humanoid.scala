@@ -1,6 +1,7 @@
 package com.rpg.game.entity.animate
 
 import com.rpg.game.entity.item.equipment.{Armor, BaseHumanoidEquipmentSetup, Enchant, Weapon}
+import com.rpg.game.entity.animate.BaseAnimateEntity
 
 /**
  * The parameters name, level, age, stamina, strength, agility, intellect, spirit, criticalStrikeChance, haste, physicalDefense,
@@ -8,26 +9,26 @@ import com.rpg.game.entity.item.equipment.{Armor, BaseHumanoidEquipmentSetup, En
  *
  * @param equipment: equipment that humanoid entity is wearing
  */
-class Humanoid(var name: String,
-               var level: Double,
-               var age: Int,
-               var stamina: Double,
-               var strength: Double,
-               var agility: Double,
-               var intellect: Double,
-               var spirit: Double,
-               var criticalStrikeChance: Double,
-               var haste: Double,
-               var physicalDefense: Double,
-               var physicalDamage: Double,
-               var magicDefense: Double,
-               var magicDamage: Double,
-               var sprintingSpeed: Double,
-               var walkingSpeed: Double,
-               var walkingState: Boolean,
-               var x: Float,
-               var y: Float,
-               var equipment: BaseHumanoidEquipmentSetup) extends BaseAnimateEntity {
+case class Humanoid(name: String,
+                    level: Double,
+                    age: Int,
+                    stamina: Double,
+                    strength: Double,
+                    agility: Double,
+                    intellect: Double,
+                    spirit: Double,
+                    criticalStrikeChance: Double,
+                    haste: Double,
+                    physicalDefense: Double,
+                    physicalDamage: Double,
+                    magicDefense: Double,
+                    magicDamage: Double,
+                    sprintingSpeed: Double,
+                    walkingSpeed: Double,
+                    walkingState: Boolean,
+                    x: Float,
+                    y: Float,
+                    equipment: BaseHumanoidEquipmentSetup) extends BaseAnimateEntity {
 
 
 
@@ -39,23 +40,23 @@ class Humanoid(var name: String,
 
   /*Basic setters & getters */
   def getHeadSlot: Option[Armor] = equipment.headSlot
-  def setHeadSlot(newArmor: Option[Armor]): Unit = equipment.headSlot = newArmor
+  def setHeadSlot(newArmor: Option[Armor]): Unit
   def getNeckSlot: Option[Armor] = equipment.neckSlot
-  def setNeckSlot(newNeck: Option[Armor]): Unit = equipment.neckSlot = newNeck
+  def setNeckSlot(newNeck: Option[Armor]): Unit
   def getChestSlot: Option[Armor] = equipment.chestSlot
-  def setChestSlot(newChest: Option[Armor]): Unit = equipment.chestSlot = newChest
+  def setChestSlot(newChest: Option[Armor]): Unit
   def getBackSlot: Option[Armor] = equipment.backSlot
-  def setBackSlot(newBack: Option[Armor]): Unit = equipment.backSlot = newBack
+  def setBackSlot(newBack: Option[Armor]): Unit
   def getHandsSlot: Option[Armor] = equipment.handsSlot
-  def setHandsSlot(newHands: Option[Armor]): Unit = equipment.handsSlot = newHands
+  def setHandsSlot(newHands: Option[Armor]): Unit
   def getLegsSlot: Option[Armor] = equipment.legsSlot
-  def setLegsSlot(newLegs: Option[Armor]): Unit = equipment.legsSlot = newLegs
+  def setLegsSlot(newLegs: Option[Armor]): Unit
   def getFeetSlot: Option[Armor] = equipment.feetSlot
-  def setFeetSlot(newFeet: Option[Armor]): Unit = equipment.feetSlot = newFeet
+  def setFeetSlot(newFeet: Option[Armor]): Unit
   def getWeaponOneSlot: Option[Weapon] = equipment.weaponOneSlot
-  def setWeaponOneSlot(newWeaponOne: Option[Weapon]): Unit = equipment.weaponOneSlot = newWeaponOne
+  def setWeaponOneSlot(newWeaponOne: Option[Weapon]): Unit
   def getWeaponTwoSlot: Option[Weapon] = equipment.weaponTwoSlot
-  def setWeaponTwoSlot(newWeaponTwo: Option[Weapon]): Unit = equipment.weaponTwoSlot = newWeaponTwo
+  def setWeaponTwoSlot(newWeaponTwo: Option[Weapon]): Unit
 
 }
 

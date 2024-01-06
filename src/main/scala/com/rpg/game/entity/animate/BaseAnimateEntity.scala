@@ -12,45 +12,45 @@ import com.rpg.game.entity.data.EntityAccess
 //TODO check if I really need vars in this class as functional programming aims to keep things immutable
 //Things like status effects may need to change attributes...
 trait BaseAnimateEntity extends Entity {
-
+  //TODO think about what might change a lot and var might be more beneficial
   /*name given*/
-  var name: String
+  val name: String
   /*experience level*/
-  var level: Double
+  val level: Double
   /*natural age*/
-  var age: Int
+  val age: Int
   /*health pool*/
-  var stamina: Double
+  val stamina: Double
   /*strength level factored into physicalDamage and physicalDefense*/
-  var strength: Double
+  val strength: Double
   /*ability to dodge any attack. Also factored into hit chance for physical attacks*/
-  var agility: Double
+  val agility: Double
   /*mana pool, magic level factored into magicDamage and magicDamage and ability to know certain spells*/
-  var intellect: Double
+  val intellect: Double
   /*mana regeneration rate*/
-  var spirit: Double
+  val spirit: Double
   /*chance to land a critical hit against an opponent (magic or physical)*/
-  var criticalStrikeChance: Double
+  val criticalStrikeChance: Double
   /*rate at which magic spells are caste attacks*/
-  var haste: Double
+  val haste: Double
   /*defense level factored into damage taken when struck with physical attacks (fists, swords, arrows)*/
-  var physicalDefense: Double
+  val physicalDefense: Double
   /*damage caused by physical attacks taking strength into account*/
-  var physicalDamage: Double
+  val physicalDamage: Double
   /*defense level factored into damage taken when struck with magic (spells)*/
-  var magicDefense: Double
+  val magicDefense: Double
   /*damage caused by magic attacks taking intellect into account*/
-  var magicDamage: Double
+  val magicDamage: Double
   /*sprinting rate of entity*/
-  var sprintingSpeed: Double
+  val sprintingSpeed: Double
   /*walking rate of entity*/
-  var walkingSpeed: Double
+  val walkingSpeed: Double
   /*state for entity for whether its walking or not (true = walking, false = sprinting)*/
-  var walkingState: Boolean
+  val walkingState: Boolean
   /*x coordinate for libGDX formatting*/
-  var x: Float
+  val x: Float
   /*y coordinate for libGDX formatting*/
-  var y: Float
+  val y: Float
   
   override def entityAccess: EntityAccess = ???
 
@@ -63,45 +63,45 @@ trait BaseAnimateEntity extends Entity {
 
   /*Basic getter & setter methods*/
   def getName: String = name
-  def setName(newName: String): Unit = name = newName
+  def setName(newName: String): Unit
   def getLevel: Double = level
-  def setLevel(newLevel: Double): Unit = level = newLevel
+  def setLevel(newLevel: Double): Unit
   def getAge: Int = age
-  def setAge(newAge: Int): Unit = age = newAge
+  def setAge(newAge: Int): Unit
   def getStamina: Double = stamina
-  def setStamina(newStamina: Double): Unit = stamina = newStamina
+  def setStamina(newStamina: Double): Unit
   def getStrength: Double = strength
-  def setStrength(newStrength: Double): Unit = strength = newStrength
+  def setStrength(newStrength: Double): Unit
   def getAgility: Double = agility
-  def setAgility(newAgility: Double): Unit = agility = newAgility
+  def setAgility(newAgility: Double): Unit
   def getIntellect: Double = intellect
-  def setIntellect(newIntellect: Double): Unit = intellect = newIntellect
+  def setIntellect(newIntellect: Double): Unit
   def getSpirit: Double = spirit
-  def setSpirit(newSpirit: Double): Unit = spirit = newSpirit
+  def setSpirit(newSpirit: Double): Unit
   def getCriticalStrikeChance: Double = criticalStrikeChance
-  def setCriticalStrikeChance(newCriticalStrikeChance: Double): Unit = criticalStrikeChance = newCriticalStrikeChance
+  def setCriticalStrikeChance(newCriticalStrikeChance: Double): Unit
   def getHaste: Double = haste
-  def setHaste(newHaste: Double): Unit = haste = newHaste
+  def setHaste(newHaste: Double): Unit
   def getPhysicalDefense: Double = physicalDefense
-  def setPhysicalDefense(newPhysicalDefense: Double): Unit = physicalDefense = newPhysicalDefense
+  def setPhysicalDefense(newPhysicalDefense: Double): Unit
   def getPhysicalDamage: Double = physicalDamage
-  def setPhysicalDamage(newPhysicalDamage: Double): Unit = physicalDamage = newPhysicalDamage
+  def setPhysicalDamage(newPhysicalDamage: Double): Unit
   def getMagicDefense: Double = magicDefense
-  def setMagicDefense(newMagicDefense: Double): Unit = magicDefense = newMagicDefense
+  def setMagicDefense(newMagicDefense: Double): Unit
   def getMagicDamage: Double = magicDamage
-  def setMagicDamage(newMagicDamage: Double): Unit = magicDamage = newMagicDamage
+  def setMagicDamage(newMagicDamage: Double): Unit
 
   /*Walking and sprinting speed will most likely be static for all entities*/
   def getSprintingSpeed: Double = sprintingSpeed
-  def setSprintingSpeed(newSprintingSpeed: Double): Unit = sprintingSpeed = newSprintingSpeed
+  def setSprintingSpeed(newSprintingSpeed: Double): Unit
   def getWalkingSpeed: Double = walkingSpeed
-  def setWalkingSpeed(newWalkingSpeed: Double): Unit = walkingSpeed = newWalkingSpeed
+  def setWalkingSpeed(newWalkingSpeed: Double): Unit
   def getWalkingState: Boolean = walkingState
   /*
    * if value is set to true, entity is walking and not sprinting
    * if value is set to false, entity is always considered sprinting and not walking
    * */
-  def setWalking(newWalkingState: Boolean): Unit = walkingState = newWalkingState
+  def setWalking(newWalkingState: Boolean): Unit
 
 
 }
