@@ -26,19 +26,5 @@ trait BaseEquipmentEntity extends Entity{
   override def entityAccess: EntityAccess = ???
   override def getEntityTypeId: String = ???
   override def getEntityId: String = ???
-  
-  /*Basic setters & getters*/
-
-  def getMaterial: String = material
-  def setMaterial(newMaterial: String): Unit
-  def getPrice: Double = price
-  def setPrice(newPrice: Double): Unit
-  def getWeight: Double = weight
-  def setWeight(newWeight: Double): Unit
-  def getEquipmentType: String = equipmentType
-  def setEquipmentType(newEquipmentType: String): Unit
-  def getDurability: Double = durability
-  def setDurability(newDurability: Double): Unit
-  def getEnchant: Enchant = enchant
 
 }

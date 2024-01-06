@@ -1,4 +1,4 @@
-package com.rpg.game.data
+package com.rpg.game.data.database
 
 import com.google.inject.Inject
 import com.rpg.game.data.DataAccess

@@ -26,12 +26,7 @@ case class Armor(material: String,
   override def entityAccess: EntityAccess = ???
   override def getEntityId: String = ???
   override def getEntityTypeId: String = ???
-
-  /*Basic getters & setters*/
-  def getPhysicalDefense: Double = physicalDefense
-  def setPhysicalDefense(newPhysicalDefense: Double): Unit
-  def getMagicalDefense: Double = magicalDefense
-  def setMagicalDefense(newMagicalDefense: Double): Unit
+  
 
 
 

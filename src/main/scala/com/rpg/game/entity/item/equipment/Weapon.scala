@@ -31,13 +31,4 @@ case class Weapon(material: String,
   override def entityAccess: EntityAccess = ???
   override def getEntityId: String = ???
   override def getEntityTypeId: String = ???
-  
-  
-  /*Basic setters & getters */
-  def getPhysicalDamage: Double = physicalDamage
-  def setPhysicalDamage(newPhysicalDamage: Double): Unit
-  def getMagicalDamage: Double = magicalDamage
-  def setMagicalDamage(newMagicalDamage: Double): Unit
-  
-
 }

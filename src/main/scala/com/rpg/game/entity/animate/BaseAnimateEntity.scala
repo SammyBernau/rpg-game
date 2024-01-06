@@ -61,47 +61,5 @@ trait BaseAnimateEntity extends Entity {
   /*Checks if entity is dead based on stamina left*/
   def isEntityDead: Boolean = stamina == 0
 
-  /*Basic getter & setter methods*/
-  def getName: String = name
-  def setName(newName: String): Unit
-  def getLevel: Double = level
-  def setLevel(newLevel: Double): Unit
-  def getAge: Int = age
-  def setAge(newAge: Int): Unit
-  def getStamina: Double = stamina
-  def setStamina(newStamina: Double): Unit
-  def getStrength: Double = strength
-  def setStrength(newStrength: Double): Unit
-  def getAgility: Double = agility
-  def setAgility(newAgility: Double): Unit
-  def getIntellect: Double = intellect
-  def setIntellect(newIntellect: Double): Unit
-  def getSpirit: Double = spirit
-  def setSpirit(newSpirit: Double): Unit
-  def getCriticalStrikeChance: Double = criticalStrikeChance
-  def setCriticalStrikeChance(newCriticalStrikeChance: Double): Unit
-  def getHaste: Double = haste
-  def setHaste(newHaste: Double): Unit
-  def getPhysicalDefense: Double = physicalDefense
-  def setPhysicalDefense(newPhysicalDefense: Double): Unit
-  def getPhysicalDamage: Double = physicalDamage
-  def setPhysicalDamage(newPhysicalDamage: Double): Unit
-  def getMagicDefense: Double = magicDefense
-  def setMagicDefense(newMagicDefense: Double): Unit
-  def getMagicDamage: Double = magicDamage
-  def setMagicDamage(newMagicDamage: Double): Unit
-
-  /*Walking and sprinting speed will most likely be static for all entities*/
-  def getSprintingSpeed: Double = sprintingSpeed
-  def setSprintingSpeed(newSprintingSpeed: Double): Unit
-  def getWalkingSpeed: Double = walkingSpeed
-  def setWalkingSpeed(newWalkingSpeed: Double): Unit
-  def getWalkingState: Boolean = walkingState
-  /*
-   * if value is set to true, entity is walking and not sprinting
-   * if value is set to false, entity is always considered sprinting and not walking
-   * */
-  def setWalking(newWalkingState: Boolean): Unit
-
 
 }
