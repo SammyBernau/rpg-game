@@ -7,7 +7,7 @@ import com.rpg.game.entity.data.EntityAccess
 //Think of any additional methods that an NPC might have that a player humanoid might not (basic speech? trade windows? etc.)
 class Npc extends Entity {
   override def entityAccess: EntityAccess = ???
-  override def getEntityTypeId: String = ???
+  override def getEntityName: String = ???
   override def getEntityId: String = ???
 
 }

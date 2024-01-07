@@ -24,7 +24,7 @@ use inheritance to create entity structure and use entity 'provider' to handle
     - supply the provider the input for creating entity
     - using a provider = functional (basically an underlining factory)
     - factory is a class that creates stuff
-    - provider gives us the factory class (doesnt take any arguements)
+    - provider gives us the factory class (doesn't take any arguments)
         - use a provider when you want state for an object
         - factory may have mutable state that wants to be changed for every new instance of it created
     
@@ -33,6 +33,10 @@ Look up how to design a tick rate
     - updates entities
     - essentially a big running thread that updates every so often and in between ticks do calculations
     - based on time elapsed versus or use delta time given by libGDX
+
+libGDX delta time
+    - gives the millisecond amount between current and previous ticks
+        - render method from Screen class is called for each tick (length of each tick is not constant due to machine-specific issues or game logic itself)
     
     
     

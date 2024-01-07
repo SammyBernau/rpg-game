@@ -24,7 +24,7 @@ trait BaseEquipmentEntity extends Entity{
 
 
   override def entityAccess: EntityAccess = ???
-  override def getEntityTypeId: String = ???
+  override def getEntityName: String = ???
   override def getEntityId: String = ???
 
 }

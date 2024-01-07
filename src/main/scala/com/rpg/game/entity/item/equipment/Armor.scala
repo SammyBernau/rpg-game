@@ -25,7 +25,7 @@ case class Armor(material: String,
                  magicalDefense: Double) extends BaseEquipmentEntity {
   override def entityAccess: EntityAccess = ???
   override def getEntityId: String = ???
-  override def getEntityTypeId: String = ???
+  override def getEntityName: String = ???
   
 
 

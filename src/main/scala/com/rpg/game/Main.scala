@@ -5,7 +5,7 @@ import com.badlogic.gdx.backends.lwjgl3.{Lwjgl3Application, Lwjgl3ApplicationCon
 object Main extends App {
     val config = new Lwjgl3ApplicationConfiguration
     config.setTitle("RPG")
-    config.setWindowedMode(800, 400)
+    config.setWindowedMode(800, 480)
     config.setForegroundFPS(60)
-    new Lwjgl3Application(new MainGame, config)
+    new Lwjgl3Application(new TickTest, config)
 }
