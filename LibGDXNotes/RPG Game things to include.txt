@@ -35,8 +35,11 @@ Look up how to design a tick rate
     - based on time elapsed versus or use delta time given by libGDX
 
 libGDX delta time
-    - gives the millisecond amount between current and previous ticks
+    - gives the millisecond amount between current and previous frame
         - render method from Screen class is called for each tick (length of each tick is not constant due to machine-specific issues or game logic itself)
+        - if fps is set to 30 render method will be called 30 times
+        - delta time must be used to ensure movement speed is constant regardless of fps
+
     
     
     
