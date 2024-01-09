@@ -15,6 +15,7 @@ class SimpleScreen(game: MainGame) extends Screen {
     Gdx.gl.glClearColor(1, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     game.batch.begin()
+    //pass render into its own thread
     timeTickSystem.render()
     val tick = timeTickSystem.getCurrentTick
     game.batch.draw(sprite, 0, 0)
