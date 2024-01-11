@@ -12,6 +12,11 @@ class SimpleScreen(game: MainGame) extends Screen {
   lazy val sprite = new Texture("badlogic.jpg")
 
   override def show(): Unit = {
+    //prints every 5 ticks
+    timeTickSystem.addTickEventHandler(megaTick => {
+      game.font.draw(game.batch, s"MEGATICK: $megaTick", Gdx.graphics.getWidth / 2.toFloat, 50)
+      println(s"MEGATICK: $megaTick")
+    })
     
   }
 
@@ -29,13 +34,6 @@ class SimpleScreen(game: MainGame) extends Screen {
 
     //pass render into its own thread
     timeTickSystem.render()
-
-
-    //prints every 5 ticks
-    timeTickSystem.addTickEventHandler(megaTick => {
-      game.font.draw(game.batch, s"MEGATICK: $megaTick", Gdx.graphics.getWidth / 2.toFloat, 50)
-      println(s"megatick: $megaTick")
-    }) //currently it prints each megatick multiple times and stops at 20 ticks with thread error
 
     
     game.batch.end()
