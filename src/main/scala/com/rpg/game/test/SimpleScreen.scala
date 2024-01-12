@@ -2,11 +2,12 @@ package com.rpg.game.test
 
 import com.badlogic.gdx.graphics.{GL20, Texture}
 import com.badlogic.gdx.{Gdx, Screen}
-import com.rpg.game.tick.Tick
+import com.rpg.game.RPG
+import com.rpg.game.ticksystem.Tick
 
 import java.util.concurrent.CountDownLatch
 
-class SimpleScreen(game: MainGame) extends Screen {
+class SimpleScreen(game: RPG) extends Screen {
 
   private val timeTickSystem = new Tick()
   lazy val sprite = new Texture("badlogic.jpg")

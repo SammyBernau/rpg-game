@@ -1,6 +1,6 @@
 package com.rpg.game.test
 
-import com.rpg.game.tick.{TickListener, Tick}
+import com.rpg.game.ticksystem.{TickListener, Tick}
 
 class HumanoidEntityTest(var name: String, tickSystem: Tick) extends TickListener{
 

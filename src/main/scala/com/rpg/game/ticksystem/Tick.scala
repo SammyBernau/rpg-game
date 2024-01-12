@@ -1,4 +1,4 @@
-package com.rpg.game.tick
+package com.rpg.game.ticksystem
 
 import com.badlogic.gdx.{Application, ApplicationAdapter, Gdx, Screen, ScreenAdapter}
 

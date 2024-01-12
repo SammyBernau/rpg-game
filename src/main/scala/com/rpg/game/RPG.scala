@@ -1,18 +1,20 @@
-package com.rpg.game.test
+package com.rpg.game
 
 import com.badlogic.gdx.graphics.g2d.{BitmapFont, SpriteBatch}
 import com.badlogic.gdx.graphics.{GL20, Texture}
 import com.badlogic.gdx.{Game, Gdx}
+import com.rpg.game.ui.MainMenuScreen
+import com.rpg.game.test.SimpleScreen
 
-class MainGame extends Game {
+class RPG extends Game {
   
   lazy val font = new BitmapFont()
   lazy val batch = new SpriteBatch
   
   
   override def create(): Unit = {
-    val simpleScreen = new SimpleScreen(this)
-    this.setScreen(simpleScreen)
+    val mainMenu = new MainMenuScreen(this)
+    this.setScreen(mainMenu)
   }
 
   override def render(): Unit = super.render()
