@@ -9,8 +9,7 @@ import com.rpg.game.entity.data.EntityAccess
  * BaseAnimateEntity is the base entity class for which all livable entities inherit from (players, monsters, animals, etc.)
  */
 
-//TODO check if I really need vars in this class as functional programming aims to keep things immutable
-//Things like status effects may need to change attributes...
+
 trait BaseAnimateEntity extends Entity {
   //TODO think about what might change a lot and var might be more beneficial
   /*name given*/
