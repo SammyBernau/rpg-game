@@ -34,3 +34,8 @@ libGDX delta time
 
 MULTI-THREADING NOTES
     - create a new thread with 'new Thread' out of nowhere is not good unless you know exactly what you're doing
+
+
+TEXTURE REGIONS
+    - make one class so that I can get the texture region for whatever I need for a specific screen
+    - example use case for somewhere like gameScreen: TextureRegion[] array = class.getRegionForSomething();

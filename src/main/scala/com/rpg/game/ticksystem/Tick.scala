@@ -7,7 +7,7 @@ import java.util.concurrent.{Callable, ConcurrentLinkedQueue, CountDownLatch, Ex
 import scala.collection.mutable
 import scala.concurrent.{ExecutionContext, Future}
 
-
+//TODO check out interpolation in libGDX
 class Tick extends ApplicationAdapter {
 
   private val TICK_TIMER_MAX: Float = .2f //every .2f == 200 milliseconds or 5 ticks per second

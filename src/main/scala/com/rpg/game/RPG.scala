@@ -9,7 +9,7 @@ import com.rpg.game.test.SimpleScreen
 class RPG extends Game {
   
   lazy val font = new BitmapFont()
-  lazy val batch = new SpriteBatch
+  lazy val batch = new SpriteBatch()
   
   
   override def create(): Unit = {

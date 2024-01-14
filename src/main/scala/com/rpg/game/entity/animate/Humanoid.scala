@@ -28,16 +28,5 @@ case class Humanoid(name: String,
                     walkingState: Boolean,
                     x: Float,
                     y: Float,
-                    equipment: BaseHumanoidEquipmentSetup) extends BaseAnimateEntity {
-
-
-
-  //Notes for later
-  /*equipment.getHeadSlot match {
-    case Some(armor) => // do something with armor
-    case None => // handle the case where there is no armor in the head slot
-  }*/
-  
-
-}
+                    equipment: BaseHumanoidEquipmentSetup) extends BaseAnimateEntity
 
