@@ -1,7 +1,7 @@
 # RPG-Game
 
 ## What is this project?
-The purpose of this project is to create a classic style RPG game inspired by games like Old School Runescape, World of Warcraft and Diablo. It is also meant to serve as a way to gain experience in both game development and programming with Scala.
+The purpose of this project is to create a 2D classic style RPG game inspired by games like Old School Runescape, World of Warcraft and Diablo. It is also meant to serve as a way to gain experience in both game development and programming with Scala.
 
 ## Libraries/Frameworks
 Here is a list of the tools I am actively using in the project
