@@ -1,22 +1,18 @@
-RPG Game things to include
-
-- use dependency injection (guice library by google)
-- traits (interfaces in java), abstracts
-- scalable (Single player game can be easily turned into multiplayer)
-- cloud save?
-
-
 TODO ITEMS in order of priority
     - *get the game in a running state with player walking around* (fit everything else around this)
     - figure out what unified collector I want to use (or create) to collect the updates necessary to display to player
         - check EntityHandler for more details
-    - figure out how to multi-thread updates in Tick.scala
+    - find best way to multi-thread updates in Tick.scala
     - THINK ABOUT WHAT DATA ROUTE I WANT
         - Just DataAccess
         - DataAccessFactory
 
-Create a wrapper class that is saved as one thing into a json file (can be done better using injection)
-
+RPG Game things to include
+    - use dependency injection (guice library by google)
+    - traits (interfaces in java), abstracts
+    - scalable (Single player game can be easily turned into multiplayer)
+    - cloud save?
+    
 General Notes
     - use inheritance to create entity structure and use entity 'provider' to handle
         - supply the provider the input for creating entity
@@ -25,6 +21,8 @@ General Notes
         - provider gives us the factory class (doesn't take any arguments)
             - use a provider when you want state for an object
             - factory may have mutable state that wants to be changed for every new instance of it created
+    - Saving
+        -Create a wrapper class that is saved as one thing into a json file (can be done better using injection)
 
 libGDX delta time
     - gives the millisecond amount between current and previous frame
@@ -33,9 +31,12 @@ libGDX delta time
         - delta time must be used to ensure movement speed is constant regardless of fps
 
 MULTI-THREADING NOTES
-    - create a new thread with 'new Thread' out of nowhere is not good unless you know exactly what you're doing
+    - creating a new thread with 'new Thread' out of nowhere is not good unless you know exactly what you're doing
 
 
 TEXTURE REGIONS
     - make one class so that I can get the texture region for whatever I need for a specific screen
-    - example use case for somewhere like gameScreen: TextureRegion[] array = class.getRegionForSomething();
+    - example use case for somewhere like gameScreen: val textureRegionArray = class.getRegionForSomething()
+    
+Project assets
+    - So far all assets in the assets directory are from other people via open source means unless specified otherwise.

@@ -29,6 +29,8 @@ class GameScreen(game: RPG) extends Screen{
       // costs a lot of memory and resources that are unnecessary when you load its texture by itself
       // use a texture region
 
+  
+  //TODO refactor most of this. Was testing systems before.
   override def show(): Unit = {
     //will load all entities including player via one method later. Testing for now
     equipment = BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)
