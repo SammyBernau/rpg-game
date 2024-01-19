@@ -1,0 +1,183 @@
+dngn_shoals_shallow_water1-autotile.png
+	size: 256, 16
+	filter: Linear, Linear
+dngn_shoals_shallow_water1-mini
+	bounds: 1, 9, 2, 6
+dngn_shoals_shallow_water10
+	bounds: 1, 1, 2, 6
+dngn_shoals_shallow_water11
+	bounds: 5, 9, 2, 6
+dngn_shoals_shallow_water110
+	bounds: 5, 1, 2, 6
+dngn_shoals_shallow_water111
+	bounds: 9, 9, 2, 6
+dngn_shoals_shallow_water15
+	bounds: 9, 9, 2, 6
+dngn_shoals_shallow_water189
+	bounds: 9, 9, 2, 6
+dngn_shoals_shallow_water195
+	bounds: 9, 9, 2, 6
+dngn_shoals_shallow_water112
+	bounds: 9, 1, 2, 6
+dngn_shoals_shallow_water113
+	bounds: 13, 9, 2, 6
+dngn_shoals_shallow_water115
+	bounds: 13, 1, 2, 6
+dngn_shoals_shallow_water116
+	bounds: 17, 9, 2, 6
+dngn_shoals_shallow_water117
+	bounds: 17, 1, 2, 6
+dngn_shoals_shallow_water118
+	bounds: 21, 9, 2, 6
+dngn_shoals_shallow_water12
+	bounds: 21, 1, 2, 6
+dngn_shoals_shallow_water120
+	bounds: 25, 9, 2, 6
+dngn_shoals_shallow_water121
+	bounds: 25, 1, 2, 6
+dngn_shoals_shallow_water122
+	bounds: 29, 9, 2, 6
+dngn_shoals_shallow_water123
+	bounds: 29, 1, 2, 6
+dngn_shoals_shallow_water124
+	bounds: 33, 9, 2, 6
+dngn_shoals_shallow_water125
+	bounds: 33, 1, 2, 6
+dngn_shoals_shallow_water126
+	bounds: 37, 9, 2, 6
+dngn_shoals_shallow_water127
+	bounds: 37, 1, 2, 6
+dngn_shoals_shallow_water128
+	bounds: 41, 9, 2, 6
+dngn_shoals_shallow_water129
+	bounds: 41, 1, 2, 6
+dngn_shoals_shallow_water13
+	bounds: 45, 9, 2, 6
+dngn_shoals_shallow_water130
+	bounds: 45, 1, 2, 6
+dngn_shoals_shallow_water131
+	bounds: 49, 9, 2, 6
+dngn_shoals_shallow_water132
+	bounds: 49, 1, 2, 6
+dngn_shoals_shallow_water133
+	bounds: 53, 9, 2, 6
+dngn_shoals_shallow_water134
+	bounds: 53, 1, 2, 6
+dngn_shoals_shallow_water135
+	bounds: 57, 9, 2, 6
+dngn_shoals_shallow_water136
+	bounds: 57, 1, 2, 6
+dngn_shoals_shallow_water137
+	bounds: 61, 9, 2, 6
+dngn_shoals_shallow_water138
+	bounds: 61, 1, 2, 6
+dngn_shoals_shallow_water139
+	bounds: 65, 9, 2, 6
+dngn_shoals_shallow_water140
+	bounds: 65, 1, 2, 6
+dngn_shoals_shallow_water141
+	bounds: 69, 9, 2, 6
+dngn_shoals_shallow_water142
+	bounds: 69, 1, 2, 6
+dngn_shoals_shallow_water143
+	bounds: 73, 9, 2, 6
+dngn_shoals_shallow_water144
+	bounds: 73, 1, 2, 6
+dngn_shoals_shallow_water145
+	bounds: 77, 9, 2, 6
+dngn_shoals_shallow_water146
+	bounds: 77, 1, 2, 6
+dngn_shoals_shallow_water147
+	bounds: 81, 9, 2, 6
+dngn_shoals_shallow_water148
+	bounds: 81, 1, 2, 6
+dngn_shoals_shallow_water152
+	bounds: 85, 9, 2, 6
+dngn_shoals_shallow_water153
+	bounds: 85, 1, 2, 6
+dngn_shoals_shallow_water154
+	bounds: 89, 9, 2, 6
+dngn_shoals_shallow_water155
+	bounds: 89, 1, 2, 6
+dngn_shoals_shallow_water156
+	bounds: 93, 9, 2, 6
+dngn_shoals_shallow_water157
+	bounds: 93, 1, 2, 6
+dngn_shoals_shallow_water158
+	bounds: 97, 9, 2, 6
+dngn_shoals_shallow_water159
+	bounds: 97, 1, 2, 6
+dngn_shoals_shallow_water16
+	bounds: 101, 9, 2, 6
+dngn_shoals_shallow_water160
+	bounds: 101, 1, 2, 6
+dngn_shoals_shallow_water161
+	bounds: 105, 9, 2, 6
+dngn_shoals_shallow_water162
+	bounds: 105, 1, 2, 6
+dngn_shoals_shallow_water163
+	bounds: 109, 9, 2, 6
+dngn_shoals_shallow_water164
+	bounds: 109, 1, 2, 6
+dngn_shoals_shallow_water165
+	bounds: 113, 9, 2, 6
+dngn_shoals_shallow_water166
+	bounds: 113, 1, 2, 6
+dngn_shoals_shallow_water167
+	bounds: 117, 9, 2, 6
+dngn_shoals_shallow_water168
+	bounds: 117, 1, 2, 6
+dngn_shoals_shallow_water169
+	bounds: 121, 9, 2, 6
+dngn_shoals_shallow_water17
+	bounds: 121, 1, 2, 6
+dngn_shoals_shallow_water170
+	bounds: 125, 9, 2, 6
+dngn_shoals_shallow_water171
+	bounds: 125, 1, 2, 6
+dngn_shoals_shallow_water172
+	bounds: 129, 9, 2, 6
+dngn_shoals_shallow_water173
+	bounds: 129, 1, 2, 6
+dngn_shoals_shallow_water174
+	bounds: 133, 9, 2, 6
+dngn_shoals_shallow_water175
+	bounds: 133, 1, 2, 6
+dngn_shoals_shallow_water176
+	bounds: 137, 9, 2, 6
+dngn_shoals_shallow_water177
+	bounds: 137, 1, 2, 6
+dngn_shoals_shallow_water178
+	bounds: 141, 9, 2, 6
+dngn_shoals_shallow_water179
+	bounds: 141, 1, 2, 6
+dngn_shoals_shallow_water18
+	bounds: 145, 9, 2, 6
+dngn_shoals_shallow_water180
+	bounds: 145, 1, 2, 6
+dngn_shoals_shallow_water181
+	bounds: 149, 9, 2, 6
+dngn_shoals_shallow_water182
+	bounds: 149, 1, 2, 6
+dngn_shoals_shallow_water183
+	bounds: 153, 9, 2, 6
+dngn_shoals_shallow_water184
+	bounds: 153, 1, 2, 6
+dngn_shoals_shallow_water185
+	bounds: 157, 9, 2, 6
+dngn_shoals_shallow_water186
+	bounds: 157, 1, 2, 6
+dngn_shoals_shallow_water187
+	bounds: 161, 9, 2, 6
+dngn_shoals_shallow_water188
+	bounds: 161, 1, 2, 6
+dngn_shoals_shallow_water190
+	bounds: 165, 9, 2, 6
+dngn_shoals_shallow_water191
+	bounds: 165, 1, 2, 6
+dngn_shoals_shallow_water192
+	bounds: 169, 9, 2, 6
+dngn_shoals_shallow_water193
+	bounds: 169, 1, 2, 6
+dngn_shoals_shallow_water194
+	bounds: 173, 9, 2, 6
