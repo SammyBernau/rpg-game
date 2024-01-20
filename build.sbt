@@ -4,7 +4,6 @@ import java.nio.charset.StandardCharsets
 
 import sbt.IO._
 
-import scala.collection.convert.wrapAll._
 
 val libgdxVersion = "1.11.0"
 val h2dVersion = "0.1.2"
@@ -27,6 +26,7 @@ libraryDependencies ++= Seq(
   "com.badlogicgames.gdx" % "gdx-box2d" % libgdxVersion,
   "com.badlogicgames.gdx" % "gdx-freetype" % libgdxVersion,
   "net.onedaybeard.artemis" % "artemis-odb" % artemisVersion,
+  "com.badlogicgames.gdx" % "gdx-lwjgl3-glfw-awt-macos" % libgdxVersion,
   "com.badlogicgames.gdx" % "gdx-platform" % libgdxVersion classifier "natives-desktop",
   "com.google.inject" % "guice" % "5.1.0"
 )

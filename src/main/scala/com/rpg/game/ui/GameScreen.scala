@@ -1,18 +1,21 @@
 package com.rpg.game.ui
 
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.assets.loaders.AssetLoader
 import com.badlogic.gdx.graphics.g2d.{Sprite, TextureRegion}
 import com.badlogic.gdx.{Gdx, Input, Screen}
 import com.badlogic.gdx.graphics.{GL20, OrthographicCamera, Texture}
 import com.badlogic.gdx.math.Rectangle
+import com.badlogic.gdx.utils.viewport.Viewport
 import com.rpg.game.RPG
 import com.rpg.game.config.GameConfig
 import com.rpg.game.config.GameConfig.World.worldWidth
 import com.rpg.game.entity.animate.Humanoid
 import com.rpg.game.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.game.entity.skins.EntitySkins
-import games.rednblack.editor.renderer.{SceneConfiguration, SceneLoader}
+import games.rednblack.editor.renderer.{ExternalTypesConfiguration, SceneConfiguration, SceneLoader}
 import games.rednblack.editor.renderer.resources.{AsyncResourceManager, ResourceManagerLoader}
+import com.rpg.game.ui.MyAssetManager
 
 
 
@@ -24,7 +27,10 @@ class GameScreen(game: RPG) extends Screen {
   private var background: Sprite = _
   private var testPlayerSprite: TextureRegion = _
   private var sceneLoader: SceneLoader = _
-  
+  private var viewport: Viewport = _
+  private var engine: com.artemis.World = _
+
+  //for animation
   private var stateTime: Float = 0f
 
   //for now hardcoding it but should make a function that loads all entities
@@ -51,8 +57,6 @@ class GameScreen(game: RPG) extends Screen {
     background.setSize(GameConfig.World.worldWidth.toFloat, GameConfig.World.worldHeight.toFloat)
 
     //camera settings
-    val w = Gdx.graphics.getWidth
-    val h = Gdx.graphics.getHeight
     camera = new OrthographicCamera(300, 50)
     camera.update()
 
@@ -65,21 +69,24 @@ class GameScreen(game: RPG) extends Screen {
     playerRect.y = player.y
     playerRect.width = testPlayerSprite.getRegionWidth.toFloat
     playerRect.height = testPlayerSprite.getRegionHeight.toFloat
-    
-    
+
+
     //hyperlab 2 stuff
-    val assetManager = new AssetManager()
-    assetManager.setLoader(AsyncResourceManager.getClass,new ResourceManagerLoader(assetManager.getFileHandleResolver))
-    assetManager.load(Gdx.files.internal("testScene/project.dt"), AsyncResourceManager.getClass)
-    
-    assetManager.finishLoading()
-    
-    val asyncResourceManager = assetManager.get(Gdx.files.internal("testScene/project.dt"),AsyncResourceManager().getClass)
-    
+//    val assetManager = new AssetManager()
+//    assetManager.setLoader(AsyncResourceManager.getClass, new ResourceManagerLoader(assetManager.getFileHandleResolver))
+    val myAssetManager = new MyAssetManager()
+    myAssetManager.getAssetManager.load("project.dt", AsyncResourceManager().getClass)
+
+    myAssetManager.getAssetManager.finishLoading()
+
+    val asyncResourceManager = myAssetManager.assetManager.get("project.dt",AsyncResourceManager().getClass)
+
     val config = new SceneConfiguration()
     config.setResourceRetriever(asyncResourceManager)
-    
+
+
     sceneLoader = new SceneLoader(config)
+    sceneLoader.loadScene("MainScene")
   }
 
   override def render(delta: Float): Unit = {
@@ -91,7 +98,7 @@ class GameScreen(game: RPG) extends Screen {
 
     camera.update()
     
-    sceneLoader.getEngine().process()
+    sceneLoader.getEngine.process()
 
     game.batch.setProjectionMatrix(camera.combined)
     
