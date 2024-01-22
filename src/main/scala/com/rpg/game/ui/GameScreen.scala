@@ -86,7 +86,10 @@ class GameScreen(game: RPG) extends Screen {
 
 
     sceneLoader = new SceneLoader(config)
+    engine = sceneLoader.getEngine
+
     sceneLoader.loadScene("MainScene")
+
   }
 
   override def render(delta: Float): Unit = {
@@ -98,7 +101,7 @@ class GameScreen(game: RPG) extends Screen {
 
     camera.update()
     
-    sceneLoader.getEngine.process()
+    engine.process()
 
     game.batch.setProjectionMatrix(camera.combined)
     
