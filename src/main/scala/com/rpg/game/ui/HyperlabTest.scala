@@ -37,12 +37,9 @@ class HyperlabTest extends ApplicationListener{
 
     camera = new OrthographicCamera()
 
-    viewport = new ExtendViewport(15,8,camera)
+    viewport = new ExtendViewport(800,600,camera)
     sceneLoader.loadScene("MainScene", viewport)
-
     
-
-
   }
 
   override def render(): Unit = {

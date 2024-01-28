@@ -25,8 +25,8 @@ class MainMenuScreen(game: RPG) extends Screen {
     stage = new Stage(new ScreenViewport())
     Gdx.input.setInputProcessor(stage)
 
-    atlas = new TextureAtlas(Gdx.files.internal("vhsui/vhs-ui.atlas"))
-    skin = new Skin(Gdx.files.internal("vhsui/vhs-ui.json"))
+    atlas = new TextureAtlas(Gdx.files.internal("ui/vhsui/vhs-ui.atlas"))
+    skin = new Skin(Gdx.files.internal("ui/vhsui/vhs-ui.json"))
     camera = new OrthographicCamera()
     camera.setToOrtho(false,1000,480)
 

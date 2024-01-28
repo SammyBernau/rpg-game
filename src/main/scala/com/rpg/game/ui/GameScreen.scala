@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.{Sprite, TextureRegion}
 import com.badlogic.gdx.{Gdx, Input, Screen}
 import com.badlogic.gdx.graphics.{GL20, OrthographicCamera, Texture}
 import com.badlogic.gdx.math.Rectangle
-import com.badlogic.gdx.utils.viewport.Viewport
+import com.badlogic.gdx.utils.viewport.{ExtendViewport, Viewport}
 import com.rpg.game.RPG
 import com.rpg.game.config.GameConfig
 import com.rpg.game.config.GameConfig.World.worldWidth
@@ -20,29 +20,30 @@ import com.rpg.game.ui.MyAssetManager
 
 
 class GameScreen(game: RPG) extends Screen {
-  //testing
+
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
+
+  //player
   private var playerRect: Rectangle = _
-  private var camera: OrthographicCamera = _
   private var background: Sprite = _
   private var testPlayerSprite: TextureRegion = _
-  private var sceneLoader: SceneLoader = _
-  private var viewport: Viewport = _
-  private var engine: com.artemis.World = _
-
-  //for animation
-  private var stateTime: Float = 0f
-
+  private var camera: OrthographicCamera = _
   //for now hardcoding it but should make a function that loads all entities
   var player: Humanoid = _
   var equipment: BaseHumanoidEquipmentSetup = _
+  //for player's animation
+  private var stateTime: Float = 0f
 
-  //DONT DRAW TEXTURES INDIVIDUALLY!
-  // costs a lot of memory and resources that are unnecessary when you load its texture by itself
-  // use a texture region
+  //display & scene
+  private val assetManagerCreator = new MyAssetManager
+  private var assetManager: AssetManager = _
+  private var sceneLoader: SceneLoader = _
+  private var asyncResourceManager: AsyncResourceManager = _
+  private var viewport: Viewport = _
+  private var engine: com.artemis.World = _
 
 
-  //TODO refactor most of this. Was testing systems before.
+
   override def show(): Unit = {
     //will load all entities including player via one method later. Testing for now
     equipment = BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)
@@ -50,7 +51,7 @@ class GameScreen(game: RPG) extends Screen {
 
 
     //sets starting playerSprite
-    testPlayerSprite = EntitySkins.Player.front
+    testPlayerSprite = EntitySkins.PlayerSkin.front
 
     background = new Sprite(new Texture(Gdx.files.internal("bambooForestSpriteBackground.jpg")))
     background.setPosition(0, 0)
@@ -70,25 +71,24 @@ class GameScreen(game: RPG) extends Screen {
     playerRect.width = testPlayerSprite.getRegionWidth.toFloat
     playerRect.height = testPlayerSprite.getRegionHeight.toFloat
 
+    //scene
+    assetManager = assetManagerCreator.getAssetManager
+    assetManager.load("project.dt", AsyncResourceManager().getClass)
 
-    //hyperlab 2 stuff
-//    val assetManager = new AssetManager()
-//    assetManager.setLoader(AsyncResourceManager.getClass, new ResourceManagerLoader(assetManager.getFileHandleResolver))
-    val myAssetManager = new MyAssetManager()
-    myAssetManager.getAssetManager.load("project.dt", AsyncResourceManager().getClass)
+    assetManager.finishLoading()
 
-    myAssetManager.getAssetManager.finishLoading()
-
-    val asyncResourceManager = myAssetManager.assetManager.get("project.dt",AsyncResourceManager().getClass)
+    asyncResourceManager = assetManager.get("project.dt", AsyncResourceManager().getClass)
 
     val config = new SceneConfiguration()
     config.setResourceRetriever(asyncResourceManager)
 
-
     sceneLoader = new SceneLoader(config)
     engine = sceneLoader.getEngine
 
-    sceneLoader.loadScene("MainScene")
+    camera = new OrthographicCamera()
+
+    viewport = new ExtendViewport(600, 300, camera)
+    sceneLoader.loadScene("MainScene",viewport)
 
   }
 
@@ -100,13 +100,12 @@ class GameScreen(game: RPG) extends Screen {
     handleInput()
 
     camera.update()
-    
+    viewport.apply()
     engine.process()
 
     game.batch.setProjectionMatrix(camera.combined)
     
     game.batch.begin()
-    game.batch.draw(background, background.getX, background.getY, background.getWidth, background.getHeight)
     game.batch.draw(testPlayerSprite, playerRect.x, playerRect.y, playerRect.width, playerRect.width)
     game.batch.end()
   }
@@ -116,19 +115,19 @@ class GameScreen(game: RPG) extends Screen {
     if (Gdx.input.isKeyPressed(Input.Keys.W)) {
       //divide since walking too fast on y axis
       playerRect.y = playerRect.y + (player.walkingSpeed/2 * DELTA_TIME).toFloat
-      testPlayerSprite = EntitySkins.Player.backAnimation.getKeyFrame(stateTime, true)
+      testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.backAnimation.getKeyFrame(stateTime, true)
     } //up
     if (Gdx.input.isKeyPressed(Input.Keys.S)) {
       playerRect.y = playerRect.y - (player.walkingSpeed/2 * DELTA_TIME).toFloat
-      testPlayerSprite = EntitySkins.Player.frontAnimation.getKeyFrame(stateTime, true)
+      testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.frontAnimation.getKeyFrame(stateTime, true)
     } //down
     if (Gdx.input.isKeyPressed(Input.Keys.A)) {
       playerRect.x = playerRect.x - (player.walkingSpeed * DELTA_TIME).toFloat
-      testPlayerSprite = EntitySkins.Player.leftAnimation.getKeyFrame(stateTime, true)
+      testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.leftAnimation.getKeyFrame(stateTime, true)
     } //left
     if (Gdx.input.isKeyPressed(Input.Keys.D)) {
       playerRect.x = playerRect.x + (player.walkingSpeed * DELTA_TIME).toFloat
-      testPlayerSprite = EntitySkins.Player.rightAnimation.getKeyFrame(stateTime, true)
+      testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.rightAnimation.getKeyFrame(stateTime, true)
     } //right
 
     updateCameraToPlayer()

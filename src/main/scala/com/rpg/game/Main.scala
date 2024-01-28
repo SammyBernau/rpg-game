@@ -9,5 +9,5 @@ object Main extends App {
     config.setTitle("Tavern Adventure")
     config.setWindowedMode(1280, 720)
     config.setForegroundFPS(60)
-    new Lwjgl3Application(new HyperlabTest, config)
+    new Lwjgl3Application(new RPG, config)
 }

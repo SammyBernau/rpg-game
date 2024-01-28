@@ -23,12 +23,13 @@ libraryDependencies ++= Seq(
   "com.badlogicgames.gdx" % "gdx-backend-lwjgl3" % libgdxVersion,
   "com.badlogicgames.gdx" % "gdx-platform" % libgdxVersion,
   "games.rednblack.hyperlap2d" % "runtime-libgdx" % h2dVersion,
-  "com.badlogicgames.gdx" % "gdx-box2d" % libgdxVersion,
+  "com.badlogicgames.gdx" % "gdx-box2d-platform" % libgdxVersion classifier "natives-desktop",
   "com.badlogicgames.gdx" % "gdx-freetype" % libgdxVersion,
   "net.onedaybeard.artemis" % "artemis-odb" % artemisVersion,
   "com.badlogicgames.gdx" % "gdx-lwjgl3-glfw-awt-macos" % libgdxVersion,
   "com.badlogicgames.gdx" % "gdx-platform" % libgdxVersion classifier "natives-desktop",
-  "com.google.inject" % "guice" % "5.1.0"
+  "com.google.inject" % "guice" % "5.1.0",
+  "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.14.2"
 )
 javaOptions ++= Seq(
   "-XstartOnFirstThread"
