@@ -8,6 +8,6 @@ object Main extends App {
     val config = new Lwjgl3ApplicationConfiguration
     config.setTitle("Tavern Adventure")
     config.setWindowedMode(1280, 720)
-    config.setForegroundFPS(60)
+    config.setForegroundFPS(120)
     new Lwjgl3Application(new RPG, config)
 }

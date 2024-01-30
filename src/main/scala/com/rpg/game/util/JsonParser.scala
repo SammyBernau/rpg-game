@@ -6,7 +6,8 @@ import scala.jdk.CollectionConverters._
 import java.io.{File, IOException}
 class JsonParser {
 
-  private var counter = 0
+  private var imageCounter = 0
+  private var animationCounter: Int = _
   private val mapper = new ObjectMapper()
 
   def uniqueIdReplacer(file: String): Unit = {
@@ -14,7 +15,11 @@ class JsonParser {
       val root: JsonNode = mapper.readTree(new File(file))
       val content = root.path("composite").path("content")
       val simpleImageVOs = content.path("games.rednblack.editor.renderer.data.SimpleImageVO")
-      simpleImageVOs.elements().asScala.foreach(replaceUniqueIds)
+      simpleImageVOs.elements().asScala.foreach(replaceImageUniqueIds)
+      animationCounter = imageCounter + 1
+      
+      val spriteAnimationVOs = content.path("games.rednblack.editor.renderer.data.SpriteAnimationVO")
+      spriteAnimationVOs.elements().asScala.foreach(replaceAnimationUniqueIds)
       val newFileName = getFileNameWithoutExtension(file, ".json")
       val newFile = newFileName + "1" + ".json"
       mapper.writerWithDefaultPrettyPrinter().writeValue(new File(newFile), root)
@@ -23,10 +28,17 @@ class JsonParser {
     }
   }
 
-  private def replaceUniqueIds(simpleImageVO: JsonNode): Unit = {
+  private def replaceImageUniqueIds(simpleImageVO: JsonNode): Unit = {
     if (simpleImageVO.has("uniqueId")) {
-      counter += 1
-      simpleImageVO.asInstanceOf[ObjectNode].put("uniqueId", counter.toString)
+      imageCounter += 1
+      simpleImageVO.asInstanceOf[ObjectNode].put("uniqueId", imageCounter.toString)
+    }
+  }
+
+  private def replaceAnimationUniqueIds(simpleImageVO: JsonNode): Unit = {
+    if (simpleImageVO.has("uniqueId")) {
+      animationCounter += 1
+      simpleImageVO.asInstanceOf[ObjectNode].put("uniqueId", animationCounter.toString)
     }
   }
 
