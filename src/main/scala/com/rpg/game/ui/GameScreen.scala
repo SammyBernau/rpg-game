@@ -47,15 +47,11 @@ class GameScreen(game: RPG) extends Screen {
   override def show(): Unit = {
     //will load all entities including player via one method later. Testing for now
     equipment = BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)
-    player = Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 200, 100, true, 0, 0, equipment)
+    player = Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100, 50, true, 0, 0, equipment)
 
 
     //sets starting playerSprite
     testPlayerSprite = EntitySkins.PlayerSkin.front
-
-    background = new Sprite(new Texture(Gdx.files.internal("bambooForestSpriteBackground.jpg")))
-    background.setPosition(0, 0)
-    background.setSize(GameConfig.World.worldWidth.toFloat, GameConfig.World.worldHeight.toFloat)
 
     //camera settings
     camera = new OrthographicCamera(300, 50)
@@ -104,55 +100,46 @@ class GameScreen(game: RPG) extends Screen {
     engine.process()
 
     game.batch.setProjectionMatrix(camera.combined)
-    
+
     game.batch.begin()
     game.batch.draw(testPlayerSprite, playerRect.x, playerRect.y, playerRect.width, playerRect.width)
     game.batch.end()
   }
 
   private def handleInput(): Unit = {
-
-    //character walk movement
-    if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-      //divide since walking too fast on y axis
-      playerRect.y = playerRect.y + (player.walkingSpeed/2 * DELTA_TIME).toFloat
-      testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.backAnimation.getKeyFrame(stateTime, true)
-    } //up
-
-    if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-      playerRect.y = playerRect.y - (player.walkingSpeed/2 * DELTA_TIME).toFloat
-      testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.frontAnimation.getKeyFrame(stateTime, true)
-    } //down
-
-    if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-      playerRect.x = playerRect.x - (player.walkingSpeed * DELTA_TIME).toFloat
-      testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.leftAnimation.getKeyFrame(stateTime, true)
-    } //left
-
-    if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-      playerRect.x = playerRect.x + (player.walkingSpeed * DELTA_TIME).toFloat
-      testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.rightAnimation.getKeyFrame(stateTime, true)
-    } //right
+    //regular movement
+    val w = Gdx.input.isKeyPressed(Input.Keys.W)
+    val s = Gdx.input.isKeyPressed(Input.Keys.S)
+    val a = Gdx.input.isKeyPressed(Input.Keys.A)
+    val d = Gdx.input.isKeyPressed(Input.Keys.D)
 
     //character running movement
+    val isShiftPressed = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
+    var speed = if (isShiftPressed) player.sprintingSpeed else player.walkingSpeed
 
-    if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-      playerRect.y = playerRect.y + (player.sprintingSpeed / 2 * DELTA_TIME).toFloat
+    if((w || s) && (a || d)) {
+      speed = speed / Math.sqrt(2.0).toFloat
+    }
+
+    //character walk movement
+    if (w) {
+      //divide since walking too fast on y axis
+      playerRect.y = playerRect.y + (speed  /2 * DELTA_TIME).toFloat
       testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.backAnimation.getKeyFrame(stateTime, true)
     } //up
 
-    if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-      playerRect.y = playerRect.y - (player.sprintingSpeed / 2 * DELTA_TIME).toFloat
+    if (s) {
+      playerRect.y = playerRect.y - (speed  /2 * DELTA_TIME).toFloat
       testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.frontAnimation.getKeyFrame(stateTime, true)
     } //down
 
-    if (Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-      playerRect.x = playerRect.x - (player.sprintingSpeed * DELTA_TIME).toFloat
+    if (a) {
+      playerRect.x = playerRect.x - (speed * DELTA_TIME).toFloat
       testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.leftAnimation.getKeyFrame(stateTime, true)
     } //left
 
-    if (Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-      playerRect.x = playerRect.x + (player.sprintingSpeed * DELTA_TIME).toFloat
+    if (d) {
+      playerRect.x = playerRect.x + (speed * DELTA_TIME).toFloat
       testPlayerSprite = EntitySkins.PlayerSkin.PlayerAnimation.rightAnimation.getKeyFrame(stateTime, true)
     } //right
 
@@ -160,6 +147,7 @@ class GameScreen(game: RPG) extends Screen {
   }
 
   private def updateCameraToPlayer(): Unit = {
+    //updates camera to follow player with sprite offset
     val middleOfPlayerX = playerRect.x + (playerRect.width / 4)
     val middleOfPlayerY = playerRect.y + (playerRect.height / 4)
     camera.position.set(middleOfPlayerX, middleOfPlayerY, 0)
