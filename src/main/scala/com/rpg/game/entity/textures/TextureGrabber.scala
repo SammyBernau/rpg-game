@@ -1,11 +1,11 @@
-package com.rpg.game.entity.skins
+package com.rpg.game.entity.textures
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.{Animation, TextureRegion}
 
-object EntitySkins {
+object TextureGrabber {
 
   object PlayerSkin {
     private val spriteFile: FileHandle = Gdx.files.internal("sprites/gfx/npc_blank.png")

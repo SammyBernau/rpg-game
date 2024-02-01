@@ -6,20 +6,27 @@ import scala.jdk.CollectionConverters._
 import java.io.{File, IOException}
 class JsonParser {
 
-  private var imageCounter = 0
-  private var animationCounter: Int = _
+  private var counter = 0
   private val mapper = new ObjectMapper()
 
   def uniqueIdReplacer(file: String): Unit = {
     try {
       val root: JsonNode = mapper.readTree(new File(file))
       val content = root.path("composite").path("content")
-      val simpleImageVOs = content.path("games.rednblack.editor.renderer.data.SimpleImageVO")
-      simpleImageVOs.elements().asScala.foreach(replaceImageUniqueIds)
-      animationCounter = imageCounter + 1
-      
+
+      //animations
       val spriteAnimationVOs = content.path("games.rednblack.editor.renderer.data.SpriteAnimationVO")
-      spriteAnimationVOs.elements().asScala.foreach(replaceAnimationUniqueIds)
+      spriteAnimationVOs.elements().asScala.foreach(replaceUniqueIds)
+
+      //lights
+      val lightVOs = content.path("games.rednblack.editor.renderer.data.LightVO")
+      lightVOs.elements().asScala.foreach(replaceUniqueIds)
+
+      //regular images
+      val simpleImageVOs = content.path("games.rednblack.editor.renderer.data.SimpleImageVO")
+      simpleImageVOs.elements().asScala.foreach(replaceUniqueIds)
+      
+
       val newFileName = getFileNameWithoutExtension(file, ".json")
       val newFile = newFileName + "1" + ".json"
       mapper.writerWithDefaultPrettyPrinter().writeValue(new File(newFile), root)
@@ -28,17 +35,10 @@ class JsonParser {
     }
   }
 
-  private def replaceImageUniqueIds(simpleImageVO: JsonNode): Unit = {
+  private def replaceUniqueIds(simpleImageVO: JsonNode): Unit = {
     if (simpleImageVO.has("uniqueId")) {
-      imageCounter += 1
-      simpleImageVO.asInstanceOf[ObjectNode].put("uniqueId", imageCounter.toString)
-    }
-  }
-
-  private def replaceAnimationUniqueIds(simpleImageVO: JsonNode): Unit = {
-    if (simpleImageVO.has("uniqueId")) {
-      animationCounter += 1
-      simpleImageVO.asInstanceOf[ObjectNode].put("uniqueId", animationCounter.toString)
+      counter += 1
+      simpleImageVO.asInstanceOf[ObjectNode].put("uniqueId", counter.toString)
     }
   }
 
