@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute
 import com.badlogic.gdx.{Gdx, Input, Screen}
 import com.badlogic.gdx.graphics.{Color, GL20, OrthographicCamera, Texture}
 import com.badlogic.gdx.math.{Rectangle, Vector2}
-import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.physics.box2d.{Transform, World}
 import com.badlogic.gdx.utils.viewport.{ExtendViewport, Viewport}
 import com.rpg.game.RPG
 import com.rpg.game.config.GameConfig
@@ -21,25 +21,23 @@ import games.rednblack.editor.renderer.{ExternalTypesConfiguration, SceneConfigu
 import games.rednblack.editor.renderer.resources.{AsyncResourceManager, ResourceManagerLoader}
 import com.rpg.game.ui.MyAssetManager
 import games.rednblack.editor.renderer.box2dLight.{PointLight, RayHandler}
+import games.rednblack.editor.renderer.components.TransformComponent
 import games.rednblack.editor.renderer.components.light.LightObjectComponent
 import games.rednblack.editor.renderer.data.LightVO
 import games.rednblack.editor.renderer.utils.{ComponentRetriever, ItemWrapper}
 
 
-
 class GameScreen(game: RPG) extends Screen {
 
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
-  private val tickSystem = new Tick()
 
   //player
   private var playerRect: Rectangle = _
   private var background: Sprite = _
   private var testPlayerSprite: TextureRegion = _
   private var camera: OrthographicCamera = _
-  private var playerLight: LightObjectComponent = _
-  private var myLight: PointLight = _
-  private var rayHandler: RayHandler = _
+  private var playerLight: TransformComponent = _
+
   //for now hardcoding it but should make a function that loads all entities
   var player: Humanoid = _
   var equipment: BaseHumanoidEquipmentSetup = _
@@ -53,6 +51,7 @@ class GameScreen(game: RPG) extends Screen {
   private var asyncResourceManager: AsyncResourceManager = _
   private var viewport: Viewport = _
   private var engine: com.artemis.World = _
+
   override def show(): Unit = {
     //will load all entities including player via one method later. Testing for now
     equipment = BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)
@@ -75,7 +74,7 @@ class GameScreen(game: RPG) extends Screen {
     playerRect.width = testPlayerSprite.getRegionWidth.toFloat
     playerRect.height = testPlayerSprite.getRegionHeight.toFloat
 
-    //scene
+    //grab master file for scenes
     assetManager = assetManagerCreator.getAssetManager
     assetManager.load("project.dt", AsyncResourceManager().getClass)
     assetManager.finishLoading()
@@ -85,25 +84,18 @@ class GameScreen(game: RPG) extends Screen {
     val config = new SceneConfiguration()
     config.setResourceRetriever(asyncResourceManager)
 
+    //loads scenes and entities
     sceneLoader = new SceneLoader(config)
     engine = sceneLoader.getEngine
     camera = new OrthographicCamera()
     viewport = new ExtendViewport(600, 300, camera)
-    sceneLoader.loadScene("MainScene",viewport)
+    sceneLoader.loadScene("MainScene", viewport)
 
-    //get player's light
-//    val root = new ItemWrapper(sceneLoader.getRoot,engine)
-//    val playerLightEntity = root.getChild("player_light")
-//    playerLight = playerLightEntity.getComponent(classOf[LightObjectComponent])
-
-    myLight = new PointLight(sceneLoader.getRayHandler,200)
-    myLight.setXray(true)
-    val color = new Color()
-    myLight.setColor(new Color(Color.RED))
-    myLight.setDistance(30.0)
-
-
-
+    //get player_light from MainScene.dt
+    //TODO make a custom wrapper over ItemWrapper to easily grab coords of entities
+    val root = new ItemWrapper(sceneLoader.getRoot, engine)
+    val playerLightEntity = root.getChild("player_light")
+    playerLight = playerLightEntity.getComponent(classOf[TransformComponent])
 
   }
 
@@ -112,11 +104,8 @@ class GameScreen(game: RPG) extends Screen {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     stateTime = stateTime + DELTA_TIME
 
-    tickSystem.render()
-
     viewport.apply()
     engine.process()
-
 
     handleInput()
 
@@ -138,19 +127,19 @@ class GameScreen(game: RPG) extends Screen {
     val isShiftPressed = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
     var speed = if (isShiftPressed) player.sprintingSpeed else player.walkingSpeed
 
-    if((w || s) && (a || d)) {
+    if ((w || s) && (a || d)) {
       speed = speed / Math.sqrt(2.0).toFloat
     }
 
     //character walk movement
     if (w) {
       //divide since walking too fast on y axis
-      playerRect.y = playerRect.y + (speed  /2 * DELTA_TIME).toFloat
+      playerRect.y = playerRect.y + (speed / 2 * DELTA_TIME).toFloat
       testPlayerSprite = TextureGrabber.PlayerSkin.PlayerAnimation.backAnimation.getKeyFrame(stateTime, true)
     } //up
 
     if (s) {
-      playerRect.y = playerRect.y - (speed  /2 * DELTA_TIME).toFloat
+      playerRect.y = playerRect.y - (speed / 2 * DELTA_TIME).toFloat
       testPlayerSprite = TextureGrabber.PlayerSkin.PlayerAnimation.frontAnimation.getKeyFrame(stateTime, true)
     } //down
 
@@ -174,7 +163,9 @@ class GameScreen(game: RPG) extends Screen {
     camera.position.set(middleOfPlayerX, middleOfPlayerY, 0)
     camera.update()
 
-    myLight.setPosition(middleOfPlayerX,middleOfPlayerY)
+
+    playerLight.x = middleOfPlayerX
+    playerLight.y = middleOfPlayerY
 
   }
 
