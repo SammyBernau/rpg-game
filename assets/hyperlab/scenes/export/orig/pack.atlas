@@ -1,0 +1,235 @@
+pack.png
+	size: 1024, 128
+	filter: Linear, Linear
+bald_grass_patch
+	bounds: 676, 80, 48, 47
+bridge_horizontal
+	bounds: 576, 51, 32, 26
+bridge_vertical
+	bounds: 51, 7, 26, 33
+bush_horizontal
+	bounds: 869, 60, 31, 15
+bush_vertical
+	bounds: 151, 14, 15, 30
+dirt_patch
+	bounds: 903, 77, 16, 16
+dirt_path
+	bounds: 204, 29, 16, 16
+fallen_log
+	bounds: 962, 111, 46, 16
+fence_horizontal
+	bounds: 912, 95, 25, 14
+fence_vertical
+	bounds: 939, 79, 8, 30
+grass_cliff_horizontal_cont
+	bounds: 677, 14, 16, 64
+grass_cliff_horizontal_left
+	bounds: 695, 14, 16, 64
+grass_cliff_horizontal_right
+	bounds: 713, 14, 16, 64
+grass_cliff_left_for_ramp
+	bounds: 803, 29, 16, 64
+grass_cliff_right_for_ramp
+	bounds: 821, 29, 16, 64
+grass_daisies
+	bounds: 439, 31, 25, 14
+grass_edge_continuous
+	bounds: 289, 31, 48, 96
+grass_edge_left
+	bounds: 339, 31, 48, 96
+grass_edge_left_continuous
+	bounds: 1, 8, 48, 32
+grass_edge_right
+	bounds: 389, 31, 48, 96
+grass_edge_right_continuous
+	bounds: 726, 95, 48, 32
+grass_edge_small_continuous
+	bounds: 458, 47, 16, 80
+grass_floor_no_edges_small
+	bounds: 921, 77, 16, 16
+grass_floor_ramp
+	bounds: 776, 95, 32, 32
+grass_floor_with_hole
+	bounds: 117, 12, 32, 32
+grass_ground
+	index: 2
+	bounds: 610, 46, 32, 31
+grass_left_edge_fill
+	bounds: 949, 93, 16, 16
+grass_no_edge_fill
+	bounds: 967, 93, 16, 16
+grass_no_edge_fillv1
+	bounds: 967, 93, 16, 16
+grass_no_edge_fillv2
+	bounds: 985, 93, 16, 16
+grass_no_edge_fill
+	index: 2
+	bounds: 985, 93, 16, 16
+grass_patch_with_cut_grass
+	bounds: 810, 95, 32, 32
+grass_patch_with_water
+	bounds: 476, 79, 48, 48
+grass_right_edge_fill
+	bounds: 902, 59, 16, 16
+house_back
+	bounds: 83, 46, 74, 81
+house_front
+	bounds: 159, 47, 74, 80
+island_grass
+	bounds: 844, 95, 32, 32
+lily_pad_big
+	bounds: 222, 34, 11, 11
+lily_pad_group
+	bounds: 869, 77, 32, 16
+lily_pad_small
+	bounds: 148, 1, 9, 9
+metal_gate_closed
+	bounds: 168, 21, 16, 24
+metal_gate_open
+	bounds: 186, 21, 16, 24
+person_statue
+	bounds: 644, 30, 31, 47
+picket_sign
+	index: 1
+	bounds: 920, 59, 16, 16
+picket_sign
+	index: 2
+	bounds: 749, 10, 16, 16
+rock
+	index: 1
+	bounds: 135, 1, 11, 9
+rock
+	index: 5
+	bounds: 1010, 119, 13, 8
+rock
+	index: 2
+	bounds: 476, 45, 16, 14
+rock
+	index: 3
+	bounds: 325, 16, 15, 13
+rock
+	index: 4
+	bounds: 342, 17, 15, 12
+rock_in_water
+	index: 1
+	bounds: 869, 39, 27, 19
+sewer_grate_closed
+	bounds: 949, 79, 16, 12
+sewer_grate_open
+	bounds: 117, 1, 16, 9
+shop
+	bounds: 1, 42, 80, 85
+small_house_front
+	bounds: 83, 1, 32, 43
+stone_tower
+	bounds: 235, 27, 52, 100
+torch
+	index: 0
+	bounds: 767, 10, 16, 16
+torch
+	index: 1
+	bounds: 785, 10, 16, 16
+torch
+	index: 2
+	bounds: 494, 43, 16, 16
+trap_door_closed
+	bounds: 839, 63, 28, 30
+trap_door_open
+	bounds: 839, 31, 28, 30
+tree
+	bounds: 878, 95, 32, 32
+tree_stump
+	bounds: 803, 1, 31, 26
+water
+	bounds: 512, 43, 16, 16
+water_circle_animation
+	index: 0
+	bounds: 530, 43, 16, 16
+water_circle_animation
+	index: 1
+	bounds: 548, 43, 16, 16
+water_circle_animation
+	index: 2
+	bounds: 898, 41, 16, 16
+water_circle_animation
+	index: 3
+	bounds: 916, 41, 16, 16
+water_circle_animation
+	index: 4
+	bounds: 967, 75, 16, 16
+water_circle_animation
+	index: 5
+	bounds: 985, 75, 16, 16
+water_edge_bottom
+	bounds: 869, 21, 16, 16
+water_edge_bottom_left
+	bounds: 887, 21, 16, 16
+water_edge_bottom_right
+	bounds: 905, 23, 16, 16
+water_edge_left
+	bounds: 923, 23, 16, 16
+water_edge_right
+	bounds: 934, 41, 16, 16
+water_edge_top
+	bounds: 938, 59, 16, 16
+water_edge_top_left
+	bounds: 941, 23, 16, 16
+water_edge_top_right
+	bounds: 952, 41, 16, 16
+water_fall_right_side
+	bounds: 731, 13, 16, 80
+water_fountain_animation
+	index: 0
+	bounds: 526, 79, 48, 48
+water_fountain_animation
+	index: 1
+	bounds: 576, 79, 48, 48
+water_fountain_animation
+	index: 2
+	bounds: 626, 79, 48, 48
+water_move_animation
+	index: 0
+	bounds: 959, 23, 16, 16
+water_move_animation
+	index: 1
+	bounds: 204, 11, 16, 16
+water_move_animation
+	index: 2
+	bounds: 1003, 93, 16, 16
+water_move_animation
+	index: 3
+	bounds: 1003, 75, 16, 16
+water_move_animation
+	index: 4
+	bounds: 168, 3, 16, 16
+water_move_animation
+	index: 5
+	bounds: 186, 3, 16, 16
+water_move_animation
+	index: 6
+	bounds: 289, 13, 16, 16
+water_move_animation
+	index: 7
+	bounds: 307, 13, 16, 16
+waterfall_animation_long
+	index: 0
+	bounds: 749, 28, 16, 65
+waterfall_animation_long
+	index: 1
+	bounds: 767, 28, 16, 65
+waterfall_animation_long
+	index: 2
+	bounds: 785, 28, 16, 65
+waterfall_bottom_animation_long
+	index: 0
+	bounds: 476, 61, 48, 16
+waterfall_bottom_animation_long
+	index: 1
+	bounds: 912, 111, 48, 16
+waterfall_bottom_animation_long
+	index: 2
+	bounds: 526, 61, 48, 16
+waterfall_left_side
+	bounds: 439, 47, 17, 80
+white-pixel
+	bounds: 1, 5, 1, 1

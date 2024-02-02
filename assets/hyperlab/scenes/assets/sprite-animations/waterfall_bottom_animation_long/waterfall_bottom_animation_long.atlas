@@ -1,0 +1,12 @@
+waterfall_bottom_animation_long.png
+	size: 256, 32
+	filter: Linear, Linear
+waterfall_bottom_animation_long
+	index: 0
+	bounds: 1, 1, 48, 16
+waterfall_bottom_animation_long
+	index: 1
+	bounds: 51, 1, 48, 16
+waterfall_bottom_animation_long
+	index: 2
+	bounds: 101, 1, 48, 16

@@ -1,0 +1,12 @@
+water_fountain_animation.png
+	size: 256, 64
+	filter: Linear, Linear
+water_fountain_animation
+	index: 0
+	bounds: 1, 1, 48, 48
+water_fountain_animation
+	index: 1
+	bounds: 51, 1, 48, 48
+water_fountain_animation
+	index: 2
+	bounds: 101, 1, 48, 48

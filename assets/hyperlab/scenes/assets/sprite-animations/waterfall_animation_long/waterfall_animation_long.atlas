@@ -1,0 +1,12 @@
+waterfall_animation_long.png
+	size: 64, 128
+	filter: Linear, Linear
+waterfall_animation_long
+	index: 0
+	bounds: 1, 1, 16, 65
+waterfall_animation_long
+	index: 1
+	bounds: 19, 1, 16, 65
+waterfall_animation_long
+	index: 2
+	bounds: 37, 1, 16, 65
