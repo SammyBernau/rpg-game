@@ -26,7 +26,7 @@ Implements the same elements of the short term goal but extends game to include 
 
 
 ### Current Game State 
-#### (more technical information is lcoated in the Notes.txt file under the projectnotes directory)
+#### (more technical information is located in the Notes.txt file under the projectnotes directory)
 
 Update as of 01/31/24
 - simple scene is loaded with dynamic lightning and player can walk around lighting the path in front of him

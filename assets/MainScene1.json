@@ -1,7 +1,7 @@
 {
   "sceneName" : "MainScene",
   "composite" : {
-    "uniqueId" : "001",
+    "uniqueId" : "ssywg1kr",
     "tags" : [ ],
     "originX" : 0,
     "originY" : 0,
@@ -170,7 +170,7 @@
       } ],
       "games.rednblack.editor.renderer.data.CompositeItemVO" : [ {
         "class" : "CompositeItemVO",
-        "uniqueId" : "002",
+        "uniqueId" : "2hz42xdr",
         "itemIdentifier" : "player_default",
         "itemName" : "player_default",
         "tags" : [ ],
@@ -226,7 +226,7 @@
         "content" : {
           "games.rednblack.editor.renderer.data.SpriteAnimationVO" : [ {
             "class" : "SpriteAnimationVO",
-            "uniqueId" : "003",
+            "uniqueId" : "12f37b2f",
             "itemIdentifier" : "player_anim",
             "tags" : [ ],
             "x" : -1,

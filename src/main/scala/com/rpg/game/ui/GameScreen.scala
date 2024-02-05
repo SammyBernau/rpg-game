@@ -1,19 +1,22 @@
 package com.rpg.game.ui
 
+import com.artemis.ComponentMapper
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.assets.loaders.AssetLoader
 import com.badlogic.gdx.graphics.g2d.{Sprite, TextureRegion}
 import com.badlogic.gdx.graphics.g3d.Environment
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute
-import com.badlogic.gdx.{Gdx, Input, Screen}
+import com.badlogic.gdx.{Application, Gdx, Input, InputAdapter, InputMultiplexer, Screen}
 import com.badlogic.gdx.graphics.{Color, GL20, OrthographicCamera, Texture}
 import com.badlogic.gdx.math.{Rectangle, Vector2}
-import com.badlogic.gdx.physics.box2d.{Transform, World}
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
+import com.badlogic.gdx.physics.box2d.{BodyDef, CircleShape, FixtureDef, Transform, World}
 import com.badlogic.gdx.utils.viewport.{ExtendViewport, Viewport}
 import com.rpg.game.RPG
 import com.rpg.game.config.GameConfig
 import com.rpg.game.config.GameConfig.World.worldWidth
 import com.rpg.game.entity.animate.Humanoid
+import com.rpg.game.entity.animate.player.{Owner, Player, PlayerScript, TempClass}
 import com.rpg.game.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.game.entity.textures.TextureGrabber
 import com.rpg.game.ticksystem.Tick
@@ -23,28 +26,22 @@ import com.rpg.game.ui.MyAssetManager
 import games.rednblack.editor.renderer.box2dLight.{PointLight, RayHandler}
 import games.rednblack.editor.renderer.components.TransformComponent
 import games.rednblack.editor.renderer.components.light.LightObjectComponent
-import games.rednblack.editor.renderer.data.LightVO
+import games.rednblack.editor.renderer.data.{CompositeItemVO, LightVO, PhysicsBodyDataVO, PolygonShapeVO, SpriteAnimationVO}
 import games.rednblack.editor.renderer.utils.{ComponentRetriever, ItemWrapper}
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.*
+import com.fasterxml.jackson.databind.jsontype.DefaultBaseTypeLimitingValidator
+import games.rednblack.editor.renderer.components.physics.PhysicsBodyComponent
+import games.rednblack.editor.renderer.systems.action.Actions
 
 
 class GameScreen(game: RPG) extends Screen {
 
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
-
-  //player
-  private var playerRect: Rectangle = _
-  private var background: Sprite = _
-  private var testPlayerSprite: TextureRegion = _
-  private var camera: OrthographicCamera = _
-  private var playerLight: TransformComponent = _
-
-  //for now hardcoding it but should make a function that loads all entities
-  var player: Humanoid = _
-  var equipment: BaseHumanoidEquipmentSetup = _
   //for player's animation
   private var stateTime: Float = 0f
 
   //display & scene
+  private var camera: OrthographicCamera = _
   private val assetManagerCreator = new MyAssetManager
   private var assetManager: AssetManager = _
   private var sceneLoader: SceneLoader = _
@@ -54,25 +51,12 @@ class GameScreen(game: RPG) extends Screen {
 
   override def show(): Unit = {
     //will load all entities including player via one method later. Testing for now
-    equipment = BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)
-    player = Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100, 50, true, 0, 0, equipment)
-
-    //sets starting playerSprite
-    testPlayerSprite = TextureGrabber.PlayerSkin.front
+    val player = Player(10, "test", "test", Owner,
+      Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 150f, 50f, true, 0, 0, BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)))
 
     //camera settings
     camera = new OrthographicCamera(300, 50)
     camera.update()
-
-    //player settings
-    playerRect = new Rectangle()
-
-    //set player position and size
-    //save last location of player in humanoid object so that once its serialized its in JSON
-    playerRect.x = player.x
-    playerRect.y = player.y
-    playerRect.width = testPlayerSprite.getRegionWidth.toFloat
-    playerRect.height = testPlayerSprite.getRegionHeight.toFloat
 
     //grab master file for scenes
     assetManager = assetManagerCreator.getAssetManager
@@ -84,18 +68,35 @@ class GameScreen(game: RPG) extends Screen {
     val config = new SceneConfiguration()
     config.setResourceRetriever(asyncResourceManager)
 
+
     //loads scenes and entities
     sceneLoader = new SceneLoader(config)
     engine = sceneLoader.getEngine
+
+    ComponentRetriever.addMapper(TempClass().getClass)
     camera = new OrthographicCamera()
     viewport = new ExtendViewport(600, 300, camera)
     sceneLoader.loadScene("MainScene", viewport)
 
+
     //get player_light from MainScene.dt
     //TODO make a custom wrapper over ItemWrapper to easily grab coords of entities
     val root = new ItemWrapper(sceneLoader.getRoot, engine)
+
     val playerLightEntity = root.getChild("player_light")
-    playerLight = playerLightEntity.getComponent(classOf[TransformComponent])
+
+    val playerEntity = root.getChild("player_default")
+
+    //set location of player to last know point
+    val playerTransform = playerEntity.getComponent(classOf[TransformComponent])
+    playerTransform.x = player.playerSettings.x
+    playerTransform.y = player.playerSettings.y
+
+
+    //add script to player
+    playerEntity.addScript(new PlayerScript(camera,playerLightEntity,DELTA_TIME,player))
+    camera.position.set(playerTransform.x,playerTransform.y,0)
+    camera.update()
 
   }
 
@@ -107,67 +108,12 @@ class GameScreen(game: RPG) extends Screen {
     viewport.apply()
     engine.process()
 
-    handleInput()
-
     game.batch.setProjectionMatrix(camera.combined)
 
     game.batch.begin()
-    game.batch.draw(testPlayerSprite, playerRect.x, playerRect.y, playerRect.width, playerRect.width)
     game.batch.end()
   }
 
-  private def handleInput(): Unit = {
-    //regular movement
-    val w = Gdx.input.isKeyPressed(Input.Keys.W)
-    val s = Gdx.input.isKeyPressed(Input.Keys.S)
-    val a = Gdx.input.isKeyPressed(Input.Keys.A)
-    val d = Gdx.input.isKeyPressed(Input.Keys.D)
-
-    //character running movement
-    val isShiftPressed = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
-    var speed = if (isShiftPressed) player.sprintingSpeed else player.walkingSpeed
-
-    if ((w || s) && (a || d)) {
-      speed = speed / Math.sqrt(2.0).toFloat
-    }
-
-    //character walk movement
-    if (w) {
-      //divide since walking too fast on y axis
-      playerRect.y = playerRect.y + (speed / 2 * DELTA_TIME).toFloat
-      testPlayerSprite = TextureGrabber.PlayerSkin.PlayerAnimation.backAnimation.getKeyFrame(stateTime, true)
-    } //up
-
-    if (s) {
-      playerRect.y = playerRect.y - (speed / 2 * DELTA_TIME).toFloat
-      testPlayerSprite = TextureGrabber.PlayerSkin.PlayerAnimation.frontAnimation.getKeyFrame(stateTime, true)
-    } //down
-
-    if (a) {
-      playerRect.x = playerRect.x - (speed * DELTA_TIME).toFloat
-      testPlayerSprite = TextureGrabber.PlayerSkin.PlayerAnimation.leftAnimation.getKeyFrame(stateTime, true)
-    } //left
-
-    if (d) {
-      playerRect.x = playerRect.x + (speed * DELTA_TIME).toFloat
-      testPlayerSprite = TextureGrabber.PlayerSkin.PlayerAnimation.rightAnimation.getKeyFrame(stateTime, true)
-    } //right
-
-    updateCameraToPlayer()
-  }
-
-  private def updateCameraToPlayer(): Unit = {
-    //updates camera to follow player with sprite offset
-    val middleOfPlayerX = playerRect.x + (playerRect.width / 4)
-    val middleOfPlayerY = playerRect.y + (playerRect.height / 4)
-    camera.position.set(middleOfPlayerX, middleOfPlayerY, 0)
-    camera.update()
-
-
-    playerLight.x = middleOfPlayerX
-    playerLight.y = middleOfPlayerY
-
-  }
 
   override def resize(width: Int, height: Int): Unit = {
 

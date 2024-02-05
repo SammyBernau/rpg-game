@@ -8,19 +8,19 @@ bridge_horizontal
 bridge_vertical
 	bounds: 51, 7, 26, 33
 bush_horizontal
-	bounds: 869, 60, 31, 15
+	bounds: 912, 94, 31, 15
 bush_vertical
-	bounds: 151, 14, 15, 30
+	bounds: 469, 11, 15, 30
 dirt_patch
-	bounds: 903, 77, 16, 16
+	bounds: 269, 9, 16, 16
 dirt_path
-	bounds: 204, 29, 16, 16
+	bounds: 749, 10, 16, 16
 fallen_log
 	bounds: 962, 111, 46, 16
 fence_horizontal
-	bounds: 912, 95, 25, 14
+	bounds: 439, 31, 25, 14
 fence_vertical
-	bounds: 939, 79, 8, 30
+	bounds: 223, 15, 8, 30
 grass_cliff_horizontal_cont
 	bounds: 677, 14, 16, 64
 grass_cliff_horizontal_left
@@ -32,7 +32,7 @@ grass_cliff_left_for_ramp
 grass_cliff_right_for_ramp
 	bounds: 821, 29, 16, 64
 grass_daisies
-	bounds: 439, 31, 25, 14
+	bounds: 974, 95, 25, 14
 grass_edge_continuous
 	bounds: 289, 31, 48, 96
 grass_edge_left
@@ -46,7 +46,7 @@ grass_edge_right_continuous
 grass_edge_small_continuous
 	bounds: 458, 47, 16, 80
 grass_floor_no_edges_small
-	bounds: 921, 77, 16, 16
+	bounds: 767, 10, 16, 16
 grass_floor_ramp
 	bounds: 776, 95, 32, 32
 grass_floor_with_hole
@@ -55,22 +55,22 @@ grass_ground
 	index: 2
 	bounds: 610, 46, 32, 31
 grass_left_edge_fill
-	bounds: 949, 93, 16, 16
+	bounds: 785, 10, 16, 16
 grass_no_edge_fill
-	bounds: 967, 93, 16, 16
+	bounds: 476, 43, 16, 16
 grass_no_edge_fillv1
-	bounds: 967, 93, 16, 16
+	bounds: 476, 43, 16, 16
 grass_no_edge_fillv2
-	bounds: 985, 93, 16, 16
+	bounds: 494, 43, 16, 16
 grass_no_edge_fill
 	index: 2
-	bounds: 985, 93, 16, 16
+	bounds: 494, 43, 16, 16
 grass_patch_with_cut_grass
 	bounds: 810, 95, 32, 32
 grass_patch_with_water
 	bounds: 476, 79, 48, 48
 grass_right_edge_fill
-	bounds: 902, 59, 16, 16
+	bounds: 512, 43, 16, 16
 house_back
 	bounds: 83, 46, 74, 81
 house_front
@@ -78,23 +78,59 @@ house_front
 island_grass
 	bounds: 844, 95, 32, 32
 lily_pad_big
-	bounds: 222, 34, 11, 11
+	bounds: 674, 1, 11, 11
 lily_pad_group
 	bounds: 869, 77, 32, 16
 lily_pad_small
 	bounds: 148, 1, 9, 9
 metal_gate_closed
-	bounds: 168, 21, 16, 24
+	bounds: 233, 1, 16, 24
 metal_gate_open
-	bounds: 186, 21, 16, 24
+	bounds: 251, 1, 16, 24
+npc_blank_2
+	index: 0
+	bounds: 869, 43, 16, 32
+npc_blank_2
+	index: 1
+	bounds: 887, 43, 16, 32
+npc_blank_2
+	index: 10
+	bounds: 151, 12, 16, 32
+npc_blank_2
+	index: 11
+	bounds: 169, 13, 16, 32
+npc_blank_2
+	index: 2
+	bounds: 187, 13, 16, 32
+npc_blank_2
+	index: 3
+	bounds: 205, 13, 16, 32
+npc_blank_2
+	index: 4
+	bounds: 530, 27, 16, 32
+npc_blank_2
+	index: 5
+	bounds: 548, 27, 16, 32
+npc_blank_2
+	index: 6
+	bounds: 566, 17, 16, 32
+npc_blank_2
+	index: 7
+	bounds: 584, 17, 16, 32
+npc_blank_2
+	index: 8
+	bounds: 602, 12, 16, 32
+npc_blank_2
+	index: 9
+	bounds: 620, 12, 16, 32
 person_statue
 	bounds: 644, 30, 31, 47
 picket_sign
 	index: 1
-	bounds: 920, 59, 16, 16
+	bounds: 869, 25, 16, 16
 picket_sign
 	index: 2
-	bounds: 749, 10, 16, 16
+	bounds: 887, 25, 16, 16
 rock
 	index: 1
 	bounds: 135, 1, 11, 9
@@ -103,18 +139,18 @@ rock
 	bounds: 1010, 119, 13, 8
 rock
 	index: 2
-	bounds: 476, 45, 16, 14
+	bounds: 287, 1, 16, 14
 rock
 	index: 3
-	bounds: 325, 16, 15, 13
+	bounds: 903, 79, 15, 13
 rock
 	index: 4
-	bounds: 342, 17, 15, 12
+	bounds: 558, 3, 15, 12
 rock_in_water
 	index: 1
-	bounds: 869, 39, 27, 19
+	bounds: 945, 90, 27, 19
 sewer_grate_closed
-	bounds: 949, 79, 16, 12
+	bounds: 289, 17, 16, 12
 sewer_grate_open
 	bounds: 117, 1, 16, 9
 shop
@@ -125,13 +161,13 @@ stone_tower
 	bounds: 235, 27, 52, 100
 torch
 	index: 0
-	bounds: 767, 10, 16, 16
+	bounds: 638, 12, 16, 16
 torch
 	index: 1
-	bounds: 785, 10, 16, 16
+	bounds: 656, 12, 16, 16
 torch
 	index: 2
-	bounds: 494, 43, 16, 16
+	bounds: 307, 13, 16, 16
 trap_door_closed
 	bounds: 839, 63, 28, 30
 trap_door_open
@@ -141,41 +177,41 @@ tree
 tree_stump
 	bounds: 803, 1, 31, 26
 water
-	bounds: 512, 43, 16, 16
+	bounds: 325, 13, 16, 16
 water_circle_animation
 	index: 0
-	bounds: 530, 43, 16, 16
+	bounds: 343, 13, 16, 16
 water_circle_animation
 	index: 1
-	bounds: 548, 43, 16, 16
+	bounds: 361, 13, 16, 16
 water_circle_animation
 	index: 2
-	bounds: 898, 41, 16, 16
+	bounds: 379, 13, 16, 16
 water_circle_animation
 	index: 3
-	bounds: 916, 41, 16, 16
+	bounds: 397, 13, 16, 16
 water_circle_animation
 	index: 4
-	bounds: 967, 75, 16, 16
+	bounds: 415, 13, 16, 16
 water_circle_animation
 	index: 5
-	bounds: 985, 75, 16, 16
+	bounds: 433, 13, 16, 16
 water_edge_bottom
-	bounds: 869, 21, 16, 16
+	bounds: 451, 13, 16, 16
 water_edge_bottom_left
-	bounds: 887, 21, 16, 16
+	bounds: 486, 25, 16, 16
 water_edge_bottom_right
-	bounds: 905, 23, 16, 16
+	bounds: 504, 25, 16, 16
 water_edge_left
-	bounds: 923, 23, 16, 16
+	bounds: 486, 7, 16, 16
 water_edge_right
-	bounds: 934, 41, 16, 16
+	bounds: 504, 7, 16, 16
 water_edge_top
-	bounds: 938, 59, 16, 16
+	bounds: 522, 9, 16, 16
 water_edge_top_left
-	bounds: 941, 23, 16, 16
+	bounds: 540, 9, 16, 16
 water_edge_top_right
-	bounds: 952, 41, 16, 16
+	bounds: 1001, 93, 16, 16
 water_fall_right_side
 	bounds: 731, 13, 16, 80
 water_fountain_animation
@@ -189,28 +225,28 @@ water_fountain_animation
 	bounds: 626, 79, 48, 48
 water_move_animation
 	index: 0
-	bounds: 959, 23, 16, 16
+	bounds: 920, 76, 16, 16
 water_move_animation
 	index: 1
-	bounds: 204, 11, 16, 16
+	bounds: 938, 72, 16, 16
 water_move_animation
 	index: 2
-	bounds: 1003, 93, 16, 16
+	bounds: 956, 72, 16, 16
 water_move_animation
 	index: 3
-	bounds: 1003, 75, 16, 16
+	bounds: 974, 77, 16, 16
 water_move_animation
 	index: 4
-	bounds: 168, 3, 16, 16
+	bounds: 992, 75, 16, 16
 water_move_animation
 	index: 5
-	bounds: 186, 3, 16, 16
+	bounds: 974, 59, 16, 16
 water_move_animation
 	index: 6
-	bounds: 289, 13, 16, 16
+	bounds: 992, 57, 16, 16
 water_move_animation
 	index: 7
-	bounds: 307, 13, 16, 16
+	bounds: 836, 11, 16, 16
 waterfall_animation_long
 	index: 0
 	bounds: 749, 28, 16, 65
@@ -232,4 +268,4 @@ waterfall_bottom_animation_long
 waterfall_left_side
 	bounds: 439, 47, 17, 80
 white-pixel
-	bounds: 1, 5, 1, 1
+	bounds: 674, 27, 1, 1

@@ -41,9 +41,9 @@ trait BaseAnimateEntity extends Entity {
   /*damage caused by magic attacks taking intellect into account*/
   val magicDamage: Double
   /*sprinting rate of entity*/
-  val sprintingSpeed: Double
+  val sprintingSpeed: Float
   /*walking rate of entity*/
-  val walkingSpeed: Double
+  val walkingSpeed: Float
   /*state for entity for whether its walking or not (true = walking, false = sprinting)*/
   val walkingState: Boolean
   /*x coordinate for libGDX formatting*/

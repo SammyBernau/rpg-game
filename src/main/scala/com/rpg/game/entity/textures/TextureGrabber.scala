@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.{Animation, TextureRegion}
 
 object TextureGrabber {
 
-  object PlayerSkin {
+  object PlayerTexture {
     private val spriteFile: FileHandle = Gdx.files.internal("textures/samsRendition/humanoid/npc_blank.png")
     private val playerTextureSheet = new Texture(spriteFile)
 
