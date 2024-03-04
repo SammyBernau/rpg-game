@@ -218,53 +218,52 @@
       "games.rednblack.editor.renderer.data.CompositeItemVO": [
         {
           "class": "CompositeItemVO",
-          "uniqueId": "2hz42xdr",
+          "uniqueId": "dkpex37g",
           "itemIdentifier": "player_default",
-          "itemName": "player_default",
           "tags": [],
-          "x": 75,
-          "y": 250,
-          "originX": 0.24,
-          "originY": 0.22,
+          "x": -16,
+          "y": 2,
+          "originX": 0,
+          "originY": 0,
           "zIndex": 462,
           "layerName": "Default",
           "shader": {},
           "shape": {
             "vertices": [
               {
-                "x": 1.116066,
-                "y": 1.5625
+                "x": 0.5597153,
+                "y": 4.4776134
               },
               {
-                "x": 1.5625229,
-                "y": 21.508923
+                "x": 0.5597,
+                "y": 26.029858
               },
               {
-                "x": 14.214279,
-                "y": 21.732138
+                "x": 16.186539,
+                "y": 25.843292
               },
               {
-                "x": 14.214287,
-                "y": 0.8928566
+                "x": 16.559692,
+                "y": 4.6641808
               }
             ],
             "polygonizedVertices": [
               [
                 {
-                  "x": 1.116066,
-                  "y": 1.5625
+                  "x": 0.5597153,
+                  "y": 4.4776134
                 },
                 {
-                  "x": 14.214287,
-                  "y": 0.8928566
+                  "x": 16.559692,
+                  "y": 4.6641808
                 },
                 {
-                  "x": 14.214279,
-                  "y": 21.732138
+                  "x": 16.186539,
+                  "y": 25.843292
                 },
                 {
-                  "x": 1.5625229,
-                  "y": 21.508923
+                  "x": 0.5597,
+                  "y": 26.029858
                 }
               ]
             ]
@@ -275,40 +274,36 @@
             "gravityScale": 1,
             "allowSleep": true,
             "awake": true,
+            "fixedRotation": true,
             "density": 1,
             "friction": 1,
             "height": 1
           },
-          "width": 13.99,
-          "height": 21.51,
-          "automaticResize": false,
-          "scissorsEnabled": true,
+          "width": 16,
+          "height": 32,
           "content": {
             "games.rednblack.editor.renderer.data.SpriteAnimationVO": [
               {
                 "class": "SpriteAnimationVO",
-                "uniqueId": "12f37b2f",
-                "itemIdentifier": "player_anim",
+                "uniqueId": "zm1m2e87",
+                "itemIdentifier": "player_animation",
                 "tags": [],
-                "x": -1,
-                "y": -3,
                 "originX": 8,
                 "originY": 16,
                 "layerName": "Default",
                 "shader": {},
-                "physics": {
-                  "rotationalInertia": 1,
-                  "gravityScale": 1,
-                  "allowSleep": true,
-                  "awake": true,
-                  "density": 1,
-                  "friction": 1,
-                  "height": 1
-                },
                 "animationName": "npc_blank_2",
                 "fps": 4,
-                "currentAnimation": "right",
+                "currentAnimation": "idle",
                 "frameRangeMap": [
+                  {
+                    "name": "front_static"
+                  },
+                  {
+                    "name": "back_static",
+                    "startFrame": 3,
+                    "endFrame": 3
+                  },
                   {
                     "name": "left",
                     "startFrame": 6,
@@ -318,6 +313,16 @@
                     "name": "back",
                     "startFrame": 3,
                     "endFrame": 5
+                  },
+                  {
+                    "name": "left_static",
+                    "startFrame": 6,
+                    "endFrame": 6
+                  },
+                  {
+                    "name": "right_static",
+                    "startFrame": 9,
+                    "endFrame": 9
                   },
                   {
                     "name": "front",
@@ -399,8 +404,8 @@
           "uniqueId": "ns17w1gt",
           "itemIdentifier": "player_light",
           "tags": [],
-          "x": -33,
-          "y": 2,
+          "x": -8,
+          "y": 20,
           "originX": 0,
           "originY": 0,
           "rotation": 72,

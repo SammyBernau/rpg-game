@@ -8,18 +8,13 @@ import com.rpg.game.data.DataAccess
 import scala.util.{Try, Success, Failure}
 import java.io.File
 
-class JsonDataAccess extends DataAccess[File,JsonValue] {
+class JsonDataAccess extends DataAccess {
   
   private def jsonReader = new JsonReader
-  override def read(dataSource: File): Option[JsonValue] = {
-    Try (jsonReader.parse(Gdx.files.internal(dataSource.getPath))) match {
-        case Success(jsonValue) => Some(jsonValue)
-        case Failure(exception) =>
-          println(s"Failed to parse JSON save file ${dataSource.getPath}: ${exception.getMessage}")
-          None
-      }
+  override def read(dataSource: String): JsonReadResult = {
+    ???
   }
-  override def write(dataSource: File, data: JsonValue): Boolean = {
+  override def write(dataSource: String, data: Any): Boolean = {
     ???
   }
 

@@ -12,20 +12,15 @@ import games.rednblack.editor.renderer.physics.PhysicsContact
 import games.rednblack.editor.renderer.scripts.BasicScript
 import games.rednblack.editor.renderer.utils.{ComponentRetriever, ItemWrapper}
 
-class PlayerScript(camera: OrthographicCamera,playerLight: ItemWrapper, deltaTime: Float, player:Player) extends BasicScript, PhysicsContact {
+class PlayerScript(playerLight: ItemWrapper, deltaTime: Float, player:Player) extends BasicScript, PhysicsContact {
 
   private var engine: com.artemis.World = _
   private var transformMapper: ComponentMapper[TransformComponent] = _
   private var mainItemMapper: ComponentMapper[MainItemComponent] = _
   private var dimensionsMapper: ComponentMapper[DimensionsComponent] = _
   private var physicsMapper: ComponentMapper[PhysicsBodyComponent] = _
-
-  private var animEntity: Int = _
+  
   private var physicsBodyComponent: PhysicsBodyComponent = _
-  private var transformComponent: TransformComponent = _
-
-  private val impulse = new Vector2(0, 0)
-  private val speed = new Vector2(0, 0)
 
   override def init(item: Int): Unit = {
     super.init(item)
@@ -69,10 +64,7 @@ class PlayerScript(camera: OrthographicCamera,playerLight: ItemWrapper, deltaTim
     if(s) y = y - speed
 
     body.setLinearVelocity(x,y)
-
-    camera.position.set(body.getPosition,0)
-    camera.update()
-    updatePlayerLight()
+    //updatePlayerLight()
   }
 
 
@@ -80,10 +72,12 @@ class PlayerScript(camera: OrthographicCamera,playerLight: ItemWrapper, deltaTim
    * Updates light to position of player body
    */
   private def updatePlayerLight(): Unit = {
-    val body = physicsBodyComponent.body
-    val playerLightTransform = playerLight.getComponent(classOf[TransformComponent])
-    playerLightTransform.x = body.getPosition.x
-    playerLightTransform.y = body.getPosition.y
+    if(physicsBodyComponent.body != null) {
+      val body = physicsBodyComponent.body
+      val playerLightTransform = playerLight.getComponent(classOf[TransformComponent])
+      playerLightTransform.x = body.getPosition.x
+      playerLightTransform.y = body.getPosition.y
+    }
   }
 
 
