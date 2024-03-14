@@ -52,99 +52,65 @@ class GameScreen(game: RPG) extends Screen {
   private var engine: com.artemis.World = _
 
   /**HyperLap 2D Implementation*/
-//  override def show(): Unit = {
-//    //will load all entities including player via one method later. Testing for now
-//    val player = Player(10, "test", "test", Owner,
-//      Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 150f, 50f, true, 0, 0, BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)))
-//
-//    //grab master file for scenes
-//    assetManager = assetManagerCreator.getAssetManager
-//    assetManager.load("project.dt", AsyncResourceManager().getClass)
-//    assetManager.finishLoading()
-//    asyncResourceManager = assetManager.get("project.dt", AsyncResourceManager().getClass)
-//
-//    val config = new SceneConfiguration()
-//    config.setResourceRetriever(asyncResourceManager)
-//    val cameraSystem = new CameraSystem
-//    config.addSystem(cameraSystem)
-//    config.addSystem(new PlayerAnimation)
-//
-//    //loads scenes and entities
-//    sceneLoader = new SceneLoader(config)
-//    engine = sceneLoader.getEngine
-//
-//    ComponentRetriever.addMapper(classOf[PlayerComponent])
-//
-//    camera = new OrthographicCamera(300,50)
-//    viewport = new ExtendViewport(600, 300, camera)
-//    sceneLoader.loadScene("MainScene", viewport)
-//
-//    //get player_light from MainScene.dt
-//    //TODO make a custom wrapper over ItemWrapper to easily grab coords of entities
-//    val root = new ItemWrapper(sceneLoader.getRoot, engine)
-//
-//    val playerLightEntity = root.getChild("player_light")
-//
-//    val playerEntity = root.getChild("player_default")
-//    ComponentRetriever.create(playerEntity.getChild("player_animation").getEntity,classOf[PlayerComponent],engine)
-//    cameraSystem.setFocus(playerEntity.getEntity)
-//
-//    //set location of player to last know point
-//    val playerTransform = playerEntity.getComponent(classOf[TransformComponent])
-//    playerTransform.x = player.playerSettings.x
-//    playerTransform.y = player.playerSettings.y
-//
-//    //add script to player
-//    playerEntity.addScript(new PlayerScript(playerLightEntity,DELTA_TIME,player))
-//  }
-
-  /**HyperLap 2D Implementation*/
-  //  override def render(delta: Float): Unit = {
-  //    Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
-  //    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-  //    stateTime = stateTime + DELTA_TIME
-  //
-  //    viewport.apply()
-  //    engine.process()
-  //
-  //    game.batch.begin()
-  //    game.batch.end()
-  //  }
-
-
-  /**Tiled Implementation*/
   override def show(): Unit = {
     //will load all entities including player via one method later. Testing for now
     val player = Player(10, "test", "test", Owner,
       Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 150f, 50f, true, 0, 0, BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)))
 
-    val assetManager = new AssetManager()
-    assetManager.setLoader(classOf[TiledMap], new TmxMapLoader(new InternalFileHandleResolver()))
-    assetManager.load("test.tmx",classOf[TiledMap])
+    //grab master file for scenes
+    assetManager = assetManagerCreator.getAssetManager
+    assetManager.load("project.dt", AsyncResourceManager().getClass)
+    assetManager.finishLoading()
+    asyncResourceManager = assetManager.get("project.dt", AsyncResourceManager().getClass)
 
-    val map = assetManager.get("test.tmx")
+    val config = new SceneConfiguration()
+    config.setResourceRetriever(asyncResourceManager)
+    val cameraSystem = new CameraSystem
+    config.addSystem(cameraSystem)
+    config.addSystem(new PlayerAnimation)
 
-    val unitScale = 1 / 16f
-    val renderer = new OrthogonalTiledMapRenderer(map,unitScale)
+    //loads scenes and entities
+    sceneLoader = new SceneLoader(config)
+    engine = sceneLoader.getEngine
 
+    ComponentRetriever.addMapper(classOf[PlayerComponent])
 
-
-    camera = new OrthographicCamera(300, 50)
+    camera = new OrthographicCamera(300,50)
     viewport = new ExtendViewport(600, 300, camera)
+    sceneLoader.loadScene("MainScene", viewport)
 
+    //get player_light from MainScene.dt
+    //TODO make a custom wrapper over ItemWrapper to easily grab coords of entities
+    val root = new ItemWrapper(sceneLoader.getRoot, engine)
+
+    val playerLightEntity = root.getChild("player_light")
+
+    val playerEntity = root.getChild("player_default")
+    ComponentRetriever.create(playerEntity.getChild("player_animation").getEntity,classOf[PlayerComponent],engine)
+    cameraSystem.setFocus(playerEntity.getEntity)
+
+    //set location of player to last know point
+    val playerTransform = playerEntity.getComponent(classOf[TransformComponent])
+    playerTransform.x = player.playerSettings.x
+    playerTransform.y = player.playerSettings.y
+
+    //add script to player
+    playerEntity.addScript(new PlayerScript(playerLightEntity,DELTA_TIME,player))
   }
 
+  /**HyperLap 2D Implementation*/
+    override def render(delta: Float): Unit = {
+      Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
+      Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+      //stateTime = stateTime + DELTA_TIME
 
-  /** Tiled Implementation */
-  override def render(delta: Float): Unit = {
-    Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+      viewport.apply()
+      engine.process()
 
-    viewport.apply()
+      game.batch.begin()
+      game.batch.end()
+    }
 
-    game.batch.begin()
-    game.batch.end()
-  }
 
 
   override def resize(width: Int, height: Int): Unit = {
