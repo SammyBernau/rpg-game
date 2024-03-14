@@ -1,0 +1,625 @@
+public class TheGame extends ApplicationAdapter implements InputProcessor {
+    SpriteBatch batch;
+    // Object that collects the tile map
+    private TiledMap map;
+
+    // Layer of the map where treasures are located
+    private TiledMapTileLayer treasureLayer;
+
+    // Width and height of the map in tiles
+    private int tileWidth, tileHeight;
+
+    // 2D arrays of booleans containing the obstacles and treasures of the map
+    private boolean[][] obstacle, treasure;
+
+    // Object to draw the tile map
+    private TiledMapRenderer mapRenderer;
+
+    // Width and height variables
+    public static int mapWidth, mapHeight, cellWidth, cellHeight;
+
+    // Variable to count the number of treasures
+    int totalTreasures;
+
+    // Game view camera
+    private OrthographicCamera camera;
+
+    private int screenWidth;
+    private int screenHeight;
+
+    // This attribute indicates the time in seconds elapsed since the animation started,
+    // it will determine which frame to represent
+    private float stateTime;
+
+    // Booleans that determine the direction of the sprite
+    private static boolean left, right, up, down;
+
+    // Sprite dimensions
+    public static int playerWidth, playerHeight;
+
+    // Constants indicating the number of rows and columns of the sprite sheet
+    public static final int FRAME_COLS = 3;
+    public static final int FRAME_ROWS = 4;
+
+    // Attribute to load the image of the main character
+    private Texture mainImage;
+
+    // Animation displayed in the render() method
+    private Animation<TextureRegion> player;
+
+    // Animations for each of the player's movement directions
+    private Animation<TextureRegion> playerUp;
+    private Animation<TextureRegion> playerRight;
+    private Animation<TextureRegion> playerDown;
+    private Animation<TextureRegion> playerLeft;
+
+    // Current position on the coordinate axis of the player
+    private Vector2 playerPosition;
+
+    // Player movement speed for each render loop iteration
+    private float playerSpeed;
+
+    // Initial and final cells of the main character's path
+    private Vector2 initialCell, finalCell;
+
+    Enemy[] enemies = new Enemy[Enemy.amount];
+
+    private int treasureCount;
+    private TiledMapTile tileTreasure;
+
+    // The music is played gradually (without loading it into memory)
+    private Music gameMusic;
+
+    // Sounds must be maximum 1 MB and are loaded into memory
+    private Sound foundTreasure;
+    private Sound caught;
+    private Sound failure;
+    private Sound success;
+
+    private Sound steps;
+    private int cycle, previousCycle;
+
+    // Elements to overlay information
+    private BitmapFont livesFont;
+    private BitmapFont treasureFont;
+    // Number of player lives
+    private int lives;
+
+    @Override
+    public void create () {
+        batch = new SpriteBatch();
+
+        // Load the tile map from the assets folder
+        map = new TmxMapLoader().load("themap.tmx");
+        mapRenderer = new OrthogonalTiledMapRenderer(map);
+
+        // Determine the width and height of the tile map. To do this, we need to extract the base layer of the map and, from it,
+        // determine the number of cells horizontally and vertically, as well as the size of the cell, which multiplied by the number
+        // of cells vertically and horizontally, results in the width and height in pixels of the map.
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
+
+        // Determine the width and height of each cell
+        cellWidth = (int) layer.getTileWidth();
+        cellHeight = (int) layer.getTileHeight();
+
+        // Determine the width and height of the entire map
+        mapWidth = layer.getWidth() * cellWidth;
+        mapHeight = layer.getHeight() * cellHeight;
+
+        // Load the layers of obstacles and steps in the TiledMap.
+        TiledMapTileLayer floorLayer = (TiledMapTileLayer) map.getLayers().get(0);
+        TiledMapTileLayer obstacleLayer = (TiledMapTileLayer) map.getLayers().get(2);
+        TiledMapTileLayer stepLayer = (TiledMapTileLayer) map.getLayers().get(4);
+        treasureLayer = (TiledMapTileLayer) map.getLayers().get(1);
+        TiledMapTileLayer depthLayer = (TiledMapTileLayer) map.getLayers().get(5);
+
+        // The number of tiles is the same in all layers. We take it from the Floor layer
+        tileWidth = floorLayer.getWidth();
+        tileHeight = floorLayer.getHeight();
+
+        // Create a 2D array of booleans for obstacles and treasures
+        obstacle = new boolean[tileWidth][tileHeight];
+        treasure = new boolean[tileWidth][tileHeight];
+
+        // Fill the values by traversing the map
+        for (int x = 0; x < tileWidth; x++) {
+            for (int y = 0; y < tileHeight; y++) {
+                // fill the 2D array of obstacles
+                obstacle[x][y] = ((obstacleLayer.getCell(x, y) != null) //obstacles from the Obstacle layer
+                        && (stepLayer.getCell(x, y) == null)); //that are not allowed steps from the Step layer
+                // fill the 2D array of treasures
+                treasure[x][y] = (treasureLayer.getCell(x, y) != null);
+                // count how many treasures are included in the map
+                if (treasure[x][y]) {
+                    totalTreasures++;
+                    tileTreasure = treasureLayer.getCell(x, y).getTile();
+                }
+            }
+        }
+
+        // Initialize the game camera
+        screenWidth = Gdx.graphics.getWidth();
+        screenHeight = Gdx.graphics.getHeight();
+
+        // Create a camera that will show a portion of the map (same on all platforms)
+        int cameraWidth = 400, cameraHeight = 240;
+        camera = new OrthographicCamera(cameraWidth, cameraHeight);
+
+        // Update the camera position
+        camera.update();
+
+        // Set the stateTime attribute to zero, which marks the execution time of the main character's animation
+        stateTime = 0f;
+        // Load the image of the main character into the Texture object
+        mainImage = new Texture(Gdx.files.internal("characters/player/character.png"));
+
+        // Extract the frames from mainImage into a 2D array of TextureRegion
+        TextureRegion[][] tmp = TextureRegion.split(mainImage, mainImage.getWidth() / FRAME_COLS, mainImage.getHeight() / FRAME_ROWS);
+
+        // Initial and Final Tile
+        initialCell = new Vector2(0, 0);
+        finalCell = new Vector2(10, 6);
+
+        playerPosition = new Vector2(mapPosition(initialCell));
+
+        // Create the different loop animations, considering that the time between frames will be 150 milliseconds
+
+        float playerFrame = 0.15f;
+
+        playerDown = new Animation<>(playerFrame, tmp[0]); //Row 0, down direction
+        playerDown.setPlayMode(Animation.PlayMode.LOOP);
+        playerLeft = new Animation<>(playerFrame, tmp[1]); //Row 1, left direction
+        playerLeft.setPlayMode(Animation.PlayMode.LOOP);
+        playerRight = new Animation<>(playerFrame
+        // Initially, the animation in the downward direction is used
+        player = playerDown;
+
+        // Player dimensions
+        playerWidth = tmp[0][0].getRegionWidth();
+        playerHeight = tmp[0][0].getRegionHeight();
+
+        // Variable to count collected treasures
+        treasureCount = 0;
+
+        // Player speed (a configuration menu can be created to change the game difficulty)
+        playerSpeed = 2.5f;
+
+        enemies[0] = new Enemy(
+            new Texture(Gdx.files.internal("characters/enemy/female_16-1.png")),
+            mapPosition(new Vector2(1,2)),
+            mapPosition(new Vector2(8,2))
+        );
+        enemies[1] = new Enemy(
+            new Texture(Gdx.files.internal("characters/enemy/enemy_18.png")),
+            mapPosition(new Vector2(6,3)),
+            mapPosition(new Vector2(6,6))
+        );
+        enemies[1].setSpeed(1.5f);
+        enemies[2] = new Enemy(
+            new Texture(Gdx.files.internal("characters/enemy/enemy_19.png")),
+            mapPosition(new Vector2(9,2)),
+            mapPosition(new Vector2(9,5))
+        );
+        enemies[3] = new Enemy(
+            new Texture(Gdx.files.internal("characters/enemy/dog_01-2r.png")),
+            mapPosition(new Vector2(12,0)),
+            mapPosition(new Vector2(12,3))
+        );
+        enemies[4] = new Enemy(
+            new Texture(Gdx.files.internal("characters/enemy/pien.png")),
+            mapPosition(new Vector2(5,7)),
+            mapPosition(new Vector2(5,8))
+        );
+        enemies[4].setSpeed(0.25f);
+
+        // Initialize game background music
+        gameMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/background.mp3"));
+        gameMusic.setLooping(true);
+        gameMusic.setVolume(0.5f);
+
+        // Initialize sounds
+        foundTreasure = Gdx.audio.newSound(Gdx.files.internal("sound/pickup.mp3"));
+        caught = Gdx.audio.newSound(Gdx.files.internal("sound/death.mp3"));
+        failure = Gdx.audio.newSound(Gdx.files.internal("sound/lose.mp3"));
+        success = Gdx.audio.newSound(Gdx.files.internal("sound/victory.mp3"));
+
+        // Footstep sound
+        steps = Gdx.audio.newSound(Gdx.files.internal("sound/steps.mp3"));
+        cycle = 0;
+        previousCycle = 0; // Used to control the playback cycles of the footstep sound
+
+        // Overlay texts
+        livesFont = new BitmapFont();
+        treasureFont = new BitmapFont();
+
+        nLives = 3;
+        }
+
+        @Override
+        public void render () {
+        // Play game music
+        if (!gameMusic.isPlaying())
+            gameMusic.play();
+
+        // Listen for events in the game class itself
+        Gdx.input.setInputProcessor(this);
+
+        // Clear the screen
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        // Link the object that draws the map with the game camera
+        mapRenderer.setView(camera);
+
+        // Draw the map layers
+        // Later, we will remove the depth layer to alternate characters
+        int[] layers = {0, 1, 2, 3, 4, 5};
+        mapRenderer.render(layers);
+
+        // Center the camera on the main player
+        camera.position.set(playerPosition, 0);
+
+        // Ensure that the camera does not go beyond the boundaries of the tile map using the MathUtils.clamp method
+        camera.position.x = MathUtils.clamp(camera.position.x,
+            camera.viewportWidth / 2f,
+            mapWidth - camera.viewportWidth / 2f);
+        camera.position.y = MathUtils.clamp(camera.position.y,
+            camera.viewportHeight / 2f,
+            mapHeight - camera.viewportHeight / 2f);
+
+        // Update the game camera
+        camera.update();
+        // Link the object that draws the map with the game camera
+        mapRenderer.setView(camera);
+
+        // PLAYER ANIMATION
+
+        // In this method, we will update the position of the main player
+        updatePlayerPosition();
+
+        // Indicate to the SpriteBatch to display in the coordinate system specific to the camera.
+        batch.setProjectionMatrix(camera.combined);
+
+        // Initialize the SpriteBatch object
+        batch.begin();
+
+        batch.draw(player.getKeyFrame(stateTime), playerPosition.x, playerPosition.y);
+
+        // Collision detection with NPCs
+        detectCollisions();
+
+        for (Enemy enemy : enemies) {
+            enemy.move();
+            batch.draw(enemy.getActive().getKeyFrame(enemy.getStateTime()), enemy.getPosition().x, enemy.getPosition().y);
+        }
+
+        batch.end();
+
+        String treasureInfo = "Treasures: " + treasureCount;
+        String livesInfo = "Lives: " + nLives;
+
+        batch.begin();
+        // Draw the tile map depth layer.
+        mapRenderer.render(new int[] { 5 });
+
+        treasureFont.draw(batch, treasureInfo, camera.position.x - camera.viewportWidth / 2, camera.position.y - camera.viewportHeight / 2 + 60);
+        livesFont.draw(batch, livesInfo, camera.position.x - camera.viewportWidth / 2, camera.position.y - camera.viewportHeight / 2 + 30);
+
+        // Finish the SpriteBatch object
+        batch.end();
+        }
+        @Override
+        public void dispose() {
+            // Texture
+            mainImage.dispose();
+            // SpriteBatch
+            if (batch.isDrawing())
+                batch.dispose();
+        
+            for (Enemy enemy : enemies) {
+                enemy.getImg().dispose();
+            }
+        
+            // Music
+            gameMusic.dispose();
+        
+            // Sound
+            foundTreasure.dispose();
+            caught.dispose();
+            success.dispose();
+            failure.dispose();
+        
+            livesFont.dispose();
+            treasureFont.dispose();
+        }
+        
+        private Vector2 mapPosition(Vector2 cell) {
+            Vector2 res = new Vector2();
+            if (cell.x + 1 > tileWidth ||
+                    cell.y + 1 > tileHeight) { // If the request is wrong, place it at the origin of the map
+                res.set(0, 0);
+            }
+            res.x = cell.x * tileWidth;
+            res.y = (tileHeight - 1 - cell.y) * tileHeight;
+            return res;
+        }
+        
+        private void updatePlayerPosition() {
+            // Save the player's position in case we encounter an obstacle
+            Vector2 previousPosition = new Vector2();
+            previousPosition.set(playerPosition);
+        
+            float speed;
+            speed = playerSpeed;
+        
+            if (left) {
+                playerPosition.x -= speed;
+                player = playerLeft;
+            }
+            if (right) {
+                playerPosition.x += speed;
+                player = playerRight;
+            }
+            if (up) {
+                playerPosition.y += speed;
+                player = playerUp;
+            }
+            if (down) {
+                playerPosition.y -= speed;
+                player = playerDown;
+            }
+        
+            // Advance the player's stateTime when there is any active movement state
+            if (left || right || up || down) {
+                // Control the sound of the player's footsteps
+                stateTime += Gdx.graphics.getDeltaTime();
+                cycle = (int) (stateTime / 0.2f);
+                if (cycle != previousCycle)
+                    steps.play(1.1f);
+                previousCycle = cycle;
+            }
+        
+            // Map limits for the player
+            playerPosition.x = MathUtils.clamp(playerPosition.x, 0, mapWidth - playerWidth);
+            playerPosition.y = MathUtils.clamp(playerPosition.y, 0, mapHeight - playerHeight);
+        
+            // Obstacle detection
+            if (obstacle(playerPosition))
+                playerPosition.set(previousPosition);
+        
+            // End of map detection
+            if (currentCell(playerPosition).epsilonEquals(finalCell)) {
+                success.play(0.5f);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+        
+                restartGame();
+            }
+        
+            // Treasure detection: calculate the cell in which the contact zone boundaries are located.
+            int leftLimit = (int) ((playerPosition.x + 0.25 * playerWidth) / tileWidth);
+            int rightLimit = (int) ((playerPosition.x + 0.75 * playerWidth) / tileWidth);
+            int topLimit = (int) ((playerPosition.y + 0.25 * playerHeight) / tileHeight);
+            int bottomLimit = (int) ((playerPosition.y) / tileHeight);
+        
+            if (treasure[leftLimit][bottomLimit] || treasure[rightLimit][topLimit]) {
+                TiledMapTileLayer.Cell cell;
+                if (treasure[leftLimit][bottomLimit]) {
+                    cell = treasureLayer.getCell(leftLimit, bottomLimit);
+                    treasure[leftLimit][bottomLimit] = false;
+                } else {
+                    cell = treasureLayer.getCell(rightLimit, topLimit);
+                    treasure[rightLimit][topLimit] = false;
+                }
+                cell.setTile(null);
+                foundTreasure.play(0.5f);
+                treasureCount++;
+            }
+        }
+        
+        private void detectCollisions() {
+            // Check that the player's contact rectangle
+            // does not overlap with the NPC's contact rectangle
+            Rectangle playerRect = new Rectangle((float) (playerPosition.x + (0.25 * playerWidth)), (float) (playerPosition.y + (0.25 * playerHeight)),
+                    (float) (playerWidth * 0.5), (float) (playerHeight * 0.5));
+            Rectangle npcRect;
+            // Now we iterate through the NPC array, for each one we generate its contact rectangle
+            for (Enemy enemy : enemies) {
+                npcRect = new Rectangle((float) (enemy.getPosition().x + 0.1 * playerWidth), (float) (enemy.getPosition().y + 0.1 * playerHeight),
+                        (float) (0.65 * playerWidth), (float) (0.65 * playerHeight));
+                // If there is a collision
+                if (playerRect.overlaps(npcRect)) {
+                    // End game code
+                    float musicPosition = gameMusic.getPosition();
+                    gameMusic.pause();
+                    // play the "caught" sound
+                    caught.play(0.6f);
+                    try {
+                        Thread.sleep(800);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+        
+                    nLives--;
+        
+                    if (nLives == 0) {
+                        failure.play(0.8f);
+                        try {
+                            Thread.sleep(2300);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+        
+                        restartGame();
+                    }
+        
+                    gameMusic.setPosition(musicPosition);
+                    // resume game music
+                    gameMusic.play();
+                    playerPosition.set(mapPosition(initialCell));
+                    return; // Finish the loop if there is a single collision
+                }
+            }
+        }
+        
+        // Method that detects if there is an obstacle at a certain position
+        private boolean obstacle(Vector2 position) {
+            int leftLimit = (int) ((position.x + 0.7 * playerWidth) / tileWidth);
+            int rightLimit = (int) ((position.x + 0.15 * playerWidth) / tileWidth);
+            int topLimit = (int) ((position.y + 0.05 * playerHeight) / tileHeight);
+            int bottomLimit = (int) ((position.y) / tileHeight);
+        
+            return obstacleLayer[leftLimit][bottomLimit] || obstacleLayer[rightLimit][topLimit];
+        }
+        
+        private void restartGame() {
+            treasureCount = 0;
+            nLives = 3;
+        
+            playerPosition.set(mapPosition(initialCell));
+        
+            treasureLayer = (TiledMapTileLayer) map.getLayers().get(1);
+        
+            // Create a two-dimensional array of booleans for obstacles and treasures
+            treasure = new boolean[tileWidth][tileHeight];
+        
+            // Fill in the values by traversing the map
+            for (int x = 0; x < tileWidth; x++) {
+                for (int y = 0; y < tileHeight; y++) {
+                    // Fill in the two-dimensional array of treasures
+                    treasure[x][y] = (treasureLayer.getCell(x, y) != null);
+                    if (treasure[x][y])
+                        treasureLayer.getCell(x, y).setTile(treasureTile);
+                }
+            }
+        }
+        
+        // Method that converts the player's position into the cell it is in
+        private Vector2 currentCell(Vector2 position) {
+            return new Vector2((int) (position.x / tileWidth), (tileHeight - 1 - (int) (position.y / tileHeight)));
+        }
+        
+        // These setters prevent the situation of contradictory directions but not the
+        // compound directions that allow diagonal movements
+        private void setLeft(boolean left) {
+            if (right && left) right = false;
+            this.left = left;
+        }
+        
+        private void setRight(boolean right) {
+            if (left && right) left = false;
+            this.right = right;
+        }
+        
+        private void setUp(boolean up) {
+            if (down && up) down = false;
+            this.up = up;
+        }
+        
+        private void setDown(boolean down) {
+            if (up && down) up = false;
+            this.down = down;
+        }
+        
+        @Override
+        public boolean keyDown(int keycode) {
+            switch (keycode) {
+                case Input.Keys.LEFT:
+                    setLeft(true);
+                    break;
+                case Input.Keys.RIGHT:
+                    setRight(true);
+                    break;
+                case Input.Keys.UP:
+                    setUp(true);
+                    break;
+                case Input.Keys.DOWN:
+                    setDown(true);
+                    break;
+            }
+            return true;
+        }
+        
+        @Override
+        public boolean keyUp(int keycode) {
+            switch (keycode) {
+                case Input.Keys.LEFT:
+                    setLeft(false);
+                    break;
+                case Input.Keys.RIGHT:
+                    setRight(false);
+                    break;
+                case Input.Keys.UP:
+                    setUp(false);
+                    break;
+                case Input.Keys.DOWN:
+                    setDown(false);
+                    break;
+            }
+        
+            // To hide/show the different layers, press from 1 onwards...
+            int layerCode = keycode - Input.Keys.NUM_1;
+            if (layerCode <= map.getLayers().getCount())
+                map.getLayers().get(layerCode).setVisible(!map.getLayers().get(layerCode).isVisible());
+        
+            return true;
+        }
+        
+        @Override
+        public boolean keyTyped(char character) {
+            return false;
+        }
+        
+        @Override
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            Vector3 clickCoordinates = new Vector3(screenX, screenY, 0f);
+            // Transform the vector coordinates to coordinates of our camera
+            Vector3 touch3D = camera.unproject(clickCoordinates);
+            Vector2 touch = new Vector2(touch3D.x, touch3D.y);
+        
+            // Calculate the difference between the touch and the player's center
+            Vector2 playerCenter = new Vector2(playerPosition).add((float) playerWidth / 2, (float) playerHeight / 2);
+            Vector2 difference = new Vector2(touch.sub(playerCenter));
+        
+            // We will determine the user's intention to move the character based on the
+            // angle between the touch and the player's position
+            float angle = difference.angleDeg();
+        
+            if (angle > 30 && angle <= 150) setUp(true);
+            if (angle > 120 && angle <= 240) setLeft(true);
+            if (angle > 210 && angle <= 330) setDown(true);
+            if ((angle > 0 && angle <= 60) || (angle > 300 && angle < 360)) setRight(true);
+        
+            return true;
+        }
+        
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            setUp(false);
+            setDown(false);
+            setLeft(false);
+            setRight(false);
+        
+            return true;
+        }
+        
+        @Override
+        public boolean touchDragged(int screenX, int screenY, int pointer) {
+            // Same case as touchDown
+            touchDown(screenX, screenY, pointer, 0);
+            return true;
+        }
+        
+        @Override
+        public boolean mouseMoved(int screenX, int screenY) {
+            return false;
+        }
+        
+        @Override
+        public boolean scrolled(float amountX, float amountY) {
+            return false;
+        }
+

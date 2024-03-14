@@ -1,0 +1,2883 @@
+Overworld-tile-set.png
+	size: 2048, 256
+	filter: Linear, Linear
+Overworld0
+	bounds: 1, 235, 16, 16
+Overworld1
+	bounds: 1, 217, 16, 16
+Overworld10
+	bounds: 19, 235, 16, 16
+Overworld100
+	bounds: 1, 199, 16, 16
+Overworld1000
+	bounds: 19, 217, 16, 16
+Overworld1001
+	bounds: 19, 217, 16, 16
+Overworld1002
+	bounds: 19, 217, 16, 16
+Overworld1006
+	bounds: 19, 217, 16, 16
+Overworld1007
+	bounds: 19, 217, 16, 16
+Overworld1020
+	bounds: 19, 217, 16, 16
+Overworld1037
+	bounds: 19, 217, 16, 16
+Overworld1038
+	bounds: 19, 217, 16, 16
+Overworld1039
+	bounds: 19, 217, 16, 16
+Overworld1040
+	bounds: 19, 217, 16, 16
+Overworld1041
+	bounds: 19, 217, 16, 16
+Overworld1042
+	bounds: 19, 217, 16, 16
+Overworld1043
+	bounds: 19, 217, 16, 16
+Overworld105
+	bounds: 19, 217, 16, 16
+Overworld1056
+	bounds: 19, 217, 16, 16
+Overworld106
+	bounds: 19, 217, 16, 16
+Overworld107
+	bounds: 19, 217, 16, 16
+Overworld1073
+	bounds: 19, 217, 16, 16
+Overworld1074
+	bounds: 19, 217, 16, 16
+Overworld1075
+	bounds: 19, 217, 16, 16
+Overworld1076
+	bounds: 19, 217, 16, 16
+Overworld1077
+	bounds: 19, 217, 16, 16
+Overworld1078
+	bounds: 19, 217, 16, 16
+Overworld1079
+	bounds: 19, 217, 16, 16
+Overworld1088
+	bounds: 19, 217, 16, 16
+Overworld1095
+	bounds: 19, 217, 16, 16
+Overworld1096
+	bounds: 19, 217, 16, 16
+Overworld1100
+	bounds: 19, 217, 16, 16
+Overworld1101
+	bounds: 19, 217, 16, 16
+Overworld1102
+	bounds: 19, 217, 16, 16
+Overworld1103
+	bounds: 19, 217, 16, 16
+Overworld1104
+	bounds: 19, 217, 16, 16
+Overworld1105
+	bounds: 19, 217, 16, 16
+Overworld1106
+	bounds: 19, 217, 16, 16
+Overworld1107
+	bounds: 19, 217, 16, 16
+Overworld1108
+	bounds: 19, 217, 16, 16
+Overworld1109
+	bounds: 19, 217, 16, 16
+Overworld1110
+	bounds: 19, 217, 16, 16
+Overworld1111
+	bounds: 19, 217, 16, 16
+Overworld1112
+	bounds: 19, 217, 16, 16
+Overworld1113
+	bounds: 19, 217, 16, 16
+Overworld1114
+	bounds: 19, 217, 16, 16
+Overworld1115
+	bounds: 19, 217, 16, 16
+Overworld1123
+	bounds: 19, 217, 16, 16
+Overworld1125
+	bounds: 19, 217, 16, 16
+Overworld1126
+	bounds: 19, 217, 16, 16
+Overworld1127
+	bounds: 19, 217, 16, 16
+Overworld1128
+	bounds: 19, 217, 16, 16
+Overworld1129
+	bounds: 19, 217, 16, 16
+Overworld1130
+	bounds: 19, 217, 16, 16
+Overworld1131
+	bounds: 19, 217, 16, 16
+Overworld1132
+	bounds: 19, 217, 16, 16
+Overworld1136
+	bounds: 19, 217, 16, 16
+Overworld1137
+	bounds: 19, 217, 16, 16
+Overworld1138
+	bounds: 19, 217, 16, 16
+Overworld1139
+	bounds: 19, 217, 16, 16
+Overworld1140
+	bounds: 19, 217, 16, 16
+Overworld1141
+	bounds: 19, 217, 16, 16
+Overworld1142
+	bounds: 19, 217, 16, 16
+Overworld1143
+	bounds: 19, 217, 16, 16
+Overworld1144
+	bounds: 19, 217, 16, 16
+Overworld1145
+	bounds: 19, 217, 16, 16
+Overworld1146
+	bounds: 19, 217, 16, 16
+Overworld1147
+	bounds: 19, 217, 16, 16
+Overworld1148
+	bounds: 19, 217, 16, 16
+Overworld1149
+	bounds: 19, 217, 16, 16
+Overworld1150
+	bounds: 19, 217, 16, 16
+Overworld1151
+	bounds: 19, 217, 16, 16
+Overworld1159
+	bounds: 19, 217, 16, 16
+Overworld1167
+	bounds: 19, 217, 16, 16
+Overworld1168
+	bounds: 19, 217, 16, 16
+Overworld1172
+	bounds: 19, 217, 16, 16
+Overworld1173
+	bounds: 19, 217, 16, 16
+Overworld1174
+	bounds: 19, 217, 16, 16
+Overworld1175
+	bounds: 19, 217, 16, 16
+Overworld1176
+	bounds: 19, 217, 16, 16
+Overworld1177
+	bounds: 19, 217, 16, 16
+Overworld1178
+	bounds: 19, 217, 16, 16
+Overworld1179
+	bounds: 19, 217, 16, 16
+Overworld1180
+	bounds: 19, 217, 16, 16
+Overworld1181
+	bounds: 19, 217, 16, 16
+Overworld1182
+	bounds: 19, 217, 16, 16
+Overworld1183
+	bounds: 19, 217, 16, 16
+Overworld1184
+	bounds: 19, 217, 16, 16
+Overworld1185
+	bounds: 19, 217, 16, 16
+Overworld1186
+	bounds: 19, 217, 16, 16
+Overworld1187
+	bounds: 19, 217, 16, 16
+Overworld1195
+	bounds: 19, 217, 16, 16
+Overworld1197
+	bounds: 19, 217, 16, 16
+Overworld1199
+	bounds: 19, 217, 16, 16
+Overworld1200
+	bounds: 19, 217, 16, 16
+Overworld1201
+	bounds: 19, 217, 16, 16
+Overworld1202
+	bounds: 19, 217, 16, 16
+Overworld1203
+	bounds: 19, 217, 16, 16
+Overworld1208
+	bounds: 19, 217, 16, 16
+Overworld1209
+	bounds: 19, 217, 16, 16
+Overworld1210
+	bounds: 19, 217, 16, 16
+Overworld1211
+	bounds: 19, 217, 16, 16
+Overworld1212
+	bounds: 19, 217, 16, 16
+Overworld1213
+	bounds: 19, 217, 16, 16
+Overworld1214
+	bounds: 19, 217, 16, 16
+Overworld1215
+	bounds: 19, 217, 16, 16
+Overworld1216
+	bounds: 19, 217, 16, 16
+Overworld1217
+	bounds: 19, 217, 16, 16
+Overworld1218
+	bounds: 19, 217, 16, 16
+Overworld1219
+	bounds: 19, 217, 16, 16
+Overworld1220
+	bounds: 19, 217, 16, 16
+Overworld1221
+	bounds: 19, 217, 16, 16
+Overworld1222
+	bounds: 19, 217, 16, 16
+Overworld1223
+	bounds: 19, 217, 16, 16
+Overworld1231
+	bounds: 19, 217, 16, 16
+Overworld1232
+	bounds: 19, 217, 16, 16
+Overworld1239
+	bounds: 19, 217, 16, 16
+Overworld1240
+	bounds: 19, 217, 16, 16
+Overworld1244
+	bounds: 19, 217, 16, 16
+Overworld1245
+	bounds: 19, 217, 16, 16
+Overworld1246
+	bounds: 19, 217, 16, 16
+Overworld1247
+	bounds: 19, 217, 16, 16
+Overworld1248
+	bounds: 19, 217, 16, 16
+Overworld1249
+	bounds: 19, 217, 16, 16
+Overworld1250
+	bounds: 19, 217, 16, 16
+Overworld1251
+	bounds: 19, 217, 16, 16
+Overworld1252
+	bounds: 19, 217, 16, 16
+Overworld1253
+	bounds: 19, 217, 16, 16
+Overworld1254
+	bounds: 19, 217, 16, 16
+Overworld1255
+	bounds: 19, 217, 16, 16
+Overworld1256
+	bounds: 19, 217, 16, 16
+Overworld1257
+	bounds: 19, 217, 16, 16
+Overworld1258
+	bounds: 19, 217, 16, 16
+Overworld1259
+	bounds: 19, 217, 16, 16
+Overworld1275
+	bounds: 19, 217, 16, 16
+Overworld1276
+	bounds: 19, 217, 16, 16
+Overworld1280
+	bounds: 19, 217, 16, 16
+Overworld1281
+	bounds: 19, 217, 16, 16
+Overworld1282
+	bounds: 19, 217, 16, 16
+Overworld1283
+	bounds: 19, 217, 16, 16
+Overworld1284
+	bounds: 19, 217, 16, 16
+Overworld1285
+	bounds: 19, 217, 16, 16
+Overworld1286
+	bounds: 19, 217, 16, 16
+Overworld1287
+	bounds: 19, 217, 16, 16
+Overworld1288
+	bounds: 19, 217, 16, 16
+Overworld1289
+	bounds: 19, 217, 16, 16
+Overworld1290
+	bounds: 19, 217, 16, 16
+Overworld1291
+	bounds: 19, 217, 16, 16
+Overworld1292
+	bounds: 19, 217, 16, 16
+Overworld1293
+	bounds: 19, 217, 16, 16
+Overworld1294
+	bounds: 19, 217, 16, 16
+Overworld1295
+	bounds: 19, 217, 16, 16
+Overworld1311
+	bounds: 19, 217, 16, 16
+Overworld1312
+	bounds: 19, 217, 16, 16
+Overworld1316
+	bounds: 19, 217, 16, 16
+Overworld1317
+	bounds: 19, 217, 16, 16
+Overworld1318
+	bounds: 19, 217, 16, 16
+Overworld1319
+	bounds: 19, 217, 16, 16
+Overworld1320
+	bounds: 19, 217, 16, 16
+Overworld1321
+	bounds: 19, 217, 16, 16
+Overworld1322
+	bounds: 19, 217, 16, 16
+Overworld1323
+	bounds: 19, 217, 16, 16
+Overworld1324
+	bounds: 19, 217, 16, 16
+Overworld1325
+	bounds: 19, 217, 16, 16
+Overworld1326
+	bounds: 19, 217, 16, 16
+Overworld1327
+	bounds: 19, 217, 16, 16
+Overworld1328
+	bounds: 19, 217, 16, 16
+Overworld1329
+	bounds: 19, 217, 16, 16
+Overworld1330
+	bounds: 19, 217, 16, 16
+Overworld1331
+	bounds: 19, 217, 16, 16
+Overworld1345
+	bounds: 19, 217, 16, 16
+Overworld1346
+	bounds: 19, 217, 16, 16
+Overworld1347
+	bounds: 19, 217, 16, 16
+Overworld1348
+	bounds: 19, 217, 16, 16
+Overworld1352
+	bounds: 19, 217, 16, 16
+Overworld1353
+	bounds: 19, 217, 16, 16
+Overworld1354
+	bounds: 19, 217, 16, 16
+Overworld1355
+	bounds: 19, 217, 16, 16
+Overworld1356
+	bounds: 19, 217, 16, 16
+Overworld1357
+	bounds: 19, 217, 16, 16
+Overworld1358
+	bounds: 19, 217, 16, 16
+Overworld1359
+	bounds: 19, 217, 16, 16
+Overworld1360
+	bounds: 19, 217, 16, 16
+Overworld1361
+	bounds: 19, 217, 16, 16
+Overworld1362
+	bounds: 19, 217, 16, 16
+Overworld1363
+	bounds: 19, 217, 16, 16
+Overworld1364
+	bounds: 19, 217, 16, 16
+Overworld1365
+	bounds: 19, 217, 16, 16
+Overworld1366
+	bounds: 19, 217, 16, 16
+Overworld1367
+	bounds: 19, 217, 16, 16
+Overworld1368
+	bounds: 19, 217, 16, 16
+Overworld1377
+	bounds: 19, 217, 16, 16
+Overworld1378
+	bounds: 19, 217, 16, 16
+Overworld1379
+	bounds: 19, 217, 16, 16
+Overworld1380
+	bounds: 19, 217, 16, 16
+Overworld1381
+	bounds: 19, 217, 16, 16
+Overworld1382
+	bounds: 19, 217, 16, 16
+Overworld1383
+	bounds: 19, 217, 16, 16
+Overworld1384
+	bounds: 19, 217, 16, 16
+Overworld1388
+	bounds: 19, 217, 16, 16
+Overworld1389
+	bounds: 19, 217, 16, 16
+Overworld1390
+	bounds: 19, 217, 16, 16
+Overworld1391
+	bounds: 19, 217, 16, 16
+Overworld1392
+	bounds: 19, 217, 16, 16
+Overworld1393
+	bounds: 19, 217, 16, 16
+Overworld1394
+	bounds: 19, 217, 16, 16
+Overworld1395
+	bounds: 19, 217, 16, 16
+Overworld1396
+	bounds: 19, 217, 16, 16
+Overworld1397
+	bounds: 19, 217, 16, 16
+Overworld1398
+	bounds: 19, 217, 16, 16
+Overworld1399
+	bounds: 19, 217, 16, 16
+Overworld1400
+	bounds: 19, 217, 16, 16
+Overworld1401
+	bounds: 19, 217, 16, 16
+Overworld1402
+	bounds: 19, 217, 16, 16
+Overworld1403
+	bounds: 19, 217, 16, 16
+Overworld1404
+	bounds: 19, 217, 16, 16
+Overworld1405
+	bounds: 19, 217, 16, 16
+Overworld1406
+	bounds: 19, 217, 16, 16
+Overworld1407
+	bounds: 19, 217, 16, 16
+Overworld1408
+	bounds: 19, 217, 16, 16
+Overworld141
+	bounds: 19, 217, 16, 16
+Overworld1413
+	bounds: 19, 217, 16, 16
+Overworld1414
+	bounds: 19, 217, 16, 16
+Overworld1415
+	bounds: 19, 217, 16, 16
+Overworld1416
+	bounds: 19, 217, 16, 16
+Overworld1417
+	bounds: 19, 217, 16, 16
+Overworld1418
+	bounds: 19, 217, 16, 16
+Overworld1419
+	bounds: 19, 217, 16, 16
+Overworld142
+	bounds: 19, 217, 16, 16
+Overworld1420
+	bounds: 19, 217, 16, 16
+Overworld1424
+	bounds: 19, 217, 16, 16
+Overworld1425
+	bounds: 19, 217, 16, 16
+Overworld1426
+	bounds: 19, 217, 16, 16
+Overworld1427
+	bounds: 19, 217, 16, 16
+Overworld1428
+	bounds: 19, 217, 16, 16
+Overworld1429
+	bounds: 19, 217, 16, 16
+Overworld143
+	bounds: 19, 217, 16, 16
+Overworld1430
+	bounds: 19, 217, 16, 16
+Overworld1431
+	bounds: 19, 217, 16, 16
+Overworld1432
+	bounds: 19, 217, 16, 16
+Overworld1433
+	bounds: 19, 217, 16, 16
+Overworld1434
+	bounds: 19, 217, 16, 16
+Overworld1435
+	bounds: 19, 217, 16, 16
+Overworld1436
+	bounds: 19, 217, 16, 16
+Overworld1437
+	bounds: 19, 217, 16, 16
+Overworld1438
+	bounds: 19, 217, 16, 16
+Overworld1439
+	bounds: 19, 217, 16, 16
+Overworld179
+	bounds: 19, 217, 16, 16
+Overworld215
+	bounds: 19, 217, 16, 16
+Overworld240
+	bounds: 19, 217, 16, 16
+Overworld241
+	bounds: 19, 217, 16, 16
+Overworld251
+	bounds: 19, 217, 16, 16
+Overworld276
+	bounds: 19, 217, 16, 16
+Overworld277
+	bounds: 19, 217, 16, 16
+Overworld287
+	bounds: 19, 217, 16, 16
+Overworld300
+	bounds: 19, 217, 16, 16
+Overworld304
+	bounds: 19, 217, 16, 16
+Overworld305
+	bounds: 19, 217, 16, 16
+Overworld308
+	bounds: 19, 217, 16, 16
+Overworld309
+	bounds: 19, 217, 16, 16
+Overworld322
+	bounds: 19, 217, 16, 16
+Overworld323
+	bounds: 19, 217, 16, 16
+Overworld333
+	bounds: 19, 217, 16, 16
+Overworld340
+	bounds: 19, 217, 16, 16
+Overworld358
+	bounds: 19, 217, 16, 16
+Overworld359
+	bounds: 19, 217, 16, 16
+Overworld375
+	bounds: 19, 217, 16, 16
+Overworld376
+	bounds: 19, 217, 16, 16
+Overworld386
+	bounds: 19, 217, 16, 16
+Overworld394
+	bounds: 19, 217, 16, 16
+Overworld395
+	bounds: 19, 217, 16, 16
+Overworld420
+	bounds: 19, 217, 16, 16
+Overworld430
+	bounds: 19, 217, 16, 16
+Overworld431
+	bounds: 19, 217, 16, 16
+Overworld466
+	bounds: 19, 217, 16, 16
+Overworld467
+	bounds: 19, 217, 16, 16
+Overworld497
+	bounds: 19, 217, 16, 16
+Overworld498
+	bounds: 19, 217, 16, 16
+Overworld502
+	bounds: 19, 217, 16, 16
+Overworld503
+	bounds: 19, 217, 16, 16
+Overworld526
+	bounds: 19, 217, 16, 16
+Overworld527
+	bounds: 19, 217, 16, 16
+Overworld528
+	bounds: 19, 217, 16, 16
+Overworld53
+	bounds: 19, 217, 16, 16
+Overworld538
+	bounds: 19, 217, 16, 16
+Overworld539
+	bounds: 19, 217, 16, 16
+Overworld54
+	bounds: 19, 217, 16, 16
+Overworld545
+	bounds: 19, 217, 16, 16
+Overworld556
+	bounds: 19, 217, 16, 16
+Overworld574
+	bounds: 19, 217, 16, 16
+Overworld575
+	bounds: 19, 217, 16, 16
+Overworld583
+	bounds: 19, 217, 16, 16
+Overworld592
+	bounds: 19, 217, 16, 16
+Overworld610
+	bounds: 19, 217, 16, 16
+Overworld611
+	bounds: 19, 217, 16, 16
+Overworld626
+	bounds: 19, 217, 16, 16
+Overworld629
+	bounds: 19, 217, 16, 16
+Overworld635
+	bounds: 19, 217, 16, 16
+Overworld636
+	bounds: 19, 217, 16, 16
+Overworld643
+	bounds: 19, 217, 16, 16
+Overworld646
+	bounds: 19, 217, 16, 16
+Overworld647
+	bounds: 19, 217, 16, 16
+Overworld665
+	bounds: 19, 217, 16, 16
+Overworld676
+	bounds: 19, 217, 16, 16
+Overworld679
+	bounds: 19, 217, 16, 16
+Overworld682
+	bounds: 19, 217, 16, 16
+Overworld683
+	bounds: 19, 217, 16, 16
+Overworld699
+	bounds: 19, 217, 16, 16
+Overworld700
+	bounds: 19, 217, 16, 16
+Overworld717
+	bounds: 19, 217, 16, 16
+Overworld718
+	bounds: 19, 217, 16, 16
+Overworld719
+	bounds: 19, 217, 16, 16
+Overworld729
+	bounds: 19, 217, 16, 16
+Overworld730
+	bounds: 19, 217, 16, 16
+Overworld735
+	bounds: 19, 217, 16, 16
+Overworld736
+	bounds: 19, 217, 16, 16
+Overworld753
+	bounds: 19, 217, 16, 16
+Overworld754
+	bounds: 19, 217, 16, 16
+Overworld755
+	bounds: 19, 217, 16, 16
+Overworld765
+	bounds: 19, 217, 16, 16
+Overworld766
+	bounds: 19, 217, 16, 16
+Overworld767
+	bounds: 19, 217, 16, 16
+Overworld768
+	bounds: 19, 217, 16, 16
+Overworld769
+	bounds: 19, 217, 16, 16
+Overworld771
+	bounds: 19, 217, 16, 16
+Overworld772
+	bounds: 19, 217, 16, 16
+Overworld789
+	bounds: 19, 217, 16, 16
+Overworld790
+	bounds: 19, 217, 16, 16
+Overworld791
+	bounds: 19, 217, 16, 16
+Overworld805
+	bounds: 19, 217, 16, 16
+Overworld807
+	bounds: 19, 217, 16, 16
+Overworld808
+	bounds: 19, 217, 16, 16
+Overworld825
+	bounds: 19, 217, 16, 16
+Overworld826
+	bounds: 19, 217, 16, 16
+Overworld827
+	bounds: 19, 217, 16, 16
+Overworld852
+	bounds: 19, 217, 16, 16
+Overworld853
+	bounds: 19, 217, 16, 16
+Overworld854
+	bounds: 19, 217, 16, 16
+Overworld855
+	bounds: 19, 217, 16, 16
+Overworld861
+	bounds: 19, 217, 16, 16
+Overworld862
+	bounds: 19, 217, 16, 16
+Overworld863
+	bounds: 19, 217, 16, 16
+Overworld876
+	bounds: 19, 217, 16, 16
+Overworld888
+	bounds: 19, 217, 16, 16
+Overworld889
+	bounds: 19, 217, 16, 16
+Overworld890
+	bounds: 19, 217, 16, 16
+Overworld891
+	bounds: 19, 217, 16, 16
+Overworld892
+	bounds: 19, 217, 16, 16
+Overworld893
+	bounds: 19, 217, 16, 16
+Overworld894
+	bounds: 19, 217, 16, 16
+Overworld898
+	bounds: 19, 217, 16, 16
+Overworld899
+	bounds: 19, 217, 16, 16
+Overworld91
+	bounds: 19, 217, 16, 16
+Overworld916
+	bounds: 19, 217, 16, 16
+Overworld919
+	bounds: 19, 217, 16, 16
+Overworld929
+	bounds: 19, 217, 16, 16
+Overworld930
+	bounds: 19, 217, 16, 16
+Overworld932
+	bounds: 19, 217, 16, 16
+Overworld934
+	bounds: 19, 217, 16, 16
+Overworld935
+	bounds: 19, 217, 16, 16
+Overworld952
+	bounds: 19, 217, 16, 16
+Overworld953
+	bounds: 19, 217, 16, 16
+Overworld954
+	bounds: 19, 217, 16, 16
+Overworld955
+	bounds: 19, 217, 16, 16
+Overworld965
+	bounds: 19, 217, 16, 16
+Overworld966
+	bounds: 19, 217, 16, 16
+Overworld968
+	bounds: 19, 217, 16, 16
+Overworld970
+	bounds: 19, 217, 16, 16
+Overworld971
+	bounds: 19, 217, 16, 16
+Overworld988
+	bounds: 19, 217, 16, 16
+Overworld994
+	bounds: 19, 217, 16, 16
+Overworld1003
+	bounds: 37, 235, 16, 16
+Overworld499
+	bounds: 37, 235, 16, 16
+Overworld1004
+	bounds: 1, 181, 16, 16
+Overworld1005
+	bounds: 19, 199, 16, 16
+Overworld1008
+	bounds: 37, 217, 16, 16
+Overworld1009
+	bounds: 55, 235, 16, 16
+Overworld101
+	bounds: 1, 163, 16, 16
+Overworld1010
+	bounds: 19, 181, 16, 16
+Overworld1011
+	bounds: 37, 199, 16, 16
+Overworld1012
+	bounds: 55, 217, 16, 16
+Overworld1013
+	bounds: 73, 235, 16, 16
+Overworld1014
+	bounds: 1, 145, 16, 16
+Overworld1015
+	bounds: 19, 163, 16, 16
+Overworld1016
+	bounds: 37, 181, 16, 16
+Overworld1017
+	bounds: 55, 199, 16, 16
+Overworld1018
+	bounds: 73, 217, 16, 16
+Overworld1019
+	bounds: 91, 235, 16, 16
+Overworld803
+	bounds: 91, 235, 16, 16
+Overworld911
+	bounds: 91, 235, 16, 16
+Overworld102
+	bounds: 1, 127, 16, 16
+Overworld1021
+	bounds: 19, 145, 16, 16
+Overworld1022
+	bounds: 37, 163, 16, 16
+Overworld986
+	bounds: 37, 163, 16, 16
+Overworld1023
+	bounds: 55, 181, 16, 16
+Overworld1024
+	bounds: 73, 199, 16, 16
+Overworld1025
+	bounds: 91, 217, 16, 16
+Overworld1026
+	bounds: 109, 235, 16, 16
+Overworld1027
+	bounds: 1, 109, 16, 16
+Overworld1028
+	bounds: 19, 127, 16, 16
+Overworld1029
+	bounds: 37, 145, 16, 16
+Overworld1065
+	bounds: 37, 145, 16, 16
+Overworld957
+	bounds: 37, 145, 16, 16
+Overworld993
+	bounds: 37, 145, 16, 16
+Overworld103
+	bounds: 55, 163, 16, 16
+Overworld1030
+	bounds: 73, 181, 16, 16
+Overworld712
+	bounds: 73, 181, 16, 16
+Overworld922
+	bounds: 73, 181, 16, 16
+Overworld1031
+	bounds: 91, 199, 16, 16
+Overworld1032
+	bounds: 109, 217, 16, 16
+Overworld58
+	bounds: 109, 217, 16, 16
+Overworld785
+	bounds: 109, 217, 16, 16
+Overworld786
+	bounds: 109, 217, 16, 16
+Overworld787
+	bounds: 109, 217, 16, 16
+Overworld829
+	bounds: 109, 217, 16, 16
+Overworld960
+	bounds: 109, 217, 16, 16
+Overworld996
+	bounds: 109, 217, 16, 16
+Overworld1033
+	bounds: 127, 235, 16, 16
+Overworld1034
+	bounds: 1, 91, 16, 16
+Overworld1035
+	bounds: 19, 109, 16, 16
+Overworld1036
+	bounds: 37, 127, 16, 16
+Overworld928
+	bounds: 37, 127, 16, 16
+Overworld104
+	bounds: 55, 145, 16, 16
+Overworld1044
+	bounds: 73, 163, 16, 16
+Overworld1045
+	bounds: 91, 181, 16, 16
+Overworld1046
+	bounds: 109, 199, 16, 16
+Overworld1047
+	bounds: 127, 217, 16, 16
+Overworld1048
+	bounds: 145, 235, 16, 16
+Overworld1049
+	bounds: 1, 73, 16, 16
+Overworld1050
+	bounds: 19, 91, 16, 16
+Overworld1051
+	bounds: 37, 109, 16, 16
+Overworld1052
+	bounds: 55, 127, 16, 16
+Overworld1053
+	bounds: 73, 145, 16, 16
+Overworld1054
+	bounds: 91, 163, 16, 16
+Overworld1055
+	bounds: 109, 181, 16, 16
+Overworld839
+	bounds: 109, 181, 16, 16
+Overworld947
+	bounds: 109, 181, 16, 16
+Overworld1057
+	bounds: 127, 199, 16, 16
+Overworld1058
+	bounds: 145, 217, 16, 16
+Overworld1059
+	bounds: 145, 217, 16, 16
+Overworld1060
+	bounds: 163, 235, 16, 16
+Overworld1061
+	bounds: 1, 55, 16, 16
+Overworld1062
+	bounds: 19, 73, 16, 16
+Overworld1063
+	bounds: 37, 91, 16, 16
+Overworld1064
+	bounds: 55, 109, 16, 16
+Overworld1066
+	bounds: 73, 127, 16, 16
+Overworld856
+	bounds: 73, 127, 16, 16
+Overworld958
+	bounds: 73, 127, 16, 16
+Overworld1067
+	bounds: 91, 145, 16, 16
+Overworld857
+	bounds: 91, 145, 16, 16
+Overworld1068
+	bounds: 109, 163, 16, 16
+Overworld858
+	bounds: 109, 163, 16, 16
+Overworld1069
+	bounds: 127, 181, 16, 16
+Overworld1070
+	bounds: 145, 199, 16, 16
+Overworld1071
+	bounds: 163, 217, 16, 16
+Overworld1072
+	bounds: 181, 235, 16, 16
+Overworld964
+	bounds: 181, 235, 16, 16
+Overworld108
+	bounds: 1, 37, 16, 16
+Overworld1080
+	bounds: 19, 55, 16, 16
+Overworld1081
+	bounds: 37, 73, 16, 16
+Overworld1082
+	bounds: 55, 91, 16, 16
+Overworld1083
+	bounds: 73, 109, 16, 16
+Overworld1084
+	bounds: 91, 127, 16, 16
+Overworld1085
+	bounds: 109, 145, 16, 16
+Overworld1086
+	bounds: 127, 163, 16, 16
+Overworld1087
+	bounds: 145, 181, 16, 16
+Overworld1089
+	bounds: 163, 199, 16, 16
+Overworld109
+	bounds: 181, 217, 16, 16
+Overworld1090
+	bounds: 199, 235, 16, 16
+Overworld1091
+	bounds: 1, 19, 16, 16
+Overworld875
+	bounds: 1, 19, 16, 16
+Overworld983
+	bounds: 1, 19, 16, 16
+Overworld1092
+	bounds: 19, 37, 16, 16
+Overworld1093
+	bounds: 37, 55, 16, 16
+Overworld1094
+	bounds: 55, 73, 16, 16
+Overworld1097
+	bounds: 73, 91, 16, 16
+Overworld1098
+	bounds: 91, 109, 16, 16
+Overworld1171
+	bounds: 91, 109, 16, 16
+Overworld1099
+	bounds: 109, 127, 16, 16
+Overworld11
+	bounds: 127, 145, 16, 16
+Overworld110
+	bounds: 145, 163, 16, 16
+Overworld111
+	bounds: 163, 181, 16, 16
+Overworld1116
+	bounds: 181, 199, 16, 16
+Overworld1117
+	bounds: 199, 217, 16, 16
+Overworld1118
+	bounds: 217, 235, 16, 16
+Overworld1119
+	bounds: 1, 1, 16, 16
+Overworld112
+	bounds: 19, 19, 16, 16
+Overworld1120
+	bounds: 37, 37, 16, 16
+Overworld1121
+	bounds: 55, 55, 16, 16
+Overworld1122
+	bounds: 73, 73, 16, 16
+Overworld1124
+	bounds: 91, 91, 16, 16
+Overworld113
+	bounds: 109, 109, 16, 16
+Overworld1133
+	bounds: 127, 127, 16, 16
+Overworld1169
+	bounds: 127, 127, 16, 16
+Overworld1205
+	bounds: 127, 127, 16, 16
+Overworld1241
+	bounds: 127, 127, 16, 16
+Overworld1277
+	bounds: 127, 127, 16, 16
+Overworld1313
+	bounds: 127, 127, 16, 16
+Overworld1349
+	bounds: 127, 127, 16, 16
+Overworld1134
+	bounds: 145, 145, 16, 16
+Overworld1207
+	bounds: 145, 145, 16, 16
+Overworld1135
+	bounds: 163, 163, 16, 16
+Overworld114
+	bounds: 181, 181, 16, 16
+Overworld115
+	bounds: 199, 199, 16, 16
+Overworld1152
+	bounds: 217, 217, 16, 16
+Overworld1153
+	bounds: 235, 235, 16, 16
+Overworld1154
+	bounds: 19, 1, 16, 16
+Overworld1155
+	bounds: 37, 19, 16, 16
+Overworld1156
+	bounds: 55, 37, 16, 16
+Overworld1157
+	bounds: 73, 55, 16, 16
+Overworld1158
+	bounds: 91, 73, 16, 16
+Overworld116
+	bounds: 109, 91, 16, 16
+Overworld1160
+	bounds: 127, 109, 16, 16
+Overworld1161
+	bounds: 145, 127, 16, 16
+Overworld1162
+	bounds: 163, 145, 16, 16
+Overworld1163
+	bounds: 181, 163, 16, 16
+Overworld1164
+	bounds: 199, 181, 16, 16
+Overworld1165
+	bounds: 217, 199, 16, 16
+Overworld1166
+	bounds: 235, 217, 16, 16
+Overworld117
+	bounds: 253, 235, 16, 16
+Overworld1170
+	bounds: 37, 1, 16, 16
+Overworld118
+	bounds: 55, 19, 16, 16
+Overworld1188
+	bounds: 73, 37, 16, 16
+Overworld1189
+	bounds: 91, 55, 16, 16
+Overworld119
+	bounds: 109, 73, 16, 16
+Overworld1190
+	bounds: 127, 91, 16, 16
+Overworld1191
+	bounds: 145, 109, 16, 16
+Overworld1192
+	bounds: 163, 127, 16, 16
+Overworld1193
+	bounds: 181, 145, 16, 16
+Overworld1194
+	bounds: 199, 163, 16, 16
+Overworld1196
+	bounds: 217, 181, 16, 16
+Overworld1198
+	bounds: 235, 199, 16, 16
+Overworld12
+	bounds: 253, 217, 16, 16
+Overworld120
+	bounds: 271, 235, 16, 16
+Overworld1204
+	bounds: 55, 1, 16, 16
+Overworld1206
+	bounds: 73, 19, 16, 16
+Overworld1242
+	bounds: 73, 19, 16, 16
+Overworld1278
+	bounds: 73, 19, 16, 16
+Overworld121
+	bounds: 91, 37, 16, 16
+Overworld122
+	bounds: 109, 55, 16, 16
+Overworld1224
+	bounds: 127, 73, 16, 16
+Overworld1225
+	bounds: 145, 91, 16, 16
+Overworld1226
+	bounds: 163, 109, 16, 16
+Overworld1227
+	bounds: 181, 127, 16, 16
+Overworld1228
+	bounds: 199, 145, 16, 16
+Overworld1229
+	bounds: 217, 163, 16, 16
+Overworld123
+	bounds: 235, 181, 16, 16
+Overworld1230
+	bounds: 253, 199, 16, 16
+Overworld1233
+	bounds: 271, 217, 16, 16
+Overworld1234
+	bounds: 289, 235, 16, 16
+Overworld1235
+	bounds: 73, 1, 16, 16
+Overworld1236
+	bounds: 91, 19, 16, 16
+Overworld1237
+	bounds: 109, 37, 16, 16
+Overworld1238
+	bounds: 127, 55, 16, 16
+Overworld124
+	bounds: 145, 73, 16, 16
+Overworld1243
+	bounds: 163, 91, 16, 16
+Overworld125
+	bounds: 181, 109, 16, 16
+Overworld126
+	bounds: 199, 127, 16, 16
+Overworld1260
+	bounds: 217, 145, 16, 16
+Overworld1261
+	bounds: 235, 163, 16, 16
+Overworld1262
+	bounds: 253, 181, 16, 16
+Overworld1263
+	bounds: 271, 199, 16, 16
+Overworld1264
+	bounds: 289, 217, 16, 16
+Overworld1265
+	bounds: 307, 235, 16, 16
+Overworld1337
+	bounds: 307, 235, 16, 16
+Overworld1266
+	bounds: 91, 1, 16, 16
+Overworld1267
+	bounds: 109, 19, 16, 16
+Overworld1268
+	bounds: 127, 37, 16, 16
+Overworld1269
+	bounds: 145, 55, 16, 16
+Overworld127
+	bounds: 163, 73, 16, 16
+Overworld1270
+	bounds: 181, 91, 16, 16
+Overworld1271
+	bounds: 199, 109, 16, 16
+Overworld1272
+	bounds: 217, 127, 16, 16
+Overworld1273
+	bounds: 235, 145, 16, 16
+Overworld1274
+	bounds: 253, 163, 16, 16
+Overworld1279
+	bounds: 271, 181, 16, 16
+Overworld1350
+	bounds: 271, 181, 16, 16
+Overworld128
+	bounds: 289, 199, 16, 16
+Overworld129
+	bounds: 307, 217, 16, 16
+Overworld1296
+	bounds: 325, 235, 16, 16
+Overworld1297
+	bounds: 109, 1, 16, 16
+Overworld1298
+	bounds: 127, 19, 16, 16
+Overworld1299
+	bounds: 145, 37, 16, 16
+Overworld13
+	bounds: 163, 55, 16, 16
+Overworld130
+	bounds: 181, 73, 16, 16
+Overworld1300
+	bounds: 199, 91, 16, 16
+Overworld1301
+	bounds: 217, 109, 16, 16
+Overworld1373
+	bounds: 217, 109, 16, 16
+Overworld1302
+	bounds: 235, 127, 16, 16
+Overworld1303
+	bounds: 253, 145, 16, 16
+Overworld1304
+	bounds: 271, 163, 16, 16
+Overworld1305
+	bounds: 289, 181, 16, 16
+Overworld1306
+	bounds: 307, 199, 16, 16
+Overworld1307
+	bounds: 325, 217, 16, 16
+Overworld1308
+	bounds: 343, 235, 16, 16
+Overworld1309
+	bounds: 127, 1, 16, 16
+Overworld131
+	bounds: 145, 19, 16, 16
+Overworld1310
+	bounds: 163, 37, 16, 16
+Overworld1314
+	bounds: 181, 55, 16, 16
+Overworld1315
+	bounds: 199, 73, 16, 16
+Overworld1386
+	bounds: 199, 73, 16, 16
+Overworld132
+	bounds: 217, 91, 16, 16
+Overworld133
+	bounds: 235, 109, 16, 16
+Overworld1332
+	bounds: 253, 127, 16, 16
+Overworld1333
+	bounds: 271, 145, 16, 16
+Overworld1334
+	bounds: 289, 163, 16, 16
+Overworld1335
+	bounds: 307, 181, 16, 16
+Overworld1336
+	bounds: 325, 199, 16, 16
+Overworld1338
+	bounds: 343, 217, 16, 16
+Overworld1339
+	bounds: 361, 235, 16, 16
+Overworld134
+	bounds: 145, 1, 16, 16
+Overworld1340
+	bounds: 163, 19, 16, 16
+Overworld1341
+	bounds: 181, 37, 16, 16
+Overworld1342
+	bounds: 199, 55, 16, 16
+Overworld1343
+	bounds: 217, 73, 16, 16
+Overworld1344
+	bounds: 235, 91, 16, 16
+Overworld135
+	bounds: 253, 109, 16, 16
+Overworld1351
+	bounds: 271, 127, 16, 16
+Overworld136
+	bounds: 289, 145, 16, 16
+Overworld1369
+	bounds: 307, 163, 16, 16
+Overworld137
+	bounds: 325, 181, 16, 16
+Overworld1370
+	bounds: 343, 199, 16, 16
+Overworld1371
+	bounds: 361, 217, 16, 16
+Overworld1372
+	bounds: 379, 235, 16, 16
+Overworld1374
+	bounds: 163, 1, 16, 16
+Overworld1375
+	bounds: 181, 19, 16, 16
+Overworld1376
+	bounds: 199, 37, 16, 16
+Overworld138
+	bounds: 217, 55, 16, 16
+Overworld1385
+	bounds: 235, 73, 16, 16
+Overworld1387
+	bounds: 253, 91, 16, 16
+Overworld139
+	bounds: 271, 109, 16, 16
+Overworld14
+	bounds: 289, 127, 16, 16
+Overworld140
+	bounds: 307, 145, 16, 16
+Overworld1409
+	bounds: 325, 163, 16, 16
+Overworld1411
+	bounds: 325, 163, 16, 16
+Overworld1410
+	bounds: 343, 181, 16, 16
+Overworld1412
+	bounds: 361, 199, 16, 16
+Overworld1421
+	bounds: 379, 217, 16, 16
+Overworld1422
+	bounds: 397, 235, 16, 16
+Overworld1423
+	bounds: 181, 1, 16, 16
+Overworld144
+	bounds: 199, 19, 16, 16
+Overworld145
+	bounds: 217, 37, 16, 16
+Overworld146
+	bounds: 235, 55, 16, 16
+Overworld147
+	bounds: 253, 73, 16, 16
+Overworld148
+	bounds: 271, 91, 16, 16
+Overworld149
+	bounds: 289, 109, 16, 16
+Overworld15
+	bounds: 307, 127, 16, 16
+Overworld150
+	bounds: 325, 145, 16, 16
+Overworld151
+	bounds: 343, 163, 16, 16
+Overworld152
+	bounds: 361, 181, 16, 16
+Overworld153
+	bounds: 379, 199, 16, 16
+Overworld154
+	bounds: 397, 217, 16, 16
+Overworld155
+	bounds: 415, 235, 16, 16
+Overworld156
+	bounds: 199, 1, 16, 16
+Overworld157
+	bounds: 217, 19, 16, 16
+Overworld158
+	bounds: 235, 37, 16, 16
+Overworld159
+	bounds: 253, 55, 16, 16
+Overworld16
+	bounds: 271, 73, 16, 16
+Overworld160
+	bounds: 289, 91, 16, 16
+Overworld161
+	bounds: 307, 109, 16, 16
+Overworld162
+	bounds: 325, 127, 16, 16
+Overworld163
+	bounds: 343, 145, 16, 16
+Overworld164
+	bounds: 361, 163, 16, 16
+Overworld165
+	bounds: 379, 181, 16, 16
+Overworld166
+	bounds: 397, 199, 16, 16
+Overworld167
+	bounds: 415, 217, 16, 16
+Overworld168
+	bounds: 433, 235, 16, 16
+Overworld169
+	bounds: 217, 1, 16, 16
+Overworld17
+	bounds: 235, 19, 16, 16
+Overworld170
+	bounds: 253, 37, 16, 16
+Overworld171
+	bounds: 271, 55, 16, 16
+Overworld172
+	bounds: 289, 73, 16, 16
+Overworld173
+	bounds: 307, 91, 16, 16
+Overworld174
+	bounds: 325, 109, 16, 16
+Overworld175
+	bounds: 343, 127, 16, 16
+Overworld176
+	bounds: 361, 145, 16, 16
+Overworld177
+	bounds: 379, 163, 16, 16
+Overworld178
+	bounds: 397, 181, 16, 16
+Overworld18
+	bounds: 415, 199, 16, 16
+Overworld180
+	bounds: 433, 217, 16, 16
+Overworld181
+	bounds: 451, 235, 16, 16
+Overworld182
+	bounds: 235, 1, 16, 16
+Overworld183
+	bounds: 253, 19, 16, 16
+Overworld184
+	bounds: 271, 37, 16, 16
+Overworld185
+	bounds: 289, 55, 16, 16
+Overworld186
+	bounds: 307, 73, 16, 16
+Overworld187
+	bounds: 325, 91, 16, 16
+Overworld188
+	bounds: 343, 109, 16, 16
+Overworld189
+	bounds: 361, 127, 16, 16
+Overworld19
+	bounds: 379, 145, 16, 16
+Overworld190
+	bounds: 397, 163, 16, 16
+Overworld191
+	bounds: 415, 181, 16, 16
+Overworld192
+	bounds: 433, 199, 16, 16
+Overworld193
+	bounds: 451, 217, 16, 16
+Overworld194
+	bounds: 469, 235, 16, 16
+Overworld195
+	bounds: 253, 1, 16, 16
+Overworld196
+	bounds: 271, 19, 16, 16
+Overworld197
+	bounds: 289, 37, 16, 16
+Overworld198
+	bounds: 307, 55, 16, 16
+Overworld199
+	bounds: 325, 73, 16, 16
+Overworld2
+	bounds: 343, 91, 16, 16
+Overworld20
+	bounds: 361, 109, 16, 16
+Overworld200
+	bounds: 379, 127, 16, 16
+Overworld235
+	bounds: 379, 127, 16, 16
+Overworld201
+	bounds: 397, 145, 16, 16
+Overworld202
+	bounds: 415, 163, 16, 16
+Overworld203
+	bounds: 433, 181, 16, 16
+Overworld204
+	bounds: 451, 199, 16, 16
+Overworld205
+	bounds: 469, 217, 16, 16
+Overworld206
+	bounds: 487, 235, 16, 16
+Overworld207
+	bounds: 271, 1, 16, 16
+Overworld208
+	bounds: 289, 19, 16, 16
+Overworld209
+	bounds: 307, 37, 16, 16
+Overworld21
+	bounds: 325, 55, 16, 16
+Overworld210
+	bounds: 343, 73, 16, 16
+Overworld211
+	bounds: 361, 91, 16, 16
+Overworld212
+	bounds: 379, 109, 16, 16
+Overworld213
+	bounds: 397, 127, 16, 16
+Overworld214
+	bounds: 415, 145, 16, 16
+Overworld216
+	bounds: 433, 163, 16, 16
+Overworld217
+	bounds: 451, 181, 16, 16
+Overworld218
+	bounds: 469, 199, 16, 16
+Overworld398
+	bounds: 469, 199, 16, 16
+Overworld219
+	bounds: 487, 217, 16, 16
+Overworld22
+	bounds: 505, 235, 16, 16
+Overworld220
+	bounds: 289, 1, 16, 16
+Overworld221
+	bounds: 307, 19, 16, 16
+Overworld222
+	bounds: 325, 37, 16, 16
+Overworld223
+	bounds: 343, 55, 16, 16
+Overworld224
+	bounds: 361, 73, 16, 16
+Overworld225
+	bounds: 379, 91, 16, 16
+Overworld226
+	bounds: 397, 109, 16, 16
+Overworld227
+	bounds: 415, 127, 16, 16
+Overworld228
+	bounds: 433, 145, 16, 16
+Overworld229
+	bounds: 451, 163, 16, 16
+Overworld23
+	bounds: 469, 181, 16, 16
+Overworld230
+	bounds: 487, 199, 16, 16
+Overworld231
+	bounds: 505, 217, 16, 16
+Overworld232
+	bounds: 523, 235, 16, 16
+Overworld233
+	bounds: 307, 1, 16, 16
+Overworld234
+	bounds: 325, 19, 16, 16
+Overworld236
+	bounds: 343, 37, 16, 16
+Overworld237
+	bounds: 361, 55, 16, 16
+Overworld238
+	bounds: 379, 73, 16, 16
+Overworld239
+	bounds: 397, 91, 16, 16
+Overworld24
+	bounds: 415, 109, 16, 16
+Overworld242
+	bounds: 433, 127, 16, 16
+Overworld243
+	bounds: 451, 145, 16, 16
+Overworld244
+	bounds: 469, 163, 16, 16
+Overworld245
+	bounds: 487, 181, 16, 16
+Overworld246
+	bounds: 505, 199, 16, 16
+Overworld247
+	bounds: 523, 217, 16, 16
+Overworld248
+	bounds: 541, 235, 16, 16
+Overworld249
+	bounds: 325, 1, 16, 16
+Overworld25
+	bounds: 343, 19, 16, 16
+Overworld250
+	bounds: 361, 37, 16, 16
+Overworld252
+	bounds: 379, 55, 16, 16
+Overworld253
+	bounds: 397, 73, 16, 16
+Overworld254
+	bounds: 415, 91, 16, 16
+Overworld255
+	bounds: 433, 109, 16, 16
+Overworld256
+	bounds: 451, 127, 16, 16
+Overworld257
+	bounds: 469, 145, 16, 16
+Overworld258
+	bounds: 487, 163, 16, 16
+Overworld259
+	bounds: 505, 181, 16, 16
+Overworld26
+	bounds: 523, 199, 16, 16
+Overworld260
+	bounds: 541, 217, 16, 16
+Overworld261
+	bounds: 559, 235, 16, 16
+Overworld262
+	bounds: 343, 1, 16, 16
+Overworld263
+	bounds: 361, 19, 16, 16
+Overworld264
+	bounds: 379, 37, 16, 16
+Overworld265
+	bounds: 397, 55, 16, 16
+Overworld266
+	bounds: 415, 73, 16, 16
+Overworld267
+	bounds: 433, 91, 16, 16
+Overworld268
+	bounds: 451, 109, 16, 16
+Overworld269
+	bounds: 469, 127, 16, 16
+Overworld27
+	bounds: 487, 145, 16, 16
+Overworld270
+	bounds: 505, 163, 16, 16
+Overworld271
+	bounds: 523, 181, 16, 16
+Overworld272
+	bounds: 541, 199, 16, 16
+Overworld273
+	bounds: 559, 217, 16, 16
+Overworld274
+	bounds: 577, 235, 16, 16
+Overworld275
+	bounds: 361, 1, 16, 16
+Overworld278
+	bounds: 379, 19, 16, 16
+Overworld279
+	bounds: 397, 37, 16, 16
+Overworld28
+	bounds: 415, 55, 16, 16
+Overworld280
+	bounds: 433, 73, 16, 16
+Overworld281
+	bounds: 451, 91, 16, 16
+Overworld282
+	bounds: 469, 109, 16, 16
+Overworld283
+	bounds: 487, 127, 16, 16
+Overworld284
+	bounds: 505, 145, 16, 16
+Overworld285
+	bounds: 523, 163, 16, 16
+Overworld286
+	bounds: 541, 181, 16, 16
+Overworld288
+	bounds: 559, 199, 16, 16
+Overworld468
+	bounds: 559, 199, 16, 16
+Overworld289
+	bounds: 577, 217, 16, 16
+Overworld469
+	bounds: 577, 217, 16, 16
+Overworld29
+	bounds: 595, 235, 16, 16
+Overworld290
+	bounds: 379, 1, 16, 16
+Overworld291
+	bounds: 397, 19, 16, 16
+Overworld292
+	bounds: 415, 37, 16, 16
+Overworld293
+	bounds: 433, 55, 16, 16
+Overworld294
+	bounds: 451, 73, 16, 16
+Overworld295
+	bounds: 469, 91, 16, 16
+Overworld296
+	bounds: 487, 109, 16, 16
+Overworld297
+	bounds: 505, 127, 16, 16
+Overworld298
+	bounds: 523, 145, 16, 16
+Overworld299
+	bounds: 541, 163, 16, 16
+Overworld3
+	bounds: 559, 181, 16, 16
+Overworld30
+	bounds: 577, 199, 16, 16
+Overworld301
+	bounds: 595, 217, 16, 16
+Overworld302
+	bounds: 613, 235, 16, 16
+Overworld303
+	bounds: 397, 1, 16, 16
+Overworld306
+	bounds: 415, 19, 16, 16
+Overworld307
+	bounds: 433, 37, 16, 16
+Overworld31
+	bounds: 451, 55, 16, 16
+Overworld310
+	bounds: 469, 73, 16, 16
+Overworld311
+	bounds: 487, 91, 16, 16
+Overworld312
+	bounds: 505, 109, 16, 16
+Overworld313
+	bounds: 523, 127, 16, 16
+Overworld314
+	bounds: 541, 145, 16, 16
+Overworld315
+	bounds: 559, 163, 16, 16
+Overworld316
+	bounds: 577, 181, 16, 16
+Overworld317
+	bounds: 595, 199, 16, 16
+Overworld318
+	bounds: 613, 217, 16, 16
+Overworld319
+	bounds: 631, 235, 16, 16
+Overworld32
+	bounds: 415, 1, 16, 16
+Overworld320
+	bounds: 433, 19, 16, 16
+Overworld321
+	bounds: 451, 37, 16, 16
+Overworld324
+	bounds: 469, 55, 16, 16
+Overworld325
+	bounds: 487, 73, 16, 16
+Overworld326
+	bounds: 505, 91, 16, 16
+Overworld327
+	bounds: 523, 109, 16, 16
+Overworld328
+	bounds: 541, 127, 16, 16
+Overworld329
+	bounds: 559, 145, 16, 16
+Overworld33
+	bounds: 577, 163, 16, 16
+Overworld330
+	bounds: 595, 181, 16, 16
+Overworld331
+	bounds: 613, 199, 16, 16
+Overworld332
+	bounds: 631, 217, 16, 16
+Overworld334
+	bounds: 649, 235, 16, 16
+Overworld335
+	bounds: 433, 1, 16, 16
+Overworld336
+	bounds: 451, 19, 16, 16
+Overworld337
+	bounds: 469, 37, 16, 16
+Overworld338
+	bounds: 487, 55, 16, 16
+Overworld339
+	bounds: 505, 73, 16, 16
+Overworld34
+	bounds: 523, 91, 16, 16
+Overworld341
+	bounds: 541, 109, 16, 16
+Overworld342
+	bounds: 559, 127, 16, 16
+Overworld343
+	bounds: 577, 145, 16, 16
+Overworld344
+	bounds: 595, 163, 16, 16
+Overworld345
+	bounds: 613, 181, 16, 16
+Overworld346
+	bounds: 631, 199, 16, 16
+Overworld347
+	bounds: 649, 217, 16, 16
+Overworld348
+	bounds: 667, 235, 16, 16
+Overworld349
+	bounds: 451, 1, 16, 16
+Overworld35
+	bounds: 469, 19, 16, 16
+Overworld350
+	bounds: 487, 37, 16, 16
+Overworld351
+	bounds: 505, 55, 16, 16
+Overworld352
+	bounds: 523, 73, 16, 16
+Overworld353
+	bounds: 541, 91, 16, 16
+Overworld354
+	bounds: 559, 109, 16, 16
+Overworld355
+	bounds: 577, 127, 16, 16
+Overworld356
+	bounds: 595, 145, 16, 16
+Overworld357
+	bounds: 613, 163, 16, 16
+Overworld36
+	bounds: 631, 181, 16, 16
+Overworld360
+	bounds: 649, 199, 16, 16
+Overworld361
+	bounds: 667, 217, 16, 16
+Overworld362
+	bounds: 685, 235, 16, 16
+Overworld542
+	bounds: 685, 235, 16, 16
+Overworld363
+	bounds: 469, 1, 16, 16
+Overworld364
+	bounds: 487, 19, 16, 16
+Overworld365
+	bounds: 505, 37, 16, 16
+Overworld366
+	bounds: 523, 55, 16, 16
+Overworld367
+	bounds: 541, 73, 16, 16
+Overworld368
+	bounds: 559, 91, 16, 16
+Overworld369
+	bounds: 577, 109, 16, 16
+Overworld37
+	bounds: 595, 127, 16, 16
+Overworld370
+	bounds: 613, 145, 16, 16
+Overworld371
+	bounds: 631, 163, 16, 16
+Overworld372
+	bounds: 649, 181, 16, 16
+Overworld373
+	bounds: 667, 199, 16, 16
+Overworld374
+	bounds: 685, 217, 16, 16
+Overworld377
+	bounds: 703, 235, 16, 16
+Overworld378
+	bounds: 487, 1, 16, 16
+Overworld379
+	bounds: 505, 19, 16, 16
+Overworld38
+	bounds: 523, 37, 16, 16
+Overworld380
+	bounds: 541, 55, 16, 16
+Overworld381
+	bounds: 559, 73, 16, 16
+Overworld382
+	bounds: 577, 91, 16, 16
+Overworld383
+	bounds: 595, 109, 16, 16
+Overworld384
+	bounds: 613, 127, 16, 16
+Overworld385
+	bounds: 631, 145, 16, 16
+Overworld387
+	bounds: 649, 163, 16, 16
+Overworld388
+	bounds: 667, 181, 16, 16
+Overworld389
+	bounds: 685, 199, 16, 16
+Overworld39
+	bounds: 703, 217, 16, 16
+Overworld390
+	bounds: 721, 235, 16, 16
+Overworld391
+	bounds: 505, 1, 16, 16
+Overworld895
+	bounds: 505, 1, 16, 16
+Overworld392
+	bounds: 523, 19, 16, 16
+Overworld393
+	bounds: 541, 37, 16, 16
+Overworld396
+	bounds: 559, 55, 16, 16
+Overworld397
+	bounds: 577, 73, 16, 16
+Overworld399
+	bounds: 595, 91, 16, 16
+Overworld4
+	bounds: 613, 109, 16, 16
+Overworld40
+	bounds: 631, 127, 16, 16
+Overworld400
+	bounds: 649, 145, 16, 16
+Overworld401
+	bounds: 667, 163, 16, 16
+Overworld402
+	bounds: 685, 181, 16, 16
+Overworld403
+	bounds: 703, 199, 16, 16
+Overworld404
+	bounds: 721, 217, 16, 16
+Overworld405
+	bounds: 739, 235, 16, 16
+Overworld406
+	bounds: 523, 1, 16, 16
+Overworld407
+	bounds: 541, 19, 16, 16
+Overworld408
+	bounds: 559, 37, 16, 16
+Overworld409
+	bounds: 577, 55, 16, 16
+Overworld41
+	bounds: 595, 73, 16, 16
+Overworld410
+	bounds: 613, 91, 16, 16
+Overworld411
+	bounds: 631, 109, 16, 16
+Overworld412
+	bounds: 649, 127, 16, 16
+Overworld413
+	bounds: 667, 145, 16, 16
+Overworld414
+	bounds: 685, 163, 16, 16
+Overworld415
+	bounds: 703, 181, 16, 16
+Overworld416
+	bounds: 721, 199, 16, 16
+Overworld417
+	bounds: 739, 217, 16, 16
+Overworld418
+	bounds: 757, 235, 16, 16
+Overworld419
+	bounds: 541, 1, 16, 16
+Overworld42
+	bounds: 559, 19, 16, 16
+Overworld421
+	bounds: 577, 37, 16, 16
+Overworld422
+	bounds: 595, 55, 16, 16
+Overworld423
+	bounds: 613, 73, 16, 16
+Overworld424
+	bounds: 631, 91, 16, 16
+Overworld425
+	bounds: 649, 109, 16, 16
+Overworld426
+	bounds: 667, 127, 16, 16
+Overworld427
+	bounds: 685, 145, 16, 16
+Overworld428
+	bounds: 703, 163, 16, 16
+Overworld429
+	bounds: 721, 181, 16, 16
+Overworld43
+	bounds: 739, 199, 16, 16
+Overworld432
+	bounds: 757, 217, 16, 16
+Overworld433
+	bounds: 775, 235, 16, 16
+Overworld434
+	bounds: 559, 1, 16, 16
+Overworld435
+	bounds: 577, 19, 16, 16
+Overworld436
+	bounds: 595, 37, 16, 16
+Overworld437
+	bounds: 613, 55, 16, 16
+Overworld438
+	bounds: 631, 73, 16, 16
+Overworld439
+	bounds: 649, 91, 16, 16
+Overworld44
+	bounds: 667, 109, 16, 16
+Overworld440
+	bounds: 685, 127, 16, 16
+Overworld441
+	bounds: 703, 145, 16, 16
+Overworld442
+	bounds: 721, 163, 16, 16
+Overworld443
+	bounds: 739, 181, 16, 16
+Overworld444
+	bounds: 757, 199, 16, 16
+Overworld445
+	bounds: 775, 217, 16, 16
+Overworld446
+	bounds: 793, 235, 16, 16
+Overworld447
+	bounds: 577, 1, 16, 16
+Overworld448
+	bounds: 595, 19, 16, 16
+Overworld449
+	bounds: 613, 37, 16, 16
+Overworld45
+	bounds: 631, 55, 16, 16
+Overworld450
+	bounds: 649, 73, 16, 16
+Overworld597
+	bounds: 649, 73, 16, 16
+Overworld451
+	bounds: 667, 91, 16, 16
+Overworld452
+	bounds: 685, 109, 16, 16
+Overworld453
+	bounds: 703, 127, 16, 16
+Overworld454
+	bounds: 721, 145, 16, 16
+Overworld455
+	bounds: 739, 163, 16, 16
+Overworld456
+	bounds: 757, 181, 16, 16
+Overworld457
+	bounds: 775, 199, 16, 16
+Overworld458
+	bounds: 793, 217, 16, 16
+Overworld459
+	bounds: 811, 235, 16, 16
+Overworld46
+	bounds: 595, 1, 16, 16
+Overworld460
+	bounds: 613, 19, 16, 16
+Overworld461
+	bounds: 631, 37, 16, 16
+Overworld462
+	bounds: 649, 55, 16, 16
+Overworld463
+	bounds: 667, 73, 16, 16
+Overworld464
+	bounds: 685, 91, 16, 16
+Overworld465
+	bounds: 703, 109, 16, 16
+Overworld47
+	bounds: 721, 127, 16, 16
+Overworld470
+	bounds: 739, 145, 16, 16
+Overworld471
+	bounds: 757, 163, 16, 16
+Overworld472
+	bounds: 775, 181, 16, 16
+Overworld473
+	bounds: 793, 199, 16, 16
+Overworld474
+	bounds: 811, 217, 16, 16
+Overworld475
+	bounds: 829, 235, 16, 16
+Overworld476
+	bounds: 613, 1, 16, 16
+Overworld477
+	bounds: 631, 19, 16, 16
+Overworld478
+	bounds: 649, 37, 16, 16
+Overworld479
+	bounds: 667, 55, 16, 16
+Overworld48
+	bounds: 685, 73, 16, 16
+Overworld480
+	bounds: 703, 91, 16, 16
+Overworld481
+	bounds: 721, 109, 16, 16
+Overworld482
+	bounds: 739, 127, 16, 16
+Overworld483
+	bounds: 757, 145, 16, 16
+Overworld484
+	bounds: 775, 163, 16, 16
+Overworld485
+	bounds: 793, 181, 16, 16
+Overworld486
+	bounds: 811, 199, 16, 16
+Overworld487
+	bounds: 829, 217, 16, 16
+Overworld488
+	bounds: 847, 235, 16, 16
+Overworld489
+	bounds: 631, 1, 16, 16
+Overworld49
+	bounds: 649, 19, 16, 16
+Overworld490
+	bounds: 667, 37, 16, 16
+Overworld491
+	bounds: 685, 55, 16, 16
+Overworld492
+	bounds: 703, 73, 16, 16
+Overworld493
+	bounds: 721, 91, 16, 16
+Overworld494
+	bounds: 739, 109, 16, 16
+Overworld495
+	bounds: 757, 127, 16, 16
+Overworld496
+	bounds: 775, 145, 16, 16
+Overworld5
+	bounds: 793, 163, 16, 16
+Overworld50
+	bounds: 811, 181, 16, 16
+Overworld500
+	bounds: 829, 199, 16, 16
+Overworld501
+	bounds: 847, 217, 16, 16
+Overworld504
+	bounds: 865, 235, 16, 16
+Overworld505
+	bounds: 649, 1, 16, 16
+Overworld506
+	bounds: 667, 19, 16, 16
+Overworld507
+	bounds: 685, 37, 16, 16
+Overworld508
+	bounds: 703, 55, 16, 16
+Overworld509
+	bounds: 721, 73, 16, 16
+Overworld51
+	bounds: 739, 91, 16, 16
+Overworld510
+	bounds: 757, 109, 16, 16
+Overworld511
+	bounds: 775, 127, 16, 16
+Overworld512
+	bounds: 793, 145, 16, 16
+Overworld513
+	bounds: 811, 163, 16, 16
+Overworld514
+	bounds: 829, 181, 16, 16
+Overworld515
+	bounds: 847, 199, 16, 16
+Overworld516
+	bounds: 865, 217, 16, 16
+Overworld517
+	bounds: 883, 235, 16, 16
+Overworld518
+	bounds: 667, 1, 16, 16
+Overworld519
+	bounds: 685, 19, 16, 16
+Overworld52
+	bounds: 703, 37, 16, 16
+Overworld520
+	bounds: 721, 55, 16, 16
+Overworld521
+	bounds: 739, 73, 16, 16
+Overworld522
+	bounds: 757, 91, 16, 16
+Overworld523
+	bounds: 775, 109, 16, 16
+Overworld524
+	bounds: 793, 127, 16, 16
+Overworld525
+	bounds: 811, 145, 16, 16
+Overworld529
+	bounds: 829, 163, 16, 16
+Overworld530
+	bounds: 847, 181, 16, 16
+Overworld531
+	bounds: 865, 199, 16, 16
+Overworld532
+	bounds: 883, 217, 16, 16
+Overworld533
+	bounds: 901, 235, 16, 16
+Overworld534
+	bounds: 685, 1, 16, 16
+Overworld535
+	bounds: 703, 19, 16, 16
+Overworld536
+	bounds: 721, 37, 16, 16
+Overworld537
+	bounds: 739, 55, 16, 16
+Overworld540
+	bounds: 757, 73, 16, 16
+Overworld541
+	bounds: 775, 91, 16, 16
+Overworld543
+	bounds: 793, 109, 16, 16
+Overworld544
+	bounds: 811, 127, 16, 16
+Overworld546
+	bounds: 829, 145, 16, 16
+Overworld547
+	bounds: 847, 163, 16, 16
+Overworld548
+	bounds: 865, 181, 16, 16
+Overworld549
+	bounds: 883, 199, 16, 16
+Overworld55
+	bounds: 901, 217, 16, 16
+Overworld550
+	bounds: 919, 235, 16, 16
+Overworld551
+	bounds: 703, 1, 16, 16
+Overworld552
+	bounds: 721, 19, 16, 16
+Overworld553
+	bounds: 739, 37, 16, 16
+Overworld554
+	bounds: 757, 55, 16, 16
+Overworld555
+	bounds: 775, 73, 16, 16
+Overworld557
+	bounds: 793, 91, 16, 16
+Overworld558
+	bounds: 811, 109, 16, 16
+Overworld697
+	bounds: 811, 109, 16, 16
+Overworld559
+	bounds: 829, 127, 16, 16
+Overworld56
+	bounds: 847, 145, 16, 16
+Overworld560
+	bounds: 865, 163, 16, 16
+Overworld561
+	bounds: 883, 181, 16, 16
+Overworld562
+	bounds: 901, 199, 16, 16
+Overworld563
+	bounds: 919, 217, 16, 16
+Overworld564
+	bounds: 937, 235, 16, 16
+Overworld565
+	bounds: 721, 1, 16, 16
+Overworld566
+	bounds: 739, 19, 16, 16
+Overworld567
+	bounds: 757, 37, 16, 16
+Overworld568
+	bounds: 775, 55, 16, 16
+Overworld569
+	bounds: 793, 73, 16, 16
+Overworld57
+	bounds: 811, 91, 16, 16
+Overworld570
+	bounds: 829, 109, 16, 16
+Overworld571
+	bounds: 847, 127, 16, 16
+Overworld572
+	bounds: 865, 145, 16, 16
+Overworld573
+	bounds: 883, 163, 16, 16
+Overworld576
+	bounds: 901, 181, 16, 16
+Overworld577
+	bounds: 919, 199, 16, 16
+Overworld578
+	bounds: 937, 217, 16, 16
+Overworld579
+	bounds: 955, 235, 16, 16
+Overworld580
+	bounds: 739, 1, 16, 16
+Overworld581
+	bounds: 757, 19, 16, 16
+Overworld582
+	bounds: 775, 37, 16, 16
+Overworld584
+	bounds: 793, 55, 16, 16
+Overworld585
+	bounds: 811, 73, 16, 16
+Overworld586
+	bounds: 829, 91, 16, 16
+Overworld587
+	bounds: 847, 109, 16, 16
+Overworld588
+	bounds: 865, 127, 16, 16
+Overworld589
+	bounds: 883, 145, 16, 16
+Overworld59
+	bounds: 901, 163, 16, 16
+Overworld590
+	bounds: 919, 181, 16, 16
+Overworld591
+	bounds: 937, 199, 16, 16
+Overworld593
+	bounds: 955, 217, 16, 16
+Overworld594
+	bounds: 973, 235, 16, 16
+Overworld595
+	bounds: 757, 1, 16, 16
+Overworld596
+	bounds: 775, 19, 16, 16
+Overworld598
+	bounds: 793, 37, 16, 16
+Overworld599
+	bounds: 811, 55, 16, 16
+Overworld6
+	bounds: 829, 73, 16, 16
+Overworld60
+	bounds: 847, 91, 16, 16
+Overworld600
+	bounds: 865, 109, 16, 16
+Overworld601
+	bounds: 883, 127, 16, 16
+Overworld602
+	bounds: 901, 145, 16, 16
+Overworld603
+	bounds: 919, 163, 16, 16
+Overworld604
+	bounds: 937, 181, 16, 16
+Overworld605
+	bounds: 955, 199, 16, 16
+Overworld606
+	bounds: 973, 217, 16, 16
+Overworld607
+	bounds: 991, 235, 16, 16
+Overworld608
+	bounds: 775, 1, 16, 16
+Overworld609
+	bounds: 793, 19, 16, 16
+Overworld61
+	bounds: 811, 37, 16, 16
+Overworld612
+	bounds: 829, 55, 16, 16
+Overworld613
+	bounds: 847, 73, 16, 16
+Overworld614
+	bounds: 865, 91, 16, 16
+Overworld615
+	bounds: 883, 109, 16, 16
+Overworld616
+	bounds: 901, 127, 16, 16
+Overworld617
+	bounds: 919, 145, 16, 16
+Overworld618
+	bounds: 937, 163, 16, 16
+Overworld619
+	bounds: 955, 181, 16, 16
+Overworld62
+	bounds: 973, 199, 16, 16
+Overworld620
+	bounds: 991, 217, 16, 16
+Overworld621
+	bounds: 1009, 235, 16, 16
+Overworld622
+	bounds: 793, 1, 16, 16
+Overworld623
+	bounds: 811, 19, 16, 16
+Overworld624
+	bounds: 829, 37, 16, 16
+Overworld625
+	bounds: 847, 55, 16, 16
+Overworld627
+	bounds: 865, 73, 16, 16
+Overworld628
+	bounds: 883, 91, 16, 16
+Overworld63
+	bounds: 901, 109, 16, 16
+Overworld630
+	bounds: 919, 127, 16, 16
+Overworld631
+	bounds: 937, 145, 16, 16
+Overworld632
+	bounds: 955, 163, 16, 16
+Overworld633
+	bounds: 973, 181, 16, 16
+Overworld740
+	bounds: 973, 181, 16, 16
+Overworld634
+	bounds: 991, 199, 16, 16
+Overworld637
+	bounds: 1009, 217, 16, 16
+Overworld638
+	bounds: 1027, 235, 16, 16
+Overworld639
+	bounds: 811, 1, 16, 16
+Overworld64
+	bounds: 829, 19, 16, 16
+Overworld640
+	bounds: 847, 37, 16, 16
+Overworld641
+	bounds: 865, 55, 16, 16
+Overworld642
+	bounds: 883, 73, 16, 16
+Overworld644
+	bounds: 901, 91, 16, 16
+Overworld645
+	bounds: 919, 109, 16, 16
+Overworld648
+	bounds: 937, 127, 16, 16
+Overworld649
+	bounds: 955, 145, 16, 16
+Overworld65
+	bounds: 973, 163, 16, 16
+Overworld650
+	bounds: 991, 181, 16, 16
+Overworld651
+	bounds: 1009, 199, 16, 16
+Overworld652
+	bounds: 1027, 217, 16, 16
+Overworld653
+	bounds: 1045, 235, 16, 16
+Overworld654
+	bounds: 829, 1, 16, 16
+Overworld655
+	bounds: 847, 19, 16, 16
+Overworld656
+	bounds: 865, 37, 16, 16
+Overworld657
+	bounds: 883, 55, 16, 16
+Overworld658
+	bounds: 901, 73, 16, 16
+Overworld659
+	bounds: 919, 91, 16, 16
+Overworld66
+	bounds: 937, 109, 16, 16
+Overworld660
+	bounds: 955, 127, 16, 16
+Overworld661
+	bounds: 973, 145, 16, 16
+Overworld662
+	bounds: 991, 163, 16, 16
+Overworld663
+	bounds: 1009, 181, 16, 16
+Overworld664
+	bounds: 1027, 199, 16, 16
+Overworld666
+	bounds: 1045, 217, 16, 16
+Overworld667
+	bounds: 1063, 235, 16, 16
+Overworld668
+	bounds: 847, 1, 16, 16
+Overworld669
+	bounds: 865, 19, 16, 16
+Overworld67
+	bounds: 883, 37, 16, 16
+Overworld670
+	bounds: 901, 55, 16, 16
+Overworld671
+	bounds: 919, 73, 16, 16
+Overworld672
+	bounds: 937, 91, 16, 16
+Overworld673
+	bounds: 955, 109, 16, 16
+Overworld674
+	bounds: 973, 127, 16, 16
+Overworld675
+	bounds: 991, 145, 16, 16
+Overworld677
+	bounds: 1009, 163, 16, 16
+Overworld678
+	bounds: 1027, 181, 16, 16
+Overworld68
+	bounds: 1045, 199, 16, 16
+Overworld680
+	bounds: 1063, 217, 16, 16
+Overworld681
+	bounds: 1081, 235, 16, 16
+Overworld684
+	bounds: 865, 1, 16, 16
+Overworld685
+	bounds: 883, 19, 16, 16
+Overworld686
+	bounds: 901, 37, 16, 16
+Overworld687
+	bounds: 919, 55, 16, 16
+Overworld688
+	bounds: 937, 73, 16, 16
+Overworld689
+	bounds: 955, 91, 16, 16
+Overworld69
+	bounds: 973, 109, 16, 16
+Overworld690
+	bounds: 991, 127, 16, 16
+Overworld691
+	bounds: 1009, 145, 16, 16
+Overworld692
+	bounds: 1027, 163, 16, 16
+Overworld693
+	bounds: 1045, 181, 16, 16
+Overworld694
+	bounds: 1063, 199, 16, 16
+Overworld695
+	bounds: 1081, 217, 16, 16
+Overworld696
+	bounds: 1099, 235, 16, 16
+Overworld698
+	bounds: 883, 1, 16, 16
+Overworld7
+	bounds: 901, 19, 16, 16
+Overworld70
+	bounds: 919, 37, 16, 16
+Overworld701
+	bounds: 937, 55, 16, 16
+Overworld702
+	bounds: 955, 73, 16, 16
+Overworld703
+	bounds: 973, 91, 16, 16
+Overworld704
+	bounds: 991, 109, 16, 16
+Overworld705
+	bounds: 1009, 127, 16, 16
+Overworld706
+	bounds: 1027, 145, 16, 16
+Overworld707
+	bounds: 1045, 163, 16, 16
+Overworld708
+	bounds: 1063, 181, 16, 16
+Overworld744
+	bounds: 1063, 181, 16, 16
+Overworld780
+	bounds: 1063, 181, 16, 16
+Overworld709
+	bounds: 1081, 199, 16, 16
+Overworld71
+	bounds: 1099, 217, 16, 16
+Overworld710
+	bounds: 1117, 235, 16, 16
+Overworld711
+	bounds: 901, 1, 16, 16
+Overworld713
+	bounds: 919, 19, 16, 16
+Overworld923
+	bounds: 919, 19, 16, 16
+Overworld714
+	bounds: 937, 37, 16, 16
+Overworld924
+	bounds: 937, 37, 16, 16
+Overworld715
+	bounds: 955, 55, 16, 16
+Overworld716
+	bounds: 973, 73, 16, 16
+Overworld72
+	bounds: 991, 91, 16, 16
+Overworld720
+	bounds: 1009, 109, 16, 16
+Overworld721
+	bounds: 1027, 127, 16, 16
+Overworld722
+	bounds: 1045, 145, 16, 16
+Overworld723
+	bounds: 1063, 163, 16, 16
+Overworld724
+	bounds: 1081, 181, 16, 16
+Overworld725
+	bounds: 1099, 199, 16, 16
+Overworld726
+	bounds: 1117, 217, 16, 16
+Overworld727
+	bounds: 1135, 235, 16, 16
+Overworld728
+	bounds: 919, 1, 16, 16
+Overworld73
+	bounds: 937, 19, 16, 16
+Overworld731
+	bounds: 955, 37, 16, 16
+Overworld732
+	bounds: 973, 55, 16, 16
+Overworld733
+	bounds: 991, 73, 16, 16
+Overworld734
+	bounds: 1009, 91, 16, 16
+Overworld737
+	bounds: 1027, 109, 16, 16
+Overworld738
+	bounds: 1045, 127, 16, 16
+Overworld739
+	bounds: 1063, 145, 16, 16
+Overworld74
+	bounds: 1081, 163, 16, 16
+Overworld741
+	bounds: 1099, 181, 16, 16
+Overworld742
+	bounds: 1117, 199, 16, 16
+Overworld743
+	bounds: 1135, 217, 16, 16
+Overworld745
+	bounds: 1153, 235, 16, 16
+Overworld746
+	bounds: 937, 1, 16, 16
+Overworld747
+	bounds: 955, 19, 16, 16
+Overworld748
+	bounds: 973, 37, 16, 16
+Overworld749
+	bounds: 991, 55, 16, 16
+Overworld75
+	bounds: 1009, 73, 16, 16
+Overworld750
+	bounds: 1027, 91, 16, 16
+Overworld793
+	bounds: 1027, 91, 16, 16
+Overworld751
+	bounds: 1045, 109, 16, 16
+Overworld752
+	bounds: 1063, 127, 16, 16
+Overworld756
+	bounds: 1081, 145, 16, 16
+Overworld757
+	bounds: 1099, 163, 16, 16
+Overworld758
+	bounds: 1117, 181, 16, 16
+Overworld759
+	bounds: 1135, 199, 16, 16
+Overworld76
+	bounds: 1153, 217, 16, 16
+Overworld760
+	bounds: 1171, 235, 16, 16
+Overworld761
+	bounds: 955, 1, 16, 16
+Overworld762
+	bounds: 973, 19, 16, 16
+Overworld763
+	bounds: 991, 37, 16, 16
+Overworld764
+	bounds: 1009, 55, 16, 16
+Overworld77
+	bounds: 1027, 73, 16, 16
+Overworld770
+	bounds: 1045, 91, 16, 16
+Overworld773
+	bounds: 1063, 109, 16, 16
+Overworld774
+	bounds: 1081, 127, 16, 16
+Overworld775
+	bounds: 1099, 145, 16, 16
+Overworld776
+	bounds: 1117, 163, 16, 16
+Overworld777
+	bounds: 1135, 181, 16, 16
+Overworld778
+	bounds: 1153, 199, 16, 16
+Overworld779
+	bounds: 1171, 217, 16, 16
+Overworld78
+	bounds: 1189, 235, 16, 16
+Overworld781
+	bounds: 973, 1, 16, 16
+Overworld782
+	bounds: 991, 19, 16, 16
+Overworld783
+	bounds: 1009, 37, 16, 16
+Overworld784
+	bounds: 1027, 55, 16, 16
+Overworld788
+	bounds: 1045, 73, 16, 16
+Overworld79
+	bounds: 1063, 91, 16, 16
+Overworld792
+	bounds: 1081, 109, 16, 16
+Overworld794
+	bounds: 1099, 127, 16, 16
+Overworld795
+	bounds: 1117, 145, 16, 16
+Overworld796
+	bounds: 1135, 163, 16, 16
+Overworld797
+	bounds: 1153, 181, 16, 16
+Overworld798
+	bounds: 1171, 199, 16, 16
+Overworld799
+	bounds: 1189, 217, 16, 16
+Overworld8
+	bounds: 1207, 235, 16, 16
+Overworld80
+	bounds: 991, 1, 16, 16
+Overworld800
+	bounds: 1009, 19, 16, 16
+Overworld801
+	bounds: 1027, 37, 16, 16
+Overworld802
+	bounds: 1045, 55, 16, 16
+Overworld804
+	bounds: 1063, 73, 16, 16
+Overworld806
+	bounds: 1081, 91, 16, 16
+Overworld809
+	bounds: 1099, 109, 16, 16
+Overworld81
+	bounds: 1117, 127, 16, 16
+Overworld810
+	bounds: 1135, 145, 16, 16
+Overworld811
+	bounds: 1153, 163, 16, 16
+Overworld812
+	bounds: 1171, 181, 16, 16
+Overworld813
+	bounds: 1189, 199, 16, 16
+Overworld814
+	bounds: 1207, 217, 16, 16
+Overworld815
+	bounds: 1225, 235, 16, 16
+Overworld816
+	bounds: 1009, 1, 16, 16
+Overworld817
+	bounds: 1027, 19, 16, 16
+Overworld818
+	bounds: 1045, 37, 16, 16
+Overworld819
+	bounds: 1063, 55, 16, 16
+Overworld82
+	bounds: 1081, 73, 16, 16
+Overworld820
+	bounds: 1099, 91, 16, 16
+Overworld821
+	bounds: 1117, 109, 16, 16
+Overworld822
+	bounds: 1135, 127, 16, 16
+Overworld865
+	bounds: 1135, 127, 16, 16
+Overworld823
+	bounds: 1153, 145, 16, 16
+Overworld824
+	bounds: 1171, 163, 16, 16
+Overworld828
+	bounds: 1189, 181, 16, 16
+Overworld995
+	bounds: 1189, 181, 16, 16
+Overworld83
+	bounds: 1207, 199, 16, 16
+Overworld830
+	bounds: 1225, 217, 16, 16
+Overworld997
+	bounds: 1225, 217, 16, 16
+Overworld831
+	bounds: 1243, 235, 16, 16
+Overworld832
+	bounds: 1027, 1, 16, 16
+Overworld833
+	bounds: 1045, 19, 16, 16
+Overworld834
+	bounds: 1063, 37, 16, 16
+Overworld835
+	bounds: 1081, 55, 16, 16
+Overworld836
+	bounds: 1099, 73, 16, 16
+Overworld837
+	bounds: 1117, 91, 16, 16
+Overworld838
+	bounds: 1135, 109, 16, 16
+Overworld84
+	bounds: 1153, 127, 16, 16
+Overworld840
+	bounds: 1171, 145, 16, 16
+Overworld841
+	bounds: 1189, 163, 16, 16
+Overworld842
+	bounds: 1207, 181, 16, 16
+Overworld843
+	bounds: 1225, 199, 16, 16
+Overworld844
+	bounds: 1243, 217, 16, 16
+Overworld845
+	bounds: 1261, 235, 16, 16
+Overworld846
+	bounds: 1045, 1, 16, 16
+Overworld847
+	bounds: 1063, 19, 16, 16
+Overworld848
+	bounds: 1081, 37, 16, 16
+Overworld849
+	bounds: 1099, 55, 16, 16
+Overworld85
+	bounds: 1117, 73, 16, 16
+Overworld850
+	bounds: 1135, 91, 16, 16
+Overworld851
+	bounds: 1153, 109, 16, 16
+Overworld859
+	bounds: 1171, 127, 16, 16
+Overworld86
+	bounds: 1189, 145, 16, 16
+Overworld860
+	bounds: 1207, 163, 16, 16
+Overworld864
+	bounds: 1225, 181, 16, 16
+Overworld866
+	bounds: 1243, 199, 16, 16
+Overworld867
+	bounds: 1261, 217, 16, 16
+Overworld868
+	bounds: 1279, 235, 16, 16
+Overworld869
+	bounds: 1063, 1, 16, 16
+Overworld87
+	bounds: 1081, 19, 16, 16
+Overworld870
+	bounds: 1099, 37, 16, 16
+Overworld871
+	bounds: 1117, 55, 16, 16
+Overworld872
+	bounds: 1135, 73, 16, 16
+Overworld873
+	bounds: 1153, 91, 16, 16
+Overworld874
+	bounds: 1171, 109, 16, 16
+Overworld877
+	bounds: 1189, 127, 16, 16
+Overworld878
+	bounds: 1207, 145, 16, 16
+Overworld914
+	bounds: 1207, 145, 16, 16
+Overworld879
+	bounds: 1225, 163, 16, 16
+Overworld88
+	bounds: 1243, 181, 16, 16
+Overworld880
+	bounds: 1261, 199, 16, 16
+Overworld881
+	bounds: 1279, 217, 16, 16
+Overworld882
+	bounds: 1297, 235, 16, 16
+Overworld883
+	bounds: 1081, 1, 16, 16
+Overworld884
+	bounds: 1099, 19, 16, 16
+Overworld885
+	bounds: 1117, 37, 16, 16
+Overworld886
+	bounds: 1135, 55, 16, 16
+Overworld887
+	bounds: 1153, 73, 16, 16
+Overworld89
+	bounds: 1171, 91, 16, 16
+Overworld896
+	bounds: 1189, 109, 16, 16
+Overworld897
+	bounds: 1207, 127, 16, 16
+Overworld9
+	bounds: 1225, 145, 16, 16
+Overworld90
+	bounds: 1243, 163, 16, 16
+Overworld900
+	bounds: 1261, 181, 16, 16
+Overworld901
+	bounds: 1279, 199, 16, 16
+Overworld902
+	bounds: 1297, 217, 16, 16
+Overworld903
+	bounds: 1315, 235, 16, 16
+Overworld904
+	bounds: 1099, 1, 16, 16
+Overworld905
+	bounds: 1117, 19, 16, 16
+Overworld906
+	bounds: 1135, 37, 16, 16
+Overworld907
+	bounds: 1153, 55, 16, 16
+Overworld908
+	bounds: 1171, 73, 16, 16
+Overworld909
+	bounds: 1189, 91, 16, 16
+Overworld910
+	bounds: 1207, 109, 16, 16
+Overworld912
+	bounds: 1225, 127, 16, 16
+Overworld913
+	bounds: 1243, 145, 16, 16
+Overworld915
+	bounds: 1261, 163, 16, 16
+Overworld917
+	bounds: 1279, 181, 16, 16
+Overworld918
+	bounds: 1297, 199, 16, 16
+Overworld92
+	bounds: 1315, 217, 16, 16
+Overworld920
+	bounds: 1333, 235, 16, 16
+Overworld921
+	bounds: 1117, 1, 16, 16
+Overworld925
+	bounds: 1135, 19, 16, 16
+Overworld926
+	bounds: 1153, 37, 16, 16
+Overworld927
+	bounds: 1171, 55, 16, 16
+Overworld93
+	bounds: 1189, 73, 16, 16
+Overworld931
+	bounds: 1207, 91, 16, 16
+Overworld933
+	bounds: 1225, 109, 16, 16
+Overworld936
+	bounds: 1243, 127, 16, 16
+Overworld937
+	bounds: 1261, 145, 16, 16
+Overworld938
+	bounds: 1279, 163, 16, 16
+Overworld939
+	bounds: 1297, 181, 16, 16
+Overworld94
+	bounds: 1315, 199, 16, 16
+Overworld940
+	bounds: 1333, 217, 16, 16
+Overworld941
+	bounds: 1351, 235, 16, 16
+Overworld942
+	bounds: 1135, 1, 16, 16
+Overworld943
+	bounds: 1153, 19, 16, 16
+Overworld944
+	bounds: 1171, 37, 16, 16
+Overworld945
+	bounds: 1189, 55, 16, 16
+Overworld946
+	bounds: 1207, 73, 16, 16
+Overworld948
+	bounds: 1225, 91, 16, 16
+Overworld949
+	bounds: 1243, 109, 16, 16
+Overworld950
+	bounds: 1243, 109, 16, 16
+Overworld95
+	bounds: 1261, 127, 16, 16
+Overworld951
+	bounds: 1279, 145, 16, 16
+Overworld956
+	bounds: 1297, 163, 16, 16
+Overworld959
+	bounds: 1315, 181, 16, 16
+Overworld96
+	bounds: 1333, 199, 16, 16
+Overworld961
+	bounds: 1351, 217, 16, 16
+Overworld962
+	bounds: 1369, 235, 16, 16
+Overworld963
+	bounds: 1153, 1, 16, 16
+Overworld967
+	bounds: 1171, 19, 16, 16
+Overworld969
+	bounds: 1189, 37, 16, 16
+Overworld97
+	bounds: 1207, 55, 16, 16
+Overworld972
+	bounds: 1225, 73, 16, 16
+Overworld973
+	bounds: 1243, 91, 16, 16
+Overworld974
+	bounds: 1261, 109, 16, 16
+Overworld975
+	bounds: 1279, 127, 16, 16
+Overworld976
+	bounds: 1297, 145, 16, 16
+Overworld977
+	bounds: 1315, 163, 16, 16
+Overworld978
+	bounds: 1333, 181, 16, 16
+Overworld979
+	bounds: 1351, 199, 16, 16
+Overworld98
+	bounds: 1369, 217, 16, 16
+Overworld980
+	bounds: 1387, 235, 16, 16
+Overworld981
+	bounds: 1171, 1, 16, 16
+Overworld982
+	bounds: 1189, 19, 16, 16
+Overworld984
+	bounds: 1207, 37, 16, 16
+Overworld985
+	bounds: 1225, 55, 16, 16
+Overworld987
+	bounds: 1243, 73, 16, 16
+Overworld989
+	bounds: 1261, 91, 16, 16
+Overworld99
+	bounds: 1279, 109, 16, 16
+Overworld990
+	bounds: 1297, 127, 16, 16
+Overworld991
+	bounds: 1315, 145, 16, 16
+Overworld992
+	bounds: 1333, 163, 16, 16
+Overworld998
+	bounds: 1351, 181, 16, 16
+Overworld999
+	bounds: 1369, 199, 16, 16

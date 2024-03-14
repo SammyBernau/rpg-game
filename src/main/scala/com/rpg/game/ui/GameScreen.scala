@@ -50,6 +50,7 @@ class GameScreen(game: RPG) extends Screen {
   private var asyncResourceManager: AsyncResourceManager = _
   private var viewport: Viewport = _
   private var engine: com.artemis.World = _
+  private var tiledRenderer: OrthogonalTiledMapRenderer = _
 
   /**HyperLap 2D Implementation*/
 //  override def show(): Unit = {
@@ -118,20 +119,18 @@ class GameScreen(game: RPG) extends Screen {
     val player = Player(10, "test", "test", Owner,
       Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 150f, 50f, true, 0, 0, BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)))
 
-    val assetManager = new AssetManager()
-    assetManager.setLoader(classOf[TiledMap], new TmxMapLoader(new InternalFileHandleResolver()))
-    assetManager.load("test.tmx",classOf[TiledMap])
+//    val assetManager = new AssetManager()
+//    assetManager.setLoader(classOf[TiledMap], new TmxMapLoader(new InternalFileHandleResolver()))
+//    assetManager.load("Grassland.tmx",classOf[TiledMap])
+//
+//    val map = assetManager.get("Grassland.tmx")
+    val map = new TmxMapLoader().load("assets/Tiled/Grassland.tmx")
+    tiledRenderer = new OrthogonalTiledMapRenderer(map)
 
-    val map = assetManager.get("test.tmx")
-
-    val unitScale = 1 / 16f
-    val renderer = new OrthogonalTiledMapRenderer(map,unitScale)
-
-
-
-    camera = new OrthographicCamera(300, 50)
-    viewport = new ExtendViewport(600, 300, camera)
-
+    camera = new OrthographicCamera()
+    camera.setToOrtho(false, 800, 800)
+    //tiledRenderer.setView(camera)
+    viewport = new ExtendViewport(800, 500, camera)
   }
 
 
@@ -140,10 +139,35 @@ class GameScreen(game: RPG) extends Screen {
     Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-    viewport.apply()
 
+//    updateCamera()
+
+    tiledRenderer.render()
+    tiledRenderer.setView(camera)
+
+    updateCamera()
     game.batch.begin()
     game.batch.end()
+  }
+
+  private def updateCamera(): Unit = {
+    val w = Gdx.input.isKeyPressed(Input.Keys.W)
+    val a = Gdx.input.isKeyPressed(Input.Keys.A)
+    val s = Gdx.input.isKeyPressed(Input.Keys.S)
+    val d = Gdx.input.isKeyPressed(Input.Keys.D)
+
+    var speed = 100f
+
+    if ((w || s) && (a || d)) {
+      speed = speed / Math.sqrt(2.0).toFloat
+    }
+
+    if (w) camera.position.y = camera.position.y + (speed * DELTA_TIME) //up
+    if (s) camera.position.y = camera.position.y - (speed * DELTA_TIME) //down
+    if (a) camera.position.x = camera.position.x - (speed * DELTA_TIME) //left
+    if (d) camera.position.x = camera.position.x + (speed * DELTA_TIME) //right
+
+    camera.update()
   }
 
 
