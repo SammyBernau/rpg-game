@@ -11,13 +11,14 @@ import com.badlogic.gdx.math.Rectangle
 
 class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTiledMapRenderer(map) {
 
+  private var textureObjects: Map[String, TextureMapObject] = Map()
   override def renderObject(obj: MapObject): Unit = {
     obj match {
       case textureObj: TextureMapObject =>
+        addTextureMapObjectObject(textureObj.getName,textureObj)
         batch.draw(textureObj.getTextureRegion, textureObj.getX, textureObj.getY,
-          textureObj.getOriginX, textureObj.getOriginY, textureObj.getTextureRegion.getRegionWidth, textureObj.getTextureRegion.getRegionHeight,
+          textureObj.getOriginX, textureObj.getOriginY, textureObj.getTextureRegion.getRegionWidth.toFloat, textureObj.getTextureRegion.getRegionHeight.toFloat,
           textureObj.getScaleX, textureObj.getScaleY, textureObj.getRotation)
-        if (textureObj.getProperties.containsKey("this")) println(textureObj.getRotation)
 
       case rectObject: RectangleMapObject =>
         val rect: Rectangle = rectObject.getRectangle
@@ -30,5 +31,16 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
       case _ =>
     }
   }
+
+  private def addTextureMapObjectObject(name: String, textureMapObject: TextureMapObject): Unit = {
+    textureObjects = textureObjects + (name -> textureMapObject)
+  }
+
+
+
+  def getTextureMapObject(name: String): TextureMapObject = {
+    textureObjects.getOrElse(name, throw new NoSuchElementException("No TextureMapObject found with key " + name))
+  }
+
 }
 

@@ -9,14 +9,14 @@
     "fileStates": {
         "Grassland.tmx": {
             "expandedGroupLayers": [
-                4,
-                6
+                6,
+                4
             ],
-            "scale": 1.5,
-            "selectedLayer": 2,
+            "scale": 2,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 1036.6666666666665,
-                "y": 708.6666666666666
+                "x": 838.25,
+                "y": 729
             }
         },
         "NPC_test.tsx": {

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute
 import com.badlogic.gdx.{Application, Gdx, Input, InputAdapter, InputMultiplexer, Screen}
 import com.badlogic.gdx.graphics.{Color, GL20, OrthographicCamera, Texture}
 import com.badlogic.gdx.maps.MapLayer
+import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.maps.tiled.{TiledMap, TmxMapLoader}
 import com.badlogic.gdx.math.{Rectangle, Vector2}
@@ -72,6 +73,7 @@ class GameScreen(game: RPG) extends Screen {
     //tiledRenderer.setView(camera)
     viewport = new ExtendViewport(600, 600, camera)
 
+
   }
 
 
@@ -81,11 +83,13 @@ class GameScreen(game: RPG) extends Screen {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
 
-    updateCamera()
-    updateCameraZoom()
+
 
     tiledRenderer.render()
     tiledRenderer.setView(camera)
+
+    updateCamera()
+    updateCameraZoom()
 
     updateCamera()
     game.batch.begin()
@@ -106,25 +110,16 @@ class GameScreen(game: RPG) extends Screen {
       speed = speed / Math.sqrt(2.0).toFloat
     }
 
-    val entityLayer = map.getLayers.get("entity")
-    val entityObjects = entityLayer.getObjects
 
+    var playerEntity = tiledRenderer.getTextureMapObject("player_entity")
 
-    val playerEntity = entityObjects.get("player_entity")
-    val playerEntityProperties = playerEntity.getProperties
+    //if (w) playerEntityProperties.put("y",playerEntityY.toString.toInt + (speed * DELTA_TIME)) //up
+    if (w) playerEntity.setY(playerEntity.getY + (speed * DELTA_TIME)) //up
+    if (s) playerEntity.setY(playerEntity.getY - (speed * DELTA_TIME)) //down
+    if (a) playerEntity.setX(playerEntity.getX - (speed * DELTA_TIME)) //left
+    if (d) playerEntity.setX(playerEntity.getX + (speed * DELTA_TIME)) //right
 
-
-
-    val playerEntityX = playerEntityProperties.get("x")
-    val playerEntityY = playerEntityProperties.get("y")
-
-    if (w) playerEntityProperties.put("y",playerEntityY.toString.toInt + (speed * DELTA_TIME)) //up
-    if (w) camera.position.y = camera.position.y + (speed * DELTA_TIME)
-    if (s) camera.position.y = camera.position.y - (speed * DELTA_TIME) //down
-    if (a) camera.position.x = camera.position.x - (speed * DELTA_TIME) //left
-    if (d) camera.position.x = camera.position.x + (speed * DELTA_TIME) //right
-
-    //camera.position.set(playerEntityProperties.get("x").toString.toFloat,playerEntityProperties.get("x").toString.toFloat,0)
+    //camera.position.set(playerEntity.getX,playerEntity.getY,0)
     camera.update()
   }
 

@@ -318,6 +318,5 @@
  </group>
  <objectgroup id="2" name="entity">
   <object id="8" name="player_entity" type="Player" gid="1443" x="772.818" y="799.25" width="16" height="32"/>
-  <object id="10" gid="1441" x="879.667" y="732.667" width="16" height="32"/>
  </objectgroup>
 </map>
