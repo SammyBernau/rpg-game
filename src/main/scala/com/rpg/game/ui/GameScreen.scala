@@ -15,7 +15,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.maps.tiled.{TiledMap, TmxMapLoader}
 import com.badlogic.gdx.math.{Rectangle, Vector2}
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
-import com.badlogic.gdx.physics.box2d.{BodyDef, CircleShape, FixtureDef, Transform, World}
+import com.badlogic.gdx.physics.box2d.{BodyDef, Box2DDebugRenderer, CircleShape, FixtureDef, PolygonShape, Transform, World}
 import com.badlogic.gdx.utils.viewport.{ExtendViewport, Viewport}
 import com.rpg.game.RPG
 import com.rpg.game.config.GameConfig
@@ -57,6 +57,11 @@ class GameScreen(game: RPG) extends Screen {
   private var map: TiledMap = _
   private var entityLayer: MapLayer = _
 
+  //box2d testing
+  private var world: World = _
+  private val debugRenderer = new Box2DDebugRenderer()
+
+
   /**Tiled Implementation*/
   override def show(): Unit = {
     //will load all entities including player via one method later. Testing for now
@@ -74,6 +79,46 @@ class GameScreen(game: RPG) extends Screen {
     viewport = new ExtendViewport(600, 600, camera)
 
 
+    //box2d testing
+    //https://libgdx.com/wiki/extensions/physics/box2d
+    world = new World(new Vector2(0,-10),true)
+
+
+    //define player physics
+    val playerBodyDef = new BodyDef()
+    playerBodyDef.`type` = BodyType.DynamicBody
+    playerBodyDef.position.set(player.playerSettings.x,player.playerSettings.y)
+    val playerBody = world.createBody(playerBodyDef)
+
+
+    val playerCircle = new CircleShape()
+
+    val playerFixtureDef = new FixtureDef
+    playerFixtureDef.shape = playerCircle
+    playerFixtureDef.density = 0.5f
+    playerFixtureDef.friction = 0.4f
+    playerFixtureDef.restitution = 0.0f
+
+    val playerFixture = playerBody.createFixture(playerFixtureDef)
+
+    //define ground physics
+    val groundBodyDef = new BodyDef
+    groundBodyDef.position.set(new Vector2(0,10))
+
+    val groundBody = world.createBody(groundBodyDef)
+    val groundBox = new PolygonShape()
+    groundBox.setAsBox(camera.viewportWidth,10.0f)
+    groundBody.createFixture(groundBox,0.0f)
+
+
+
+
+
+
+
+
+
+
   }
 
 
@@ -82,11 +127,11 @@ class GameScreen(game: RPG) extends Screen {
     Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-
-
-
     tiledRenderer.render()
     tiledRenderer.setView(camera)
+
+    world.step(1/60f, 6,2)
+    debugRenderer.render(world,camera.combined)
 
     updateCamera()
     updateCameraZoom()
@@ -113,13 +158,12 @@ class GameScreen(game: RPG) extends Screen {
 
     var playerEntity = tiledRenderer.getTextureMapObject("player_entity")
 
-    //if (w) playerEntityProperties.put("y",playerEntityY.toString.toInt + (speed * DELTA_TIME)) //up
     if (w) playerEntity.setY(playerEntity.getY + (speed * DELTA_TIME)) //up
     if (s) playerEntity.setY(playerEntity.getY - (speed * DELTA_TIME)) //down
     if (a) playerEntity.setX(playerEntity.getX - (speed * DELTA_TIME)) //left
     if (d) playerEntity.setX(playerEntity.getX + (speed * DELTA_TIME)) //right
 
-    //camera.position.set(playerEntity.getX,playerEntity.getY,0)
+    camera.position.set(playerEntity.getX,playerEntity.getY,0)
     camera.update()
   }
 
