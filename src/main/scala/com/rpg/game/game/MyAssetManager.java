@@ -1,4 +1,4 @@
-package com.rpg.game.ui;
+package com.rpg.game.game;
 
 import com.badlogic.gdx.assets.AssetManager;
 import games.rednblack.editor.renderer.resources.AsyncResourceManager;

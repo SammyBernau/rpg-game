@@ -1,4 +1,4 @@
-package com.rpg.game.ui
+package com.rpg.game.game
 
 import com.artemis.ComponentMapper
 import com.badlogic.gdx.assets.AssetManager
@@ -15,11 +15,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.maps.tiled.{TiledMap, TmxMapLoader}
 import com.badlogic.gdx.math.{Rectangle, Vector2}
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
-import com.badlogic.gdx.physics.box2d.{BodyDef, Box2DDebugRenderer, CircleShape, FixtureDef, PolygonShape, Transform, World}
+import com.badlogic.gdx.physics.box2d.{BodyDef, Box2DDebugRenderer, CircleShape, Fixture, FixtureDef, PolygonShape, Shape, Transform, World}
 import com.badlogic.gdx.utils.viewport.{ExtendViewport, Viewport}
 import com.rpg.game.RPG
-import com.rpg.game.config.GameConfig
-import com.rpg.game.config.GameConfig.World.worldWidth
 import com.rpg.game.entity.animate.Humanoid
 import com.rpg.game.entity.animate.player.{Owner, Player, PlayerAnimation, PlayerComponent, PlayerScript}
 import com.rpg.game.entity.item.equipment.BaseHumanoidEquipmentSetup
@@ -27,18 +25,12 @@ import com.rpg.game.entity.textures.TextureGrabber
 import com.rpg.game.ticksystem.Tick
 import games.rednblack.editor.renderer.{ExternalTypesConfiguration, SceneConfiguration, SceneLoader}
 import games.rednblack.editor.renderer.resources.{AsyncResourceManager, ResourceManagerLoader}
-import com.rpg.game.ui.MyAssetManager
-import games.rednblack.editor.renderer.box2dLight.{PointLight, RayHandler}
-import games.rednblack.editor.renderer.components.TransformComponent
-import games.rednblack.editor.renderer.components.light.LightObjectComponent
-import games.rednblack.editor.renderer.data.{CompositeItemVO, LightVO, PhysicsBodyDataVO, PolygonShapeVO, SpriteAnimationVO}
-import games.rednblack.editor.renderer.utils.{ComponentRetriever, ItemWrapper}
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.*
 import com.fasterxml.jackson.databind.jsontype.DefaultBaseTypeLimitingValidator
 import com.rpg.game.entity.OrthogonalTiledMapRendererWithObjects
-import com.rpg.game.ui.systems.CameraSystem
-import games.rednblack.editor.renderer.components.physics.PhysicsBodyComponent
-import games.rednblack.editor.renderer.systems.action.Actions
+import com.rpg.game.game.config.GameConfig
+import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
+import com.rpg.game.game.systems.CameraSystem
 
 
 class GameScreen(game: RPG) extends Screen {
@@ -58,15 +50,16 @@ class GameScreen(game: RPG) extends Screen {
   private var entityLayer: MapLayer = _
 
   //box2d testing
-  private var world: World = _
   private val debugRenderer = new Box2DDebugRenderer()
+  private var playerFixture: Fixture = _
+  private var player: Player = _
 
 
   /**Tiled Implementation*/
   override def show(): Unit = {
     //will load all entities including player via one method later. Testing for now
-    val player = Player(10, "test", "test", Owner,
-      Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 150f, 50f, true, 0, 0, BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)))
+    player = Player(10, "test", "test", Owner,
+      Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 20000f, 10000f, true, 770,787, BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)))
 
     map = new TmxMapLoader().load("assets/Tiled/Grassland.tmx")
     tiledRenderer = new OrthogonalTiledMapRendererWithObjects(map)
@@ -81,48 +74,40 @@ class GameScreen(game: RPG) extends Screen {
 
     //box2d testing
     //https://libgdx.com/wiki/extensions/physics/box2d
-    world = new World(new Vector2(0,-10),true)
 
 
     //define player physics
     val playerBodyDef = new BodyDef()
     playerBodyDef.`type` = BodyType.DynamicBody
     playerBodyDef.position.set(player.playerSettings.x,player.playerSettings.y)
-    val playerBody = world.createBody(playerBodyDef)
+    playerBodyDef.linearDamping = 1f
+    val playerBody = WORLD.createBody(playerBodyDef)
 
 
-    val playerCircle = new CircleShape()
+    val playerShape = new PolygonShape()
+    playerShape.setAsBox((8),(12.5))
 
     val playerFixtureDef = new FixtureDef
-    playerFixtureDef.shape = playerCircle
+    playerFixtureDef.shape = playerShape
     playerFixtureDef.density = 0.5f
-    playerFixtureDef.friction = 0.4f
+    playerFixtureDef.friction = 1f
     playerFixtureDef.restitution = 0.0f
 
-    val playerFixture = playerBody.createFixture(playerFixtureDef)
+    playerFixtureDef.shape
 
-    //define ground physics
-    val groundBodyDef = new BodyDef
-    groundBodyDef.position.set(new Vector2(0,10))
+    playerFixture = playerBody.createFixture(playerFixtureDef)
 
-    val groundBody = world.createBody(groundBodyDef)
-    val groundBox = new PolygonShape()
-    groundBox.setAsBox(camera.viewportWidth,10.0f)
-    groundBody.createFixture(groundBox,0.0f)
-
-
-
-
-
-
-
-
-
-
+//    //define ground physics
+//    val groundBodyDef = new BodyDef
+//    groundBodyDef.position.set(new Vector2(0,10))
+//
+//    val groundBody = world.createBody(groundBodyDef)
+//    val groundBox = new PolygonShape()
+//    groundBox.setAsBox(camera.viewportWidth,10.0f)
+//    groundBody.createFixture(groundBox,0.0f)
   }
 
 
-  /** Tiled Implementation */
   override def render(delta: Float): Unit = {
     Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
@@ -130,8 +115,8 @@ class GameScreen(game: RPG) extends Screen {
     tiledRenderer.render()
     tiledRenderer.setView(camera)
 
-    world.step(1/60f, 6,2)
-    debugRenderer.render(world,camera.combined)
+    WORLD.step(1/60f, 6,2)
+    debugRenderer.render(WORLD,camera.combined)
 
     updateCamera()
     updateCameraZoom()
@@ -149,22 +134,59 @@ class GameScreen(game: RPG) extends Screen {
     val d = Gdx.input.isKeyPressed(Input.Keys.D)
 
     val shift = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
-    var speed = if (shift) 250f else 100f
+    var speed = if (shift) player.playerSettings.sprintingSpeed else player.playerSettings.walkingSpeed
 
     if ((w || s) && (a || d)) {
       speed = speed / Math.sqrt(2.0).toFloat
     }
 
+    var x = 0f
+    var y = 0f
 
-    var playerEntity = tiledRenderer.getTextureMapObject("player_entity")
+//    val playerVelocity = playerFixture.getBody.getLinearVelocity
+//    val playerPosition = playerFixture.getBody.getPosition
+    val (width,height) = getPolygonShapeDimensions(playerFixture.getShape)
 
-    if (w) playerEntity.setY(playerEntity.getY + (speed * DELTA_TIME)) //up
-    if (s) playerEntity.setY(playerEntity.getY - (speed * DELTA_TIME)) //down
-    if (a) playerEntity.setX(playerEntity.getX - (speed * DELTA_TIME)) //left
-    if (d) playerEntity.setX(playerEntity.getX + (speed * DELTA_TIME)) //right
+    val playerEntity = tiledRenderer.getTextureMapObject("player_entity")
 
-    camera.position.set(playerEntity.getX,playerEntity.getY,0)
+//    if (w && playerVelocity.y < 500f) playerFixture.getBody.applyLinearImpulse(0, 50.0f, playerPosition.x, playerPosition.y,true)
+//    if (a && playerVelocity.x > -500f) playerFixture.getBody.applyLinearImpulse(-50.0f, 0, playerPosition.x, playerPosition.y, true)
+//    if (d && playerVelocity.x < 500f) playerFixture.getBody.applyLinearImpulse(50.0f, 0, playerPosition.x, playerPosition.y, true)
+//    if (s && playerVelocity.y > -500f) playerFixture.getBody.applyLinearImpulse(0, -50.0f, playerPosition.x, playerPosition.y,true)
+
+    if (w) y = y + speed * DELTA_TIME
+    if (a) x = x - speed * DELTA_TIME
+    if (d) x = x + speed * DELTA_TIME
+    if (s) y = y - speed * DELTA_TIME
+
+    playerFixture.getBody.setLinearVelocity(x, y)
+
+    camera.position.set(playerFixture.getBody.getPosition.x,playerFixture.getBody.getPosition.y,0)
+    playerEntity.setX(playerFixture.getBody.getPosition.x - (width/2))
+    playerEntity.setY(playerFixture.getBody.getPosition.y - (height/2))
+
     camera.update()
+  }
+
+  private def getPolygonShapeDimensions(shape: Shape): (Float, Float) = {
+    val poly = shape.asInstanceOf[PolygonShape]
+
+    val vertices = Array.fill(poly.getVertexCount)(new Vector2())
+
+    for (i <- 0 until poly.getVertexCount) {
+      poly.getVertex(i, vertices(i))
+    }
+
+    val minX = vertices.minBy(_.x).x
+    val maxX = vertices.maxBy(_.x).x
+    val minY = vertices.minBy(_.y).y
+    val maxY = vertices.maxBy(_.y).y
+
+    val width = maxX - minX
+    val height = maxY - minY
+
+    (width,height)
+
   }
 
   private def updateCameraZoom(): Unit = {

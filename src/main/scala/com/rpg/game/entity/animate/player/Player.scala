@@ -11,7 +11,10 @@ case class Player(pId: Int,
              password: String,
              playerType: PlayerType, playerSettings: Humanoid) {
   
+  
   //Overloaded constructor
+  
+  
 }
 
 

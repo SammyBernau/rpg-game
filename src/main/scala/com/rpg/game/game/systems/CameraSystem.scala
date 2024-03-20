@@ -1,4 +1,4 @@
-package com.rpg.game.ui.systems
+package com.rpg.game.game.systems
 
 
 import com.artemis.ComponentMapper

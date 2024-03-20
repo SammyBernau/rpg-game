@@ -1,4 +1,4 @@
-package com.rpg.game.ui
+package com.rpg.game.game
 
 import com.badlogic.gdx.{Gdx, Screen}
 import com.badlogic.gdx.graphics.{Color, GL20, OrthographicCamera}

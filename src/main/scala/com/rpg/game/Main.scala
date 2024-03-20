@@ -2,7 +2,7 @@ package com.rpg.game
 
 import com.badlogic.gdx.backends.lwjgl3.{Lwjgl3Application, Lwjgl3ApplicationConfiguration}
 import com.rpg.game.RPG
-import com.rpg.game.ui.MainMenuScreen
+import com.rpg.game.game.MainMenuScreen
 
 object Main extends App {
     val config = new Lwjgl3ApplicationConfiguration
