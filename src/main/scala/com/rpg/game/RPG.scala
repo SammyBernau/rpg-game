@@ -7,11 +7,11 @@ import com.rpg.game.game.MainMenuScreen
 import com.rpg.game.test.SimpleScreen
 
 class RPG extends Game {
-  
+
   lazy val font = new BitmapFont()
   lazy val batch = new SpriteBatch()
-  
-  
+
+
   override def create(): Unit = {
     val mainMenu = new MainMenuScreen(this)
     this.setScreen(mainMenu)

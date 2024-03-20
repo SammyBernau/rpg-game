@@ -1,6 +1,6 @@
 package com.rpg.game.game
 
-import com.badlogic.gdx.{Gdx, Screen}
+import com.badlogic.gdx.{Gdx, Screen, ScreenAdapter}
 import com.badlogic.gdx.graphics.{Color, GL20, OrthographicCamera}
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.{Actor, Stage}
@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.{ScreenViewport, Viewport}
 import com.rpg.game.RPG
 
-class MainMenuScreen(game: RPG) extends Screen {
+class MainMenuScreen(game: RPG) extends ScreenAdapter {
   
   var stage: Stage = new Stage()
   private var atlas: TextureAtlas = _
@@ -19,6 +19,7 @@ class MainMenuScreen(game: RPG) extends Screen {
   var camera = new OrthographicCamera()
   camera.setToOrtho(false, 1280, 720)
   private var gameScreen: GameScreen = _
+  
 
 
   override def show(): Unit = {
@@ -27,9 +28,6 @@ class MainMenuScreen(game: RPG) extends Screen {
 
     atlas = new TextureAtlas(Gdx.files.internal("ui/vhsui/vhs-ui.atlas"))
     skin = new Skin(Gdx.files.internal("ui/vhsui/vhs-ui.json"))
-    camera = new OrthographicCamera()
-    camera.setToOrtho(false,1000,480)
-
 
     val rootTable = new Table()
     rootTable.setFillParent(true)
@@ -93,9 +91,6 @@ class MainMenuScreen(game: RPG) extends Screen {
 
     stage.act()
     stage.draw()
-
-
-
   }
 
   override def resize(width: Int, height: Int): Unit = {stage.getViewport.update(width,height,true)}

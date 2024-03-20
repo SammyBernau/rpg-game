@@ -1,7 +1,6 @@
 package com.rpg.game.entity;
 
-import com.badlogic.gdx.physics.box2d.Body
-import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.physics.box2d.{Body, BodyDef, PolygonShape}
 import com.rpg.game.entity.animate.player.Player
 import com.rpg.game.game.config.GameConfig.GameWorld
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD;
@@ -17,6 +16,8 @@ class EntityObject() {
         playerBodyDef.linearDamping = 1f
 
         val playerBody = WORLD.createBody(playerBodyDef)
+        
+        val playerShape = new PolygonShape()
 
 
 
