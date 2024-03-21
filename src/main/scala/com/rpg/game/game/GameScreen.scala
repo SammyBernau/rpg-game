@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute
 import com.badlogic.gdx.{Application, Gdx, Input, InputAdapter, InputMultiplexer, Screen, ScreenAdapter}
 import com.badlogic.gdx.graphics.{Color, GL20, OrthographicCamera, Texture}
 import com.badlogic.gdx.maps.MapLayer
-import com.badlogic.gdx.maps.objects.RectangleMapObject
+import com.badlogic.gdx.maps.objects.{EllipseMapObject, PolygonMapObject, RectangleMapObject}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapTileLayer, TmxMapLoader}
 import com.badlogic.gdx.math.{Rectangle, Vector2}
@@ -99,6 +99,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
+    //viewport.apply()
 
     WORLD.step(DELTA_TIME, 6,2)
 
@@ -109,6 +110,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     worldRenderer.render(WORLD,viewport.getCamera.combined)
 
     updateCamera()
+    updateCameraZoom()
 
     game.batch.begin()
     game.batch.end()
@@ -155,6 +157,30 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     viewport.getCamera.update()
   }
 
+  private def parseObjectsFromMap: Unit = {
+    val objs = map.getLayers.get("entity").getObjects
+
+    for(i <- 0 until objs.getCount) {
+      val obj = objs.get(i)
+
+      obj match {
+        case rectangleMapObject: RectangleMapObject =>
+          val rectangle = rectangleMapObject.getRectangle
+
+
+        case ellipseMapObject: EllipseMapObject =>
+        case polygonMapObject: PolygonMapObject =>
+        case _=>
+          //throw new NoClassDefFoundError("obj cannot be converted to box2D MapObject")
+      }
+    }
+  }
+
+//  private def getDynamicBodyDef(x: Float, y: Float): BodyDef = {
+//    val bodyDef = new BodyDef
+//
+//  }
+
   private def getPolygonShapeDimensions(shape: Shape): (Float, Float) = {
     val poly = shape.asInstanceOf[PolygonShape]
 
@@ -179,6 +205,8 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private def updateCameraZoom(): Unit = {
     val up = Gdx.input.isKeyPressed(Input.Keys.UP)
     val down = Gdx.input.isKeyPressed(Input.Keys.DOWN)
+
+    val camera = viewport.getCamera.asInstanceOf[OrthographicCamera]
 
     if(up) camera.zoom = camera.zoom - .01f
     if(down) camera.zoom = camera.zoom + .01f
