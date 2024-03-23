@@ -1,11 +1,12 @@
-package com.rpg.game.entity.animate.player
+package com.rpg.game.entity.animate.player.hyperlapremnantsDELETE_WHEN_NOT_NEEDED_FOR_NOTES
 
 import com.artemis.ComponentMapper
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
-import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.physics.box2d.{Body, Contact, Fixture}
+import com.badlogic.gdx.{Gdx, Input}
+import com.rpg.game.entity.animate.player.Player
 import games.rednblack.editor.renderer.components.physics.PhysicsBodyComponent
 import games.rednblack.editor.renderer.components.{DimensionsComponent, MainItemComponent, TransformComponent}
 import games.rednblack.editor.renderer.physics.PhysicsContact

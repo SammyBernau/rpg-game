@@ -1,12 +1,12 @@
-package com.rpg.game.entity.animate.player
+package com.rpg.game.entity.animate.player.hyperlapremnantsDELETE_WHEN_NOT_NEEDED_FOR_NOTES
 
 import com.artemis.ComponentMapper
 import com.artemis.annotations.All
 import com.artemis.systems.IteratingSystem
 import com.badlogic.gdx.graphics.g2d.Animation
-import games.rednblack.editor.renderer.components.{ParentNodeComponent, TransformComponent}
 import games.rednblack.editor.renderer.components.physics.PhysicsBodyComponent
 import games.rednblack.editor.renderer.components.sprite.{SpriteAnimationComponent, SpriteAnimationStateComponent}
+import games.rednblack.editor.renderer.components.{ParentNodeComponent, TransformComponent}
 
 
 @All(Array(classOf[PlayerComponent]))
