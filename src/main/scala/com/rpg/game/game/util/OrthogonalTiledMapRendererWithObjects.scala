@@ -1,4 +1,4 @@
-package com.rpg.game.game
+package com.rpg.game.game.util
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.maps.MapObject
@@ -7,9 +7,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
-import com.badlogic.gdx.physics.box2d.{BodyDef, Fixture, FixtureDef, PolygonShape, Shape}
+import com.badlogic.gdx.physics.box2d.*
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
-import com.rpg.game.game.systems.objects.ObjectLayerObject
+import com.rpg.game.game.util.ObjectLayerObject
 
 
 /**
@@ -104,7 +104,7 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
               BodyType.DynamicBody).fixture
             addFixture(textureMapObj.getName, fixture)
           } else if (textureMapObj.getProperties.get("BodyType") == "static") {
-            val fixture = ObjectLayerObject(textureMapObj.getName,textureMapObj.getX, textureMapObj.getY, textureRegion.getRegionWidth.toFloat, textureRegion.getRegionHeight.toFloat, BodyType.StaticBody).fixture
+            val fixture = ObjectLayerObject(textureMapObj.getName,textureMapObj.getX, textureMapObj.getY,textureRegion.getRegionWidth.toFloat, textureRegion.getRegionHeight.toFloat, BodyType.StaticBody).fixture
             addFixture(textureMapObj.getName,fixture)
           }
         case _ =>

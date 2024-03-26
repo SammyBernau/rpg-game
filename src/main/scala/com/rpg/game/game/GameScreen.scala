@@ -24,6 +24,7 @@ import games.rednblack.editor.renderer.{ExternalTypesConfiguration, SceneConfigu
 import games.rednblack.editor.renderer.resources.{AsyncResourceManager, ResourceManagerLoader}
 import com.rpg.game.game.config.{CurrentWorld, GameConfig}
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
+import com.rpg.game.game.util.OrthogonalTiledMapRendererWithObjects
 
 
 class GameScreen(game: RPG) extends ScreenAdapter {
