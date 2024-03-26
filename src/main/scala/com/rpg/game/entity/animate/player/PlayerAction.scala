@@ -1,6 +1,7 @@
 package com.rpg.game.entity.animate.player
 
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.{PolygonShape, Shape}
 import com.badlogic.gdx.{Gdx, Input}
@@ -57,8 +58,11 @@ class PlayerAction(currentWorld: CurrentWorld) {
     currentWorld.viewport.getCamera.position.set(playerFixture.getBody.getTransform.getPosition.x, playerFixture.getBody.getTransform.getPosition.y, 0)
     currentWorld.viewport.getCamera.update()
 
-    playerTexture.setX(playerFixture.getBody.getTransform.getPosition.x - (width / 2))
-    playerTexture.setY(playerFixture.getBody.getTransform.getPosition.y - (height / 2))
+//    val playerTextureOriginX = playerTexture.getOriginX
+//    val playerTextureOriginY = playerTexture.getOriginY
+//    
+//    playerTexture.setX((playerFixture.getBody.getTransform.getPosition.x - playerTextureOriginX) - (width / 2))
+//    playerTexture.setY((playerFixture.getBody.getTransform.getPosition.y - playerTextureOriginY) - (height / 2))
   }
 
   private def getPolygonShapeDimensions(shape: Shape): (Float, Float) = {

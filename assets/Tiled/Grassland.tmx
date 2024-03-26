@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="18">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="25">
  <tileset firstgid="1" source="Overworld.tsx"/>
  <tileset firstgid="1441" source="npc_sprite.tsx"/>
- <layer id="1" name="ground" width="100" height="100" locked="1">
+ <layer id="1" name="ground" width="100" height="100">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1178,1178,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1179,1,1,1,1,1,1,1179,1179,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1178,1178,1,1,1,1,1,1,1,1,
@@ -107,8 +107,20 @@
 </data>
  </layer>
  <objectgroup id="2" name="entity">
-  <object id="12" name="small_grass_rock_entity" type="entity" gid="208" x="768" y="639.5" width="16" height="16"/>
-  <object id="15" name="test_box" type="entity" x="698" y="659" width="36" height="34"/>
-  <object id="17" name="player_entity" type="Player" gid="1443" x="782" y="718" width="16" height="23"/>
+  <object id="12" name="small_grass_rock_entity" type="entity" gid="208" x="768" y="640" width="16" height="16">
+   <properties>
+    <property name="BodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="17" name="player_entity" type="Player" gid="1443" x="755" y="685" width="16" height="23">
+   <properties>
+    <property name="BodyType" value="dynamic"/>
+   </properties>
+  </object>
+  <object id="23" name="skull" type="entity" gid="148" x="720" y="672" width="16" height="16">
+   <properties>
+    <property name="BodyType" value="dynamic"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

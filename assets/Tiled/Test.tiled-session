@@ -19,8 +19,8 @@
             "scale": 8,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 746.625,
-                "y": 726.375
+                "x": 742.875,
+                "y": 659.375
             }
         },
         "NPC_test.tsx": {
@@ -33,7 +33,7 @@
         },
         "Overworld.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1.5,
+            "scaleInDock": 2,
             "scaleInEditor": 8
         },
         "PlayerSpriteTest.tsx": {
@@ -60,7 +60,8 @@
     "map.width": 100,
     "openFiles": [
         "Grassland.tmx",
-        "Overworld.tsx"
+        "Overworld.tsx",
+        "npc_sprite.tsx"
     ],
     "project": "Test.tiled-project",
     "property.type": "string",
