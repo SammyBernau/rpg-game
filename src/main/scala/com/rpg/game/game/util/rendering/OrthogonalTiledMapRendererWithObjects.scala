@@ -9,13 +9,13 @@ import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.*
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
-import com.rpg.game.game.util.ObjectLayerObject
 
 
 /**
  * Extends base class of OrthogonalTiledMapRenderer to provide support for rendering objects from the object layer of a Tiled map
  *
  * @param map -> Tiled map
+ * @author Sam Bernau
  */
 class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTiledMapRenderer(map) {
 
@@ -59,7 +59,7 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
    * @param name -> name of entity taken from Tiled map
    * @param fixture -> fixture defined from object
    */
-  private def addFixture(name: String, fixture: Fixture): Unit = {
+  def addFixture(name: String, fixture: Fixture): Unit = {
     fixtures = fixtures + (name -> fixture)
   }
 

@@ -1,7 +1,9 @@
-package com.rpg.game.game.util
+package com.rpg.game.game.util.collision
 
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
+import com.badlogic.gdx.maps.MapObject
+import com.badlogic.gdx.maps.objects.{RectangleMapObject, TextureMapObject}
 import com.badlogic.gdx.physics.box2d.*
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.rpg.game.game.config.CurrentWorld
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
 
@@ -16,9 +18,42 @@ import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
  * @param height -> height of object
  * @param bodyType -> BodyType defined by object in object layer
  */
-class ObjectLayerObject(name: String, x: Float, y: Float, var width: Float, var height: Float, bodyType: BodyType) {
-  private val body: Body = getBody(x+(width/2f),y+(height/2f),bodyType)
+class ObjectLayerObject(mapObject: MapObject, currentWorld: CurrentWorld) {
+  private val body: Body = getBody(mapObject)
   var fixture: Fixture = createFixture(bodyType)
+
+
+  def castMapObject(): Unit = {
+    mapObject match {
+      //All rectangles inserted into object layer parse as RectangleMapObjects
+      case rectangleMapObject: RectangleMapObject =>
+        val rectangle = rectangleMapObject.getRectangle
+        if (rectangleMapObject.getProperties.get("BodyType") == "dynamic") {
+          fixture = fixture
+          currentWorld.mapRenderer.addFixture(rectangleMapObject.getName, fixture)
+        } else if (rectangleMapObject.getProperties.get("BodyType") == "static") {
+          fixture = fixture
+          currentWorld.mapRenderer.addFixture(rectangleMapObject.getName, fixture)
+        }
+
+      //All tiles inserted as objects into object layer parse as TextureMapObjects
+      case textureMapObj: TextureMapObject =>
+        val textureRegion = textureMapObj.getTextureRegion
+        if (textureMapObj.getProperties.get("BodyType") == "dynamic") {
+          val fixture = ObjectLayerObject(textureMapObj.getName,
+            textureMapObj.getX, textureMapObj.getY,
+            textureRegion.getRegionWidth.toFloat, textureRegion.getRegionHeight.toFloat,
+            BodyType.DynamicBody).fixture
+          currentWorld.mapRenderer.addFixture(textureMapObj.getName, fixture)
+        } else if (textureMapObj.getProperties.get("BodyType") == "static") {
+          val fixture = ObjectLayerObject(textureMapObj.getName, textureMapObj.getX, textureMapObj.getY, textureRegion.getRegionWidth.toFloat, textureRegion.getRegionHeight.toFloat, BodyType.StaticBody).fixture
+          currentWorld.mapRenderer.addFixture(textureMapObj.getName, fixture)
+        }
+      case _ =>
+        println(s"Tried printing ${obj.getName} with properties: ${obj.getProperties}")
+    }
+  }
+  
 
   /**
    * Returns a fixture based on object BodyType
@@ -28,6 +63,7 @@ class ObjectLayerObject(name: String, x: Float, y: Float, var width: Float, var 
    */
   private def createFixture(bodyType: BodyType): Fixture = {
     val polygonShape = new PolygonShape()
+
     polygonShape.setAsBox(width, height)
     val fixture = bodyType match {
       case BodyType.DynamicBody => //dynamic objects

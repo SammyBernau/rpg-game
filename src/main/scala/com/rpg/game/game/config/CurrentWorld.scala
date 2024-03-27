@@ -3,7 +3,7 @@ package com.rpg.game.game.config
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.utils.viewport.Viewport
-import com.rpg.game.game.util.OrthogonalTiledMapRendererWithObjects
+import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
 
 
 /**
@@ -13,6 +13,7 @@ import com.rpg.game.game.util.OrthogonalTiledMapRendererWithObjects
  * @param mapRenderer -> current map renderer
  * @param tiledMap -> current Tiled map
  * @param worldRenderer -> current world renderer
+ * @author Sam Bernau
  */
 case class CurrentWorld(viewport: Viewport, mapRenderer: OrthogonalTiledMapRendererWithObjects, 
                         tiledMap: TiledMap, worldRenderer: Box2DDebugRenderer)

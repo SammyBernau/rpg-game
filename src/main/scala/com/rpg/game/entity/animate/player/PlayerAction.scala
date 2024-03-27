@@ -8,7 +8,7 @@ import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.game.entity.animate.Humanoid
 import com.rpg.game.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.game.game.config.CurrentWorld
-import com.rpg.game.game.util.OrthogonalTiledMapRendererWithObjects
+import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
 
 class PlayerAction(currentWorld: CurrentWorld) {
 
