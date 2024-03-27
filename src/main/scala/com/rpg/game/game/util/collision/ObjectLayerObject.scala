@@ -87,7 +87,7 @@ class ObjectLayerObject(mapObject: MapObject) {
         defineFixture(body,polyLineShape,bodyType)
 
       case _ =>
-        throw new IllegalStateException(s"No matching ShapeMapObject found for ${mapObject} with properties: ${mapObject.getProperties}")
+        throw new IllegalStateException(s"No matching ShapeMapObject found for $mapObject with properties: ${mapObject.getProperties}")
     }
 
     fixture

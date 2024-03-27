@@ -1,4 +1,4 @@
-package com.rpg.game.game.util
+package com.rpg.game.game.util.rendering
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.maps.MapObject
