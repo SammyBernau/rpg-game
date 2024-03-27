@@ -8,8 +8,10 @@ import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.game.entity.animate.Humanoid
 import com.rpg.game.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.game.game.config.CurrentWorld
-import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
 
+
+
+//TODO fix jiggling of collision boxes over moving textures
 class PlayerAction(currentWorld: CurrentWorld) {
 
   private val player: Player = Player(10, "test", "test", Owner,
@@ -30,10 +32,6 @@ class PlayerAction(currentWorld: CurrentWorld) {
 
     val playerTexture = currentWorld.mapRenderer.getTextureMapObject("player_entity")
     val playerFixture = currentWorld.mapRenderer.getFixture("player_entity")
-
-    //    val width = playerTexture.getTextureRegion.getRegionWidth / 2
-    //    val height = playerTexture.getTextureRegion.getRegionHeight / 2
-    val (width, height) = getPolygonShapeDimensions(playerFixture.getShape)
 
 //    var x = playerFixture.getBody.getPosition.x
 //    var y = playerFixture.getBody.getPosition.y
@@ -57,32 +55,6 @@ class PlayerAction(currentWorld: CurrentWorld) {
 
     currentWorld.viewport.getCamera.position.set(playerFixture.getBody.getTransform.getPosition.x, playerFixture.getBody.getTransform.getPosition.y, 0)
     currentWorld.viewport.getCamera.update()
-
-//    val playerTextureOriginX = playerTexture.getOriginX
-//    val playerTextureOriginY = playerTexture.getOriginY
-//    
-//    playerTexture.setX((playerFixture.getBody.getTransform.getPosition.x - playerTextureOriginX) - (width / 2))
-//    playerTexture.setY((playerFixture.getBody.getTransform.getPosition.y - playerTextureOriginY) - (height / 2))
-  }
-
-  private def getPolygonShapeDimensions(shape: Shape): (Float, Float) = {
-    val poly = shape.asInstanceOf[PolygonShape]
-
-    val vertices = Array.fill(poly.getVertexCount)(new Vector2())
-
-    for (i <- 0 until poly.getVertexCount) {
-      poly.getVertex(i, vertices(i))
-    }
-
-    val minX = vertices.minBy(_.x).x
-    val maxX = vertices.maxBy(_.x).x
-    val minY = vertices.minBy(_.y).y
-    val maxY = vertices.maxBy(_.y).y
-
-    val width = maxX - minX
-    val height = maxY - minY
-
-    (width, height)
   }
 
   def playerCameraZoom(): Unit = {

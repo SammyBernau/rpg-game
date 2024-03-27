@@ -8,6 +8,13 @@
    <frame tileid="125" duration="100"/>
   </animation>
  </tile>
+ <tile id="147">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="1" y="2" width="14" height="14">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="163">
   <animation>
    <frame tileid="163" duration="71"/>

@@ -3,7 +3,7 @@ package com.rpg.game.game.config
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.utils.viewport.Viewport
-import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
+import com.rpg.game.game.util.OrthogonalTiledMapRendererWithObjects
 
 
 /**

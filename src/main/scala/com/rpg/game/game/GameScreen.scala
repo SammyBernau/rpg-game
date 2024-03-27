@@ -24,7 +24,7 @@ import games.rednblack.editor.renderer.{ExternalTypesConfiguration, SceneConfigu
 import games.rednblack.editor.renderer.resources.{AsyncResourceManager, ResourceManagerLoader}
 import com.rpg.game.game.config.{CurrentWorld, GameConfig}
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
-import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
+import com.rpg.game.game.util.OrthogonalTiledMapRendererWithObjects
 
 
 class GameScreen(game: RPG) extends ScreenAdapter {
@@ -37,12 +37,12 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   override def show(): Unit = {
     val map = new TmxMapLoader().load("assets/Tiled/Grassland.tmx")
     val mapRenderer = new OrthogonalTiledMapRendererWithObjects(map)
-    mapRenderer.parseDynamicObjectsFromMap()
     val tileSize = map.getLayers.get(0).asInstanceOf[TiledMapTileLayer].getTileWidth
     val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)
 
     currentWorld = CurrentWorld(viewport, mapRenderer, map, new Box2DDebugRenderer())
-    //currentWorld.worldRenderer.setDrawBodies(false)
+    mapRenderer.parseObjectsFromMap()
+    currentWorld.worldRenderer.setDrawBodies(false)
     playerAction = new PlayerAction(currentWorld)
   }
 
