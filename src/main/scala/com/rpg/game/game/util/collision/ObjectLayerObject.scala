@@ -1,7 +1,9 @@
 package com.rpg.game.game.util.collision
 
+import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.EllipseShapeBuilder
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.{EllipseMapObject, PolygonMapObject, PolylineMapObject, RectangleMapObject, TextureMapObject}
+import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
 import com.badlogic.gdx.math.{Polygon, Vector2}
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
@@ -24,7 +26,14 @@ class ObjectLayerObject(mapObject: MapObject) {
    * @return
    */
   private def createFixture(): Fixture = {
-    val bodyType = stringToBodyType(mapObject.getProperties.get("BodyType").toString)
+
+  val bodyType = try {
+    stringToBodyType(mapObject.getProperties.get("BodyType").toString)
+  } catch {
+    case e: Exception =>
+      println(s"BodyType is either null or incorrectly set for this object: ${mapObject.getName}")
+      BodyType.StaticBody
+  }
 
     val fixture = mapObject match {
 
@@ -40,23 +49,10 @@ class ObjectLayerObject(mapObject: MapObject) {
 
 
         defineFixture(body,polygonShape,bodyType)
-      case textureMapObj: TextureMapObject =>
-        val textureRegion = textureMapObj.getTextureRegion
-        val width = textureRegion.getRegionWidth /2f
-        val height = textureRegion.getRegionHeight /2f
-
-        val body = getBody(textureMapObj.getX + width,textureMapObj.getY + height,bodyType)
-
-        val polygonShape = new PolygonShape()
-        polygonShape.setAsBox(textureRegion.getRegionWidth.toFloat/2f,textureRegion.getRegionHeight.toFloat/2f)
-
-
-        defineFixture(body,polygonShape,bodyType)
       case polygonMapObj: PolygonMapObject =>
         val polygon = polygonMapObj.getPolygon
         //val width,height = getPolygonShapeDimensions(polygon)
 
-        val bodyType = stringToBodyType(polygonMapObj.getProperties.get("BodyType").toString)
         val body = getBody(polygon.getX,polygon.getY,bodyType)
 
         val polygonShape = new PolygonShape()
@@ -69,25 +65,91 @@ class ObjectLayerObject(mapObject: MapObject) {
         val ellipse = ellipseMapObject.getEllipse
         val width = ellipse.width / 2
         val height = ellipse.height / 2
-        val bodyType = stringToBodyType(ellipseMapObject.getProperties.get("BodyType").toString)
         val body = getBody(ellipse.x + width,ellipse.y + height,bodyType)
 
         val circleShape = new CircleShape()
-        circleShape.setRadius(ellipse.width/2f)
+        circleShape.setRadius(width)
 
         defineFixture(body,circleShape,bodyType)
       case polyLineMapObject: PolylineMapObject =>
         val polyLine = polyLineMapObject.getPolyline
-        val bodyType = stringToBodyType(polyLineMapObject.getProperties.get("BodyType").toString)
         val body = getBody(polyLine.getX,polyLine.getY,bodyType)
 
         val polyLineShape = new ChainShape()
-        polyLineShape.createChain(polyLine.getVertices)
+        polyLineShape.createChain(polyLine.getTransformedVertices)
 
         defineFixture(body,polyLineShape,bodyType)
 
+
+      case textureMapObj: TextureMapObject => //TextureMapObjects are Tiles inserted as objects into object layer
+        val tileObject = mapObject.asInstanceOf[TiledMapTileMapObject]
+        val tile = tileObject.getTile
+        val boundingBox = tile.getObjects.get(0)
+
+        val body = getBody(textureMapObj.getX, textureMapObj.getY, bodyType)
+
+
+        boundingBox match {
+          case rectangleMapObject: RectangleMapObject =>
+            val rectangle = rectangleMapObject.getRectangle
+            val width = rectangle.getWidth/2f
+            val height = rectangle.getHeight/2f
+
+            val polygonShape = new PolygonShape()
+            polygonShape.setAsBox(width,height)
+
+
+            defineFixture(body,polygonShape,bodyType)
+
+          case ellipseMapObject: EllipseMapObject =>
+            val ellipse = ellipseMapObject.getEllipse
+
+            val width = ellipse.width/2f
+            val height = ellipse.height/2f
+
+            val ellipseShape = new CircleShape()
+            ellipseShape.setRadius(width)
+
+            defineFixture(body,ellipseShape,bodyType)
+
+          case polylineMapObject: PolylineMapObject =>
+            val polyLine = polylineMapObject.getPolyline
+
+            val vertices = polyLine.getTransformedVertices
+            val width = polyLine.getBoundingRectangle.getWidth
+            val height = polyLine.getBoundingRectangle.getHeight
+            val adjustedVertices = new Array[Float](polyLine.getVertices.length)
+
+            for(i <- vertices.indices by 2) {
+              adjustedVertices(i) = vertices(i) - (width/2f)
+              adjustedVertices(i+1) = vertices(i+1) - (height/2f)
+            }
+
+            val polyLineShape = new ChainShape()
+            polyLineShape.createChain(adjustedVertices)
+
+            defineFixture(body, polyLineShape, bodyType)
+          case _ =>
+            throw new IllegalStateException(s"No matching bounding_box found for ${tileObject.getName} with properties: ${tileObject.getProperties}")
+
+        }
+
+        //Old code for TextureMapObject parsing -> Backup
+//              val textureRegion = textureMapObj.getTextureRegion
+//              val width = textureRegion.getRegionWidth /2f
+//              val height = textureRegion.getRegionHeight /2f
+//
+//              val body = getBody(textureMapObj.getX + width,textureMapObj.getY + height,bodyType)
+//
+//              val polygonShape = new PolygonShape()
+//              polygonShape.setAsBox(textureRegion.getRegionWidth.toFloat/2f,textureRegion.getRegionHeight.toFloat/2f)
+//
+//
+//              defineFixture(body,polygonShape,bodyType)
+
+
       case _ =>
-        throw new IllegalStateException(s"No matching ShapeMapObject found for $mapObject with properties: ${mapObject.getProperties}")
+        throw new IllegalStateException(s"No matching ShapeMapObject found for ${mapObject.getName} with properties: ${mapObject.getProperties}")
     }
 
     fixture

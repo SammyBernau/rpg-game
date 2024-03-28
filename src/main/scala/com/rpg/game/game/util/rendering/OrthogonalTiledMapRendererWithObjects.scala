@@ -106,8 +106,10 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
       val textureOriginX = texture.getOriginX
       val textureOriginY = texture.getOriginY
 
-      val desiredX = (fixture.getBody.getTransform.getPosition.x - textureOriginX) - (width / 2)
-      val desiredY = (fixture.getBody.getTransform.getPosition.y - textureOriginY) - (height / 2)
+      val desiredX = (fixture.getBody.getTransform.getPosition.x - textureOriginX) - (width/2f)
+      val desiredY = (fixture.getBody.getTransform.getPosition.y - textureOriginY) - (height/1.9f)
+//        val desiredX = fixture.getBody.getTransform.getPosition.x - (width / 2f)
+//        val desiredY = fixture.getBody.getTransform.getPosition.y - (height / 2f)
 
       if (texture.getX != desiredX) {
         texture.setX(desiredX)
