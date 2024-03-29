@@ -5,6 +5,7 @@
     },
     "activeFile": "Grassland.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -17,10 +18,10 @@
                 6
             ],
             "scale": 8,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 742.875,
-                "y": 659.375
+                "x": 800,
+                "y": 800
             }
         },
         "NPC_test.tsx": {
