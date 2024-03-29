@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Grassland.tmx",
+    "activeFile": "npc_sprite.tsx",
     "expandedProjectPaths": [
         "."
     ],
@@ -17,11 +17,11 @@
                 4,
                 6
             ],
-            "scale": 8,
-            "selectedLayer": 2,
+            "scale": 1.5,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 800,
-                "y": 800
+                "x": 812.9999999999999,
+                "y": 870.6666666666665
             }
         },
         "NPC_test.tsx": {
@@ -35,7 +35,7 @@
         "Overworld.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 2,
-            "scaleInEditor": 8
+            "scaleInEditor": 3
         },
         "PlayerSpriteTest.tsx": {
             "dynamicWrapping": true,
@@ -48,10 +48,10 @@
         },
         "npc_sprite.tsx": {
             "scaleInDock": 4,
-            "scaleInEditor": 1
+            "scaleInEditor": 3
         }
     },
-    "frame.defaultDuration": 71,
+    "frame.defaultDuration": 61,
     "last.externalTilesetPath": "D:/programming/personal/scala/libgdx_sbt/rpg-game/assets/Tiled",
     "last.imagePath": "D:/programming/personal/scala/libgdx_sbt/rpg-game/assets/textures/samsRendition/humanoid",
     "map.height": 100,
@@ -67,9 +67,9 @@
     "project": "Test.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "npc_sprite.tsx",
-        "Overworld.tsx",
         "Grassland.tmx",
+        "Overworld.tsx",
+        "npc_sprite.tsx",
         "PlayerSpriteTest.tsx",
         "NPC_test.tsx",
         "NPC_test_2.tsx",

@@ -5,6 +5,20 @@
   <objectgroup draworder="index" id="2">
    <object id="1" name="front_player_bounding_box" type="bounding_box" x="1" y="1" width="14" height="19"/>
   </objectgroup>
+  <animation>
+   <frame tileid="0" duration="61"/>
+   <frame tileid="1" duration="61"/>
+   <frame tileid="3" duration="61"/>
+   <frame tileid="4" duration="61"/>
+   <frame tileid="5" duration="61"/>
+   <frame tileid="7" duration="61"/>
+   <frame tileid="8" duration="61"/>
+   <frame tileid="9" duration="61"/>
+   <frame tileid="11" duration="61"/>
+   <frame tileid="12" duration="61"/>
+   <frame tileid="13" duration="61"/>
+   <frame tileid="15" duration="61"/>
+  </animation>
  </tile>
  <tile id="2">
   <objectgroup draworder="index" id="2">
