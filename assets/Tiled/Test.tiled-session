@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "npc_sprite.tsx",
+    "activeFile": "Grassland.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -14,14 +14,14 @@
         },
         "Grassland.tmx": {
             "expandedGroupLayers": [
-                4,
-                6
+                6,
+                4
             ],
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 812.9999999999999,
-                "y": 870.6666666666665
+                "x": 753,
+                "y": 697.3333333333333
             }
         },
         "NPC_test.tsx": {
@@ -67,9 +67,9 @@
     "project": "Test.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "Grassland.tmx",
-        "Overworld.tsx",
         "npc_sprite.tsx",
+        "Overworld.tsx",
+        "Grassland.tmx",
         "PlayerSpriteTest.tsx",
         "NPC_test.tsx",
         "NPC_test_2.tsx",
