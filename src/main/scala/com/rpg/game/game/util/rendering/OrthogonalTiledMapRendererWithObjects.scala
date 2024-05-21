@@ -20,11 +20,11 @@ import com.rpg.game.game.util.collision.ObjectLayerObject
  */
 class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTiledMapRenderer(map) {
 
-  private var textureObjects: Map[String, TextureMapObject] = Map()
-  private var fixtures: Map[String, Fixture] = Map()
+  private var textureObjects: Map[String, TextureMapObject] = Map() //stores textures of physics objects
+  private var fixtures: Map[String, Fixture] = Map() //stores physics objects
 
   /**
-   *
+   * Renders textures at the locations of their respective physic objects
    * @param obj -> objects found in the object layer of Tiled map
    */
   override def renderObject(obj: MapObject): Unit = {
@@ -32,8 +32,9 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
       case textureObj: TextureMapObject =>
         addTextureMapObject(textureObj.getName,textureObj)
         batch.draw(textureObj.getTextureRegion, textureObj.getX, textureObj.getY, textureObj.getOriginX, textureObj.getOriginY, textureObj.getTextureRegion.getRegionWidth.toFloat, textureObj.getTextureRegion.getRegionHeight.toFloat, textureObj.getScaleX, textureObj.getScaleY, textureObj.getRotation)
-        updateTextureToObjects(textureObj.getName)
+        updateTextureToObject(textureObj.getName)
       case _ =>
+        //TODO -> fill in base case
     }
   }
 
@@ -83,7 +84,6 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
     for (i <- 0 until objs.getCount) {
       val obj = objs.get(i)
 
-
       val objectFixture = new ObjectLayerObject(obj)
       addFixture(obj.getName,objectFixture.fixture)
 
@@ -92,10 +92,10 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
 
 
   /**
-   * Updates all textures to follow their respective collision boxes
-   * @param name -> name of texture/fixture stores in maps
+   * Updates a texture to the location of their respective physic object
+   * @param name -> name of texture/fixture stored in maps
    */
-  private def updateTextureToObjects(name: String): Unit = {
+  private def updateTextureToObject(name: String): Unit = {
 
       val texture = getTextureMapObject(name)
       val fixture = getFixture(name)

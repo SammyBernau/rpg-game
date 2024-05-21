@@ -12,19 +12,17 @@ import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
 
 
 /**
- * ObjectLayerObject is defined as all objects in the object layer of a tiled map layer.
- * Works for both tiles inserted as objects and blank shapes drawn around tiles.
+ * An ObjectLayerObject is defined as an object in the object layer of a tiled map layer.
+ * Works for both tiles inserted as objects and free drawn objects with no textures.
  * @param mapObject -> current mapobject
  * @author Sam Bernau
  */
 class ObjectLayerObject(mapObject: MapObject) {
+
+  // Returns a fixture based on object settings
+  // Currently no legitimate support for kinematic body types
   val fixture: Fixture = buildFixture()
 
-  /**
-   * Returns a fixture based on object settings
-   * Currently no legitimate support for kinematic body types
-   * @return
-   */
   private def buildFixture(): Fixture = {
 
   val bodyType = try {
@@ -33,10 +31,11 @@ class ObjectLayerObject(mapObject: MapObject) {
     case e: Exception =>
       println(e.getStackTrace.mkString("Array(", ", ", ")"))
       println(s"BodyType is either null or incorrectly set for this object: ${mapObject.getName}")
+      println("...Setting BodyType to 1default: Static")
       BodyType.StaticBody
   }
     mapObject match {
-
+      //---------Objects without textures---------//
       case rectangleMapObject: RectangleMapObject =>
         fixtureFromRectangle(bodyType, rectangleMapObject,rectangleMapObject.getRectangle.getX, rectangleMapObject.getRectangle.getY)
 
@@ -48,11 +47,13 @@ class ObjectLayerObject(mapObject: MapObject) {
       case polyLineMapObject: PolylineMapObject =>
         fixtureFromPolyline(bodyType, polyLineMapObject, polyLineMapObject.getPolyline.getX, polyLineMapObject.getPolyline.getY)
 
+      //---------Objects with textures that need to be created---------//
       case textureMapObj: TextureMapObject => //TextureMapObjects are Tiles inserted as objects into object layer
         val tileObject = mapObject.asInstanceOf[TiledMapTileMapObject]
         val tile = tileObject.getTile
         val boundingBox = tile.getObjects.get(0)
 
+        //Creates a physical bounding box with the location/dimensions from the bounding box of a texture defined in tiled
         boundingBox match {
           case rectangleMapObject: RectangleMapObject =>
             fixtureFromRectangle(bodyType, rectangleMapObject,textureMapObj.getX, textureMapObj.getY)
@@ -60,7 +61,7 @@ class ObjectLayerObject(mapObject: MapObject) {
           case ellipseMapObject: EllipseMapObject =>
             fixtureFromEllipse(bodyType, ellipseMapObject, textureMapObj.getX,textureMapObj.getY)
 
-          case polylineMapObject: PolylineMapObject =>
+          case polylineMapObject: PolylineMapObject => //A polyline is a an incomplete polygon like a straight line used as a map boundary
             val polyLine = polylineMapObject.getPolyline
             val body = getBody(textureMapObj.getX, textureMapObj.getY, bodyType)
 
@@ -82,7 +83,6 @@ class ObjectLayerObject(mapObject: MapObject) {
             throw new IllegalStateException(s"No matching bounding_box found for ${tileObject.getName} with properties: ${tileObject.getProperties}")
 
         }
-
       case _ =>
         throw new IllegalStateException(s"No matching ShapeMapObject found for ${mapObject.getName} with properties: ${mapObject.getProperties}")
     }
@@ -102,10 +102,11 @@ class ObjectLayerObject(mapObject: MapObject) {
     val body = getBody(x, y, bodyType)
 
     val polyLineShape = new ChainShape()
-    polyLineShape.createChain(polyLine.getTransformedVertices)
+    polyLineShape.createChain(polyLine.getVertices)
 
     defineFixture(body, polyLineShape, bodyType)
   }
+
 
   private def fixtureFromEllipse(bodyType: BodyType, ellipseMapObject: EllipseMapObject, x: Float, y: Float): Fixture = {
     val ellipse = ellipseMapObject.getEllipse
@@ -145,29 +146,29 @@ class ObjectLayerObject(mapObject: MapObject) {
   }
 
 
-  private def getPolygonShapeDimensions(poly: Polygon): (Float, Float) = {
-
-
-    val vertices = Array.fill(poly.getVertexCount)(new Vector2())
-
-    for (i <- 0 until poly.getVertexCount) {
-      poly.getVertex(i, vertices(i))
-    }
-
-    val minX = vertices.minBy(_.x).x
-    val maxX = vertices.maxBy(_.x).x
-    val minY = vertices.minBy(_.y).y
-    val maxY = vertices.maxBy(_.y).y
-
-    val width = maxX - minX
-    val height = maxY - minY
-
-    (width, height)
-  }
+//  private def getPolygonShapeDimensions(poly: Polygon): (Float, Float) = {
+//
+//
+//    val vertices = Array.fill(poly.getVertexCount)(new Vector2())
+//
+//    for (i <- 0 until poly.getVertexCount) {
+//      poly.getVertex(i, vertices(i))
+//    }
+//
+//    val minX = vertices.minBy(_.x).x
+//    val maxX = vertices.maxBy(_.x).x
+//    val minY = vertices.minBy(_.y).y
+//    val maxY = vertices.maxBy(_.y).y
+//
+//    val width = maxX - minX
+//    val height = maxY - minY
+//
+//    (width, height)
+//  }
 
 
   /**
-   * Defines a fixture based if its dynamic or static
+   * Defines a fixture based on if its dynamic or static
    * @param body -> body of object
    * @param shape -> shape of object
    * @param bodyType -> BodyType of object
@@ -183,7 +184,12 @@ class ObjectLayerObject(mapObject: MapObject) {
     body.createFixture(shape, 0.0f)
   }
 
-  def stringToBodyType(bodyTypeAsString: String): BodyType = {
+  /**
+   * Matches for a physic body identifier stored in an object (Identifiers are manually configured as an ID 'bodyType' when objects are created in Tiled)
+   * @param bodyTypeAsString stored identifier for type of physic object
+   * @return
+   */
+  private def stringToBodyType(bodyTypeAsString: String): BodyType = {
     bodyTypeAsString match {
       case "Dynamic" => BodyType.DynamicBody
       case "dynamic" => BodyType.DynamicBody
@@ -207,8 +213,8 @@ class ObjectLayerObject(mapObject: MapObject) {
 
 
   /**
-   * Returns a base fixture
-   *
+   * Returns a FixtureDef with base settings
+   * Note: A FixtureDef is not needed to create static objects
    * @param shape -> shape created from object dimensions
    * @return
    */

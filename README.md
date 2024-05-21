@@ -25,12 +25,8 @@ Create a single player experience that allows the player to...
 Implements the same elements of the short term goal but extends game to include multiplayer support
 
 
-### Current Game State 
-#### (more technical information is located in the Notes.txt file under the projectnotes directory)
+### Current Game State -> `projectnotes/updates/MajorUpdateOne.md`
 
-Update as of 01/31/24
-- simple scene is loaded with dynamic lightning and player can walk around lighting the path in front of him
-- created base textures for grasslands biome
 
 
 

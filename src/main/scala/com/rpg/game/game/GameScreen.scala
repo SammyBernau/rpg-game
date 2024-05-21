@@ -42,7 +42,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
 
     currentWorld = CurrentWorld(viewport, mapRenderer, map, new Box2DDebugRenderer())
     mapRenderer.parseObjectsFromMap()
-    currentWorld.worldRenderer.setDrawBodies(false)
+    currentWorld.worldRenderer.setDrawBodies(true)
     playerAction = new PlayerAction(currentWorld)
   }
 
