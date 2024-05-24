@@ -11,7 +11,6 @@ object GameConfig {
   object GameWorld {
     val WORLD = new World(new Vector2(0,0),true)
     val PIXEL_PER_METER = 1/100f //1 meter per 100 pixels
-    var STATE_TIME = 0f
   }
   
   

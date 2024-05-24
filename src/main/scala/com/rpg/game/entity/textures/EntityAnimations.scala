@@ -11,8 +11,9 @@ import scala.jdk.CollectionConverters.*
 
 class EntityAnimations(currentWorld: CurrentWorld) {
   private val tileSets = currentWorld.tiledMap.getTileSets
-  var frameDuration = 0.5f
-
+  var frameDuration = .2f
+  // .2f perfect walk
+  //.5 perfect run
 
   object Player {
     //TODO -> This can be done better
@@ -33,7 +34,7 @@ class EntityAnimations(currentWorld: CurrentWorld) {
       .view
       .mapValues(_.head)
       .toMap
-    
+
     val frontAnimation = new Animation[TextureRegion](frameDuration,
       frontFrames.head.getTextureRegion,
       frontFrames(1).getTextureRegion)

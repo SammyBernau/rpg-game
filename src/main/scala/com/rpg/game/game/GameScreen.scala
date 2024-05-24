@@ -23,7 +23,7 @@ import com.rpg.game.entity.item.equipment.BaseHumanoidEquipmentSetup
 import games.rednblack.editor.renderer.{ExternalTypesConfiguration, SceneConfiguration, SceneLoader}
 import games.rednblack.editor.renderer.resources.{AsyncResourceManager, ResourceManagerLoader}
 import com.rpg.game.game.config.{CurrentWorld, GameConfig}
-import com.rpg.game.game.config.GameConfig.GameWorld.{STATE_TIME, WORLD}
+import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
 import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
 import com.rpg.game.ticksystem.{TickListener, Tick}
 
@@ -55,7 +55,6 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   override def render(delta: Float): Unit = {
     Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-    //STATE_TIME = STATE_TIME + DELTA_TIME
 
     currentWorld.viewport.apply()
     WORLD.step(DELTA_TIME, 6,2)
