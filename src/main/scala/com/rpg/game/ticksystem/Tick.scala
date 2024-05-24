@@ -10,7 +10,9 @@ import scala.concurrent.{ExecutionContext, Future}
 //TODO check out interpolation in libGDX
 class Tick extends ApplicationAdapter {
 
-  private val TICK_TIMER_MAX: Float = .2f //every .2f == 200 milliseconds or 5 ticks per second
+  //every .2f == 200 milliseconds or 5 ticks per second
+  //every .1f == 100 milliseconds or 10 ticks per second
+  private val TICK_TIMER_MAX: Float = .2f
   private var tick: Long = 0
   private var tickTimer: Float = 0.0f
   

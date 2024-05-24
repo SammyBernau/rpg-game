@@ -1,4 +1,4 @@
-package com.rpg.game.entity.animate
+package com.rpg.game.entity.textures
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.tiled.{TiledMapTile, TiledMapTileSet}
