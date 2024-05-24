@@ -1,18 +1,23 @@
 package com.rpg.game.entity.animate.player
 
+import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.game.game.config.GameConfig.GameWorld.STATE_TIME
 import com.rpg.game.entity.animate.EntityAnimations
 import com.rpg.game.game.config.CurrentWorld
 
 class PlayerAnimation(currentWorld: CurrentWorld) {
 
-  private val playerSkin = EntityAnimations(currentWorld).Player
+  private val entityAnimations = EntityAnimations(currentWorld)
+  private val playerSkin = entityAnimations.Player
   private var lastDirection = "front"
   
   
   def animate(): Unit = {
     val playerTexture = currentWorld.mapRenderer.getTextureMapObject("player_animation")
     val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
+
+    val shift = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
+    if (shift) entityAnimations.frameDuration = 0.3f else entityAnimations.frameDuration = 0.5f
 
     if (!playerFixture.getBody.getLinearVelocity.isZero(0.1f)) {
       if (playerFixture.getBody.getLinearVelocity.x < 0) {
