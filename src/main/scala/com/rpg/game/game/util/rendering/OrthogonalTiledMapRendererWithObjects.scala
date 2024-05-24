@@ -106,6 +106,8 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
       val textureOriginX = texture.getOriginX
       val textureOriginY = texture.getOriginY
 
+    
+    //TODO -> collision boxes still not being drawn correctly
       val desiredX = (fixture.getBody.getTransform.getPosition.x - textureOriginX) - (width/2f)
       val desiredY = (fixture.getBody.getTransform.getPosition.y - textureOriginY) - (height/1.9f)
 //        val desiredX = fixture.getBody.getTransform.getPosition.x - (width / 2f)

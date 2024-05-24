@@ -17,13 +17,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.{BodyDef, Box2D, Box2DDebugRenderer, CircleShape, Fixture, FixtureDef, PolygonShape, Shape, Transform, World}
 import com.badlogic.gdx.utils.viewport.{ExtendViewport, Viewport}
 import com.rpg.game.RPG
-import com.rpg.game.entity.animate.Humanoid
-import com.rpg.game.entity.animate.player.{Owner, Player, PlayerAction}
+import com.rpg.game.entity.animate.{EntityAnimations, Humanoid, player}
+import com.rpg.game.entity.animate.player.{Owner, Player, PlayerAction, PlayerAnimation}
 import com.rpg.game.entity.item.equipment.BaseHumanoidEquipmentSetup
 import games.rednblack.editor.renderer.{ExternalTypesConfiguration, SceneConfiguration, SceneLoader}
 import games.rednblack.editor.renderer.resources.{AsyncResourceManager, ResourceManagerLoader}
 import com.rpg.game.game.config.{CurrentWorld, GameConfig}
-import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
+import com.rpg.game.game.config.GameConfig.GameWorld.{STATE_TIME, WORLD}
 import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
 
 
@@ -32,6 +32,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
   private var currentWorld: CurrentWorld = _
   private var playerAction: PlayerAction = _
+  private var playerAnimation: PlayerAnimation = _
 
 
   override def show(): Unit = {
@@ -44,12 +45,15 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     mapRenderer.parseObjectsFromMap()
     currentWorld.worldRenderer.setDrawBodies(true)
     playerAction = new PlayerAction(currentWorld)
+    playerAnimation = new PlayerAnimation(currentWorld)
+    
   }
 
 
   override def render(delta: Float): Unit = {
     Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+    STATE_TIME = STATE_TIME + DELTA_TIME
 
     currentWorld.viewport.apply()
     WORLD.step(DELTA_TIME, 6,2)
@@ -60,7 +64,9 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     currentWorld.worldRenderer.render(WORLD,currentWorld.viewport.getCamera.combined)
 
     playerAction.playerMovement()
+    playerAnimation.animate()
     playerAction.playerCameraZoom()
+
 
     game.batch.begin()
     game.batch.end()

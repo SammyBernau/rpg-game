@@ -7,7 +7,6 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
 import com.badlogic.gdx.math.{Polygon, Vector2}
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
-import com.rpg.game.game.config.CurrentWorld
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
 
 
@@ -31,7 +30,7 @@ class ObjectLayerObject(mapObject: MapObject) {
     case e: Exception =>
       println(e.getStackTrace.mkString("Array(", ", ", ")"))
       println(s"BodyType is either null or incorrectly set for this object: ${mapObject.getName}")
-      println("...Setting BodyType to 1default: Static")
+      println("...Setting BodyType to default: Static")
       BodyType.StaticBody
   }
     mapObject match {

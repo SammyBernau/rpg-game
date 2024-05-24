@@ -14,14 +14,14 @@
         },
         "Grassland.tmx": {
             "expandedGroupLayers": [
-                6,
-                4
+                4,
+                6
             ],
-            "scale": 1.5,
-            "selectedLayer": 1,
+            "scale": 3,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 753,
-                "y": 697.3333333333333
+                "x": 850.6666666666666,
+                "y": 727.6666666666666
             }
         },
         "NPC_test.tsx": {
@@ -34,7 +34,7 @@
         },
         "Overworld.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 2,
+            "scaleInDock": 1.5,
             "scaleInEditor": 3
         },
         "PlayerSpriteTest.tsx": {
@@ -51,7 +51,7 @@
             "scaleInEditor": 3
         }
     },
-    "frame.defaultDuration": 61,
+    "frame.defaultDuration": 150,
     "last.externalTilesetPath": "D:/programming/personal/scala/libgdx_sbt/rpg-game/assets/Tiled",
     "last.imagePath": "D:/programming/personal/scala/libgdx_sbt/rpg-game/assets/textures/samsRendition/humanoid",
     "map.height": 100,

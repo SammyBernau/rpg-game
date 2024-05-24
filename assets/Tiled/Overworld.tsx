@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="Overworld" tilewidth="16" tileheight="16" tilecount="1440" columns="40">
  <image source="../textures/zelda-esque/Overworld.png" width="640" height="576"/>
+ <tile id="40">
+  <animation>
+   <frame tileid="40" duration="150"/>
+   <frame tileid="41" duration="150"/>
+   <frame tileid="42" duration="150"/>
+   <frame tileid="43" duration="150"/>
+  </animation>
+ </tile>
  <tile id="107">
   <objectgroup draworder="index" id="2">
    <object id="2" name="bone_pile_bounding_box" type="bounding_box" x="1" y="2">
@@ -41,13 +49,6 @@
    <frame tileid="338" duration="100"/>
    <frame tileid="339" duration="100"/>
    <frame tileid="340" duration="100"/>
-  </animation>
- </tile>
- <tile id="421">
-  <animation>
-   <frame tileid="298" duration="100"/>
-   <frame tileid="299" duration="100"/>
-   <frame tileid="300" duration="100"/>
   </animation>
  </tile>
 </tileset>

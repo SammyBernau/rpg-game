@@ -15,5 +15,7 @@ import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
  * @param worldRenderer -> current world renderer
  * @author Sam Bernau
  */
+
+//TODO -> change these to global var via object file 
 case class CurrentWorld(viewport: Viewport, mapRenderer: OrthogonalTiledMapRendererWithObjects, 
                         tiledMap: TiledMap, worldRenderer: Box2DDebugRenderer)

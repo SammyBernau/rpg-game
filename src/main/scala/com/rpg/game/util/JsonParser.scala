@@ -25,7 +25,7 @@ class JsonParser {
       //regular images
       val simpleImageVOs = content.path("games.rednblack.editor.renderer.data.SimpleImageVO")
       simpleImageVOs.elements().asScala.foreach(replaceUniqueIds)
-      
+
 
       val newFileName = getFileNameWithoutExtension(file, ".json")
       val newFile = newFileName + "1" + ".json"

@@ -2,12 +2,14 @@ package com.rpg.game.entity.animate.player
 
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.maps.tiled.TiledMapTile
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.{PolygonShape, Shape}
 import com.badlogic.gdx.{Gdx, Input}
-import com.rpg.game.entity.animate.Humanoid
+import com.rpg.game.entity.animate.{EntityAnimations, Humanoid}
 import com.rpg.game.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.game.game.config.CurrentWorld
+import com.rpg.game.game.config.GameConfig.GameWorld.STATE_TIME
 
 
 
@@ -17,6 +19,7 @@ class PlayerAction(currentWorld: CurrentWorld) {
   private val player: Player = Player(10, "test", "test", Owner,
       Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 200f, 100f, true, 770, 787,
       BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)))
+  
   def playerMovement(): Unit = {
     val w = Gdx.input.isKeyPressed(Input.Keys.W)
     val a = Gdx.input.isKeyPressed(Input.Keys.A)
@@ -29,16 +32,14 @@ class PlayerAction(currentWorld: CurrentWorld) {
     if ((w || s) && (a || d)) {
       speed = speed / Math.sqrt(2.0).toFloat
     }
-
-    val playerTexture = currentWorld.mapRenderer.getTextureMapObject("player_entity")
-    val playerFixture = currentWorld.mapRenderer.getFixture("player_entity")
-
-//    var x = playerFixture.getBody.getPosition.x
-//    var y = playerFixture.getBody.getPosition.y
-
+    
+    val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
+    val playerTexture = currentWorld.mapRenderer.getTextureMapObject("player_animation")
+    
+    
     var x = 0f
     var y = 0f
-
+    
     if (w) y = y + speed
     if (a) x = x - speed
     if (d) x = x + speed
