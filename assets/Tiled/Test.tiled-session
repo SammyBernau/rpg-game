@@ -14,14 +14,14 @@
         },
         "Grassland.tmx": {
             "expandedGroupLayers": [
-                4,
-                6
+                6,
+                4
             ],
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 850.6666666666666,
-                "y": 727.6666666666666
+                "x": 833.6666666666666,
+                "y": 707.3333333333333
             }
         },
         "NPC_test.tsx": {
@@ -34,8 +34,8 @@
         },
         "Overworld.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1.5,
-            "scaleInEditor": 3
+            "scaleInDock": 3,
+            "scaleInEditor": 1.5
         },
         "PlayerSpriteTest.tsx": {
             "dynamicWrapping": true,
@@ -48,7 +48,7 @@
         },
         "npc_sprite.tsx": {
             "scaleInDock": 4,
-            "scaleInEditor": 3
+            "scaleInEditor": 8
         }
     },
     "frame.defaultDuration": 150,

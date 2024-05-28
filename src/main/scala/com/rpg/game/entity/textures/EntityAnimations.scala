@@ -50,8 +50,6 @@ class EntityAnimations(currentWorld: CurrentWorld) {
     val leftAnimation = new Animation[TextureRegion](frameDuration,
       leftFrames.head.getTextureRegion,
       leftFrames(1).getTextureRegion)
-
-
   }
 
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.{ScreenViewport, Viewport}
 import com.rpg.game.RPG
+import com.rpg.game.game.util.cursor.CustomCursor
 
 class MainMenuScreen(game: RPG) extends ScreenAdapter {
   

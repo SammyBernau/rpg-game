@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.g2d.{Sprite, TextureRegion}
 import com.badlogic.gdx.graphics.g3d.Environment
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute
 import com.badlogic.gdx.{Application, Gdx, Input, InputAdapter, InputMultiplexer, Screen, ScreenAdapter}
-import com.badlogic.gdx.graphics.{Color, GL20, OrthographicCamera, Texture}
+import com.badlogic.gdx.graphics.{Color, GL20, OrthographicCamera, Pixmap, Texture}
 import com.badlogic.gdx.maps.MapLayer
 import com.badlogic.gdx.maps.objects.{EllipseMapObject, PolygonMapObject, RectangleMapObject, TextureMapObject}
 import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapTileLayer, TmxMapLoader}
-import com.badlogic.gdx.math.{Rectangle, Vector2}
+import com.badlogic.gdx.math.{Rectangle, Vector2, Vector3}
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.{BodyDef, Box2D, Box2DDebugRenderer, CircleShape, Fixture, FixtureDef, PolygonShape, Shape, Transform, World}
 import com.badlogic.gdx.utils.viewport.{ExtendViewport, Viewport}
@@ -24,8 +24,9 @@ import games.rednblack.editor.renderer.{ExternalTypesConfiguration, SceneConfigu
 import games.rednblack.editor.renderer.resources.{AsyncResourceManager, ResourceManagerLoader}
 import com.rpg.game.game.config.{CurrentWorld, GameConfig}
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
+import com.rpg.game.game.util.cursor.{CursorBehavior, CustomCursor}
 import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
-import com.rpg.game.ticksystem.{TickListener, Tick}
+import com.rpg.game.ticksystem.{Tick, TickListener}
 
 
 class GameScreen(game: RPG) extends ScreenAdapter {
@@ -34,6 +35,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private var currentWorld: CurrentWorld = _
   private var playerAction: PlayerAction = _
   private var playerAnimation: PlayerAnimation = _
+  private var cursor: CustomCursor = _
   private val tickSystem = new Tick()
 
 
@@ -43,11 +45,15 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     val tileSize = map.getLayers.get(0).asInstanceOf[TiledMapTileLayer].getTileWidth
     val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)
 
+
+
     currentWorld = CurrentWorld(viewport, mapRenderer, map, new Box2DDebugRenderer())
     mapRenderer.parseObjectsFromMap()
     currentWorld.worldRenderer.setDrawBodies(false)
     playerAction = new PlayerAction(currentWorld)
     playerAnimation = new PlayerAnimation(currentWorld,tickSystem)
+    cursor = new CustomCursor(currentWorld,game.batch)
+
 
   }
 
@@ -70,6 +76,8 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     playerAction.playerCameraZoom()
 
 
+
+    cursor.draw()
     game.batch.begin()
     game.batch.end()
   }
@@ -105,6 +113,11 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   }
 
   override def dispose(): Unit = {
+    game.batch.dispose()
+    game.font.dispose()
+    currentWorld.worldRenderer.dispose()
+    currentWorld.mapRenderer.dispose()
+    currentWorld.tiledMap.dispose()
   }
 
 
