@@ -50,8 +50,8 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     currentWorld = CurrentWorld(viewport, mapRenderer, map, new Box2DDebugRenderer())
     mapRenderer.parseObjectsFromMap()
     currentWorld.worldRenderer.setDrawBodies(false)
-    playerAction = new PlayerAction(currentWorld)
     playerAnimation = new PlayerAnimation(currentWorld,tickSystem)
+    playerAction = new PlayerAction(currentWorld)
     cursor = new CustomCursor(currentWorld,game.batch)
 
 
@@ -71,14 +71,17 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     currentWorld.worldRenderer.render(WORLD,currentWorld.viewport.getCamera.combined)
     tickSystem.render()
 
-    playerAction.playerMovement()
+
+    playerAction.playerMovement(playerAnimation.isDodging)
     playerAnimation.update(tickSystem.getCurrentTick)
     playerAction.playerCameraZoom()
 
 
 
+
     cursor.draw()
     game.batch.begin()
+    game.font.draw(game.batch,s"Tick: ${tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
     game.batch.end()
   }
 

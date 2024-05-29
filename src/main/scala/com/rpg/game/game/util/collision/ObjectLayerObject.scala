@@ -16,6 +16,8 @@ import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
  * @param mapObject -> current mapobject
  * @author Sam Bernau
  */
+
+//TODO -> add collision filtering
 class ObjectLayerObject(mapObject: MapObject) {
 
   // Returns a fixture based on object settings

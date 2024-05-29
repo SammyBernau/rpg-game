@@ -20,13 +20,14 @@ class PlayerAction(currentWorld: CurrentWorld) {
       Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100f, 50f, true, 770, 787,
       BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)))
 
-  def playerMovement(): Unit = {
+  def playerMovement(playerDodging: Boolean): Unit = {
     val w = Gdx.input.isKeyPressed(Input.Keys.W)
     val a = Gdx.input.isKeyPressed(Input.Keys.A)
     val s = Gdx.input.isKeyPressed(Input.Keys.S)
     val d = Gdx.input.isKeyPressed(Input.Keys.D)
-
+    val space = Gdx.input.isKeyPressed(Input.Keys.SPACE)
     val shift = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
+
     var speed = if (shift) player.playerSettings.sprintingSpeed else player.playerSettings.walkingSpeed
 
     if ((w || s) && (a || d)) {
@@ -34,6 +35,27 @@ class PlayerAction(currentWorld: CurrentWorld) {
     }
 
     val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
+    val filterData = playerFixture.getFilterData
+
+    println(playerDodging)
+//    if(playerDodging) {
+//      // Set the category bits to a unique value for the player
+//      filterData.categoryBits = 0
+//      // Set the mask bits to 0 to prevent collisions with all other bodies
+//      filterData.maskBits = 0
+//    } else {
+//      // Reset the category bits and mask bits to their default values when not dodging
+//      filterData.categoryBits = 0x0001
+//      filterData.maskBits = -1
+//    }
+
+    // Set the category bits to a unique value for the player
+    filterData.categoryBits = 0
+    // Set the mask bits to 0 to prevent collisions with all other bodies
+    filterData.maskBits = 0
+
+    playerFixture.setFilterData(filterData)
+    playerFixture.refilter()
 
 
     var x = 0f
@@ -65,6 +87,8 @@ class PlayerAction(currentWorld: CurrentWorld) {
 
     if (up) camera.zoom = camera.zoom - .01f
     if (down) camera.zoom = camera.zoom + .01f
+
+    //TODO -> limit zoom when not testing
 
     camera.update()
   }

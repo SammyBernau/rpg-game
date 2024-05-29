@@ -23,14 +23,18 @@ class CustomCursor(currentWorld: CurrentWorld, batch: SpriteBatch) extends Scree
   /**
    * Hides system cursor and creates a new cursor at the coordinates of where the system cursor would be
    */
-//  def draw(): Unit = {
-//    Gdx.input.setCursorCatched(true)
-//    batch.begin()
-//    batch.draw(texture, Gdx.input.getX.toFloat, Gdx.graphics.getHeight - (Gdx.input.getY.toFloat + texture.getHeight))
-//    batch.end()
-//  }
-
   def draw(): Unit = {
+    Gdx.input.setCursorCatched(true)
+    batch.begin()
+    batch.draw(texture, Gdx.input.getX.toFloat, Gdx.graphics.getHeight - (Gdx.input.getY.toFloat + texture.getHeight))
+    batch.end()
+  }
+
+
+  /**
+   * Tries to limit the range of the custom cursor for straying too far from player
+   */
+  def drawWithRangeLimit(): Unit = {
     Gdx.input.setCursorCatched(true)
     batch.begin()
 

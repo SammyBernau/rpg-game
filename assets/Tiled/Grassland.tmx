@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="103">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="105">
  <tileset firstgid="1" source="Overworld.tsx"/>
  <tileset firstgid="1441" source="npc_sprite.tsx"/>
+ <tileset firstgid="1457" source="PlayerSprite.tsx"/>
+ <tileset firstgid="1497" source="PlayerSpriteV2.tsx"/>
  <layer id="1" name="ground" width="100" height="100">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1178,1178,1,1,1,1,1,1,1,1,1,
@@ -227,11 +229,6 @@
     <property name="BodyType" value="static"/>
    </properties>
   </object>
-  <object id="36" name="player_animation" type="Player" gid="1441" x="822" y="715" width="16" height="23">
-   <properties>
-    <property name="BodyType" value="dynamic"/>
-   </properties>
-  </object>
   <object id="55" name="north_boundary" type="Boundary" x="1600" y="-18">
    <polyline points="0,0 -1600,0"/>
   </object>
@@ -347,6 +344,11 @@
   </object>
   <object id="102" x="419" y="515" width="25" height="26">
    <ellipse/>
+  </object>
+  <object id="104" name="player_animation" gid="1498" x="786" y="712" width="16" height="23">
+   <properties>
+    <property name="BodyType" value="dynamic"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
