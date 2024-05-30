@@ -37,13 +37,15 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
         //TODO -> fill in base case
     }
   }
+  
+  
 
   /**
    *
    * @param name -> name of entity taken from Tiled map
    * @param textureMapObject -> texture defined in Tiled map
    */
-  private def addTextureMapObject(name: String, textureMapObject: TextureMapObject): Unit = {
+  def addTextureMapObject(name: String, textureMapObject: TextureMapObject): Unit = {
     textureObjects = textureObjects + (name -> textureMapObject)
   }
 
@@ -57,7 +59,6 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
   }
 
   /**
-   *
    * @param name -> name of entity taken from Tiled map
    * @param fixture -> fixture defined from object
    */
@@ -77,17 +78,20 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
 
   /**
    * This method was completed with help from https://lyze.dev/2021/03/25/libGDX-Tiled-Box2D-example/
+   * Current implementation only parses objects that were pre-loaded on map
    */
   def parseObjectsFromMap(): Unit = {
     val objs = map.getLayers.get("entity").getObjects
 
     for (i <- 0 until objs.getCount) {
       val obj = objs.get(i)
-
-      val objectFixture = new ObjectLayerObject(obj)
-      addFixture(obj.getName,objectFixture.fixture)
-
+      addObject(obj)
     }
+  }
+  
+  def addObject(obj: MapObject): Unit = {
+    val objectFixture = new ObjectLayerObject(obj)
+    addFixture(obj.getName, objectFixture.fixture)
   }
 
 
@@ -95,7 +99,7 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
    * Updates a texture to the location of their respective physic object
    * @param name -> name of texture/fixture stored in maps
    */
-  private def updateTextureToObject(name: String): Unit = {
+  def updateTextureToObject(name: String): Unit = {
 
       val texture = getTextureMapObject(name)
       val fixture = getFixture(name)

@@ -36,8 +36,9 @@ class PlayerAction(currentWorld: CurrentWorld) {
 
     val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
     val filterData = playerFixture.getFilterData
-
-    println(playerDodging)
+    
+    
+    //TODO -> Complete collision filtering
 //    if(playerDodging) {
 //      // Set the category bits to a unique value for the player
 //      filterData.categoryBits = 0
@@ -49,13 +50,7 @@ class PlayerAction(currentWorld: CurrentWorld) {
 //      filterData.maskBits = -1
 //    }
 
-    // Set the category bits to a unique value for the player
-    filterData.categoryBits = 0
-    // Set the mask bits to 0 to prevent collisions with all other bodies
-    filterData.maskBits = 0
-
     playerFixture.setFilterData(filterData)
-    playerFixture.refilter()
 
 
     var x = 0f

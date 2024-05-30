@@ -2,7 +2,7 @@ package com.rpg.game.entity.textures
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
 import com.badlogic.gdx.maps.MapObject
-import com.badlogic.gdx.maps.tiled.{TiledMapTile, TiledMapTileSet}
+import com.badlogic.gdx.maps.tiled.{TiledMapTile, TiledMapTileSet, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile
 import com.rpg.game.game.config.CurrentWorld
 import com.badlogic.gdx.graphics.g2d.{Animation, TextureRegion}
@@ -11,7 +11,7 @@ import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters.*
 
 class EntityAnimations(currentWorld: CurrentWorld) {
-  private val tileSets = currentWorld.tiledMap.getTileSets
+  private val preLoadedTileSets = currentWorld.tiledMap.getTileSets
   var frameDuration = .2f
   var dodgeFrameDuration = .5f
   // .2f perfect walk
@@ -25,13 +25,17 @@ class EntityAnimations(currentWorld: CurrentWorld) {
     })
   }
 
-  object Player {
-    //TODO -> This can be done better
-    private val playerSpriteSheet: TiledMapTileSet = tileSets.getTileSet("PlayerSpriteV2")
-    private val playerFrames = playerSpriteSheet.iterator().asScala
+  private def getFramesAsMap(spriteSheet: TiledMapTileSet): Map[String, List[TiledMapTile]] = {
+    spriteSheet.iterator().asScala
       .filter(tile => tile.getProperties.containsKey("type"))
       .toList
       .groupBy(tile => tile.getProperties.get("type").toString)
+  }
+
+  object Player {
+    //TODO -> This can be done better
+    private val playerSpriteSheet: TiledMapTileSet = preLoadedTileSets.getTileSet("PlayerSpriteV2")
+    private val playerFrames = getFramesAsMap(playerSpriteSheet)
 
     private val frontFrames = playerFrames.getOrElse("front", List())
     private val rightFrames = playerFrames.getOrElse("right", List())
@@ -87,6 +91,20 @@ class EntityAnimations(currentWorld: CurrentWorld) {
       leftDodgeFrames.head.getTextureRegion,
       leftDodgeFrames(1).getTextureRegion,
       leftDodgeFrames(2).getTextureRegion)
+  }
+
+
+
+  //The following code is for TileSets that do not belong to a legitimate map (aka one that the player is meant to see).
+  // Another map had to be created (SpriteUtils.tmx) in order for tilesets to be loaded that aren't yet used by the main game maps
+  //Stupid work around until another solution is found to load .tsx files individually that arent preloaded
+  private val nonPreLoadedTileSets = new TmxMapLoader().load("assets/Tiled/SpriteUtils.tmx").getTileSets
+  object GhostFireBall {
+    private val ghostFireballSpriteSheet: TiledMapTileSet = nonPreLoadedTileSets.getTileSet("GhostFireball_projectile")
+    val frames = getFramesAsMap(ghostFireballSpriteSheet)
+    val tile = frames.getOrElse("ghost_fireball",List()).head
+    val textureRegion = tile.getTextureRegion
+
   }
 
 }

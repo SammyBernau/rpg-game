@@ -20,6 +20,7 @@ import com.rpg.game.RPG
 import com.rpg.game.entity.animate.{Humanoid, player}
 import com.rpg.game.entity.animate.player.{Owner, Player, PlayerAction, PlayerAnimation}
 import com.rpg.game.entity.item.equipment.BaseHumanoidEquipmentSetup
+import com.rpg.game.entity.item.equipment.projectile.GhostFireball
 import games.rednblack.editor.renderer.{ExternalTypesConfiguration, SceneConfiguration, SceneLoader}
 import games.rednblack.editor.renderer.resources.{AsyncResourceManager, ResourceManagerLoader}
 import com.rpg.game.game.config.{CurrentWorld, GameConfig}
@@ -37,6 +38,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private var playerAnimation: PlayerAnimation = _
   private var cursor: CustomCursor = _
   private val tickSystem = new Tick()
+  private var ghostFireball: GhostFireball = _
 
 
   override def show(): Unit = {
@@ -49,10 +51,13 @@ class GameScreen(game: RPG) extends ScreenAdapter {
 
     currentWorld = CurrentWorld(viewport, mapRenderer, map, new Box2DDebugRenderer())
     mapRenderer.parseObjectsFromMap()
-    currentWorld.worldRenderer.setDrawBodies(false)
+    currentWorld.worldRenderer.setDrawBodies(true)
     playerAnimation = new PlayerAnimation(currentWorld,tickSystem)
     playerAction = new PlayerAction(currentWorld)
-    cursor = new CustomCursor(currentWorld,game.batch)
+
+
+    ghostFireball = new GhostFireball(currentWorld,game.batch)
+    //cursor = new CustomCursor(currentWorld,game.batch)
 
 
   }
@@ -78,10 +83,15 @@ class GameScreen(game: RPG) extends ScreenAdapter {
 
 
 
+    if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+      ghostFireball.shoot()
+    }
 
-    cursor.draw()
+
+    //cursor.draw()
     game.batch.begin()
     game.font.draw(game.batch,s"Tick: ${tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
+
     game.batch.end()
   }
 

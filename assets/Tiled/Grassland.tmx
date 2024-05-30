@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="105">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="106">
  <tileset firstgid="1" source="Overworld.tsx"/>
- <tileset firstgid="1441" source="npc_sprite.tsx"/>
- <tileset firstgid="1457" source="PlayerSprite.tsx"/>
- <tileset firstgid="1497" source="PlayerSpriteV2.tsx"/>
+ <tileset firstgid="1441" source="PlayerSprite.tsx"/>
+ <tileset firstgid="1481" source="PlayerSpriteV2.tsx"/>
+ <tileset firstgid="1521" source="GhostFireball_projectile.tsx"/>
  <layer id="1" name="ground" width="100" height="100">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1178,1178,1,1,1,1,1,1,1,1,1,
@@ -331,11 +331,6 @@
   <object id="89" x="1008" y="942">
    <polygon points="0,0 21,16 29,16 48,1 48,-74 25,-106 0,-75"/>
   </object>
-  <object id="97" name="player_test" gid="1441" x="727" y="715" width="16" height="23">
-   <properties>
-    <property name="BodyType" value="dynamic"/>
-   </properties>
-  </object>
   <object id="100" x="771" y="419" width="25" height="26">
    <ellipse/>
   </object>
@@ -345,7 +340,7 @@
   <object id="102" x="419" y="515" width="25" height="26">
    <ellipse/>
   </object>
-  <object id="104" name="player_animation" gid="1498" x="786" y="712" width="16" height="23">
+  <object id="104" name="player_animation" gid="1482" x="802" y="711" width="16" height="23">
    <properties>
     <property name="BodyType" value="dynamic"/>
    </properties>
