@@ -1,5 +1,6 @@
 package com.rpg.game.game.util.rendering
 
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.{RectangleMapObject, TextureMapObject}
@@ -22,33 +23,30 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
 
   private var textureObjects: Map[String, TextureMapObject] = Map() //stores textures of physics objects
   private var fixtures: Map[String, Fixture] = Map() //stores physics objects
-
   /**
-   * Renders textures at the locations of their respective physic objects
+   * Renders textures at the locations of their respective physic objects. Handles both preloaded textures and dynamically added ones
    * @param obj -> objects found in the object layer of Tiled map
    */
   override def renderObject(obj: MapObject): Unit = {
     obj match {
-      case textureObj: TextureMapObject =>
-        addTextureMapObject(textureObj.getName,textureObj)
-        batch.draw(textureObj.getTextureRegion, textureObj.getX, textureObj.getY, textureObj.getOriginX, textureObj.getOriginY, textureObj.getTextureRegion.getRegionWidth.toFloat, textureObj.getTextureRegion.getRegionHeight.toFloat, textureObj.getScaleX, textureObj.getScaleY, textureObj.getRotation)
-        updateTextureToObject(textureObj.getName)
+      case textureMapObject: TextureMapObject =>
+        addTextureMapObject(textureMapObject.getName,textureMapObject)
+        updateTextureToObject(textureMapObject.getName)
+        batch.draw(textureMapObject.getTextureRegion, textureMapObject.getX, textureMapObject.getY, textureMapObject.getOriginX,
+          textureMapObject.getOriginY, textureMapObject.getTextureRegion.getRegionWidth.toFloat, textureMapObject.getTextureRegion.getRegionHeight.toFloat,
+          textureMapObject.getScaleX, textureMapObject.getScaleY, textureMapObject.getRotation)
       case _ =>
         //TODO -> fill in base case
     }
   }
-  
-  
-
   /**
    *
    * @param name -> name of entity taken from Tiled map
    * @param textureMapObject -> texture defined in Tiled map
    */
-  def addTextureMapObject(name: String, textureMapObject: TextureMapObject): Unit = {
+  private def addTextureMapObject(name: String, textureMapObject: TextureMapObject): Unit = {
     textureObjects = textureObjects + (name -> textureMapObject)
   }
-
   /**
    *
    * @param name -> name of entity taken from Tiled map
@@ -57,15 +55,13 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
   def getTextureMapObject(name: String): TextureMapObject = {
     textureObjects.getOrElse(name, throw new NoSuchElementException("No TextureMapObject found with in map with key: " + name))
   }
-
   /**
    * @param name -> name of entity taken from Tiled map
    * @param fixture -> fixture defined from object
    */
-  def addFixture(name: String, fixture: Fixture): Unit = {
+  private def addFixture(name: String, fixture: Fixture): Unit = {
     fixtures = fixtures + (name -> fixture)
   }
-
   /**
    *
    * @param name -> name of entity taken from Tiled map
@@ -74,8 +70,6 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
   def getFixture(name: String): Fixture = {
     fixtures.getOrElse(name, throw new NoSuchElementException("No Fixture found with in map with key: " + name))
   }
-
-
   /**
    * This method was completed with help from https://lyze.dev/2021/03/25/libGDX-Tiled-Box2D-example/
    * Current implementation only parses objects that were pre-loaded on map
@@ -88,41 +82,53 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
       addObject(obj)
     }
   }
-  
-  def addObject(obj: MapObject): Unit = {
+  //Really it creates a new object
+  private def addObject(obj: MapObject): Unit = {
     val objectFixture = new ObjectLayerObject(obj)
     addFixture(obj.getName, objectFixture.fixture)
   }
 
+  /**
+   * Adds a new obj with its texture to the screen
+   * This is used when you want to spawn a new object that was preloaded with the map, ie: bullets, enemies, etc.
+   * @param texture
+   * @param obj
+   */
+  def addNewObjWithTexture(texture: TextureMapObject, obj: MapObject): Unit = {
+    //Create collision box for new object
+    addObject(obj)
+
+    //load texture into texture map
+    addTextureMapObject(texture.getName, texture)
+  }
 
   /**
    * Updates a texture to the location of their respective physic object
+   *
    * @param name -> name of texture/fixture stored in maps
    */
-  def updateTextureToObject(name: String): Unit = {
+  private def updateTextureToObject(name: String): Unit = {
 
-      val texture = getTextureMapObject(name)
-      val fixture = getFixture(name)
+    val texture = getTextureMapObject(name)
+    val fixture = getFixture(name)
 
-      val width = texture.getTextureRegion.getRegionWidth
-      val height = texture.getTextureRegion.getRegionHeight
+    val width = texture.getTextureRegion.getRegionWidth
+    val height = texture.getTextureRegion.getRegionHeight
 
-      val textureOriginX = texture.getOriginX
-      val textureOriginY = texture.getOriginY
-
-    
+    val textureOriginX = texture.getOriginX
+    val textureOriginY = texture.getOriginY
     //TODO -> collision boxes still not being drawn correctly
-      val desiredX = (fixture.getBody.getTransform.getPosition.x - textureOriginX) - (width/2f)
-      val desiredY = (fixture.getBody.getTransform.getPosition.y - textureOriginY) - (height/1.9f)
-//        val desiredX = fixture.getBody.getTransform.getPosition.x - (width / 2f)
-//        val desiredY = fixture.getBody.getTransform.getPosition.y - (height / 2f)
+    val desiredX = (fixture.getBody.getTransform.getPosition.x - textureOriginX) - (width / 2f)
+    val desiredY = (fixture.getBody.getTransform.getPosition.y - textureOriginY) - (height / 1.9f)
+    //        val desiredX = fixture.getBody.getTransform.getPosition.x - (width / 2f)
+    //        val desiredY = fixture.getBody.getTransform.getPosition.y - (height / 2f)
 
-      if (texture.getX != desiredX) {
-        texture.setX(desiredX)
-      }
-      if(texture.getY != desiredY) {
-        texture.setY(desiredY)
-      }
+    if (texture.getX != desiredX) {
+      texture.setX(desiredX)
+    }
+    if (texture.getY != desiredY) {
+      texture.setY(desiredY)
+    }
   }
 
 

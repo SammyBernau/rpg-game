@@ -56,10 +56,8 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     playerAction = new PlayerAction(currentWorld)
 
 
-    ghostFireball = new GhostFireball(currentWorld,game.batch)
-    //cursor = new CustomCursor(currentWorld,game.batch)
-
-
+    ghostFireball = new GhostFireball(currentWorld)
+    cursor = new CustomCursor(currentWorld,game.batch)
   }
 
 
@@ -81,14 +79,9 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     playerAnimation.update(tickSystem.getCurrentTick)
     playerAction.playerCameraZoom()
 
+    ghostFireball.create()
 
-
-    if (Gdx.input.isKeyPressed(Input.Keys.X)) {
-      ghostFireball.shoot()
-    }
-
-
-    //cursor.draw()
+    //cursor.set()
     game.batch.begin()
     game.font.draw(game.batch,s"Tick: ${tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
 

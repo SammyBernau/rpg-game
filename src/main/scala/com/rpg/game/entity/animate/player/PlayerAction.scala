@@ -36,8 +36,8 @@ class PlayerAction(currentWorld: CurrentWorld) {
 
     val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
     val filterData = playerFixture.getFilterData
-    
-    
+
+
     //TODO -> Complete collision filtering
 //    if(playerDodging) {
 //      // Set the category bits to a unique value for the player

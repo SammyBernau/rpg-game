@@ -9,8 +9,9 @@ import com.rpg.game.game.config.CurrentWorld
 
 
 class CustomCursor(currentWorld: CurrentWorld, batch: SpriteBatch) extends ScreenAdapter {
-
-  private val texture = new Texture(Gdx.files.internal("assets/ui/custom_cursor.png"))
+  
+  private val cursorFile = Gdx.files.internal("assets/ui/custom_cursor.png")
+  private val customCursor = new Texture(cursorFile)
   //private val spriteBatch = new SpriteBatch()
 
   private val player = currentWorld.mapRenderer.getFixture("player_animation")
@@ -26,7 +27,7 @@ class CustomCursor(currentWorld: CurrentWorld, batch: SpriteBatch) extends Scree
   def draw(): Unit = {
     Gdx.input.setCursorCatched(true)
     batch.begin()
-    batch.draw(texture, Gdx.input.getX.toFloat, Gdx.graphics.getHeight - (Gdx.input.getY.toFloat + texture.getHeight))
+    batch.draw(customCursor, Gdx.input.getX.toFloat, Gdx.graphics.getHeight - (Gdx.input.getY.toFloat + customCursor.getHeight))
     batch.end()
   }
 
@@ -39,7 +40,7 @@ class CustomCursor(currentWorld: CurrentWorld, batch: SpriteBatch) extends Scree
     batch.begin()
 
     // Get the current cursor position
-    val cursorPos = new Vector2(Gdx.input.getX.toFloat, Gdx.graphics.getHeight - (Gdx.input.getY.toFloat + texture.getHeight))
+    val cursorPos = new Vector2(Gdx.input.getX.toFloat, Gdx.graphics.getHeight - (Gdx.input.getY.toFloat + customCursor.getHeight))
 
     // Get the player's current position
     val playerPos = new Vector2(player.getBody.getPosition.x, player.getBody.getPosition.y)
@@ -56,10 +57,10 @@ class CustomCursor(currentWorld: CurrentWorld, batch: SpriteBatch) extends Scree
     // If the cursor is within the allowed distance, draw it at its current position
     // Otherwise, draw it at the position on the boundary of the maximum distance in the direction of the cursor from the player
     if (distance <= maxDistance) {
-      batch.draw(texture, cursorPos.x, cursorPos.y)
+      batch.draw(customCursor, cursorPos.x, cursorPos.y)
     } else {
       val boundaryPos = playerPos.cpy().add(direction.scl(maxDistance))
-      batch.draw(texture, boundaryPos.x, boundaryPos.y)
+      batch.draw(customCursor, boundaryPos.x, boundaryPos.y)
     }
 
     batch.end()
@@ -70,8 +71,8 @@ class CustomCursor(currentWorld: CurrentWorld, batch: SpriteBatch) extends Scree
    *Sets game cursor to custom sprite using the system cursor
    * https://libgdx.com/wiki/input/cursor-visibility-and-catching
    */
-  def set(file: String): Unit = {
-    val pixmap = new Pixmap(Gdx.files.internal(file))
+  def set(): Unit = {
+    val pixmap = new Pixmap(cursorFile)
     val x = 7
     val y = 7
 
@@ -80,7 +81,7 @@ class CustomCursor(currentWorld: CurrentWorld, batch: SpriteBatch) extends Scree
   }
 
   override def dispose(): Unit = {
-    texture.dispose()
+    customCursor.dispose()
 
   }
 

@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Grassland.tmx",
+    "activeFile": "GhostFireball_projectile.tsx",
     "expandedProjectPaths": [
         "."
     ],
@@ -13,7 +13,7 @@
             "scaleInDock": 1
         },
         "GhostFireball_projectile.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 11,
             "scaleInEditor": 23
         },
         "Grassland.tmx": {
@@ -24,11 +24,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 1.5,
+            "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 750,
-                "y": 646.6666666666666
+                "x": 800,
+                "y": 799.8333333333333
             }
         },
         "NPC_test.tsx": {
@@ -45,7 +45,7 @@
             "scaleInEditor": 1.5
         },
         "PlayerSprite.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 5.5,
             "scaleInEditor": 8
         },
         "PlayerSpriteTest.tsx": {
@@ -63,8 +63,8 @@
             "scale": 0.75,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 192,
-                "y": 125.33333333333337
+                "x": 800,
+                "y": 799.3333333333333
             }
         },
         "basictiles.tsx": {
@@ -86,16 +86,17 @@
     "map.width": 100,
     "openFiles": [
         "Grassland.tmx",
-        "Overworld.tsx",
-        "npc_sprite.tsx"
+        "GhostFireball_projectile.tsx",
+        "SpriteUtils.tmx"
     ],
     "project": "Test.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "Grassland.tmx",
+        "SpriteUtils.tmx",
+        "GhostFireball_projectile.tsx",
         "Overworld.tsx",
         "npc_sprite.tsx",
-        "Grassland.tmx",
-        "GhostFireball_projectile.tsx",
         "PlayerSprite.tsx",
         "PlayerSpriteTest.tsx",
         "NPC_test.tsx",

@@ -105,7 +105,11 @@ class ObjectLayerObject(mapObject: MapObject) {
     val polyLineShape = new ChainShape()
     polyLineShape.createChain(polyLine.getVertices)
 
-    defineFixture(body, polyLineShape, bodyType)
+    val fixture = defineFixture(body, polyLineShape, bodyType)
+
+    polyLineShape.dispose()
+
+    fixture
   }
 
 
@@ -118,7 +122,11 @@ class ObjectLayerObject(mapObject: MapObject) {
     val circleShape = new CircleShape()
     circleShape.setRadius(width)
 
-    defineFixture(body, circleShape, bodyType)
+    val fixture = defineFixture(body, circleShape, bodyType)
+
+    circleShape.dispose()
+
+    fixture
   }
 
   private def fixtureFromPolygon(bodyType: BodyType, polygonMapObj: PolygonMapObject, x: Float, y: Float): Fixture = {
@@ -129,7 +137,11 @@ class ObjectLayerObject(mapObject: MapObject) {
     val polygonShape = new PolygonShape()
     polygonShape.set(polygon.getVertices)
 
-    defineFixture(body, polygonShape, bodyType)
+    val fixture = defineFixture(body, polygonShape, bodyType)
+
+    polygonShape.dispose()
+
+    fixture
   }
 
   private def fixtureFromRectangle(bodyType: BodyType, rectangleMapObject: RectangleMapObject, x: Float, y: Float): Fixture = {
@@ -143,7 +155,11 @@ class ObjectLayerObject(mapObject: MapObject) {
     val polygonShape = new PolygonShape()
     polygonShape.setAsBox(width, height)
 
-    defineFixture(body, polygonShape, bodyType)
+    val fixture = defineFixture(body, polygonShape, bodyType)
+
+    polygonShape.dispose()
+
+    fixture
   }
 
 
