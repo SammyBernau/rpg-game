@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.{Polygon, Vector2}
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
-import com.rpg.game.game.util.rendering.fixture.{FixtureCreator, FixtureCreatorFactory}
+import com.rpg.game.game.util.rendering.fixture.{FixtureCreatorSimple, FixtureCreatorFactory}
 import com.rpg.game.game.util.rendering.fixture.shapes.{EllipseObject, PolygonObject, PolylineObject, PolylineObjectBoundingBox, RectangleObject, TextureObject}
 
 
@@ -24,40 +24,24 @@ class ObjectLayerObject(mapObject: MapObject) {
 
   // Returns a fixture based on object settings
   // Currently no legitimate support for kinematic body types
-  val fixtureCreator: FixtureCreator = FixtureCreatorFactory.getFixtureCreator(mapObject)
+  private val fixtureCreator: FixtureCreatorSimple = FixtureCreatorFactory.getFixtureCreator(mapObject)
   val fixture: Fixture = buildFixture()
 
   private def buildFixture(): Fixture = {
-  val bodyType = try {
-    stringToBodyType(mapObject.getProperties.get("BodyType").toString)
-  } catch {
-    case e: Exception =>
-      println(e.getStackTrace.mkString("Array(", ", ", ")"))
-      println(s"BodyType is either null or incorrectly set for this object: ${mapObject.getName}")
-      println("...Setting BodyType to default: Static")
-      BodyType.StaticBody
-  }
-    mapObject match {
-      //---------Objects without textures---------//
-      case rectangleMapObject: RectangleMapObject =>
-        RectangleObject().getFixture(bodyType, rectangleMapObject,rectangleMapObject.getRectangle.getX, rectangleMapObject.getRectangle.getY)
-
-      case polygonMapObj: PolygonMapObject =>
-        PolygonObject().getFixture(bodyType, polygonMapObj, polygonMapObj.getPolygon.getX,polygonMapObj.getPolygon.getY)
-
-      case ellipseMapObject: EllipseMapObject =>
-        EllipseObject().getFixture(bodyType, ellipseMapObject, ellipseMapObject.getEllipse.x,ellipseMapObject.getEllipse.y)
-
-      case polyLineMapObject: PolylineMapObject =>
-        PolylineObject().getFixture(bodyType, polyLineMapObject, polyLineMapObject.getPolyline.getX, polyLineMapObject.getPolyline.getY)
-
-      //---------Objects with textures that need to be created---------//
-      case textureMapObj: TextureMapObject => //TextureMapObjects are Tiles inserted as objects into object layer
-        TextureObject().getFixture(bodyType,mapObject,textureMapObj.getX,textureMapObj.getY)
-      case _ =>
-        throw new IllegalStateException(s"No matching ShapeMapObject found for ${mapObject.getName} with properties: ${mapObject.getProperties}")
+    val bodyType = try {
+      stringToBodyType(mapObject.getProperties.get("BodyType").toString)
+    } catch {
+      case e: Exception =>
+        println(e.getStackTrace.mkString("Array(", ", ", ")"))
+        println(s"BodyType is either null or incorrectly set for this object: ${mapObject.getName}")
+        println("...Setting BodyType to default: Static")
+        BodyType.StaticBody
     }
+
+    fixtureCreator.getFixture(bodyType,mapObject)
   }
+
+
 
 
 

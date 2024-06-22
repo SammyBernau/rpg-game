@@ -6,7 +6,7 @@ import com.rpg.game.game.util.rendering.fixture.shapes.{EllipseObject, PolygonOb
 
 object FixtureCreatorFactory {
 
-  def getFixtureCreator(mapObject: MapObject): FixtureCreator = mapObject match {
+  def getFixtureCreator(mapObject: MapObject): FixtureCreatorSimple = mapObject match {
     case _: EllipseMapObject => new EllipseObject()
     case _: RectangleMapObject => new RectangleObject()
     case _: PolygonMapObject => new PolygonObject()

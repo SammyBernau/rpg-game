@@ -219,7 +219,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="31" name="skull" type="entity" gid="148" x="720" y="672" width="16" height="16">
+  <object id="31" name="skull" type="entity" gid="148" x="763" y="705" width="16" height="16">
    <properties>
     <property name="BodyType" value="dynamic"/>
    </properties>

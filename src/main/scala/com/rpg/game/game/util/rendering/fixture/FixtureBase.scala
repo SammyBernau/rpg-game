@@ -2,14 +2,11 @@ package com.rpg.game.game.util.rendering.fixture
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
-import com.badlogic.gdx.physics.box2d.{Body, BodyDef, Fixture, FixtureDef, Shape}
+import com.badlogic.gdx.physics.box2d.*
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
 
-abstract class FixtureCreator {
-  
-  def getFixture(bodyType: BodyType, mapObject: MapObject, x: Float, y: Float): Fixture
-//  def getFixture(bodyType: BodyType, mapObject: MapObject): Fixture
-  
+trait FixtureBase {
+
   /**
    * Defines a fixture based on if its dynamic or static
    *
@@ -63,4 +60,5 @@ abstract class FixtureCreator {
     }
     WORLD.createBody(bodyDef)
   }
+
 }
