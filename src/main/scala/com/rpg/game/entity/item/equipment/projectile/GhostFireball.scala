@@ -54,9 +54,12 @@ class GhostFireball(currentWorld: CurrentWorld) extends Projectile[TiledMapTileM
       val textureMapObject = obj.asInstanceOf[TextureMapObject]
       setTexturePositionToWorldGridSystem(textureMapObject)
 
+      //add to alive projectiles list
       addProjectile(obj)
+      //add to texture and fixture lists to track for updating
       currentWorld.mapRenderer.addNewObjWithTexture(textureMapObject, rectangleMapObject)
-      entityLayer.getObjects.add(textureMapObject) //adds sprite to entity layer to be drawn
+      //adds sprite to entity layer to be drawn
+      currentWorld.mapRenderer.addToObjectLayer(textureMapObject)
 
       move(name, 200f, angle)
 

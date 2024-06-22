@@ -20,7 +20,8 @@ import com.rpg.game.game.util.collision.ObjectLayerObject
  * @author Sam Bernau
  */
 class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTiledMapRenderer(map) {
-
+  
+  private val entityLayer = map.getLayers.get("entity").getObjects
   private var textureObjects: Map[String, TextureMapObject] = Map() //stores textures of physics objects
   private var fixtures: Map[String, Fixture] = Map() //stores physics objects
   /**
@@ -44,41 +45,36 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
    * @param name -> name of entity taken from Tiled map
    * @param textureMapObject -> texture defined in Tiled map
    */
-  private def addTextureMapObject(name: String, textureMapObject: TextureMapObject): Unit = {
-    textureObjects = textureObjects + (name -> textureMapObject)
-  }
+  private def addTextureMapObject(name: String, textureMapObject: TextureMapObject): Unit = textureObjects = textureObjects + (name -> textureMapObject)
+  
   /**
    *
    * @param name -> name of entity taken from Tiled map
    * @return
    */
-  def getTextureMapObject(name: String): TextureMapObject = {
-    textureObjects.getOrElse(name, throw new NoSuchElementException("No TextureMapObject found with in map with key: " + name))
-  }
+  def getTextureMapObject(name: String): TextureMapObject = textureObjects.getOrElse(name, throw new NoSuchElementException("No TextureMapObject found with in map with key: " + name))
+  
   /**
    * @param name -> name of entity taken from Tiled map
    * @param fixture -> fixture defined from object
    */
-  private def addFixture(name: String, fixture: Fixture): Unit = {
-    fixtures = fixtures + (name -> fixture)
-  }
+  private def addFixture(name: String, fixture: Fixture): Unit = fixtures = fixtures + (name -> fixture)
+  
   /**
    *
    * @param name -> name of entity taken from Tiled map
    * @return
    */
-  def getFixture(name: String): Fixture = {
-    fixtures.getOrElse(name, throw new NoSuchElementException("No Fixture found with in map with key: " + name))
-  }
+  def getFixture(name: String): Fixture = fixtures.getOrElse(name, throw new NoSuchElementException("No Fixture found with in map with key: " + name))
+  
   /**
    * This method was completed with help from https://lyze.dev/2021/03/25/libGDX-Tiled-Box2D-example/
    * Current implementation only parses objects that were pre-loaded on map
    */
   def parseObjectsFromMap(): Unit = {
-    val objs = map.getLayers.get("entity").getObjects
 
-    for (i <- 0 until objs.getCount) {
-      val obj = objs.get(i)
+    for (i <- 0 until entityLayer.getCount) {
+      val obj = entityLayer.get(i)
       addObject(obj)
     }
   }
@@ -87,6 +83,12 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
     val objectFixture = new ObjectLayerObject(obj)
     addFixture(obj.getName, objectFixture.fixture)
   }
+
+  /**
+   * Dynamically added objects need to have their texture added to the entity layer in order to be rendered
+   * @param textureMapObject
+   */
+  def addToObjectLayer(textureMapObject: TextureMapObject): Unit = entityLayer.add(textureMapObject)
 
   /**
    * Adds a new obj with its texture to the screen
