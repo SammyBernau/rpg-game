@@ -33,10 +33,12 @@ class GhostFireball(currentWorld: CurrentWorld) extends Projectile[TiledMapTileM
 
       val angle = calculateAngle(playerX, playerY, mousePosition.x, mousePosition.y)
 
-      val spawnX = playerX + (MathUtils.cos(angle) * spawnDistance)
-      println(s"spawnX: ${spawnX}")
-      val spawnY = playerY + (MathUtils.sin(angle) * spawnDistance)
-      println(s"spawnY: ${spawnY}")
+      //Offsets projectile spawn since they spawn at varying distances based on what quadrant the cursor clicks in (aka unit circle around player)
+      val xOffset = 10
+      val yOffset = 15
+
+      val spawnX = (playerX + (MathUtils.cos(angle) * spawnDistance)) -xOffset
+      val spawnY = (playerY + (MathUtils.sin(angle) * spawnDistance)) -yOffset
 
       val name = ghostFireballTile.getProperties.get("type").toString + "_" + ghostFireballCount.toString
       //Retrieve bounding box that will be the collision box for fireball
@@ -75,6 +77,9 @@ class GhostFireball(currentWorld: CurrentWorld) extends Projectile[TiledMapTileM
     val fireballBody = fireballFixture.getBody
     val fireballPosition = fireballBody.getPosition
 
+    //Stops ball from slowing down over time (constant speed)
+    fireballBody.setLinearDamping(0f)
+
     //Calculate the force to be applied on the fireball
     val forceX = MathUtils.cos(angle) * speed
     val forceY = MathUtils.sin(angle) * speed
@@ -94,28 +99,6 @@ class GhostFireball(currentWorld: CurrentWorld) extends Projectile[TiledMapTileM
   }
 
   private def calculateAngle(x1: Float, y1: Float, x2: Float, y2: Float): Float = MathUtils.atan2(y2 - y1, x2 - x1)
-  private def getMouseCoordsInWorld: Vector3 = currentWorld.viewport.getCamera.unproject(Vector3(Gdx.input.getX.toFloat, Gdx.input.getY.toFloat, 0))
-
-
-
-  //DONT NEED THIS DRAW METHOD SINCE OrthogonalTiledMapRendererWithObjects handles all the draw calls and updates
-  //  override def draw(batch: SpriteBatch): Unit = {
-  //    if(getProjectiles.nonEmpty) {
-  //      batch.begin()
-  //      getProjectiles.foreach { obj =>
-  //        val textureMapObject = obj.asInstanceOf[TextureMapObject]
-  //        val x = textureMapObject.getX
-  //        val y = textureMapObject.getY
-  //        println(s"GhostFireballTexture Position for ${obj.getName}: ${x},${y}")
-  //        //batch.draw(textureMapObject.getTextureRegion, x, y)
-  ////        batch.draw(textureMapObject.getTextureRegion, textureMapObject.getX, textureMapObject.getY, textureMapObject.getOriginX,
-  ////          textureMapObject.getOriginY, textureMapObject.getTextureRegion.getRegionWidth.toFloat, textureMapObject.getTextureRegion.getRegionHeight.toFloat,
-  ////          textureMapObject.getScaleX, textureMapObject.getScaleY, textureMapObject.getRotation)
-  //        //currentWorld.mapRenderer.updateTextureToObject(obj.getName)
-  //      }
-  //      batch.end()
-  //    }
-  //  }
-
+  private def getMouseCoordsInWorld: Vector2 = currentWorld.viewport.unproject(Vector2(Gdx.input.getX.toFloat, Gdx.input.getY.toFloat))
 
 }
