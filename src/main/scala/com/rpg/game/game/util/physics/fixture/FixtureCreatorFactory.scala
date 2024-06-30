@@ -1,8 +1,8 @@
-package com.rpg.game.game.util.rendering.fixture
+package com.rpg.game.game.util.physics.fixture
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.{EllipseMapObject, PolygonMapObject, PolylineMapObject, RectangleMapObject, TextureMapObject}
-import com.rpg.game.game.util.rendering.fixture.shapes.{EllipseObject, PolygonObject, PolylineObject, PolylineObjectBoundingBox, RectangleObject, TextureObject}
+import com.rpg.game.game.util.physics.fixture.shapes.{EllipseObject, PolygonObject, PolylineObject, PolylineObjectBoundingBox, RectangleObject, TextureObject}
 
 object FixtureCreatorFactory {
 

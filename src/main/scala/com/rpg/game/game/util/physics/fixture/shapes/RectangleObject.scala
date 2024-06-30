@@ -1,9 +1,9 @@
-package com.rpg.game.game.util.rendering.fixture.shapes
+package com.rpg.game.game.util.physics.fixture.shapes
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.physics.box2d.{BodyDef, Fixture, PolygonShape}
-import com.rpg.game.game.util.rendering.fixture.{FixtureBase, FixtureCreatorExtended, FixtureCreatorSimple}
+import com.rpg.game.game.util.physics.fixture.{FixtureBase, FixtureCreatorExtended, FixtureCreatorSimple}
 
 class RectangleObject extends FixtureBase with FixtureCreatorSimple with FixtureCreatorExtended{
 
@@ -34,7 +34,7 @@ class RectangleObject extends FixtureBase with FixtureCreatorSimple with Fixture
 
     val body = getBody(x + width, y + height, bodyType)
 
-
+    
     val polygonShape = new PolygonShape()
     polygonShape.setAsBox(width, height)
 

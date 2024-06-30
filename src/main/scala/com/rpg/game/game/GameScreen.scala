@@ -14,7 +14,7 @@ import com.badlogic.gdx.maps.objects.{EllipseMapObject, PolygonMapObject, Rectan
 import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapTileLayer, TmxMapLoader}
 import com.badlogic.gdx.math.{Rectangle, Vector2, Vector3}
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
-import com.badlogic.gdx.physics.box2d.{BodyDef, Box2D, Box2DDebugRenderer, CircleShape, Fixture, FixtureDef, PolygonShape, Shape, Transform, World}
+import com.badlogic.gdx.physics.box2d.{BodyDef, Box2D, Box2DDebugRenderer, CircleShape, ContactListener, Fixture, FixtureDef, PolygonShape, Shape, Transform, World}
 import com.badlogic.gdx.utils.viewport.{ExtendViewport, Viewport}
 import com.rpg.game.RPG
 import com.rpg.game.entity.animate.{Humanoid, player}
@@ -26,6 +26,8 @@ import games.rednblack.editor.renderer.resources.{AsyncResourceManager, Resource
 import com.rpg.game.game.config.{CurrentWorld, GameConfig}
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
 import com.rpg.game.game.util.cursor.{CursorBehavior, CustomCursor}
+import com.rpg.game.game.util.physics.collision.CollisionListener
+import com.rpg.game.game.util.physics.removal.ObjectRemover
 import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
 import com.rpg.game.ticksystem.{Tick, TickListener}
 
@@ -39,6 +41,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private var cursor: CustomCursor = _
   private val tickSystem = new Tick()
   private var ghostFireball: GhostFireball = _
+  private val objectRemover = new ObjectRemover
 
 
   override def show(): Unit = {
@@ -46,6 +49,8 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     val mapRenderer = new OrthogonalTiledMapRendererWithObjects(map)
     val tileSize = map.getLayers.get(0).asInstanceOf[TiledMapTileLayer].getTileWidth
     val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)
+    val collisionListener = new CollisionListener
+    WORLD.setContactListener(collisionListener)
 
 
 
@@ -67,7 +72,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
 
     currentWorld.viewport.apply()
     WORLD.step(DELTA_TIME, 6,2)
-
+    objectRemover.removeBodySafely()
     currentWorld.mapRenderer.setView(currentWorld.viewport.getCamera.asInstanceOf[OrthographicCamera])
     currentWorld.mapRenderer.render()
 

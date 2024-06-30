@@ -1,11 +1,11 @@
-package com.rpg.game.game.util.rendering.fixture.shapes
+package com.rpg.game.game.util.physics.fixture.shapes
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.{EllipseMapObject, PolylineMapObject, RectangleMapObject, TextureMapObject}
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.{BodyDef, Fixture}
-import com.rpg.game.game.util.rendering.fixture.{FixtureBase, FixtureCreatorSimple}
+import com.rpg.game.game.util.physics.fixture.{FixtureBase, FixtureCreatorSimple}
 
 class TextureObject extends FixtureBase with FixtureCreatorSimple {
 

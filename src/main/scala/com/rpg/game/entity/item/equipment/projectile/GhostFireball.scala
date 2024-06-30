@@ -6,9 +6,12 @@ import com.badlogic.gdx.maps.objects.{RectangleMapObject, TextureMapObject}
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile
 import com.badlogic.gdx.math.{MathUtils, Vector2, Vector3}
+import com.badlogic.gdx.physics.box2d.{Contact, ContactImpulse, ContactListener, Fixture, Manifold}
+import com.rpg.game.entity.UserData
 import com.rpg.game.entity.textures.EntityAnimations
 import com.rpg.game.game.config.CurrentWorld
-import com.rpg.game.game.util.collision.ObjectLayerObject
+import com.rpg.game.game.util.physics.ObjectLayerObject
+import com.rpg.game.game.util.physics.collision.Collidable
 import org.lwjgl.system.windows.INPUT
 
 class GhostFireball(currentWorld: CurrentWorld) extends Projectile[TiledMapTileMapObject] {
@@ -62,6 +65,10 @@ class GhostFireball(currentWorld: CurrentWorld) extends Projectile[TiledMapTileM
       currentWorld.mapRenderer.addNewObjWithTexture(textureMapObject, rectangleMapObject)
       //adds sprite to entity layer to be drawn
       currentWorld.mapRenderer.addToObjectLayer(textureMapObject)
+      
+      val fixture = currentWorld.mapRenderer.getFixture(name)
+      val userData = UserData("GhostFireball", false, name)
+      fixture.getBody.setUserData(userData)
 
       move(name, 200f, angle)
 
@@ -100,5 +107,8 @@ class GhostFireball(currentWorld: CurrentWorld) extends Projectile[TiledMapTileM
 
   private def calculateAngle(x1: Float, y1: Float, x2: Float, y2: Float): Float = MathUtils.atan2(y2 - y1, x2 - x1)
   private def getMouseCoordsInWorld: Vector2 = currentWorld.viewport.unproject(Vector2(Gdx.input.getX.toFloat, Gdx.input.getY.toFloat))
+
+
+
 
 }

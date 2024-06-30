@@ -9,8 +9,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.*
+import com.rpg.game.entity.UserData
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
-import com.rpg.game.game.util.collision.ObjectLayerObject
+import com.rpg.game.game.util.physics.ObjectLayerObject
 
 
 /**
@@ -113,23 +114,29 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
 
     val texture = getTextureMapObject(name)
     val fixture = getFixture(name)
+    val userData = fixture.getBody.getUserData.asInstanceOf[UserData]
+    if (userData != null && userData.isFlaggedForDelete) { //TODO flesh this out and make sure no rogue textures or fixtures are floating around in lists up at top after removed from world
+      entityLayer.remove(texture)
+      println("texture removed")
+    } else {
 
-    val width = texture.getTextureRegion.getRegionWidth
-    val height = texture.getTextureRegion.getRegionHeight
+      val width = texture.getTextureRegion.getRegionWidth
+      val height = texture.getTextureRegion.getRegionHeight
 
-    val textureOriginX = texture.getOriginX
-    val textureOriginY = texture.getOriginY
-    //TODO -> collision boxes still not being drawn correctly
-    val desiredX = (fixture.getBody.getTransform.getPosition.x - textureOriginX) - (width / 2f)
-    val desiredY = (fixture.getBody.getTransform.getPosition.y - textureOriginY) - (height / 1.9f)
-    //        val desiredX = fixture.getBody.getTransform.getPosition.x - (width / 2f)
-    //        val desiredY = fixture.getBody.getTransform.getPosition.y - (height / 2f)
+      val textureOriginX = texture.getOriginX
+      val textureOriginY = texture.getOriginY
+      //TODO -> collision boxes still not being drawn correctly
+      val desiredX = (fixture.getBody.getTransform.getPosition.x - textureOriginX) - (width / 2f)
+      val desiredY = (fixture.getBody.getTransform.getPosition.y - textureOriginY) - (height / 1.9f)
+      //        val desiredX = fixture.getBody.getTransform.getPosition.x - (width / 2f)
+      //        val desiredY = fixture.getBody.getTransform.getPosition.y - (height / 2f)
 
-    if (texture.getX != desiredX) {
-      texture.setX(desiredX)
-    }
-    if (texture.getY != desiredY) {
-      texture.setY(desiredY)
+      if (texture.getX != desiredX) {
+        texture.setX(desiredX)
+      }
+      if (texture.getY != desiredY) {
+        texture.setY(desiredY)
+      }
     }
   }
 

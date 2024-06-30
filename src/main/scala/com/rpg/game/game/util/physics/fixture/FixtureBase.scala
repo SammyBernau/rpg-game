@@ -1,4 +1,4 @@
-package com.rpg.game.game.util.rendering.fixture
+package com.rpg.game.game.util.physics.fixture
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType

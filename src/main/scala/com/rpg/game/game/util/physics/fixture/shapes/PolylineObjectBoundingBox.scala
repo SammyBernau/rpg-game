@@ -1,9 +1,9 @@
-package com.rpg.game.game.util.rendering.fixture.shapes
+package com.rpg.game.game.util.physics.fixture.shapes
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.PolylineMapObject
 import com.badlogic.gdx.physics.box2d.{BodyDef, ChainShape, Fixture}
-import com.rpg.game.game.util.rendering.fixture.{FixtureBase, FixtureCreatorExtended, FixtureCreatorSimple}
+import com.rpg.game.game.util.physics.fixture.{FixtureBase, FixtureCreatorExtended, FixtureCreatorSimple}
 
 class PolylineObjectBoundingBox extends FixtureBase with FixtureCreatorSimple with FixtureCreatorExtended{
 

@@ -1,4 +1,4 @@
-package com.rpg.game.game.util.collision
+package com.rpg.game.game.util.physics
 
 import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.EllipseShapeBuilder
 import com.badlogic.gdx.maps.MapObject
@@ -8,13 +8,14 @@ import com.badlogic.gdx.math.{Polygon, Vector2}
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
-import com.rpg.game.game.util.rendering.fixture.{FixtureCreatorSimple, FixtureCreatorFactory}
-import com.rpg.game.game.util.rendering.fixture.shapes.{EllipseObject, PolygonObject, PolylineObject, PolylineObjectBoundingBox, RectangleObject, TextureObject}
+import com.rpg.game.game.util.physics.fixture.{FixtureCreatorFactory, FixtureCreatorSimple}
+import com.rpg.game.game.util.physics.fixture.shapes.{EllipseObject, PolygonObject, PolylineObject, PolylineObjectBoundingBox, RectangleObject, TextureObject}
 
 
 /**
  * An ObjectLayerObject is defined as an object in the object layer of a tiled map layer.
  * Works for both tiles inserted as objects and free drawn objects with no textures.
+ *
  * @param mapObject -> current mapobject
  * @author Sam Bernau
  */

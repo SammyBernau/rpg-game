@@ -1,9 +1,9 @@
-package com.rpg.game.game.util.rendering.fixture.shapes
+package com.rpg.game.game.util.physics.fixture.shapes
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.EllipseMapObject
 import com.badlogic.gdx.physics.box2d.{BodyDef, CircleShape, Fixture}
-import com.rpg.game.game.util.rendering.fixture.{FixtureBase, FixtureCreatorExtended, FixtureCreatorSimple}
+import com.rpg.game.game.util.physics.fixture.{FixtureBase, FixtureCreatorExtended, FixtureCreatorSimple}
 
 class EllipseObject extends FixtureCreatorSimple with FixtureCreatorExtended with FixtureBase{
 
