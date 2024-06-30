@@ -1,11 +1,13 @@
-package com.rpg.game.game.util.physics.removal
+package com.rpg.game.game.util.physics
 
 import com.badlogic.gdx.physics.box2d.Body
-import com.rpg.game.entity.UserData
-import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
 import com.badlogic.gdx.utils.Array
+import com.rpg.game.entity.UserData
+import com.rpg.game.game.config.CurrentWorld
+import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
+import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
 
-class ObjectRemover {
+class Remover(renderer: OrthogonalTiledMapRendererWithObjects) {
   /**
    * Safe way to remove body from the world. Remember that you cannot have any
    * references to this body after calling this
@@ -18,6 +20,7 @@ class ObjectRemover {
     WORLD.getBodies(bodies)
 
     bodies.forEach{ body =>
+      //to prevent some obscure c assertion that happened randomly once in a blue moon
       val list = body.getJointList
       while (list.size > 0) WORLD.destroyJoint(list.get(0).joint)
 
@@ -25,13 +28,14 @@ class ObjectRemover {
       val userData = body.getUserData.asInstanceOf[UserData]
       if(userData != null) {
         if (userData.isFlaggedForDelete) {
+          renderer.removeTexture(userData.getId)
           WORLD.destroyBody(body)
           println("Body destroyed")
           body.setUserData(null)
         }
       }
     }
-    //to prevent some obscure c assertion that happened randomly once in a blue moon
   }
+  
 
 }

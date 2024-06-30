@@ -7,9 +7,8 @@ import com.rpg.game.game.util.physics.collision.Collidable
 
 class GhostFireballProjectileCollidable(fixtureA: Fixture) extends Collidable {
   override def handleCollision(): Unit = {
-    //destroy fireball on contact
+    //set delete tag on fireball to be destroyed
     val userData = fixtureA.getBody.getUserData.asInstanceOf[UserData]
     userData.isFlaggedForDelete = true
-    println("Fireball collided with something")
   }
 }

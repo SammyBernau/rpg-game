@@ -11,7 +11,7 @@ object CollidableFactory {
     val bUserData = fixtureB.getBody.getUserData.asInstanceOf[UserData]
 
     if (aUserData != null && aUserData.objName == "GhostFireball") Some(new GhostFireballProjectileCollidable(fixtureA))
-    else if (bUserData != null && bUserData.objName == "GhostFireball") Some(new GhostFireballProjectileCollidable(fixtureB))
+    //else if (bUserData != null && bUserData.objName == "GhostFireball") Some(new GhostFireballProjectileCollidable(fixtureB))
     else None
 
   }

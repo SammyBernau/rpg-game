@@ -21,6 +21,7 @@ class GhostFireball(currentWorld: CurrentWorld) extends Projectile[TiledMapTileM
   private val ghostFireballTile = entityAnimations.GhostFireBall.tile
   private val entityLayer = currentWorld.tiledMap.getLayers.get("entity")
   private var ghostFireballCount = 0
+  private val SPAWN_DISTANCE = 50
 
   override def create(): Unit = {
     val LEFT = Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)
@@ -31,17 +32,15 @@ class GhostFireball(currentWorld: CurrentWorld) extends Projectile[TiledMapTileM
       val playerY = playerPosition.y
 
       val mousePosition = getMouseCoordsInWorld
-
-      val spawnDistance = 50
-
+      
       val angle = calculateAngle(playerX, playerY, mousePosition.x, mousePosition.y)
 
       //Offsets projectile spawn since they spawn at varying distances based on what quadrant the cursor clicks in (aka unit circle around player)
       val xOffset = 10
       val yOffset = 15
 
-      val spawnX = (playerX + (MathUtils.cos(angle) * spawnDistance)) -xOffset
-      val spawnY = (playerY + (MathUtils.sin(angle) * spawnDistance)) -yOffset
+      val spawnX = (playerX + (MathUtils.cos(angle) * SPAWN_DISTANCE)) -xOffset
+      val spawnY = (playerY + (MathUtils.sin(angle) * SPAWN_DISTANCE)) -yOffset
 
       val name = ghostFireballTile.getProperties.get("type").toString + "_" + ghostFireballCount.toString
       //Retrieve bounding box that will be the collision box for fireball

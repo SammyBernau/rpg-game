@@ -26,8 +26,8 @@ import games.rednblack.editor.renderer.resources.{AsyncResourceManager, Resource
 import com.rpg.game.game.config.{CurrentWorld, GameConfig}
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
 import com.rpg.game.game.util.cursor.{CursorBehavior, CustomCursor}
+import com.rpg.game.game.util.physics.Remover
 import com.rpg.game.game.util.physics.collision.CollisionListener
-import com.rpg.game.game.util.physics.removal.ObjectRemover
 import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
 import com.rpg.game.ticksystem.{Tick, TickListener}
 
@@ -41,7 +41,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private var cursor: CustomCursor = _
   private val tickSystem = new Tick()
   private var ghostFireball: GhostFireball = _
-  private val objectRemover = new ObjectRemover
+  private var remover: Remover = _
 
 
   override def show(): Unit = {
@@ -50,9 +50,8 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     val tileSize = map.getLayers.get(0).asInstanceOf[TiledMapTileLayer].getTileWidth
     val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)
     val collisionListener = new CollisionListener
+    remover = new Remover(mapRenderer)
     WORLD.setContactListener(collisionListener)
-
-
 
     currentWorld = CurrentWorld(viewport, mapRenderer, map, new Box2DDebugRenderer())
     mapRenderer.parseObjectsFromMap()
@@ -71,8 +70,9 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
     currentWorld.viewport.apply()
+    remover.removeBodySafely()
+
     WORLD.step(DELTA_TIME, 6,2)
-    objectRemover.removeBodySafely()
     currentWorld.mapRenderer.setView(currentWorld.viewport.getCamera.asInstanceOf[OrthographicCamera])
     currentWorld.mapRenderer.render()
 
