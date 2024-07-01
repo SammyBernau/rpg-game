@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets
 import sbt.IO._
 
 
-val libgdxVersion = "1.11.0"
+val libgdxVersion = "1.12.1"
 val artemisVersion = "2.3.0"
 logLevel := Level.Debug
 
