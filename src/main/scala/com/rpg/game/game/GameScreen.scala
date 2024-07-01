@@ -21,8 +21,6 @@ import com.rpg.game.entity.animate.{Humanoid, player}
 import com.rpg.game.entity.animate.player.{Owner, Player, PlayerAction, PlayerAnimation}
 import com.rpg.game.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.game.entity.item.equipment.projectile.GhostFireball
-import games.rednblack.editor.renderer.{ExternalTypesConfiguration, SceneConfiguration, SceneLoader}
-import games.rednblack.editor.renderer.resources.{AsyncResourceManager, ResourceManagerLoader}
 import com.rpg.game.game.config.{CurrentWorld, GameConfig}
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
 import com.rpg.game.game.util.cursor.{CursorBehavior, CustomCursor}

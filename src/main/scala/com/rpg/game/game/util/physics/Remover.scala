@@ -7,6 +7,10 @@ import com.rpg.game.game.config.CurrentWorld
 import com.rpg.game.game.config.GameConfig.GameWorld.WORLD
 import com.rpg.game.game.util.rendering.OrthogonalTiledMapRendererWithObjects
 
+/**
+ * Removes physics objects from world and calls OrthogonalTiledMapRendererWithObjects to remove their respective textures
+ * @param renderer
+ */
 class Remover(renderer: OrthogonalTiledMapRendererWithObjects) {
   /**
    * Safe way to remove body from the world. Remember that you cannot have any
@@ -30,7 +34,6 @@ class Remover(renderer: OrthogonalTiledMapRendererWithObjects) {
         if (userData.isFlaggedForDelete) {
           renderer.removeTexture(userData.getId)
           WORLD.destroyBody(body)
-          println("Body destroyed")
           body.setUserData(null)
         }
       }

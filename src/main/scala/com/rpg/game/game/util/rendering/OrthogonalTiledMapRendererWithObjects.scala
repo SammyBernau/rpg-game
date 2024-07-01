@@ -141,15 +141,20 @@ class OrthogonalTiledMapRendererWithObjects(map: TiledMap) extends OrthogonalTil
       }
 }
 
+
+  /**
+   * Removes texture and fixture from above lists so they dont get rendered
+   * Note: Removing the fixture from the fixture list doesn't delete the fixture, just decouples it from its respective texture
+   * @param name -> name as map key
+   */
    def removeTexture(name: String): Unit = {
     val texture = getTextureMapObject(name)
     val fixture = getFixture(name)
     val userData = fixture.getBody.getUserData.asInstanceOf[UserData]
-    if (userData != null && userData.isFlaggedForDelete) { //TODO flesh this out and make sure no rogue textures or fixtures are floating around in lists up at top after removed from world
+    if (userData != null && userData.isFlaggedForDelete) {
       entityLayer.remove(texture)
       textureObjects -= name
       fixtures -= name
-      println(s"Texture removed: ${name}")
     }
   }
 

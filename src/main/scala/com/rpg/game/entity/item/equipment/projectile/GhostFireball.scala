@@ -106,8 +106,5 @@ class GhostFireball(currentWorld: CurrentWorld) extends Projectile[TiledMapTileM
 
   private def calculateAngle(x1: Float, y1: Float, x2: Float, y2: Float): Float = MathUtils.atan2(y2 - y1, x2 - x1)
   private def getMouseCoordsInWorld: Vector2 = currentWorld.viewport.unproject(Vector2(Gdx.input.getX.toFloat, Gdx.input.getY.toFloat))
-
-
-
-
+  
 }
