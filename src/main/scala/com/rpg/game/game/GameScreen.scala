@@ -58,7 +58,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     playerAction = new PlayerAction(currentWorld)
 
 
-    ghostFireball = new GhostFireball(currentWorld)
+    ghostFireball = new GhostFireball(currentWorld,tickSystem)
     cursor = new CustomCursor(currentWorld,game.batch)
   }
 
@@ -82,7 +82,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     playerAnimation.update(tickSystem.getCurrentTick)
     playerAction.playerCameraZoom()
 
-    ghostFireball.create()
+    ghostFireball.update(tickSystem.getCurrentTick)
 
     //cursor.set()
     game.batch.begin()

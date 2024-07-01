@@ -101,9 +101,9 @@ class EntityAnimations(currentWorld: CurrentWorld) {
   private val nonPreLoadedTileSets = new TmxMapLoader().load("assets/Tiled/SpriteUtils.tmx").getTileSets
   object GhostFireBall {
     private val ghostFireballSpriteSheet: TiledMapTileSet = nonPreLoadedTileSets.getTileSet("GhostFireball_projectile")
-    val frames = getFramesAsMap(ghostFireballSpriteSheet)
-    val tile = frames.getOrElse("ghost_fireball",List()).head
-    val textureRegion = tile.getTextureRegion
+    private val frames = getFramesAsMap(ghostFireballSpriteSheet)
+    val tile: TiledMapTile = frames.getOrElse("ghost_fireball",List()).head
+    val textureRegion: TextureRegion = tile.getTextureRegion
 
   }
 
