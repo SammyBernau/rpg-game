@@ -7,7 +7,9 @@ import com.rpg.game.config.CurrentSettings
 import com.rpg.game.systems.tick_system.{Tick, TickListener}
 
 class PlayerAnimation(currentWorld: CurrentSettings, tickSystem: Tick) extends TickListener {
-
+  //Add to listener list
+  tickSystem.addListener(this)
+  
   //walk/run vars
   private val entityAnimations = EntityAnimations(currentWorld)
   private val playerSkin = entityAnimations.Player

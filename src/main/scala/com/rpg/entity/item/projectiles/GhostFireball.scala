@@ -11,11 +11,14 @@ import com.rpg.entity.ObjectUserData
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentSettings
 import com.rpg.game.systems.physics_system.ObjectLayerObject
+import com.rpg.game.systems.physics_system.World.WORLD
 import com.rpg.game.systems.physics_system.collision.Collidable
 import com.rpg.game.systems.tick_system.{Tick, TickListener}
 import org.lwjgl.system.windows.INPUT
 
 class GhostFireball(currentWorld: CurrentSettings, tickSystem: Tick) extends Projectile[TiledMapTileMapObject] with TickListener {
+  //Add to listener list
+  tickSystem.addListener(this)
 
   private val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
   private val entityAnimations = EntityAnimations(currentWorld)

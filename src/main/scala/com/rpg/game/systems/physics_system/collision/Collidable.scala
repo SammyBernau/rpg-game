@@ -8,6 +8,6 @@ import com.badlogic.gdx.physics.box2d.Fixture
  */
 trait Collidable {
   
-  def handleCollision(): Unit
+  def handleCollision(): Unit 
 
 }

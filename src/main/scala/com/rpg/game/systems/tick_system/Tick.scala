@@ -5,7 +5,7 @@ import com.badlogic.gdx.{Application, ApplicationAdapter, Gdx, Screen, ScreenAda
 import scala.jdk.CollectionConverters.*
 import java.util.concurrent.{Callable, ConcurrentLinkedQueue, CountDownLatch, ExecutorService, Executors}
 import scala.collection.mutable
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ExecutionContext, ExecutionContextExecutor, Future}
 
 //TODO check out interpolation in libGDX
 class Tick extends ApplicationAdapter {
@@ -15,8 +15,14 @@ class Tick extends ApplicationAdapter {
   private val TICK_TIMER_MAX: Float = .2f
   private var tick: Long = 0
   private var tickTimer: Float = 0.0f
-  
+
+  //Holds all listeners that need updating
   private var listeners: List[TickListener] = List()
+
+  //Multithreading
+  private val threadPool = Executors.newFixedThreadPool(10)
+  implicit val executionContext: ExecutionContextExecutor = ExecutionContext.fromExecutor(threadPool)
+
   
   //TODO use threadPool
 
@@ -40,22 +46,26 @@ class Tick extends ApplicationAdapter {
       if (tickTimer >= TICK_TIMER_MAX) {
         tickTimer -= TICK_TIMER_MAX
         tick += 1
-            //TODO -> make an update factory that calls all updates here implicitly
-            //for now only thread this
-            //TODO come up with a unified way to collect only the updates that need updating
-            listeners.foreach(_.update(tick)) //pass tick to update method for other classes to define later
-
       }
   }
 
+  //TODO come up with a unified way to collect only the updates that need updating
+  //for now only thread this
+  //def update(): Unit = listeners.foreach(_.update(getCurrentTick)) //pass tick to update method for other classes to define later
+
+  def update(): Unit = {
+    //Future to run each update in a separate thread
+    listeners.foreach{listener =>
+      Future {
+        listener.update(getCurrentTick)
+      }
+    }
+  }
 
   //clear resources
   override def dispose(): Unit = {
     listeners = List()
+    threadPool.shutdown()
   }
 
-}
-
-trait TickListener {
-  def update(tick: Long): Unit
 }

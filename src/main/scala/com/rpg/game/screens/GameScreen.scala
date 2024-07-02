@@ -59,7 +59,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     val cursor = new CustomCursor(currentSettings, game.batch)
   }
 
-
+  
   override def render(delta: Float): Unit = {
     Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
@@ -68,26 +68,26 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     currentSettings.viewport.apply()
     //remove bodies from world if flagged for delete
     remover.removeBodySafely()
+    
+    
+    tickSystem.render()
+    tickSystem.update()
 
     //physics
+    //ALL UPDATES MADE TO WORLD NEED TO BE CALLED BEFORE THIS (ie: creation, moving, updating of physic entities)
     WORLD.step(DELTA_TIME, 6,2)
 
     //render and camera
     currentSettings.mapRenderer.setView(currentSettings.viewport.getCamera.asInstanceOf[OrthographicCamera])
     currentSettings.mapRenderer.render()
     currentSettings.worldRenderer.render(WORLD,currentSettings.viewport.getCamera.combined)
-    
+
     //update tick system
-    tickSystem.render()
 
     //player actions
     playerAction.playerMovement(playerAnimation.isDodging)
     playerAction.playerCameraZoom()
-    
-    //tick events
-    playerAnimation.update(tickSystem.getCurrentTick)
-    ghostFireball.update(tickSystem.getCurrentTick)
-    
+
     game.batch.begin()
     game.font.draw(game.batch,s"Tick: ${tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
     game.batch.end()
@@ -129,6 +129,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     currentSettings.worldRenderer.dispose()
     currentSettings.mapRenderer.dispose()
     currentSettings.tiledMap.dispose()
+    tickSystem.dispose()
   }
 
 

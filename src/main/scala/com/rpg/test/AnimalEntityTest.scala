@@ -2,7 +2,7 @@ package com.rpg.test
 
 import com.rpg.game.systems.tick_system.{Tick, TickListener}
 
-class AnimalEntityTest (var sound: String, tickSystem: Tick) extends TickListener{
+class AnimalEntityTest (var sound: String, tickSystem: Tick) extends TickListener {
 
   tickSystem.addListener(this)
 
