@@ -40,7 +40,7 @@ class Tick extends ApplicationAdapter {
       if (tickTimer >= TICK_TIMER_MAX) {
         tickTimer -= TICK_TIMER_MAX
         tick += 1
-
+            //TODO -> make an update factory that calls all updates here implicitly
             //for now only thread this
             //TODO come up with a unified way to collect only the updates that need updating
             listeners.foreach(_.update(tick)) //pass tick to update method for other classes to define later

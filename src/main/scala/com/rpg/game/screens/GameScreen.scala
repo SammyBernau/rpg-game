@@ -32,68 +32,64 @@ import com.rpg.game.systems.tick_system.{Tick, TickListener}
 
 
 class GameScreen(game: RPG) extends ScreenAdapter {
-
-  private var currentSettings: CurrentSettings = _
-  private var playerAction: PlayerAction = _
-  private var playerAnimation: PlayerAnimation = _
-  private var cursor: CustomCursor = _
-  private var ghostFireball: GhostFireball = _
-  private var remover: Remover = _
   
-  //Create Delta Time
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
-  //Create tick system
   private val tickSystem = new Tick()
 
+  //Game systems
+  private val map = new TmxMapLoader().load("assets/Tiled/Grassland.tmx")
+  private val mapRenderer = new RendererWithObjects(map)
+  mapRenderer.parseObjectsFromMap()
+  private val tileSize = map.getLayers.get(0).asInstanceOf[TiledMapTileLayer].getTileWidth
+  private val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)
+  private val currentSettings = CurrentSettings(viewport, mapRenderer, map, new Box2DDebugRenderer())
+
+  //Object systems
+  private val remover = new Remover(mapRenderer)
+  private val collisionListener = new CollisionListener
+
+  //User systems
+  private val playerAction = new PlayerAction(currentSettings)
+  private val playerAnimation = new PlayerAnimation(currentSettings, tickSystem)
+  private val ghostFireball = new GhostFireball(currentSettings, tickSystem)
 
   override def show(): Unit = {
-    val map = new TmxMapLoader().load("assets/Tiled/Grassland.tmx")
-    val mapRenderer = new RendererWithObjects(map)
-    val tileSize = map.getLayers.get(0).asInstanceOf[TiledMapTileLayer].getTileWidth
-    val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)
-    val collisionListener = new CollisionListener
-    remover = new Remover(mapRenderer)
     WORLD.setContactListener(collisionListener)
-    
-
-    currentSettings = CurrentSettings(viewport, mapRenderer, map, new Box2DDebugRenderer())
-    mapRenderer.parseObjectsFromMap()
     currentSettings.worldRenderer.setDrawBodies(true)
-    playerAnimation = new PlayerAnimation(currentSettings,tickSystem)
-    playerAction = new PlayerAction(currentSettings)
-
-
-    ghostFireball = new GhostFireball(currentSettings,tickSystem)
-    cursor = new CustomCursor(currentSettings,game.batch)
+    val cursor = new CustomCursor(currentSettings, game.batch)
   }
 
 
   override def render(delta: Float): Unit = {
     Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-
+    
+    //apply camera
     currentSettings.viewport.apply()
+    //remove bodies from world if flagged for delete
     remover.removeBodySafely()
 
+    //physics
     WORLD.step(DELTA_TIME, 6,2)
 
+    //render and camera
     currentSettings.mapRenderer.setView(currentSettings.viewport.getCamera.asInstanceOf[OrthographicCamera])
     currentSettings.mapRenderer.render()
-
     currentSettings.worldRenderer.render(WORLD,currentSettings.viewport.getCamera.combined)
+    
+    //update tick system
     tickSystem.render()
 
-
+    //player actions
     playerAction.playerMovement(playerAnimation.isDodging)
-    playerAnimation.update(tickSystem.getCurrentTick)
     playerAction.playerCameraZoom()
-
+    
+    //tick events
+    playerAnimation.update(tickSystem.getCurrentTick)
     ghostFireball.update(tickSystem.getCurrentTick)
-
-    //cursor.set()
+    
     game.batch.begin()
     game.font.draw(game.batch,s"Tick: ${tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
-
     game.batch.end()
   }
 
