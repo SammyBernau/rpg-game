@@ -24,11 +24,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 2,
+            "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 954.5,
-                "y": 804
+                "x": 814.5,
+                "y": 739.6666666666666
             }
         },
         "NPC_test.tsx": {
@@ -54,7 +54,8 @@
             "scaleInEditor": 8
         },
         "PlayerSpriteV2.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 5.5
         },
         "SpriteUtils.tmx": {
             "expandedObjectLayers": [
@@ -63,8 +64,8 @@
             "scale": 0.75,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 800,
-                "y": 799.3333333333333
+                "x": 798,
+                "y": 797.3333333333333
             }
         },
         "basictiles.tsx": {
@@ -92,6 +93,7 @@
     "project": "Test.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "PlayerSpriteV2.tsx",
         "Grassland.tmx",
         "SpriteUtils.tmx",
         "GhostFireball_projectile.tsx",

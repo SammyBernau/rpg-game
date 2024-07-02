@@ -3,8 +3,8 @@ package com.rpg.game
 import com.badlogic.gdx.graphics.g2d.{BitmapFont, SpriteBatch}
 import com.badlogic.gdx.graphics.{GL20, Texture}
 import com.badlogic.gdx.{Game, Gdx}
-import com.rpg.game.game.MainMenuScreen
-import com.rpg.game.test.SimpleScreen
+import com.rpg.game.screens.MainMenuScreen
+import com.rpg.test.SimpleScreen
 
 class RPG extends Game {
 
