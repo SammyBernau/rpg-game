@@ -1,12 +1,12 @@
 package com.rpg.test
 
-import com.rpg.game.systems.tick_system.{Tick, TickListener}
+import com.rpg.game.systems.tick_system.{TickSystem, TickListener}
 
-class HumanoidEntityTest(var name: String, tickSystem: Tick) extends TickListener{
+class HumanoidEntityTest(var name: String, tickSystem: TickSystem) extends TickListener{
 
   tickSystem.addListener(this)
 
-  override def update(tick: Long): Unit = {
+  override def updateListener(tick: Long): Unit = {
     if(tick % 5 == 0) name = tick.toString
   }
 }

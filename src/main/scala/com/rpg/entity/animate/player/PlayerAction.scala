@@ -10,12 +10,15 @@ import com.rpg.entity.animate.entityconstructs.Humanoid
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentSettings
+import com.rpg.game.systems.tick_system.TickListener
+
+import javax.inject.Inject
 
 
 
 //TODO fix jiggling of collision boxes over moving textures
-class PlayerAction(currentWorld: CurrentSettings) {
-
+final class PlayerAction @Inject(currentWorld: CurrentSettings) {
+  
   val player: Player = Player(10, "test", "test", Owner,
       Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100f, 50f, true, 770, 787,
       BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)))

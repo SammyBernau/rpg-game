@@ -1,9 +1,13 @@
 package com.rpg.game.config
 
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.physics.box2d.{Box2DDebugRenderer, World}
 import com.badlogic.gdx.utils.viewport.Viewport
-import com.rpg.game.systems.rendering_system.RendererWithObjects
+import com.rpg.game.systems.physics_system.World.WORLD
+import com.rpg.game.systems.rendering_system.{RenderListener, RenderSystem, RendererWithObjects}
+
+import javax.inject.Inject
 
 
 /**
@@ -16,5 +20,6 @@ import com.rpg.game.systems.rendering_system.RendererWithObjects
  * @author Sam Bernau
  */
 
-case class CurrentSettings(viewport: Viewport, mapRenderer: RendererWithObjects,
-                           tiledMap: TiledMap, worldRenderer: Box2DDebugRenderer)
+case class CurrentSettings (viewport: Viewport, mapRenderer: RendererWithObjects,
+                           tiledMap: TiledMap, worldRenderer: Box2DDebugRenderer){
+}

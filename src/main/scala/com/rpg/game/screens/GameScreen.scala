@@ -16,27 +16,32 @@ import com.badlogic.gdx.math.{Rectangle, Vector2, Vector3}
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.{BodyDef, Box2D, Box2DDebugRenderer, CircleShape, ContactListener, Fixture, FixtureDef, PolygonShape, Shape, Transform, World}
 import com.badlogic.gdx.utils.viewport.{ExtendViewport, Viewport}
+import com.google.inject.Guice
 import com.rpg.entity.animate.entityconstructs.Humanoid
 import com.rpg.entity.animate.player
 import com.rpg.entity.animate.player.{Owner, Player, PlayerAction, PlayerAnimation}
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
-import com.rpg.entity.item.projectiles.GhostFireball
-import com.rpg.game.RPG
+import com.rpg.entity.item.projectiles.projectile_systems.GhostFireballSystem
+import com.rpg.game.{GameModule, RPG}
 import com.rpg.game.config.CurrentSettings
 import com.rpg.game.systems.cursor_system.{CursorBehavior, CustomCursor}
 import com.rpg.game.systems.physics_system.Remover
 import com.rpg.game.systems.physics_system.World.WORLD
 import com.rpg.game.systems.physics_system.collision.CollisionListener
-import com.rpg.game.systems.rendering_system.RendererWithObjects
-import com.rpg.game.systems.tick_system.{Tick, TickListener}
+import com.rpg.game.systems.rendering_system.{RenderSystem, RendererWithObjects}
+import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
 
 
 class GameScreen(game: RPG) extends ScreenAdapter {
   
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
-  private val tickSystem = new Tick()
 
-  //Game systems
+  //Game util ystems
+  private val tickSystem = new TickSystem()
+  private val renderSystem = new RenderSystem()
+
+
+  //Game settings
   private val map = new TmxMapLoader().load("assets/Tiled/Grassland.tmx")
   private val mapRenderer = new RendererWithObjects(map)
   mapRenderer.parseObjectsFromMap()
@@ -44,16 +49,15 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)
   private val currentSettings = CurrentSettings(viewport, mapRenderer, map, new Box2DDebugRenderer())
 
-  //Object systems
-  private val remover = new Remover(mapRenderer)
-  private val collisionListener = new CollisionListener
+
+  private val injector = Guice.createInjector(new GameModule(tickSystem, renderSystem, currentSettings))
 
   //User systems
-  private val playerAction = new PlayerAction(currentSettings)
-  private val playerAnimation = new PlayerAnimation(currentSettings, tickSystem)
-  private val ghostFireball = new GhostFireball(currentSettings, tickSystem)
+  private val playerAction = injector.getInstance(classOf[PlayerAction])
+  private val playerAnimation = injector.getInstance(classOf[PlayerAnimation])
 
   override def show(): Unit = {
+    val collisionListener = new CollisionListener
     WORLD.setContactListener(collisionListener)
     currentSettings.worldRenderer.setDrawBodies(true)
     val cursor = new CustomCursor(currentSettings, game.batch)
@@ -67,11 +71,14 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     //apply camera
     currentSettings.viewport.apply()
     //remove bodies from world if flagged for delete
-    remover.removeBodySafely()
-    
-    
+    //remover.removeBodySafely()
+
+    //Update render events
+    renderSystem.updateListeners()
+
+    //Update tick events
     tickSystem.render()
-    tickSystem.update()
+    tickSystem.updateListeners()
 
     //physics
     //ALL UPDATES MADE TO WORLD NEED TO BE CALLED BEFORE THIS (ie: creation, moving, updating of physic entities)
@@ -81,8 +88,6 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     currentSettings.mapRenderer.setView(currentSettings.viewport.getCamera.asInstanceOf[OrthographicCamera])
     currentSettings.mapRenderer.render()
     currentSettings.worldRenderer.render(WORLD,currentSettings.viewport.getCamera.combined)
-
-    //update tick system
 
     //player actions
     playerAction.playerMovement(playerAnimation.isDodging)

@@ -4,9 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentSettings
-import com.rpg.game.systems.tick_system.{Tick, TickListener}
+import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
 
-class PlayerAnimation(currentWorld: CurrentSettings, tickSystem: Tick) extends TickListener {
+import javax.inject.Inject
+
+final class PlayerAnimation @Inject(currentWorld: CurrentSettings, tickSystem: TickSystem) extends TickListener {
   //Add to listener list
   tickSystem.addListener(this)
   
@@ -22,7 +24,7 @@ class PlayerAnimation(currentWorld: CurrentSettings, tickSystem: Tick) extends T
   private var dodgeDirection = "front"
   private var cancelOtherDodgeDirections = false
 
-  override def update(tick: Long): Unit = {
+  override def updateListener(tick: Long): Unit = {
     val playerTexture = currentWorld.mapRenderer.getTextureMapObject("player_animation")
     val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
 

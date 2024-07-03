@@ -4,22 +4,31 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.utils.Array
 import com.rpg.entity.ObjectUserData
 import com.rpg.game.config.CurrentSettings
+import com.rpg.game.systems.Listener
 import com.rpg.game.systems.physics_system.World.WORLD
-import com.rpg.game.systems.rendering_system.RendererWithObjects
+import com.rpg.game.systems.rendering_system.{RenderListener, RenderSystem, RendererWithObjects}
+
+import javax.inject.Inject
 
 /**
  * Removes physics objects from world and calls OrthogonalTiledMapRendererWithObjects to remove their respective textures
- * @param renderer
  */
-class Remover(renderer: RendererWithObjects) {
+class Remover @Inject(renderSystem: RenderSystem, renderer: RendererWithObjects) extends RenderListener {
+
+  renderSystem.addListener(this)
+
+  override def updateListener(): Unit = {
+    removeBodySafely()
+  }
+
   /**
    * Safe way to remove body from the world. Remember that you cannot have any
    * references to this body after calling this
+   * @param body -> that will be removed from the physic world
    *
-   * @param body
-   * that will be removed from the physic world
+   * Made with the help of a StackOverflow user which I modified
    */
-  def removeBodySafely(): Unit = {
+  private def removeBodySafely(): Unit = {
     val bodies = new Array[Body](WORLD.getBodyCount)
     WORLD.getBodies(bodies)
 

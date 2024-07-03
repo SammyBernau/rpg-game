@@ -24,7 +24,7 @@ class RendererWithObjects(map: TiledMap) extends OrthogonalTiledMapRenderer(map)
   private val entityLayer = map.getLayers.get("entity").getObjects
   private var textureObjects: Map[String, TextureMapObject] = Map() //stores textures of physics objects
   private var fixtures: Map[String, Fixture] = Map() //stores physics objects
-
+  
   /**
    * Renders textures at the locations of their respective physic objects. Handles both preloaded textures and dynamically added ones
    *

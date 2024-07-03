@@ -1,22 +1,25 @@
-package com.rpg.entity.item.projectiles
+package com.rpg.entity.item.projectiles.projectile_systems
 
-import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.maps.objects.{RectangleMapObject, TextureMapObject}
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile
 import com.badlogic.gdx.math.{MathUtils, Rectangle, Vector2, Vector3}
-import com.badlogic.gdx.physics.box2d.{Contact, ContactImpulse, ContactListener, Fixture, Manifold}
+import com.badlogic.gdx.physics.box2d.*
+import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.ObjectUserData
+import com.rpg.entity.item.projectiles.{Projectile, ProjectileSystem}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentSettings
 import com.rpg.game.systems.physics_system.ObjectLayerObject
 import com.rpg.game.systems.physics_system.World.WORLD
 import com.rpg.game.systems.physics_system.collision.Collidable
-import com.rpg.game.systems.tick_system.{Tick, TickListener}
+import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
 import org.lwjgl.system.windows.INPUT
 
-class GhostFireball(currentWorld: CurrentSettings, tickSystem: Tick) extends Projectile[TiledMapTileMapObject] with TickListener {
+import javax.inject.Inject
+
+final class GhostFireballSystem @Inject(currentWorld: CurrentSettings, tickSystem: TickSystem) extends Projectile with TickListener {
   //Add to listener list
   tickSystem.addListener(this)
 
@@ -29,7 +32,7 @@ class GhostFireball(currentWorld: CurrentSettings, tickSystem: Tick) extends Pro
   private var ghostFireballCount = 0
   private var tickAtLastShot = 0L
 
-  override def update(tick: Long): Unit = {
+  override def updateListener(tick: Long): Unit = {
     val LEFT = Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)
     if (LEFT && (tick - tickAtLastShot > 1 || tick <= 1)) {
       create()
@@ -73,8 +76,6 @@ class GhostFireball(currentWorld: CurrentSettings, tickSystem: Tick) extends Pro
     setTexturePositionToWorldGridSystem(textureMapObject)
     textureMapObject.setRotation(angle)
 
-    //add to alive projectiles list
-    addProjectile(obj)
     //add to texture and fixture lists to track for updating
     currentWorld.mapRenderer.addNewObjWithTexture(textureMapObject, rectangleMapObject)
     //adds sprite to entity layer to be drawn

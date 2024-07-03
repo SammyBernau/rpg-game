@@ -51,21 +51,15 @@ class ObjectLayerObject(mapObject: MapObject) {
    * @return
    */
   private def stringToBodyType(bodyTypeAsString: String): BodyType = {
-    bodyTypeAsString match {
-      case "Dynamic" => BodyType.DynamicBody
+    bodyTypeAsString.toLowerCase match {
       case "dynamic" => BodyType.DynamicBody
-      case "DynamicBody" => BodyType.DynamicBody
       case "dynamicBody" => BodyType.DynamicBody
 
-      case "Static" => BodyType.StaticBody
       case "static" => BodyType.StaticBody
-      case "StaticBody" => BodyType.StaticBody
-      case "staticBody" => BodyType.StaticBody
+      case "staticbody" => BodyType.StaticBody
 
-      case "Kinematic" => BodyType.KinematicBody
       case "kinematic" => BodyType.KinematicBody
-      case "KinematicBody" => BodyType.KinematicBody
-      case "kinematicBody" => BodyType.KinematicBody
+      case "kinematicbody" => BodyType.KinematicBody
 
       case _ => throw new IllegalArgumentException("Invalid BodyType or BodyType set incorrectly in Tiled object properties")
     }
