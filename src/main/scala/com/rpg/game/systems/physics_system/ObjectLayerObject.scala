@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
 import com.badlogic.gdx.math.{Polygon, Vector2}
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
-import com.rpg.game.systems.physics_system.physics_bodies.{FixtureCreatorFactory, FixtureCreatorSimple}
+import com.rpg.game.systems.physics_system.physics_bodies.{FixtureCreatorFactory, FixtureSimple}
 import com.rpg.game.systems.physics_system.physics_bodies.shapes.{EllipseObject, PolygonObject, PolylineObject, PolylineObjectBoundingBox, RectangleObject, TextureObject}
 
 
@@ -24,7 +24,7 @@ class ObjectLayerObject(mapObject: MapObject) {
 
   // Returns a fixture based on object settings
   // Currently no legitimate support for kinematic body types
-  private val fixtureCreator: FixtureCreatorSimple = FixtureCreatorFactory.getFixtureCreator(mapObject)
+  private val fixtureCreator: FixtureSimple = FixtureCreatorFactory.getFixtureCreator(mapObject)
   val fixture: Fixture = buildFixture()
 
   private def buildFixture(): Fixture = {
@@ -38,6 +38,7 @@ class ObjectLayerObject(mapObject: MapObject) {
         BodyType.StaticBody
     }
 
+    
     fixtureCreator.getFixture(bodyType,mapObject)
   }
 

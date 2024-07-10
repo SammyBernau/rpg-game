@@ -4,7 +4,7 @@ import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.Fixture
 
-trait FixtureCreatorSimple {
+trait FixtureSimple {
   
   def getFixture(bodyType: BodyType, mapObject: MapObject): Fixture
   

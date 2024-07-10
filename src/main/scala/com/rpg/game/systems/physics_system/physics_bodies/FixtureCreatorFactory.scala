@@ -6,7 +6,7 @@ import com.rpg.game.systems.physics_system.physics_bodies.shapes.{EllipseObject,
 
 object FixtureCreatorFactory {
 
-  def getFixtureCreator(mapObject: MapObject): FixtureCreatorSimple = mapObject match {
+  def getFixtureCreator(mapObject: MapObject): FixtureSimple = mapObject match {
     case _: EllipseMapObject => new EllipseObject()
     case _: RectangleMapObject => new RectangleObject()
     case _: PolygonMapObject => new PolygonObject()

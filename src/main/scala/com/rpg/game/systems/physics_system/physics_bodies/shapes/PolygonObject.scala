@@ -5,9 +5,9 @@ import com.badlogic.gdx.maps.objects.PolygonMapObject
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.{Fixture, PolygonShape}
 import com.rpg.entity.ObjectUserData
-import com.rpg.game.systems.physics_system.physics_bodies.{FixtureBase, FixtureCreatorSimple}
+import com.rpg.game.systems.physics_system.physics_bodies.{FixtureBase, FixtureSimple}
 
-class PolygonObject extends FixtureCreatorSimple with FixtureBase{
+class PolygonObject extends FixtureSimple with FixtureBase{
 
   override def getFixture(bodyType: BodyType, mapObject: MapObject): Fixture = {
     val polygon = mapObject.asInstanceOf[PolygonMapObject].getPolygon

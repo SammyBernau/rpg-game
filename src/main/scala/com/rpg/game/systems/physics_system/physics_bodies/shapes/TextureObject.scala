@@ -5,9 +5,9 @@ import com.badlogic.gdx.maps.objects.{EllipseMapObject, PolylineMapObject, Recta
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.{BodyDef, Fixture}
-import com.rpg.game.systems.physics_system.physics_bodies.{FixtureBase, FixtureCreatorSimple}
+import com.rpg.game.systems.physics_system.physics_bodies.{FixtureBase, FixtureSimple}
 
-class TextureObject extends FixtureBase with FixtureCreatorSimple {
+class TextureObject extends FixtureBase with FixtureSimple {
 
   override def getFixture(bodyType: BodyType, mapObject: MapObject): Fixture = {
     val textureMapObject = mapObject.asInstanceOf[TextureMapObject]

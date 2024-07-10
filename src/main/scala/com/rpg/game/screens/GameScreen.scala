@@ -22,13 +22,13 @@ import com.rpg.entity.animate.player
 import com.rpg.entity.animate.player.{Owner, Player, PlayerAction, PlayerAnimation}
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.entity.item.projectiles.projectile_systems.GhostFireballSystem
-import com.rpg.game.{GameModule, RPG}
+import com.rpg.game.{GameModule, RPG, RendererWithObjects}
 import com.rpg.game.config.CurrentSettings
 import com.rpg.game.systems.cursor_system.{CursorBehavior, CustomCursor}
 import com.rpg.game.systems.physics_system.Remover
 import com.rpg.game.systems.physics_system.World.WORLD
 import com.rpg.game.systems.physics_system.collision.CollisionListener
-import com.rpg.game.systems.rendering_system.{RenderSystem, RendererWithObjects}
+import com.rpg.game.systems.rendering_system.RenderSystem
 import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
 
 
@@ -36,7 +36,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
 
-  //Game util ystems
+  //Game util systems
   private val tickSystem = new TickSystem()
   private val renderSystem = new RenderSystem()
 
@@ -49,12 +49,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)
   private val currentSettings = CurrentSettings(viewport, mapRenderer, map, new Box2DDebugRenderer())
 
-
   private val injector = Guice.createInjector(new GameModule(tickSystem, renderSystem, currentSettings))
-
-  //User systems
-  private val playerAction = injector.getInstance(classOf[PlayerAction])
-  private val playerAnimation = injector.getInstance(classOf[PlayerAnimation])
 
   override def show(): Unit = {
     val collisionListener = new CollisionListener
@@ -70,17 +65,15 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     
     //apply camera
     currentSettings.viewport.apply()
-    //remove bodies from world if flagged for delete
-    //remover.removeBodySafely()
-
-    //Update render events
-    renderSystem.updateListeners()
 
     //Update tick events
     tickSystem.render()
     tickSystem.updateListeners()
 
-    //physics
+    //Update render events
+    renderSystem.updateListeners()
+
+
     //ALL UPDATES MADE TO WORLD NEED TO BE CALLED BEFORE THIS (ie: creation, moving, updating of physic entities)
     WORLD.step(DELTA_TIME, 6,2)
 
@@ -89,9 +82,6 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     currentSettings.mapRenderer.render()
     currentSettings.worldRenderer.render(WORLD,currentSettings.viewport.getCamera.combined)
 
-    //player actions
-    playerAction.playerMovement(playerAnimation.isDodging)
-    playerAction.playerCameraZoom()
 
     game.batch.begin()
     game.font.draw(game.batch,s"Tick: ${tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
@@ -135,6 +125,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     currentSettings.mapRenderer.dispose()
     currentSettings.tiledMap.dispose()
     tickSystem.dispose()
+    renderSystem.dispose()
   }
 
 

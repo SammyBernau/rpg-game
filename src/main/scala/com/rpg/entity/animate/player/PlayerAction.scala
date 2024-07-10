@@ -10,20 +10,28 @@ import com.rpg.entity.animate.entityconstructs.Humanoid
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentSettings
-import com.rpg.game.systems.tick_system.TickListener
+import com.rpg.game.systems.rendering_system.{RenderListener, RenderSystem}
+import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
 
 import javax.inject.Inject
 
 
 
 //TODO fix jiggling of collision boxes over moving textures
-final class PlayerAction @Inject(currentWorld: CurrentSettings) {
+final class PlayerAction @Inject(tickSystem: TickSystem, currentWorld: CurrentSettings) extends TickListener{
+
+  tickSystem.addListener(this)
+
+  override def updateListener(tick: Long): Unit = {
+    playerMovement()
+    playerCameraZoom()
+  }
   
   val player: Player = Player(10, "test", "test", Owner,
       Humanoid("smallballs", 54, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100f, 50f, true, 770, 787,
       BaseHumanoidEquipmentSetup(None, None, None, None, None, None, None, None, None)))
 
-  def playerMovement(playerDodging: Boolean): Unit = {
+  private def playerMovement(): Unit = {
     val w = Gdx.input.isKeyPressed(Input.Keys.W)
     val a = Gdx.input.isKeyPressed(Input.Keys.A)
     val s = Gdx.input.isKeyPressed(Input.Keys.S)
@@ -42,6 +50,8 @@ final class PlayerAction @Inject(currentWorld: CurrentSettings) {
 
 
     //TODO -> Complete collision filtering
+
+    //DONT pass a boolean isPlayerDodging, just check for category bits in playerAnimation
 //    if(playerDodging) {
 //      // Set the category bits to a unique value for the player
 //      filterData.categoryBits = 0
@@ -77,7 +87,7 @@ final class PlayerAction @Inject(currentWorld: CurrentSettings) {
     currentWorld.viewport.getCamera.update()
   }
 
-  def playerCameraZoom(): Unit = {
+  private def playerCameraZoom(): Unit = {
     val up = Gdx.input.isKeyPressed(Input.Keys.NUM_1)
     val down = Gdx.input.isKeyPressed(Input.Keys.NUM_2)
 

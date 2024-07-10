@@ -1,4 +1,4 @@
-package com.rpg.game.systems.rendering_system
+package com.rpg.game
 
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
@@ -7,8 +7,8 @@ import com.badlogic.gdx.maps.objects.{RectangleMapObject, TextureMapObject}
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Rectangle
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.*
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.rpg.entity.ObjectUserData
 import com.rpg.game.systems.physics_system.ObjectLayerObject
 
@@ -22,8 +22,8 @@ import com.rpg.game.systems.physics_system.ObjectLayerObject
 class RendererWithObjects(map: TiledMap) extends OrthogonalTiledMapRenderer(map) {
 
   private val entityLayer = map.getLayers.get("entity").getObjects
-  private var textureObjects: Map[String, TextureMapObject] = Map() //stores textures of physics objects
-  private var fixtures: Map[String, Fixture] = Map() //stores physics objects
+  private var textureObjects: Map[String, TextureMapObject] = Map.empty //stores textures of physics objects
+  private var fixtures: Map[String, Fixture] = Map.empty //stores physics objects
   
   /**
    * Renders textures at the locations of their respective physic objects. Handles both preloaded textures and dynamically added ones
@@ -83,7 +83,7 @@ class RendererWithObjects(map: TiledMap) extends OrthogonalTiledMapRenderer(map)
     }
   }
 
-  //Really it creates a new object
+  //creates a new object
   private def addObject(obj: MapObject): Unit = {
     val objectFixture = new ObjectLayerObject(obj)
     addFixture(obj.getName, objectFixture.fixture)

@@ -2,7 +2,7 @@ package com.rpg.game.systems
 
 import com.badlogic.gdx.ApplicationAdapter
 
-trait ListenerSystem[Type] extends Listener {
+protected trait ListenerSystem[Type] extends Listener {
 
   var listeners: List[Type] = List.empty
 
@@ -17,6 +17,7 @@ trait ListenerSystem[Type] extends Listener {
   override def dispose(): Unit = {
     listeners = List.empty
   }
-
+  
   def updateListeners(): Unit
+  
 }

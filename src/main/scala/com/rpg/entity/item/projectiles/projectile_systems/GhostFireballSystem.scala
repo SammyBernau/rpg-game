@@ -19,7 +19,7 @@ import org.lwjgl.system.windows.INPUT
 
 import javax.inject.Inject
 
-final class GhostFireballSystem @Inject(currentWorld: CurrentSettings, tickSystem: TickSystem) extends Projectile with TickListener {
+final class GhostFireballSystem @Inject(tickSystem: TickSystem,currentWorld: CurrentSettings) extends Projectile with TickListener {
   //Add to listener list
   tickSystem.addListener(this)
 

@@ -4,9 +4,9 @@ import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.PolylineMapObject
 import com.badlogic.gdx.physics.box2d.{BodyDef, ChainShape, Fixture}
 import com.rpg.entity.ObjectUserData
-import com.rpg.game.systems.physics_system.physics_bodies.{FixtureBase, FixtureCreatorExtended, FixtureCreatorSimple}
+import com.rpg.game.systems.physics_system.physics_bodies.{FixtureBase, FixtureExtended, FixtureSimple}
 
-class PolylineObjectBoundingBox extends FixtureBase with FixtureCreatorSimple with FixtureCreatorExtended{
+class PolylineObjectBoundingBox extends FixtureBase with FixtureSimple with FixtureExtended{
 
   override def getFixture(bodyType: BodyDef.BodyType, mapObject: MapObject): Fixture = {
     val polyLine = mapObject.asInstanceOf[PolylineMapObject].getPolyline

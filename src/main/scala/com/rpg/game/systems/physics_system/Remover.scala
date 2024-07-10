@@ -3,10 +3,12 @@ package com.rpg.game.systems.physics_system
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.utils.Array
 import com.rpg.entity.ObjectUserData
+import com.rpg.game.RendererWithObjects
 import com.rpg.game.config.CurrentSettings
 import com.rpg.game.systems.Listener
 import com.rpg.game.systems.physics_system.World.WORLD
-import com.rpg.game.systems.rendering_system.{RenderListener, RenderSystem, RendererWithObjects}
+import com.rpg.game.systems.rendering_system.{RenderListener, RenderSystem}
+import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
 
 import javax.inject.Inject
 
@@ -17,7 +19,7 @@ class Remover @Inject(renderSystem: RenderSystem, renderer: RendererWithObjects)
 
   renderSystem.addListener(this)
 
-  override def updateListener(): Unit = {
+  override def renderListener(): Unit = {
     removeBodySafely()
   }
 

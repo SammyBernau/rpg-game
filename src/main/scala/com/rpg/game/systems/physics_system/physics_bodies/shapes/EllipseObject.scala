@@ -4,9 +4,9 @@ import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.EllipseMapObject
 import com.badlogic.gdx.physics.box2d.{BodyDef, CircleShape, Fixture}
 import com.rpg.entity.ObjectUserData
-import com.rpg.game.systems.physics_system.physics_bodies.{FixtureBase, FixtureCreatorExtended, FixtureCreatorSimple}
+import com.rpg.game.systems.physics_system.physics_bodies.{FixtureBase, FixtureExtended, FixtureSimple}
 
-class EllipseObject extends FixtureCreatorSimple with FixtureCreatorExtended with FixtureBase{
+class EllipseObject extends FixtureSimple with FixtureExtended with FixtureBase{
 
   override def getFixture(bodyType: BodyDef.BodyType, mapObject: MapObject): Fixture = {
     val ellipse = mapObject.asInstanceOf[EllipseMapObject].getEllipse
@@ -21,6 +21,7 @@ class EllipseObject extends FixtureCreatorSimple with FixtureCreatorExtended wit
     circleShape.setRadius(width)
 
     val fixture = defineFixture(body, circleShape, bodyType)
+    
     val userData = ObjectUserData("Ellipse",false,mapObject.getName)
     fixture.getBody.setUserData(userData)
     circleShape.dispose()
