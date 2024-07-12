@@ -23,11 +23,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 8,
+            "scale": 5.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 829.375,
-                "y": 699.375
+                "x": 789.8181818181819,
+                "y": 684.8181818181818
             }
         },
         "NPC_test.tsx": {
@@ -63,8 +63,8 @@
             "scale": 0.75,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 798,
-                "y": 797.3333333333333
+                "x": 800,
+                "y": 800
             }
         },
         "basictiles.tsx": {

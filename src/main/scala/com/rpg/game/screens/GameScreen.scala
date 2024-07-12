@@ -22,14 +22,14 @@ import com.rpg.entity.animate.player
 import com.rpg.entity.animate.player.{Owner, Player, PlayerAction, PlayerAnimation}
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.entity.item.projectiles.projectile_systems.GhostFireballSystem
-import com.rpg.game.{GameModule, RPG, RendererWithObjects}
+import com.rpg.game.{GameModule, RPG}
 import com.rpg.game.config.CurrentSettings
-import com.rpg.game.systems.cursor_system.{CursorBehavior, CustomCursor}
-import com.rpg.game.systems.physics_system.Remover
-import com.rpg.game.systems.physics_system.World.WORLD
-import com.rpg.game.systems.physics_system.collision.CollisionListener
-import com.rpg.game.systems.rendering_system.RenderSystem
-import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
+import com.rpg.game.systems.cursor.{CursorBehavior, CustomCursor}
+import com.rpg.game.systems.physics.Remover
+import com.rpg.game.systems.physics.World.WORLD
+import com.rpg.game.systems.physics.collision.CollisionListener
+import com.rpg.game.systems.rendering.{ObjectRenderingService, RenderSystem}
+import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 
 class GameScreen(game: RPG) extends ScreenAdapter {
@@ -43,7 +43,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
 
   //Game settings
   private val map = new TmxMapLoader().load("assets/Tiled/Grassland.tmx")
-  private val mapRenderer = new RendererWithObjects(map)
+  private val mapRenderer = new ObjectRenderingService(map)
   mapRenderer.parseObjectsFromMap()
   private val tileSize = map.getLayers.get(0).asInstanceOf[TiledMapTileLayer].getTileWidth
   private val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)

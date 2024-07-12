@@ -6,9 +6,9 @@ import com.rpg.entity.item.projectiles.ProjectileSystem
 import com.rpg.entity.item.projectiles.projectile_systems.GhostFireballSystem
 import com.rpg.game.config.{CurrentSettings, CurrentSettingsHelper}
 import com.rpg.game.systems.ListenerSystem
-import com.rpg.game.systems.physics_system.Remover
-import com.rpg.game.systems.rendering_system.RenderSystem
-import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
+import com.rpg.game.systems.physics.Remover
+import com.rpg.game.systems.rendering.RenderSystem
+import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 import scala.reflect.ClassTag
 

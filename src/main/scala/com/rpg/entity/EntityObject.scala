@@ -2,7 +2,7 @@ package com.rpg.entity
 
 import com.badlogic.gdx.physics.box2d.{Body, BodyDef, PolygonShape}
 import com.rpg.entity.animate.player.Player
-import com.rpg.game.systems.physics_system.World.WORLD
+import com.rpg.game.systems.physics.World.WORLD
 
 
 class EntityObject() {

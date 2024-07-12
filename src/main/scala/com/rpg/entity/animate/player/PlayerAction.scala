@@ -10,8 +10,8 @@ import com.rpg.entity.animate.entityconstructs.Humanoid
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentSettings
-import com.rpg.game.systems.rendering_system.{RenderListener, RenderSystem}
-import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
+import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
+import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 import javax.inject.Inject
 

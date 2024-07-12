@@ -11,10 +11,10 @@ import com.rpg.entity.ObjectUserData
 import com.rpg.entity.item.projectiles.{Projectile, ProjectileSystem}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentSettings
-import com.rpg.game.systems.physics_system.ObjectLayerObject
-import com.rpg.game.systems.physics_system.World.WORLD
-import com.rpg.game.systems.physics_system.collision.Collidable
-import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
+import com.rpg.game.systems.physics.World.WORLD
+import com.rpg.game.systems.physics.collision.Collidable
+import com.rpg.game.systems.physics.world.PhysicsObjectProducer
+import com.rpg.game.systems.tick.{TickListener, TickSystem}
 import org.lwjgl.system.windows.INPUT
 
 import javax.inject.Inject

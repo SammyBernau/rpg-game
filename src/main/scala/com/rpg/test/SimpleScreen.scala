@@ -3,7 +3,7 @@ package com.rpg.test
 import com.badlogic.gdx.graphics.{GL20, Texture}
 import com.badlogic.gdx.{Gdx, Screen}
 import com.rpg.game.RPG
-import com.rpg.game.systems.tick_system.TickSystem
+import com.rpg.game.systems.tick.TickSystem
 
 import java.util.concurrent.CountDownLatch
 

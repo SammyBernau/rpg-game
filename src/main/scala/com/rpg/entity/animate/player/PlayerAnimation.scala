@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentSettings
-import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
+import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 import javax.inject.Inject
 
