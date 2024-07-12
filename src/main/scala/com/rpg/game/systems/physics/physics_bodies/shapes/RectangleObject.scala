@@ -25,7 +25,7 @@ class RectangleObject extends PhysicsObjectBase with PhysicsObjectSimple with Ph
     val fixtureDefOption = getFixtureDef(polygonShape, bodyType)
     val objectUserData = ObjectUserData("Rectangle",false, mapObject.getName)
     
-    PhysicsObjectDefWrapper(bodyDef,fixtureDefOption,objectUserData)
+    PhysicsObjectDefWrapper(polygonShape, mapObject,bodyDef,fixtureDefOption,objectUserData)
 
   }
 
@@ -43,7 +43,7 @@ class RectangleObject extends PhysicsObjectBase with PhysicsObjectSimple with Ph
     val fixtureDefOption = getFixtureDef(polygonShape, bodyType)
     val objectUserData = ObjectUserData("Rectangle",false,mapObject.getName)
 
-    PhysicsObjectDefWrapper(bodyDef,fixtureDefOption,objectUserData)
+    PhysicsObjectDefWrapper(polygonShape, mapObject,bodyDef,fixtureDefOption,objectUserData)
     
   }
   

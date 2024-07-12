@@ -1,6 +1,7 @@
 package com.rpg.entity.animate.player
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
+import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentSettings
@@ -11,6 +12,9 @@ import javax.inject.Inject
 final class PlayerAnimation @Inject(currentWorld: CurrentSettings, tickSystem: TickSystem) extends TickListener {
   //Add to listener list
   tickSystem.addListener(this)
+  
+  //GameObjects
+  private val gameObjectCache = currentWorld.gameObjectCache
   
   //walk/run vars
   private val entityAnimations = EntityAnimations(currentWorld)
@@ -25,8 +29,10 @@ final class PlayerAnimation @Inject(currentWorld: CurrentSettings, tickSystem: T
   private var cancelOtherDodgeDirections = false
 
   override def updateListener(tick: Long): Unit = {
-    val playerTexture = currentWorld.mapRenderer.getTextureMapObject("player_animation")
-    val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
+    val playerGameObject = gameObjectCache.get("player_animation").get
+    
+    val playerTexture = playerGameObject.mapObject.asInstanceOf[TextureMapObject]
+    val playerFixture = playerGameObject.fixture
 
     val w = Gdx.input.isKeyPressed(Input.Keys.W)
     val a = Gdx.input.isKeyPressed(Input.Keys.A)

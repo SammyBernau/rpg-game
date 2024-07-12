@@ -21,6 +21,8 @@ import javax.inject.Inject
 final class PlayerAction @Inject(tickSystem: TickSystem, currentWorld: CurrentSettings) extends TickListener{
 
   tickSystem.addListener(this)
+  
+  val gameObjectCache = currentWorld.gameObjectCache
 
   override def updateListener(tick: Long): Unit = {
     playerMovement()
@@ -44,8 +46,8 @@ final class PlayerAction @Inject(tickSystem: TickSystem, currentWorld: CurrentSe
     if ((w || s) && (a || d)) {
       speed = speed / Math.sqrt(2.0).toFloat
     }
-
-    val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
+    val playerGameObject = gameObjectCache.get("player_animation").get
+    val playerFixture = playerGameObject.fixture
     val filterData = playerFixture.getFilterData
 
 

@@ -21,7 +21,7 @@ class PolylineObject extends PhysicsObjectBase with PhysicsObjectSimple with Phy
     val fixtureDefOption = getFixtureDef(polyLineShape, bodyType)
     val objectUserData = ObjectUserData("Polyline", false, mapObject.getName)
 
-    PhysicsObjectDefWrapper(bodyDef,fixtureDefOption,objectUserData)
+    PhysicsObjectDefWrapper(polyLineShape, mapObject,bodyDef,fixtureDefOption,objectUserData)
   }
 
   override def getDefs(bodyType: BodyDef.BodyType, mapObject: MapObject, x: Float, y: Float): PhysicsObjectDefWrapper = {
@@ -34,7 +34,7 @@ class PolylineObject extends PhysicsObjectBase with PhysicsObjectSimple with Phy
     val fixtureDefOption = getFixtureDef(polyLineShape, bodyType)
     val objectUserData = ObjectUserData("Polyline", false, mapObject.getName)
 
-    PhysicsObjectDefWrapper(bodyDef,fixtureDefOption,objectUserData)
+    PhysicsObjectDefWrapper(polyLineShape, mapObject,bodyDef,fixtureDefOption,objectUserData)
   }
 
 }

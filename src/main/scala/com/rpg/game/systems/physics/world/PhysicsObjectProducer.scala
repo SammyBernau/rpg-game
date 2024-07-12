@@ -11,6 +11,8 @@ import com.rpg.game.systems.physics.physics_bodies.shapes.*
 import com.rpg.game.systems.physics.physics_bodies.{PhysicsObjectFactory, PhysicsObjectSimple}
 import com.rpg.game.systems.physics.world.{PhysicsObjectDefWrapper, PhysicsObjectService}
 
+import javax.inject.Inject
+
 
 /**
  * An ObjectLayerObject is defined as an object in the object layer of a tiled map layer.
@@ -21,14 +23,14 @@ import com.rpg.game.systems.physics.world.{PhysicsObjectDefWrapper, PhysicsObjec
  */
 
 //TODO -> add collision filtering
-class PhysicsObjectProducer(mapObject: MapObject) {
+class PhysicsObjectProducer @Inject(physicsObjectService: PhysicsObjectService) {
 
   // Returns a fixtureDef and bodyDef based on object settings
   // Currently no legitimate support for kinematic body types
-  private val physicObjectFactory: PhysicsObjectSimple = PhysicsObjectFactory.create(mapObject)
+  private val physicsObjectFactory = PhysicsObjectFactory
   
 
-  def produceRequest(cache: PhysicsObjectService): Unit = {
+  def produceRequest(mapObject: MapObject): Unit = {
     val bodyType = try {
       stringToBodyType(mapObject.getProperties.get("BodyType").toString)
     } catch {
@@ -38,10 +40,12 @@ class PhysicsObjectProducer(mapObject: MapObject) {
         println("...Setting BodyType to default: Static")
         BodyType.StaticBody
     }
+    
 
-
-    val request = physicObjectFactory.getDefs(bodyType, mapObject)
-    cache.add(request)
+    val startedRequest = physicsObjectFactory.create(mapObject)
+    val completedRequest = startedRequest.getDefs(bodyType, mapObject)
+    
+    physicsObjectService.add(completedRequest)
   }
 
 

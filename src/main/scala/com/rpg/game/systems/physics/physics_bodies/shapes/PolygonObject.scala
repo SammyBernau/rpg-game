@@ -22,7 +22,7 @@ class PolygonObject extends PhysicsObjectSimple with PhysicsObjectBase{
     val bodyDef = getBodyDef(x, y, bodyType)
     val objectUserData = ObjectUserData("Polygon", false, mapObject.getName)
 
-    PhysicsObjectDefWrapper(bodyDef, fixtureDefOption, objectUserData)
+    PhysicsObjectDefWrapper(polygonShape, mapObject,bodyDef, fixtureDefOption, objectUserData)
 
 
   }

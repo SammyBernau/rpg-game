@@ -24,7 +24,7 @@ class EllipseObject extends PhysicsObjectSimple with PhysicsObjectComplex with P
     val fixtureDefOption = getFixtureDef(circleShape, bodyType)
     val objectUserData = ObjectUserData("Ellipse", false, mapObject.getName)
 
-    PhysicsObjectDefWrapper(bodyDef, fixtureDefOption, objectUserData)
+    PhysicsObjectDefWrapper(circleShape,mapObject,bodyDef, fixtureDefOption, objectUserData)
   }
 
   override def getDefs(bodyType: BodyDef.BodyType, mapObject: MapObject, x: Float, y: Float): PhysicsObjectDefWrapper = {
@@ -39,7 +39,7 @@ class EllipseObject extends PhysicsObjectSimple with PhysicsObjectComplex with P
     val fixtureDefOption = getFixtureDef(circleShape, bodyType)
     val objectUserData = ObjectUserData("Ellipse",false,mapObject.getName)
     
-    PhysicsObjectDefWrapper(bodyDef,fixtureDefOption,objectUserData)
+    PhysicsObjectDefWrapper(circleShape,mapObject,bodyDef,fixtureDefOption,objectUserData)
   }
 
 }

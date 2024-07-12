@@ -28,7 +28,9 @@ import com.rpg.game.systems.cursor.{CursorBehavior, CustomCursor}
 import com.rpg.game.systems.physics.Remover
 import com.rpg.game.systems.physics.World.WORLD
 import com.rpg.game.systems.physics.collision.CollisionListener
-import com.rpg.game.systems.rendering.{ObjectRenderingService, RenderSystem}
+import com.rpg.game.systems.physics.world.{PhysicsObjectConsumer, PhysicsObjectProducer, PhysicsObjectService}
+import com.rpg.game.systems.rendering.services.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHelper}
+import com.rpg.game.systems.rendering.RenderSystem
 import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 
@@ -39,15 +41,18 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   //Game util systems
   private val tickSystem = new TickSystem()
   private val renderSystem = new RenderSystem()
+  private val gameObjectCache = GameObjectCache()
+  private val physicsObjectService = PhysicsObjectService()
+  private val physicsObjectProducer = new PhysicsObjectProducer(physicsObjectService)
 
 
   //Game settings
   private val map = new TmxMapLoader().load("assets/Tiled/Grassland.tmx")
-  private val mapRenderer = new ObjectRenderingService(map)
-  mapRenderer.parseObjectsFromMap()
+  private val mapRenderer = new ObjectRenderingService(gameObjectCache,map)
+  private val objectRenderingServiceHelper = new ObjectRenderingServiceHelper(gameObjectCache, physicsObjectProducer, map)
   private val tileSize = map.getLayers.get(0).asInstanceOf[TiledMapTileLayer].getTileWidth
   private val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)
-  private val currentSettings = CurrentSettings(viewport, mapRenderer, map, new Box2DDebugRenderer())
+  private val currentSettings = CurrentSettings(viewport, mapRenderer, map, new Box2DDebugRenderer(),gameObjectCache)
 
   private val injector = Guice.createInjector(new GameModule(tickSystem, renderSystem, currentSettings))
 
@@ -78,8 +83,8 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     WORLD.step(DELTA_TIME, 6,2)
 
     //render and camera
-    currentSettings.mapRenderer.setView(currentSettings.viewport.getCamera.asInstanceOf[OrthographicCamera])
-    currentSettings.mapRenderer.render()
+    currentSettings.objectRenderingService.setView(currentSettings.viewport.getCamera.asInstanceOf[OrthographicCamera])
+    currentSettings.objectRenderingService.render()
     currentSettings.worldRenderer.render(WORLD,currentSettings.viewport.getCamera.combined)
 
 
@@ -122,7 +127,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     game.batch.dispose()
     game.font.dispose()
     currentSettings.worldRenderer.dispose()
-    currentSettings.mapRenderer.dispose()
+    currentSettings.objectRenderingService.dispose()
     currentSettings.tiledMap.dispose()
     tickSystem.dispose()
     renderSystem.dispose()

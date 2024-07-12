@@ -14,6 +14,7 @@ import com.rpg.game.config.CurrentSettings
 import com.rpg.game.systems.physics.World.WORLD
 import com.rpg.game.systems.physics.collision.Collidable
 import com.rpg.game.systems.physics.world.PhysicsObjectProducer
+import com.rpg.game.systems.rendering.services.GameObject
 import com.rpg.game.systems.tick.{TickListener, TickSystem}
 import org.lwjgl.system.windows.INPUT
 
@@ -23,7 +24,12 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem,currentWorld: Cur
   //Add to listener list
   tickSystem.addListener(this)
 
-  private val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
+  private val objectRenderingService = currentWorld.objectRenderingService
+  
+  private val gameObjectCache = currentWorld.gameObjectCache
+  private val playerGameObject = gameObjectCache.get("player_animation").get
+  private val playerFixture = playerGameObject.fixture
+  
   private val entityAnimations = EntityAnimations(currentWorld)
   private val ghostFireballTile = entityAnimations.GhostFireBall.tile
   private val entityLayer = currentWorld.tiledMap.getLayers.get("entity")
@@ -77,28 +83,33 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem,currentWorld: Cur
     textureMapObject.setRotation(angle)
 
     //add to texture and fixture lists to track for updating
-    currentWorld.mapRenderer.addNewObjWithTexture(textureMapObject, rectangleMapObject)
-    //adds sprite to entity layer to be drawn
-    currentWorld.mapRenderer.addToObjectLayer(textureMapObject)
-
+    //currentWorld.mapRenderer.addNewObjWithTexture(textureMapObject, rectangleMapObject)
+    objectRenderingService.addGameObject(textureMapObject)
+    
+    val fireballGameObject = gameObjectCache.get(name).get
+    
     //retrieve physics body of fireball
-    val fixture = currentWorld.mapRenderer.getFixture(name)
+    val fixture = fireballGameObject.fixture
     //set rotation of fireball physics body
     fixture.getBody.setTransform(fixture.getBody.getPosition, angle - (MathUtils.degreesToRadians * 90))
 
     val userData = ObjectUserData("GhostFireball", false, name)
     fixture.getBody.setUserData(userData)
 
-    move(name, 200f, angle)
+    move(name, 200f, angle,fireballGameObject)
 
     ghostFireballCount += 1
   }
 
-  private def move(name: String, speed: Float, angle: Float): Unit = {
+  private def move(name: String, speed: Float, angle: Float, fireballGameObject: GameObject): Unit = {
     val mousePosition = getMouseCoordsInWorld
 
+
+    val fireballGameObject = gameObjectCache.get(name).get
+
+    //retrieve physics body of fireball
+    val fireballFixture = fireballGameObject.fixture
     //Retrieve fireball's current position
-    val fireballFixture = currentWorld.mapRenderer.getFixture(name)
     val fireballBody = fireballFixture.getBody
     val fireballPosition = fireballBody.getPosition
 

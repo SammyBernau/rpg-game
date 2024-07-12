@@ -5,7 +5,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.physics.box2d.{Box2DDebugRenderer, World}
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.rpg.game.systems.physics.World.WORLD
-import com.rpg.game.systems.rendering.{ObjectRenderingService, RenderListener, RenderSystem}
+import com.rpg.game.systems.rendering.services.{GameObjectCache, ObjectRenderingService}
+import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
 
 import javax.inject.Inject
 
@@ -14,14 +15,14 @@ import javax.inject.Inject
  * Houses current game settings and utils
  *
  * @param viewport -> current viewport of game
- * @param mapRenderer -> current map renderer
+ * @param objectRenderingService -> current map renderer
  * @param tiledMap -> current Tiled map
  * @param worldRenderer -> current world renderer
  * @author Sam Bernau
  */
 
-case class CurrentSettings (viewport: Viewport, mapRenderer: ObjectRenderingService,
-                            tiledMap: TiledMap, worldRenderer: Box2DDebugRenderer){
+case class CurrentSettings (viewport: Viewport, objectRenderingService: ObjectRenderingService,
+                            tiledMap: TiledMap, worldRenderer: Box2DDebugRenderer,gameObjectCache: GameObjectCache){
 }
 
 class CurrentSettingsHelper @Inject(renderSystem: RenderSystem, currentSettings: CurrentSettings) extends RenderListener {
@@ -40,11 +41,11 @@ class CurrentSettingsHelper @Inject(renderSystem: RenderSystem, currentSettings:
   }
   
   private def setMapRendererView(): Unit = {
-    currentSettings.mapRenderer.setView(currentSettings.viewport.getCamera.asInstanceOf[OrthographicCamera])
+    currentSettings.objectRenderingService.setView(currentSettings.viewport.getCamera.asInstanceOf[OrthographicCamera])
   }
   
   private def renderMap(): Unit = {
-    currentSettings.mapRenderer.render()
+    currentSettings.objectRenderingService.render()
   }
   
   private def renderWorld(): Unit = {

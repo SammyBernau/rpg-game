@@ -6,7 +6,8 @@ import com.rpg.entity.ObjectUserData
 import com.rpg.game.config.CurrentSettings
 import com.rpg.game.systems.Listener
 import com.rpg.game.systems.physics.World.WORLD
-import com.rpg.game.systems.rendering.{ObjectRenderingService, RenderListener, RenderSystem}
+import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
+import com.rpg.game.systems.rendering.services.ObjectRenderingService
 import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 import javax.inject.Inject

@@ -22,7 +22,7 @@ class GameModule(tickSystem: TickSystem, renderSystem: RenderSystem, currentSett
     bind(classOf[RenderSystem]).toInstance(renderSystem)
     //Children of RenderSystem
     //bind(classOf[CurrentSettingsHelper]).toInstance(new CurrentSettingsHelper(renderSystem, currentSettings))
-    bind(classOf[Remover]).toInstance(new Remover(renderSystem,currentSettings.mapRenderer)) //TODO -> test if its better to have remover update async or sync
+    bind(classOf[Remover]).toInstance(new Remover(renderSystem,currentSettings.objectRenderingService)) //TODO -> test if its better to have remover update async or sync
 
     //TickSystem (performs updates asynchronously)
     bind(classOf[TickSystem]).toInstance(tickSystem)
