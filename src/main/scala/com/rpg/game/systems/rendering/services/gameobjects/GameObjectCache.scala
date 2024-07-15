@@ -1,4 +1,4 @@
-package com.rpg.game.systems.rendering.services
+package com.rpg.game.systems.rendering.services.gameobjects
 
 import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.rpg.game.cache.Cache

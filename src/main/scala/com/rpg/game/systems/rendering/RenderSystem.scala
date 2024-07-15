@@ -2,7 +2,7 @@ package com.rpg.game.systems.rendering
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.rpg.game.config.CurrentSettings
+import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.ListenerSystem
 import com.rpg.game.systems.physics.World.WORLD
 

@@ -3,11 +3,11 @@ package com.rpg.game.systems.physics
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.utils.Array
 import com.rpg.entity.ObjectUserData
-import com.rpg.game.config.CurrentSettings
+import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.Listener
 import com.rpg.game.systems.physics.World.WORLD
 import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
-import com.rpg.game.systems.rendering.services.ObjectRenderingService
+import com.rpg.game.systems.rendering.services.gameobjects.{ObjectRenderingService, ObjectRenderingServiceHandler}
 import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * Removes physics objects from world and calls OrthogonalTiledMapRendererWithObjects to remove their respective textures
  */
-class Remover @Inject(renderSystem: RenderSystem, renderer: ObjectRenderingService) extends RenderListener {
+class Remover @Inject(renderSystem: RenderSystem, objectRenderingServiceHandler: ObjectRenderingServiceHandler) extends RenderListener {
 
   renderSystem.addListener(this)
 
@@ -43,7 +43,7 @@ class Remover @Inject(renderSystem: RenderSystem, renderer: ObjectRenderingServi
       val userData = body.getUserData.asInstanceOf[ObjectUserData]
       if(userData != null) {
         if (userData.isFlaggedForDelete) {
-          renderer.removeTexture(userData.getId)
+          objectRenderingServiceHandler.removeTexture(userData.getId)
           WORLD.destroyBody(body)
           body.setUserData(null)
         }

@@ -3,7 +3,7 @@ package com.rpg.game.systems.physics.world
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.{Body, BodyDef, Fixture, FixtureDef, Joint, JointDef, World}
 import com.rpg.game.systems.physics.World.WORLD
-import com.rpg.game.systems.rendering.services.{GameObject, GameObjectCache}
+import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObjectCache}
 
 import javax.inject.{Inject, Singleton}
 

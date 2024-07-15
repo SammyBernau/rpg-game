@@ -22,15 +22,17 @@ import com.rpg.entity.animate.player
 import com.rpg.entity.animate.player.{Owner, Player, PlayerAction, PlayerAnimation}
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.entity.item.projectiles.projectile_systems.GhostFireballSystem
+import com.rpg.game.config.system.GameSystemsConfigService
 import com.rpg.game.{GameModule, RPG}
-import com.rpg.game.config.CurrentSettings
-import com.rpg.game.systems.cursor.{CursorBehavior, CustomCursor}
+import com.rpg.game.config.{CurrentMasterConfig, MapConfig, MapConfigService}
+import com.rpg.game.systems.cursor.CustomCursor
 import com.rpg.game.systems.physics.Remover
 import com.rpg.game.systems.physics.World.WORLD
 import com.rpg.game.systems.physics.collision.CollisionListener
 import com.rpg.game.systems.physics.world.{PhysicsObjectConsumer, PhysicsObjectProducer, PhysicsObjectService}
-import com.rpg.game.systems.rendering.services.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHelper}
+import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHandler}
 import com.rpg.game.systems.rendering.RenderSystem
+import com.rpg.game.systems.rendering.services.world.WorldRenderingService
 import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 
@@ -38,29 +40,26 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
 
-  //Game util systems
-  private val tickSystem = new TickSystem()
-  private val renderSystem = new RenderSystem()
-  private val gameObjectCache = GameObjectCache()
-  private val physicsObjectService = PhysicsObjectService()
-  private val physicsObjectProducer = new PhysicsObjectProducer(physicsObjectService)
-
 
   //Game settings
-  private val map = new TmxMapLoader().load("assets/Tiled/Grassland.tmx")
-  private val mapRenderer = new ObjectRenderingService(gameObjectCache,map)
-  private val objectRenderingServiceHelper = new ObjectRenderingServiceHelper(gameObjectCache, physicsObjectProducer, map)
-  private val tileSize = map.getLayers.get(0).asInstanceOf[TiledMapTileLayer].getTileWidth
-  private val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)
-  private val currentSettings = CurrentSettings(viewport, mapRenderer, map, new Box2DDebugRenderer(),gameObjectCache)
+  private val mapName = "assets/Tiled/Grassland.tmx"
+  private val mapConfig = new MapConfigService(mapName).loadConfig()
+  //Game util systems
+  private val gameSystemConfig = new GameSystemsConfigService(mapConfig.tiledMap).loadConfig()
+  private val gameObjectCache = gameSystemConfig.gameObjectCache
 
-  private val injector = Guice.createInjector(new GameModule(tickSystem, renderSystem, currentSettings))
+  
+  private val currentMasterConfig = CurrentMasterConfig(mapConfig, gameSystemConfig)
+  
+  
+  
+  private val injector = Guice.createInjector(new GameModule(gameSystemConfig.tickSystem, gameSystemConfig.renderSystem, currentMasterConfig))
 
   override def show(): Unit = {
     val collisionListener = new CollisionListener
     WORLD.setContactListener(collisionListener)
-    currentSettings.worldRenderer.setDrawBodies(true)
-    val cursor = new CustomCursor(currentSettings, game.batch)
+    gameSystemConfig.worldRenderingService.setDrawBodies(true)
+    val cursor = new CustomCursor(currentMasterConfig, game.batch)
   }
 
   
@@ -69,27 +68,27 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     
     //apply camera
-    currentSettings.viewport.apply()
+    mapConfig.viewport.apply()
 
     //Update tick events
-    tickSystem.render()
-    tickSystem.updateListeners()
+    gameSystemConfig.tickSystem.render()
+    gameSystemConfig.tickSystem.updateListeners()
 
     //Update render events
-    renderSystem.updateListeners()
+    gameSystemConfig.renderSystem.updateListeners()
 
 
     //ALL UPDATES MADE TO WORLD NEED TO BE CALLED BEFORE THIS (ie: creation, moving, updating of physic entities)
     WORLD.step(DELTA_TIME, 6,2)
 
     //render and camera
-    currentSettings.objectRenderingService.setView(currentSettings.viewport.getCamera.asInstanceOf[OrthographicCamera])
-    currentSettings.objectRenderingService.render()
-    currentSettings.worldRenderer.render(WORLD,currentSettings.viewport.getCamera.combined)
+    gameSystemConfig.objectRenderingService.setView(mapConfig.viewport.getCamera.asInstanceOf[OrthographicCamera])
+    gameSystemConfig.objectRenderingService.render()
+    gameSystemConfig.worldRenderingService.render(WORLD,mapConfig.viewport.getCamera.combined)
 
 
     game.batch.begin()
-    game.font.draw(game.batch,s"Tick: ${tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
+    game.font.draw(game.batch,s"Tick: ${gameSystemConfig.tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
     game.batch.end()
   }
 
@@ -109,7 +108,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
       speed = speed / Math.sqrt(2.0).toFloat
     }
 
-    val camera = currentSettings.viewport.getCamera
+    val camera = mapConfig.viewport.getCamera
 
     if (w) camera.position.y = camera.position.y + speed * DELTA_TIME
     if (a) camera.position.x = camera.position.x - speed * DELTA_TIME
@@ -120,17 +119,13 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   }
 
   override def resize(width: Int, height: Int): Unit = {
-    currentSettings.viewport.update(width,height,true)
+    mapConfig.viewport.update(width,height,true)
   }
 
   override def dispose(): Unit = {
     game.batch.dispose()
     game.font.dispose()
-    currentSettings.worldRenderer.dispose()
-    currentSettings.objectRenderingService.dispose()
-    currentSettings.tiledMap.dispose()
-    tickSystem.dispose()
-    renderSystem.dispose()
+    currentMasterConfig.dispose()
   }
 
 

@@ -4,20 +4,21 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
 import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.textures.EntityAnimations
-import com.rpg.game.config.CurrentSettings
+import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 import javax.inject.Inject
 
-final class PlayerAnimation @Inject(currentWorld: CurrentSettings, tickSystem: TickSystem) extends TickListener {
+final class PlayerAnimation @Inject(currentMasterConfig: CurrentMasterConfig, tickSystem: TickSystem) extends TickListener {
   //Add to listener list
   tickSystem.addListener(this)
-  
+  private val gameSystemsConfig = currentMasterConfig.gameSystemConfig
+  private val mapConfig = currentMasterConfig.mapConfig
   //GameObjects
-  private val gameObjectCache = currentWorld.gameObjectCache
+  private val gameObjectCache = gameSystemsConfig.gameObjectCache
   
   //walk/run vars
-  private val entityAnimations = EntityAnimations(currentWorld)
+  private val entityAnimations = EntityAnimations(currentMasterConfig)
   private val playerSkin = entityAnimations.Player
   private var lastDirection = "front"
 

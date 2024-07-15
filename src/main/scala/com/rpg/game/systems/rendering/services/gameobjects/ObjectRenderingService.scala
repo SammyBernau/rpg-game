@@ -1,5 +1,6 @@
-package com.rpg.game.systems.rendering.services
+package com.rpg.game.systems.rendering.services.gameobjects
 
+import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
@@ -20,7 +21,8 @@ class ObjectRenderingService @Inject(gameObjectCache: GameObjectCache, map: Tile
   /**
    * Renders textures at the locations of their respective physic objects. Handles both preloaded textures and dynamically added ones
    */
-  protected override def renderObject(): Unit = {
+  //TODO -> dont have to do for loop, just grab name from object and find in map and update. This renderObject method already grabs all objects on tiled map
+  override def renderObject(mapObject: MapObject): Unit = {
     gameObjectCache.getCache.foreach {element =>
       updateTextureToObject(element._2)
     }

@@ -1,4 +1,4 @@
-package com.rpg.game.systems.rendering.services
+package com.rpg.game.systems.rendering.services.gameobjects
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.TextureMapObject
@@ -8,7 +8,14 @@ import com.rpg.game.systems.physics.world.PhysicsObjectProducer
 
 import javax.inject.Inject
 
-class ObjectRenderingServiceHelper @Inject(gameObjectCache: GameObjectCache, physicsObjectProducer: PhysicsObjectProducer, map: TiledMap) {
+/**
+ * Handles object creation requests, parsing of preloaded objects, and removal of objects from world
+ * @param gameObjectCache -> List of current physics objects
+ * @param physicsObjectProducer -> Creates requests for objects to be made on main thread
+ * @param map -> Game map
+ */
+
+class ObjectRenderingServiceHandler @Inject(gameObjectCache: GameObjectCache, physicsObjectProducer: PhysicsObjectProducer, map: TiledMap) {
   
   private val entityLayer = map.getLayers.get("entity").getObjects
 
@@ -28,7 +35,7 @@ class ObjectRenderingServiceHelper @Inject(gameObjectCache: GameObjectCache, phy
   /**
    * Dynamically added objects need to have their texture added to the entity layer in order to be rendered
    *
-   * @param textureMapObject
+   * @param textureMapObject -> object with texture
    */
   def addToObjectLayer(textureMapObject: TextureMapObject): Unit = entityLayer.add(textureMapObject)
 
