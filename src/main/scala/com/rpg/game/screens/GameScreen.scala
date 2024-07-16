@@ -21,10 +21,11 @@ import com.rpg.entity.animate.entityconstructs.Humanoid
 import com.rpg.entity.animate.player
 import com.rpg.entity.animate.player.{Owner, Player, PlayerAction, PlayerAnimation}
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
-import com.rpg.entity.item.projectiles.projectile_systems.GhostFireballSystem
-import com.rpg.game.config.system.GameSystemsConfigService
+import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveConsumer, ProjectileMoveService}
+import com.rpg.game.config.gamesystems.GameSystemsConfigService
+import com.rpg.game.config.map.TiledMapConfigService
 import com.rpg.game.{GameModule, RPG}
-import com.rpg.game.config.{CurrentMasterConfig, MapConfig, MapConfigService}
+import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.cursor.CustomCursor
 import com.rpg.game.systems.physics.Remover
 import com.rpg.game.systems.physics.World.WORLD
@@ -37,29 +38,43 @@ import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 
 class GameScreen(game: RPG) extends ScreenAdapter {
-  
+
+  //Box2D.init() -> Either this has to be called or PhysicsObjectConsumer.world needs to be called before objectRenderingServiceHandler.parseObjectsFromMap() for box2d to work
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
 
-
   //Game settings
-  private val mapName = "assets/Tiled/Grassland.tmx"
-  private val mapConfig = new MapConfigService(mapName).loadConfig()
+  private val mapName = "assets/Tiled/Grassland.tmx" //Will change later so its not hardcoded
+  private val tiledMapConfig = new TiledMapConfigService(mapName).loadConfig()
   //Game util systems
-  private val gameSystemConfig = new GameSystemsConfigService(mapConfig.tiledMap).loadConfig()
-  private val gameObjectCache = gameSystemConfig.gameObjectCache
+  private val gameSystemsConfig = new GameSystemsConfigService(tiledMapConfig.tiledMap).loadConfig()
+  private val gameObjectCache = gameSystemsConfig.gameObjectCache
+  private val physicsObjectService = gameSystemsConfig.physicsObjectService
+  private val projectileMoveService = new ProjectileMoveService()
 
-  
-  private val currentMasterConfig = CurrentMasterConfig(mapConfig, gameSystemConfig)
-  
-  
-  
-  private val injector = Guice.createInjector(new GameModule(gameSystemConfig.tickSystem, gameSystemConfig.renderSystem, currentMasterConfig))
+  //initial game world creation
+  private val physicsObjectConsumer = new PhysicsObjectConsumer(gameObjectCache,physicsObjectService)
+  private val world = physicsObjectConsumer.world
+
+  //Projectile moving
+  private val projectileMoveConsumer = new ProjectileMoveConsumer(gameObjectCache,projectileMoveService)
+
+  //Initial physics objects creation of preloaded objects from object layer of TiledMap
+  private val objectRenderingServiceHandler = gameSystemsConfig.objectRenderingServiceHandler
+  objectRenderingServiceHandler.parseObjectsFromMap()
+  physicsObjectConsumer.consume()
+
+  //Save configurations to be shared across files that need it
+  private val currentMasterConfig = CurrentMasterConfig(tiledMapConfig, gameSystemsConfig)
+
+  //Create injections for GameModule
+  Guice.createInjector(new GameModule(gameSystemsConfig.tickSystem, gameSystemsConfig.renderSystem,currentMasterConfig))
 
   override def show(): Unit = {
     val collisionListener = new CollisionListener
-    WORLD.setContactListener(collisionListener)
-    gameSystemConfig.worldRenderingService.setDrawBodies(true)
+    world.setContactListener(collisionListener)
+    gameSystemsConfig.worldRenderingService.setDrawBodies(true)
     val cursor = new CustomCursor(currentMasterConfig, game.batch)
+
   }
 
   
@@ -68,27 +83,31 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     
     //apply camera
-    mapConfig.viewport.apply()
+    tiledMapConfig.viewport.apply()
 
     //Update tick events
-    gameSystemConfig.tickSystem.render()
-    gameSystemConfig.tickSystem.updateListeners()
+    gameSystemsConfig.tickSystem.render()
+    gameSystemsConfig.tickSystem.updateListeners()
 
     //Update render events
-    gameSystemConfig.renderSystem.updateListeners()
+    gameSystemsConfig.renderSystem.updateListeners()
 
+    //Consume physic objects added to PhysicsObjectService
+    physicsObjectConsumer.consume()
+    //Consume move requests for newly created projectiles
+    projectileMoveConsumer.consume()
 
     //ALL UPDATES MADE TO WORLD NEED TO BE CALLED BEFORE THIS (ie: creation, moving, updating of physic entities)
-    WORLD.step(DELTA_TIME, 6,2)
+    physicsObjectConsumer.stepWorld(DELTA_TIME)
 
     //render and camera
-    gameSystemConfig.objectRenderingService.setView(mapConfig.viewport.getCamera.asInstanceOf[OrthographicCamera])
-    gameSystemConfig.objectRenderingService.render()
-    gameSystemConfig.worldRenderingService.render(WORLD,mapConfig.viewport.getCamera.combined)
+    gameSystemsConfig.objectRenderingService.setView(tiledMapConfig.viewport.getCamera.asInstanceOf[OrthographicCamera])
+    gameSystemsConfig.objectRenderingService.render()
+    gameSystemsConfig.worldRenderingService.render(world,tiledMapConfig.viewport.getCamera.combined)
 
 
     game.batch.begin()
-    game.font.draw(game.batch,s"Tick: ${gameSystemConfig.tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
+    game.font.draw(game.batch,s"Tick: ${gameSystemsConfig.tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
     game.batch.end()
   }
 
@@ -108,7 +127,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
       speed = speed / Math.sqrt(2.0).toFloat
     }
 
-    val camera = mapConfig.viewport.getCamera
+    val camera = tiledMapConfig.viewport.getCamera
 
     if (w) camera.position.y = camera.position.y + speed * DELTA_TIME
     if (a) camera.position.x = camera.position.x - speed * DELTA_TIME
@@ -119,7 +138,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   }
 
   override def resize(width: Int, height: Int): Unit = {
-    mapConfig.viewport.update(width,height,true)
+    tiledMapConfig.viewport.update(width,height,true)
   }
 
   override def dispose(): Unit = {

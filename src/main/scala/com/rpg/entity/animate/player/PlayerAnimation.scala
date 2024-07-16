@@ -13,7 +13,7 @@ final class PlayerAnimation @Inject(currentMasterConfig: CurrentMasterConfig, ti
   //Add to listener list
   tickSystem.addListener(this)
   private val gameSystemsConfig = currentMasterConfig.gameSystemConfig
-  private val mapConfig = currentMasterConfig.mapConfig
+  private val mapConfig = currentMasterConfig.tiledMapConfig
   //GameObjects
   private val gameObjectCache = gameSystemsConfig.gameObjectCache
   

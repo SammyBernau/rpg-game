@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.physics.box2d.{Box2DDebugRenderer, World}
 import com.badlogic.gdx.utils.viewport.Viewport
+import com.rpg.game.config.gamesystems.GameSystemsConfig
+import com.rpg.game.config.map.TiledMapConfig
 import com.rpg.game.systems.physics.World.WORLD
 import com.rpg.game.systems.rendering.services.world.WorldRenderingService
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService}
@@ -14,19 +16,14 @@ import javax.inject.Inject
 
 
 /**
- * Houses current game settings and utils
- *
- * @param viewport -> current viewport of game
- * @param objectRenderingService -> current map renderer
- * @param tiledMap -> current Tiled map
- * @param worldRenderer -> current world renderer
+ * Houses current game configurations and utils
  * @author Sam Bernau
  */
 
-case class CurrentMasterConfig(mapConfig: MapConfig, gameSystemConfig: GameSystemsConfig) extends ScreenAdapter {
+case class CurrentMasterConfig @Inject(tiledMapConfig: TiledMapConfig, gameSystemConfig: GameSystemsConfig) extends ScreenAdapter {
 
   override def dispose(): Unit = {
-    mapConfig.tiledMap.dispose()
+    tiledMapConfig.tiledMap.dispose()
     gameSystemConfig.tickSystem.dispose()
     gameSystemConfig.renderSystem.dispose()
     gameSystemConfig.objectRenderingService.dispose()
@@ -38,7 +35,7 @@ class CurrentGameConfigurationHelper @Inject(renderSystem: RenderSystem, current
 
   renderSystem.addListener(this)
   private val gameSystemConfiguration = currentMasterConfiguration.gameSystemConfig
-  private val mapConfiguration = currentMasterConfiguration.mapConfig
+  private val mapConfiguration = currentMasterConfiguration.tiledMapConfig
 
   override def renderListener(): Unit = {
     applyViewport()

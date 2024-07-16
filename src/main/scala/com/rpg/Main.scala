@@ -10,4 +10,5 @@ object Main extends App {
     config.setForegroundFPS(120)
 
     new Lwjgl3Application(new RPG, config)
+
 }

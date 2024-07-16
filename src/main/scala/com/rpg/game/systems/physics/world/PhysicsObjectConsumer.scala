@@ -2,15 +2,16 @@ package com.rpg.game.systems.physics.world
 
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.{Body, BodyDef, Fixture, FixtureDef, Joint, JointDef, World}
+import com.rpg.game.structure.Consumer
 import com.rpg.game.systems.physics.World.WORLD
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObjectCache}
 
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class PhysicsObjectConsumer @Inject()(gameObjectCache: GameObjectCache, physicsObjectService: PhysicsObjectService) {
-  //TODO -> Add finalized physics objects to GameObjectCache
-  private val world = new World(new Vector2(0,0),true)
+class PhysicsObjectConsumer @Inject()(gameObjectCache: GameObjectCache, physicsObjectService: PhysicsObjectService) extends Consumer {
+  
+  val world = new World(new Vector2(0,0),true)
 
   def stepWorld(deltaTime: Float): Unit = world.step(deltaTime,6,2)
 
@@ -30,7 +31,7 @@ class PhysicsObjectConsumer @Inject()(gameObjectCache: GameObjectCache, physicsO
   
   private def createJoint(jointDef: JointDef): Joint = world.createJoint(jointDef)
 
-  def consume(): Unit = {
+  override def consume(): Unit = {
     physicsObjectService.getCache.foreach{physicsObject =>
       val shape = physicsObject.shape
       val mapObject = physicsObject.mapObject
@@ -45,10 +46,14 @@ class PhysicsObjectConsumer @Inject()(gameObjectCache: GameObjectCache, physicsO
         case Some(fixtureDef) =>
           val fixture = createFixture(body,fixtureDef)
           val newGameObject = GameObject(mapObject, fixture)
-          gameObjectCache.add(newGameObject)
+          gameObjectCache.add(mapObject.getName,newGameObject)
         case None =>
-          body.createFixture(shape,0.0f)
+          val fixture = body.createFixture(shape,0.0f)
+          val newGameObject = GameObject(mapObject, fixture)
+          gameObjectCache.add(mapObject.getName,newGameObject)
       }
+      //Fulfill request by removing it from request list
+      physicsObjectService.remove(physicsObject)
     }
   }
   

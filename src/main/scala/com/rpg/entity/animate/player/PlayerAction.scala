@@ -23,7 +23,7 @@ final class PlayerAction @Inject(tickSystem: TickSystem, currentMasterConfig: Cu
   tickSystem.addListener(this)
   
   private val gameSystemsConfig = currentMasterConfig.gameSystemConfig
-  private val mapConfig = currentMasterConfig.mapConfig
+  private val mapConfig = currentMasterConfig.tiledMapConfig
   private val gameObjectCache = gameSystemsConfig.gameObjectCache
 
   override def updateListener(tick: Long): Unit = {

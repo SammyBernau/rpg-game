@@ -1,7 +1,8 @@
-package com.rpg.game.config.system
+package com.rpg.game.config.gamesystems
 
 import com.badlogic.gdx.maps.tiled.TiledMap
-import com.rpg.game.config.{ConfigService, GameSystemsConfig}
+import com.rpg.entity.item.projectiles.projectile_systems.ProjectileMoveService
+import com.rpg.game.config.ConfigService
 import com.rpg.game.systems.physics.world.{PhysicsObjectProducer, PhysicsObjectService}
 import com.rpg.game.systems.rendering.RenderSystem
 import com.rpg.game.systems.rendering.services.world.WorldRenderingService
@@ -13,15 +14,27 @@ class GameSystemsConfigService(tiledMap: TiledMap) extends ConfigService {
   override def loadConfig(): GameSystemsConfig = {
     val tickSystem = new TickSystem()
     val renderSystem = new RenderSystem()
-    val gameObjectCache = GameObjectCache()
-    val physicsObjectService = PhysicsObjectService()
+    val gameObjectCache = new GameObjectCache()
+    val physicsObjectService = new PhysicsObjectService()
     val physicsObjectProducer = new PhysicsObjectProducer(physicsObjectService)
+    val projectileMoveService = new ProjectileMoveService()
+    
 
     val worldRenderingService = new WorldRenderingService
     val objectRenderingService = new ObjectRenderingService(gameObjectCache,tiledMap)
-    val objectRenderingServiceHelper = new ObjectRenderingServiceHandler(gameObjectCache,physicsObjectProducer,tiledMap)
+    val objectRenderingServiceHandler = new ObjectRenderingServiceHandler(gameObjectCache,physicsObjectProducer,tiledMap)
 
-    GameSystemsConfig(tickSystem, renderSystem, gameObjectCache, physicsObjectService, physicsObjectProducer,worldRenderingService, objectRenderingService,objectRenderingServiceHelper)
+    GameSystemsConfig(
+      tickSystem, 
+      renderSystem, 
+      gameObjectCache, 
+      physicsObjectService, 
+      physicsObjectProducer,
+      worldRenderingService, 
+      objectRenderingService,
+      objectRenderingServiceHandler,
+      projectileMoveService
+    )
   }
 
 

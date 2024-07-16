@@ -17,51 +17,53 @@ import javax.inject.Inject
 
 //TODO -> probably still need a map to track which objects to remove versus a map
 class ObjectRenderingService @Inject(gameObjectCache: GameObjectCache, map: TiledMap) extends OrthogonalTiledMapRenderer(map) {
-  
+
   /**
    * Renders textures at the locations of their respective physic objects. Handles both preloaded textures and dynamically added ones
    */
   //TODO -> dont have to do for loop, just grab name from object and find in map and update. This renderObject method already grabs all objects on tiled map
   override def renderObject(mapObject: MapObject): Unit = {
-    gameObjectCache.getCache.foreach {element =>
-      updateTextureToObject(element._2)
+    mapObject match {
+      case textureMapObject: TextureMapObject =>
+        val mapObjectName = textureMapObject.getName
+        updateTextureToObject(mapObjectName)
+      case _ =>
+      //Nothing to do
     }
+
   }
 
   /**
    * Updates a texture to the location of their respective physics object
    */
-  private def updateTextureToObject(gameObject: GameObject): Unit = {
+  private def updateTextureToObject(objectName: String): Unit = {
+    val gameObject = gameObjectCache.get(objectName).get
     val mapObject = gameObject.mapObject
-    mapObject match {
-      case textureMapObject: TextureMapObject =>
-        val fixture = gameObject.fixture
+    val textureMapObject = gameObject.mapObject.asInstanceOf[TextureMapObject]
 
-        val width = textureMapObject.getTextureRegion.getRegionWidth
-        val height = textureMapObject.getTextureRegion.getRegionHeight
+    val fixture = gameObject.fixture
 
-        val textureOriginX = textureMapObject.getOriginX
-        val textureOriginY = textureMapObject.getOriginY
-        //TODO -> collision boxes still not being drawn correctly
-        val desiredX = (fixture.getBody.getTransform.getPosition.x - textureOriginX) - (width / 2f)
-        val desiredY = (fixture.getBody.getTransform.getPosition.y - textureOriginY) - (height / 1.9f)
-        //        val desiredX = fixture.getBody.getTransform.getPosition.x - (width / 2f)
-        //        val desiredY = fixture.getBody.getTransform.getPosition.y - (height / 2f)
+    val width = textureMapObject.getTextureRegion.getRegionWidth
+    val height = textureMapObject.getTextureRegion.getRegionHeight
 
-        if (textureMapObject.getX != desiredX) {
-          textureMapObject.setX(desiredX)
-        }
-        if (textureMapObject.getY != desiredY) {
-          textureMapObject.setY(desiredY)
-        }
+    val textureOriginX = textureMapObject.getOriginX
+    val textureOriginY = textureMapObject.getOriginY
+    //TODO -> collision boxes still not being drawn correctly
+    val desiredX = (fixture.getBody.getTransform.getPosition.x - textureOriginX) - (width / 2f)
+    val desiredY = (fixture.getBody.getTransform.getPosition.y - textureOriginY) - (height / 1.9f)
+    //        val desiredX = fixture.getBody.getTransform.getPosition.x - (width / 2f)
+    //        val desiredY = fixture.getBody.getTransform.getPosition.y - (height / 2f)
 
-        batch.draw(textureMapObject.getTextureRegion, textureMapObject.getX, textureMapObject.getY, textureMapObject.getOriginX,
-          textureMapObject.getOriginY, textureMapObject.getTextureRegion.getRegionWidth.toFloat, textureMapObject.getTextureRegion.getRegionHeight.toFloat,
-          textureMapObject.getScaleX, textureMapObject.getScaleY, textureMapObject.getRotation)
-      case _ =>
-      //Not updating needed if a Fixture has no relative TextureMapObject
+    if (textureMapObject.getX != desiredX) {
+      textureMapObject.setX(desiredX)
+    }
+    if (textureMapObject.getY != desiredY) {
+      textureMapObject.setY(desiredY)
     }
 
+    batch.draw(textureMapObject.getTextureRegion, textureMapObject.getX, textureMapObject.getY, textureMapObject.getOriginX,
+      textureMapObject.getOriginY, textureMapObject.getTextureRegion.getRegionWidth.toFloat, textureMapObject.getTextureRegion.getRegionHeight.toFloat,
+      textureMapObject.getScaleX, textureMapObject.getScaleY, textureMapObject.getRotation)
   }
 
 

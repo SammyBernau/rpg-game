@@ -23,20 +23,23 @@ import javax.inject.Inject
 final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends Projectile with TickListener {
   //Add to listener list
   tickSystem.addListener(this)
+
   private val gameSystemsConfig = currentMasterConfig.gameSystemConfig
-  private val mapConfig = currentMasterConfig.mapConfig
-  
+  private val mapConfig = currentMasterConfig.tiledMapConfig
+  private val projectileMoveService = gameSystemsConfig.projectileMoveService
+
   private val objectRenderingServiceHandler = gameSystemsConfig.objectRenderingServiceHandler
-  
+
+  //Grab player physics object
   private val gameObjectCache = gameSystemsConfig.gameObjectCache
   private val playerGameObject = gameObjectCache.get("player_animation").get
   private val playerFixture = playerGameObject.fixture
-  
+
+  //Fireball animation
   private val entityAnimations = EntityAnimations(currentMasterConfig)
   private val ghostFireballTile = entityAnimations.GhostFireBall.tile
-  private val entityLayer = mapConfig.tiledMap.getLayers.get("entity")
   private val SPAWN_DISTANCE = 50
-
+  private val SPEED = 200f
   private var ghostFireballCount = 0
   private var tickAtLastShot = 0L
 
@@ -53,7 +56,7 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterCon
     val playerPosition = playerFixture.getBody.getPosition
     val playerX = playerPosition.x
     val playerY = playerPosition.y
-    
+
     val mousePosition = getMouseCoordsInWorld
 
     val angle = calculateAngle(playerX, playerY, mousePosition.x, mousePosition.y)
@@ -83,29 +86,31 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterCon
     val textureMapObject = obj.asInstanceOf[TextureMapObject]
     setTexturePositionToWorldGridSystem(textureMapObject)
     textureMapObject.setRotation(angle)
+    textureMapObject.setName(name)
 
     //add to texture and fixture lists to track for updating
     //currentWorld.mapRenderer.addNewObjWithTexture(textureMapObject, rectangleMapObject)
     objectRenderingServiceHandler.addGameObject(textureMapObject)
-    
-    val fireballGameObject = gameObjectCache.get(name).get
-    
-    //retrieve physics body of fireball
-    val fixture = fireballGameObject.fixture
-    //set rotation of fireball physics body
-    fixture.getBody.setTransform(fixture.getBody.getPosition, angle - (MathUtils.degreesToRadians * 90))
 
-    val userData = ObjectUserData("GhostFireball", false, name)
-    fixture.getBody.setUserData(userData)
-
-    move(name, 200f, angle,fireballGameObject)
+//    val fireballGameObject = gameObjectCache.get(name).get //TODO -> This cant be called here because object isnt added to cache yet because of request system
+//
+//
+//    //---------------------------------------------------------------------------
+//    //retrieve physics body of fireball
+//    val fixture = fireballGameObject.fixture
+//    //set rotation of fireball physics body
+//    fixture.getBody.setTransform(fixture.getBody.getPosition, angle - (MathUtils.degreesToRadians * 90))
+//
+//    //    val userData = ObjectUserData("GhostFireball", false, name)
+//    //    fixture.getBody.setUserData(userData)
+//
+//    move(name, 200f, angle, fireballGameObject)
+    projectileMoveService.add(ProjectileMoveRequest(name,SPEED,angle))
 
     ghostFireballCount += 1
   }
 
   private def move(name: String, speed: Float, angle: Float, fireballGameObject: GameObject): Unit = {
-    val mousePosition = getMouseCoordsInWorld
-
 
     val fireballGameObject = gameObjectCache.get(name).get
 

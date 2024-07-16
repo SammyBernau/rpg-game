@@ -7,8 +7,9 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
 import com.badlogic.gdx.math.{Polygon, Vector2}
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
-import com.rpg.game.systems.physics.physics_bodies.shapes.*
-import com.rpg.game.systems.physics.physics_bodies.{PhysicsObjectFactory, PhysicsObjectSimple}
+import com.rpg.game.structure.Producer
+import com.rpg.game.systems.physics.bodies.shapes.*
+import com.rpg.game.systems.physics.bodies.{PhysicsObjectFactory, PhysicsObjectSimple}
 import com.rpg.game.systems.physics.world.{PhysicsObjectDefWrapper, PhysicsObjectService}
 
 import javax.inject.Inject
@@ -18,19 +19,18 @@ import javax.inject.Inject
  * An ObjectLayerObject is defined as an object in the object layer of a tiled map layer.
  * Works for both tiles inserted as objects and free drawn objects with no textures.
  *
- * @param mapObject -> current mapobject
  * @author Sam Bernau
  */
 
 //TODO -> add collision filtering
-class PhysicsObjectProducer @Inject(physicsObjectService: PhysicsObjectService) {
+class PhysicsObjectProducer @Inject(physicsObjectService: PhysicsObjectService) extends Producer[MapObject] {
 
   // Returns a fixtureDef and bodyDef based on object settings
   // Currently no legitimate support for kinematic body types
   private val physicsObjectFactory = PhysicsObjectFactory
   
 
-  def produceRequest(mapObject: MapObject): Unit = {
+  override def produce(mapObject: MapObject): Unit = {
     val bodyType = try {
       stringToBodyType(mapObject.getProperties.get("BodyType").toString)
     } catch {

@@ -1,8 +1,6 @@
 package com.rpg.game.cache
 
-trait Cache[Input] {
+trait Cache {
   
-  def add(element: Input): Unit
-  def remove(element: Input): Unit
-
+  protected def cache: Iterable[_]
 }

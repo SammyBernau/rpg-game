@@ -11,9 +11,9 @@ import com.rpg.game.cache.Cache
  */
 
 //TODO -> Does it need to be a FIFO structure if requests will be added concurrently?
-trait VectorBasedCache[Type] extends Cache[Type]{
+trait VectorBasedCache[Type] extends Cache{
 
-  private var cache: Vector[Type] = Vector.empty
+  protected var cache: Vector[Type] = Vector.empty
 
   def add(item: Type): Unit = synchronized {
     cache = cache :+ item

@@ -11,7 +11,7 @@ import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters.*
 
 class EntityAnimations(currentMasterConfig: CurrentMasterConfig) {
-  private val preLoadedTileSets = currentMasterConfig.mapConfig.tiledMap.getTileSets
+  private val preLoadedTileSets = currentMasterConfig.tiledMapConfig.tiledMap.getTileSets
   var frameDuration = .2f
   var dodgeFrameDuration = .5f
   // .2f perfect walk
