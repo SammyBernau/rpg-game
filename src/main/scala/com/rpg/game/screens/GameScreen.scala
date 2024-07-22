@@ -49,7 +49,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private val gameSystemsConfig = new GameSystemsConfigService(tiledMapConfig.tiledMap).loadConfig()
   private val gameObjectCache = gameSystemsConfig.gameObjectCache
   private val physicsObjectService = gameSystemsConfig.physicsObjectService
-  private val projectileMoveService = new ProjectileMoveService()
+  private val projectileMoveService = gameSystemsConfig.projectileMoveService
 
   //initial game world creation
   private val physicsObjectConsumer = new PhysicsObjectConsumer(gameObjectCache,physicsObjectService)
@@ -94,8 +94,9 @@ class GameScreen(game: RPG) extends ScreenAdapter {
 
     //Consume physic objects added to PhysicsObjectService
     physicsObjectConsumer.consume()
-    //Consume move requests for newly created projectiles
+    //Consume move requests for newly created
     projectileMoveConsumer.consume()
+
 
     //ALL UPDATES MADE TO WORLD NEED TO BE CALLED BEFORE THIS (ie: creation, moving, updating of physic entities)
     physicsObjectConsumer.stepWorld(DELTA_TIME)

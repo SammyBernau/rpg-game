@@ -37,14 +37,13 @@ class ObjectRenderingServiceHandler @Inject(gameObjectCache: GameObjectCache, ph
    *
    * @param textureMapObject -> object with texture
    */
-  def addToObjectLayer(textureMapObject: TextureMapObject): Unit = entityLayer.add(textureMapObject)
+  private def addToObjectLayer(mapObject: MapObject): Unit = entityLayer.add(mapObject)
 
 
   def addGameObject(mapObject: MapObject): Unit = {
-    entityLayer.add(mapObject)
+    addToObjectLayer(mapObject)
     physicsObjectProducer.produce(mapObject)
   }
-
 
   /**
    * Adds a new obj with its texture to the screen

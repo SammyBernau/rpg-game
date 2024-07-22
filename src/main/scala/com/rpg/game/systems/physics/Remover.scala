@@ -44,7 +44,7 @@ class Remover @Inject(renderSystem: RenderSystem, objectRenderingServiceHandler:
       if(userData != null) {
         if (userData.isFlaggedForDelete) {
           objectRenderingServiceHandler.removeTexture(userData.getId)
-          WORLD.destroyBody(body)
+          WORLD.destroyBody(body) //TODO -> create another cache that will hold bodies waiting to be destroyed
           body.setUserData(null)
         }
       }

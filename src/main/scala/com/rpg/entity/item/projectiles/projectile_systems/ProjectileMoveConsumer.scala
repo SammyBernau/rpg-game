@@ -9,7 +9,8 @@ import javax.inject.{Inject, Singleton}
 
 @Singleton
 class ProjectileMoveConsumer @Inject(gameObjectCache: GameObjectCache, projectileMoveService: ProjectileMoveService) extends Consumer {
-  private def move(body: Body,speed: Float, angle: Float): Unit = {
+  
+  private def move(body: Body,speed: Float, angle: Float): Unit = synchronized {
 
     //Stops ball from slowing down over time (constant speed)
     body.setLinearDamping(0f)
@@ -22,22 +23,24 @@ class ProjectileMoveConsumer @Inject(gameObjectCache: GameObjectCache, projectil
     body.setLinearVelocity(forceX, forceY)
   }
 
-  override def consume(): Unit = {
-    projectileMoveService.getCache.foreach { projectileMoveRequest =>
-      val name = projectileMoveRequest.projectileName
-      val speed = projectileMoveRequest.speed
-      val angle = projectileMoveRequest.angle
+  override def consume(): Unit = synchronized {
+    if (projectileMoveService.getCache.nonEmpty) {
+      projectileMoveService.getCache.foreach { projectileMoveRequest =>
+        val name = projectileMoveRequest.projectileName
+        val speed = projectileMoveRequest.speed
+        val angle = projectileMoveRequest.angle
 
-      val gameObject = gameObjectCache.get(name).get
-      val fixture = gameObject.fixture
-      val body = fixture.getBody
+        val gameObject = gameObjectCache.get(name).get
+        val fixture = gameObject.fixture
+        val body = fixture.getBody
 
-      //set angle rotation of projectile body
-      body.setTransform(body.getPosition, angle - (MathUtils.degreesToRadians * 90))
+        //set angle rotation of projectile body
+        body.setTransform(body.getPosition, angle - (MathUtils.degreesToRadians * 90))
 
-      //move projectile
-      move(body,speed,angle)
-      projectileMoveService.remove(projectileMoveRequest)
+        //move projectile
+        move(body, speed, angle)
+        projectileMoveService.remove(projectileMoveRequest)
+      }
     }
   }
 }

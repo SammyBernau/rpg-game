@@ -31,30 +31,32 @@ class PhysicsObjectConsumer @Inject()(gameObjectCache: GameObjectCache, physicsO
   
   private def createJoint(jointDef: JointDef): Joint = world.createJoint(jointDef)
 
-  override def consume(): Unit = {
-    physicsObjectService.getCache.foreach{physicsObject =>
-      val shape = physicsObject.shape
-      val mapObject = physicsObject.mapObject
-      val bodyDef = physicsObject.body
-      val maybeFixtureDef = physicsObject.maybeFixtureDef
-      val objectUserData = physicsObject.objectUserData
+  override def consume(): Unit = synchronized {
+    if (physicsObjectService.getCache.nonEmpty) {
+      physicsObjectService.getCache.foreach { physicsObject =>
+        val shape = physicsObject.shape
+        val mapObject = physicsObject.mapObject
+        val bodyDef = physicsObject.body
+        val maybeFixtureDef = physicsObject.maybeFixtureDef
+        val objectUserData = physicsObject.objectUserData
 
-      val body = createBody(bodyDef)
-      body.setUserData(objectUserData)
+        val body = createBody(bodyDef)
+        body.setUserData(objectUserData)
 
-      maybeFixtureDef match {
-        case Some(fixtureDef) =>
-          val fixture = createFixture(body,fixtureDef)
-          val newGameObject = GameObject(mapObject, fixture)
-          gameObjectCache.add(mapObject.getName,newGameObject)
-        case None =>
-          val fixture = body.createFixture(shape,0.0f)
-          val newGameObject = GameObject(mapObject, fixture)
-          gameObjectCache.add(mapObject.getName,newGameObject)
+        maybeFixtureDef match {
+          case Some(fixtureDef) =>
+            val fixture = createFixture(body, fixtureDef)
+            val newGameObject = GameObject(mapObject, fixture)
+            gameObjectCache.add(mapObject.getName, newGameObject)
+          case None =>
+            val fixture = body.createFixture(shape, 0.0f)
+            val newGameObject = GameObject(mapObject, fixture)
+            gameObjectCache.add(mapObject.getName, newGameObject)
+        }
+        //Fulfill request by removing it from request list
+        shape.dispose()
+        physicsObjectService.remove(physicsObject)
       }
-      //Fulfill request by removing it from request list
-      physicsObjectService.remove(physicsObject)
     }
   }
-  
 }
