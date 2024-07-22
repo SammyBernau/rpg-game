@@ -40,7 +40,7 @@ class RectangleObject extends PhysicsObjectBase with PhysicsObjectSimple with Ph
     
     val bodyDef = getBodyDef(x + width, y + height, bodyType)
     val fixtureDefOption = getFixtureDef(polygonShape, bodyType)
-    val objectUserData = ObjectUserData("Rectangle",false,boundingBoxMapObject.getName)
+    val objectUserData = ObjectUserData("Rectangle",false,textureMapObject.getName)
 
     PhysicsObjectDefWrapper(polygonShape, textureMapObject,bodyDef,fixtureDefOption,objectUserData)
     

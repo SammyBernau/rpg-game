@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.ListenerSystem
-import com.rpg.game.systems.physics.World.WORLD
 
 import javax.inject.Inject
 

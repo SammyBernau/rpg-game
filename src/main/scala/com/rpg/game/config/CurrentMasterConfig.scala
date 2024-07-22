@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.{Box2DDebugRenderer, World}
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.rpg.game.config.gamesystems.GameSystemsConfig
 import com.rpg.game.config.map.TiledMapConfig
-import com.rpg.game.systems.physics.World.WORLD
 import com.rpg.game.systems.rendering.services.world.WorldRenderingService
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService}
 import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
@@ -31,7 +30,7 @@ case class CurrentMasterConfig @Inject(tiledMapConfig: TiledMapConfig, gameSyste
   }
 }
 
-class CurrentGameConfigurationHelper @Inject(renderSystem: RenderSystem, currentMasterConfiguration: CurrentMasterConfig) extends RenderListener {
+class CurrentGameConfigurationHelper @Inject(world: World, renderSystem: RenderSystem, currentMasterConfiguration: CurrentMasterConfig) extends RenderListener {
 
   renderSystem.addListener(this)
   private val gameSystemConfiguration = currentMasterConfiguration.gameSystemConfig
@@ -57,7 +56,7 @@ class CurrentGameConfigurationHelper @Inject(renderSystem: RenderSystem, current
   }
 
   private def renderWorld(): Unit = {
-    gameSystemConfiguration.worldRenderingService.render(WORLD, mapConfiguration.viewport.getCamera.combined)
+    gameSystemConfiguration.worldRenderingService.render(world, mapConfiguration.viewport.getCamera.combined)
   }
   
   

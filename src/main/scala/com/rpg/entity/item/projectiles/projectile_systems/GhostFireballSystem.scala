@@ -1,9 +1,7 @@
 package com.rpg.entity.item.projectiles.projectile_systems
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.maps.objects.{RectangleMapObject, TextureMapObject}
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile
 import com.badlogic.gdx.math.{MathUtils, Rectangle, Vector2, Vector3}
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.{Gdx, Input}
@@ -11,7 +9,6 @@ import com.rpg.entity.ObjectUserData
 import com.rpg.entity.item.projectiles.{Projectile, ProjectileSystem}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentMasterConfig
-import com.rpg.game.systems.physics.World.WORLD
 import com.rpg.game.systems.physics.collision.Collidable
 import com.rpg.game.systems.physics.world.PhysicsObjectProducer
 import com.rpg.game.systems.rendering.services.gameobjects.GameObject
@@ -86,13 +83,13 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterCon
     val textureMapObject = tiledMapTileMapObject.asInstanceOf[TextureMapObject]
     setTexturePositionToWorldGridSystem(textureMapObject)
 
-    textureMapObject.setRotation(angle - (MathUtils.degreesToRadians * 90))
+    textureMapObject.setRotation((angle * MathUtils.degreesToRadians) - MathUtils.PI / 2)
+    //textureMapObject.setRotation(angle - (MathUtils.degreesToRadians * 90))
     textureMapObject.setName(name)
     textureMapObject.setX(spawnX)
     textureMapObject.setY(spawnY)
 
     objectRenderingServiceHandler.addGameObject(tiledMapTileMapObject)
-
     projectileMoveService.add(ProjectileMoveRequest(name,SPEED,angle))
 
     ghostFireballCount += 1

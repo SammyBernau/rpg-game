@@ -28,9 +28,8 @@ import com.rpg.game.{GameModule, RPG}
 import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.cursor.CustomCursor
 import com.rpg.game.systems.physics.Remover
-import com.rpg.game.systems.physics.World.WORLD
 import com.rpg.game.systems.physics.collision.CollisionListener
-import com.rpg.game.systems.physics.world.{PhysicsObjectConsumer, PhysicsObjectProducer, PhysicsObjectService}
+import com.rpg.game.systems.physics.world.add.PhysicsObjectConsumer
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHandler}
 import com.rpg.game.systems.rendering.RenderSystem
 import com.rpg.game.systems.rendering.services.world.WorldRenderingService
@@ -67,14 +66,13 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private val currentMasterConfig = CurrentMasterConfig(tiledMapConfig, gameSystemsConfig)
 
   //Create injections for GameModule
-  Guice.createInjector(new GameModule(gameSystemsConfig.tickSystem, gameSystemsConfig.renderSystem,currentMasterConfig))
+  Guice.createInjector(new GameModule(world,currentMasterConfig))
 
   override def show(): Unit = {
     val collisionListener = new CollisionListener
     world.setContactListener(collisionListener)
     gameSystemsConfig.worldRenderingService.setDrawBodies(true)
     val cursor = new CustomCursor(currentMasterConfig, game.batch)
-
   }
 
   
@@ -96,8 +94,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     physicsObjectConsumer.consume()
     //Consume move requests for newly created
     projectileMoveConsumer.consume()
-
-
+    
     //ALL UPDATES MADE TO WORLD NEED TO BE CALLED BEFORE THIS (ie: creation, moving, updating of physic entities)
     physicsObjectConsumer.stepWorld(DELTA_TIME)
 
@@ -105,8 +102,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     gameSystemsConfig.objectRenderingService.setView(tiledMapConfig.viewport.getCamera.asInstanceOf[OrthographicCamera])
     gameSystemsConfig.objectRenderingService.render()
     gameSystemsConfig.worldRenderingService.render(world,tiledMapConfig.viewport.getCamera.combined)
-
-
+    
     game.batch.begin()
     game.font.draw(game.batch,s"Tick: ${gameSystemsConfig.tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
     game.batch.end()

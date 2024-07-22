@@ -1,11 +1,11 @@
 package com.rpg.game.systems.physics
 
-import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.physics.box2d.{Body, World}
 import com.badlogic.gdx.utils.Array
 import com.rpg.entity.ObjectUserData
 import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.Listener
-import com.rpg.game.systems.physics.World.WORLD
+import com.rpg.game.systems.physics.world.add.PhysicsObjectConsumer
 import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
 import com.rpg.game.systems.rendering.services.gameobjects.{ObjectRenderingService, ObjectRenderingServiceHandler}
 import com.rpg.game.systems.tick.{TickListener, TickSystem}
@@ -15,9 +15,10 @@ import javax.inject.Inject
 /**
  * Removes physics objects from world and calls OrthogonalTiledMapRendererWithObjects to remove their respective textures
  */
-class Remover @Inject(renderSystem: RenderSystem, objectRenderingServiceHandler: ObjectRenderingServiceHandler) extends RenderListener {
+class Remover @Inject(world: World,renderSystem: RenderSystem,objectRenderingServiceHandler: ObjectRenderingServiceHandler) extends RenderListener {
 
   renderSystem.addListener(this)
+
 
   override def renderListener(): Unit = {
     removeBodySafely()
@@ -31,20 +32,20 @@ class Remover @Inject(renderSystem: RenderSystem, objectRenderingServiceHandler:
    * Made with the help of a StackOverflow user which I modified
    */
   private def removeBodySafely(): Unit = {
-    val bodies = new Array[Body](WORLD.getBodyCount)
-    WORLD.getBodies(bodies)
+    val bodies = new Array[Body](world.getBodyCount)
+    world.getBodies(bodies)
 
     bodies.forEach{ body =>
       //to prevent some obscure c assertion that happened randomly once in a blue moon
       val list = body.getJointList
-      while (list.size > 0) WORLD.destroyJoint(list.get(0).joint)
+      while (list.size > 0) world.destroyJoint(list.get(0).joint)
 
       // actual remove
       val userData = body.getUserData.asInstanceOf[ObjectUserData]
       if(userData != null) {
         if (userData.isFlaggedForDelete) {
           objectRenderingServiceHandler.removeTexture(userData.getId)
-          WORLD.destroyBody(body) //TODO -> create another cache that will hold bodies waiting to be destroyed
+          world.destroyBody(body) //TODO -> create another cache that will hold bodies waiting to be destroyed
           body.setUserData(null)
         }
       }

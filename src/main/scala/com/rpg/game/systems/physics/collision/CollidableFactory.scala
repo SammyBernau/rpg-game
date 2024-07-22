@@ -11,9 +11,17 @@ object CollidableFactory {
     val bUserData = fixtureB.getBody.getUserData.asInstanceOf[ObjectUserData]
 
     //This is terrible i know but I will fix it once another object needs collisions handled which will probably be soon lol
-    if (aUserData != null && aUserData.getObjName == "GhostFireball") Some(new GhostFireballProjectileCollidable(fixtureA))
-    else if (bUserData != null && bUserData.getObjName == "GhostFireball") Some(new GhostFireballProjectileCollidable(fixtureB))
-    else None
+    if (aUserData != null && aUserData.getId != null) {
+      if(aUserData.getId.contains("ghost_fireball")) {
+        return Some(new GhostFireballProjectileCollidable(fixtureA))
+      }
+      None
+    } else if (bUserData != null && bUserData.getId != null) {
+      if (bUserData.getId.contains("ghost_fireball")) {
+        return Some(new GhostFireballProjectileCollidable(fixtureB))
+      }
+      None
+    } else None
   }
 
 }

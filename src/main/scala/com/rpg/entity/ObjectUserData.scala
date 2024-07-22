@@ -7,7 +7,6 @@ class ObjectUserData(objName: String, var isFlaggedForDelete: Boolean, id: Strin
 
   def getObjName: String = objName
   def getId: String = id
-  
   def print(): Unit = println(s"objName: ${objName}, isFlaggedForDelete: ${isFlaggedForDelete}, id: ${id}")
   
 
