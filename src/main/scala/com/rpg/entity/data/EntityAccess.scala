@@ -1,7 +1,7 @@
 package com.rpg.entity.data
 
 import com.badlogic.gdx.utils.{JsonReader, JsonValue}
-import com.rpg.data.DataAccess
+import com.rpg.persistence.DataAccess
 
 import java.io.File
 

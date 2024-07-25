@@ -81,7 +81,7 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterCon
     val textureMapObject = tiledMapTileMapObject.asInstanceOf[TextureMapObject]
     setTexturePositionToWorldGridSystem(textureMapObject)
 
-    textureMapObject.setRotation((angle * MathUtils.degreesToRadians) - MathUtils.PI / 2)
+    //textureMapObject.setRotation((angle * MathUtils.degreesToRadians) - MathUtils.PI / 2)
     //textureMapObject.setRotation(angle - (MathUtils.degreesToRadians * 90))
     textureMapObject.setName(name)
     textureMapObject.setX(spawnX)

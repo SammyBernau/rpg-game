@@ -1,4 +1,4 @@
-package com.rpg.data.database
+package com.rpg.persistence.database
 
 object DatabaseConstants{
   object DBOptions {

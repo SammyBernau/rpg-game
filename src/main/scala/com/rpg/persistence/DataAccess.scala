@@ -1,4 +1,4 @@
-package com.rpg.data
+package com.rpg.persistence
 
 trait DataAccess {
   def read(dataSource: String): ReadResult

@@ -1,5 +1,6 @@
 package com.rpg.entity.item.projectiles.projectile_systems
 
+import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.Body
 import com.rpg.game.structure.Consumer
@@ -40,6 +41,9 @@ class ProjectileMoveConsumer @Inject(renderSystem: RenderSystem, gameObjectCache
         val gameObject = gameObjectCache.get(name).get
         val fixture = gameObject.fixture
         val body = fixture.getBody
+        val textureMapObject = gameObject.mapObject.asInstanceOf[TextureMapObject]
+
+        textureMapObject.setRotation((angle) % 360)
 
         //set angle rotation of projectile body
         body.setTransform(body.getPosition, angle - (MathUtils.degreesToRadians * 90))

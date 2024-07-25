@@ -1,7 +1,7 @@
-package com.rpg.data
+package com.rpg.persistence
 
 import com.google.inject.Inject
-import com.rpg.data.DataAccess
+import com.rpg.persistence.DataAccess
 class DatabaseDataAccess extends DataAccess { //DataAccess[String] is a placeholder
 
   //TODO String is a placeholder for DataAccess[String,String]

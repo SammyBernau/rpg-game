@@ -1,10 +1,10 @@
-package com.rpg.data
+package com.rpg.persistence
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.utils.{JsonReader, JsonValue}
 import com.google.inject.Inject
-import com.rpg.data.DataAccess
+import com.rpg.persistence.DataAccess
 import scala.util.{Try, Success, Failure}
 import java.io.File
 

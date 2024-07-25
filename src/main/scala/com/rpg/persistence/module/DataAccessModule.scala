@@ -1,9 +1,9 @@
-package com.rpg.data.module
+package com.rpg.persistence.module
 
 import com.badlogic.gdx.utils.JsonValue
 import javax.inject._
 import com.google.inject.AbstractModule
-import com.rpg.data.{DataAccess, DatabaseDataAccess, JsonDataAccess}
+import com.rpg.persistence.{DataAccess, DatabaseDataAccess, JsonDataAccess}
 
 import java.io.File
 

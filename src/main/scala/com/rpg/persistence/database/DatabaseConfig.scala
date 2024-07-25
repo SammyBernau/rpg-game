@@ -1,7 +1,7 @@
-package com.rpg.data.database
+package com.rpg.persistence.database
 
 import javax.inject.{Inject, Named, Provider}
-import com.rpg.data.database.DatabaseConstants.DBOptions
+import com.rpg.persistence.database.DatabaseConstants.DBOptions
 
 
 case class DatabaseConfiguration(name: String,
