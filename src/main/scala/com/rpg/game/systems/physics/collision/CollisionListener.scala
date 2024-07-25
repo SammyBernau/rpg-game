@@ -1,7 +1,7 @@
 package com.rpg.game.systems.physics.collision
 
 import com.badlogic.gdx.physics.box2d.*
-import com.rpg.entity.ObjectUserData
+import com.rpg.game.systems.physics.world.ObjectData
 
 class CollisionListener extends ContactListener{
 
@@ -9,11 +9,11 @@ class CollisionListener extends ContactListener{
     val fixtureA = contact.getFixtureA
     val fixtureB = contact.getFixtureB
 
-    val aUserData = fixtureA.getBody.getUserData.asInstanceOf[ObjectUserData]
+    val aUserData = fixtureA.getBody.getUserData.asInstanceOf[ObjectData]
     if (aUserData != null) {
       aUserData.print()
     }
-    val bUserData = fixtureB.getBody.getUserData.asInstanceOf[ObjectUserData]
+    val bUserData = fixtureB.getBody.getUserData.asInstanceOf[ObjectData]
     if (bUserData != null) {
       bUserData.print()
     }

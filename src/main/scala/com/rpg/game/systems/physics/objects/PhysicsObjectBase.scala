@@ -1,4 +1,4 @@
-package com.rpg.game.systems.physics.bodies
+package com.rpg.game.systems.physics.objects
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType

@@ -5,12 +5,10 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
 import com.badlogic.gdx.math.{MathUtils, Rectangle, Vector2, Vector3}
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.{Gdx, Input}
-import com.rpg.entity.ObjectUserData
 import com.rpg.entity.item.projectiles.{Projectile, ProjectileSystem}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentMasterConfig
-import com.rpg.game.systems.physics.collision.Collidable
-import com.rpg.game.systems.physics.world.PhysicsObjectProducer
+import com.rpg.game.systems.physics.world.ObjectData
 import com.rpg.game.systems.rendering.services.gameobjects.GameObject
 import com.rpg.game.systems.tick.{TickListener, TickSystem}
 import org.lwjgl.system.windows.INPUT

@@ -1,12 +1,12 @@
-package com.rpg.game.systems.physics.bodies.shapes
+package com.rpg.game.systems.physics.objects.shapes
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.{EllipseMapObject, TextureMapObject}
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.{BodyDef, CircleShape, Fixture}
-import com.rpg.entity.ObjectUserData
-import com.rpg.game.systems.physics.bodies.{PhysicsObjectBase, PhysicsObjectComplex, PhysicsObjectSimple}
-import com.rpg.game.systems.physics.world.PhysicsObjectDefWrapper
+import com.rpg.game.systems.physics.objects.{PhysicsObjectBase, PhysicsObjectComplex, PhysicsObjectSimple}
+import com.rpg.game.systems.physics.world.ObjectData
+import com.rpg.game.systems.physics.world.add.PhysicsObjectDefWrapper
 
 class EllipseObject extends PhysicsObjectSimple with PhysicsObjectComplex with PhysicsObjectBase{
 
@@ -23,9 +23,9 @@ class EllipseObject extends PhysicsObjectSimple with PhysicsObjectComplex with P
 
     val bodyDef = getBodyDef(x + width, y + height, bodyType)
     val fixtureDefOption = getFixtureDef(circleShape, bodyType)
-    val objectUserData = ObjectUserData("Ellipse", false, mapObject.getName)
+    val objectData = ObjectData("Ellipse", false, mapObject.getName)
 
-    PhysicsObjectDefWrapper(circleShape,mapObject,bodyDef, fixtureDefOption, objectUserData)
+    PhysicsObjectDefWrapper(circleShape,mapObject,bodyDef, fixtureDefOption, objectData)
   }
 
   override def getDefs(bodyType: BodyType, boundingBoxMapObject: MapObject, textureMapObject: TextureMapObject, x: Float, y: Float): PhysicsObjectDefWrapper = {
@@ -38,9 +38,9 @@ class EllipseObject extends PhysicsObjectSimple with PhysicsObjectComplex with P
 
     val bodyDef = getBodyDef(x + width, y + height, bodyType)
     val fixtureDefOption = getFixtureDef(circleShape, bodyType)
-    val objectUserData = ObjectUserData("Ellipse",false,boundingBoxMapObject.getName)
+    val objectData = ObjectData("Ellipse",false,boundingBoxMapObject.getName)
     
-    PhysicsObjectDefWrapper(circleShape,textureMapObject,bodyDef,fixtureDefOption,objectUserData)
+    PhysicsObjectDefWrapper(circleShape,textureMapObject,bodyDef,fixtureDefOption,objectData)
   }
 
 }

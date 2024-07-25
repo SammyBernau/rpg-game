@@ -1,4 +1,4 @@
-package com.rpg.game.systems.physics.world
+package com.rpg.game.systems.physics.world.add
 
 import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.EllipseShapeBuilder
 import com.badlogic.gdx.maps.MapObject
@@ -8,9 +8,9 @@ import com.badlogic.gdx.math.{Polygon, Vector2}
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.rpg.game.structure.Producer
-import com.rpg.game.systems.physics.bodies.shapes.*
-import com.rpg.game.systems.physics.bodies.{PhysicsObjectFactory, PhysicsObjectSimple}
-import com.rpg.game.systems.physics.world.{PhysicsObjectDefWrapper, PhysicsObjectService}
+import com.rpg.game.systems.physics.objects.shapes.*
+import com.rpg.game.systems.physics.objects.{PhysicsObjectFactory, PhysicsObjectSimple}
+import com.rpg.game.systems.physics.world.add.{PhysicsObjectDefWrapper, PhysicsObjectService}
 
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ class PhysicsObjectProducer @Inject(physicsObjectService: PhysicsObjectService) 
   // Returns a fixtureDef and bodyDef based on object settings
   // Currently no legitimate support for kinematic body types
   private val physicsObjectFactory = PhysicsObjectFactory
-  
+
 
   override def produce(mapObject: MapObject): Unit = {
     val bodyType = try {
@@ -36,24 +36,22 @@ class PhysicsObjectProducer @Inject(physicsObjectService: PhysicsObjectService) 
     } catch {
       case e: Exception =>
         //        println(e.getStackTrace.mkString("Array(", ", ", ")"))
-        println(s"BodyType is either null or incorrectly set for this object: ${mapObject.getName}")
-        println("...Setting BodyType to default: Static")
+        //        println(s"BodyType is either null or incorrectly set for this object: ${mapObject.getName}")
+        //        println("...Setting BodyType to default: Static")
         BodyType.StaticBody
     }
-    
+
 
     val startedRequest = physicsObjectFactory.create(mapObject)
     val completedRequest = startedRequest.getDefs(bodyType, mapObject)
-    
+
     physicsObjectService.add(completedRequest)
   }
 
 
-
-
-
   /**
    * Matches for a physic body identifier stored in an object (Identifiers are manually configured as an ID 'bodyType' when objects are created in Tiled)
+   *
    * @param bodyTypeAsString stored identifier for type of physic object
    * @return
    */

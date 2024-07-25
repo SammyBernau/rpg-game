@@ -1,12 +1,12 @@
-package com.rpg.game.systems.physics.bodies.shapes
+package com.rpg.game.systems.physics.objects.shapes
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.PolygonMapObject
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.{Fixture, PolygonShape}
-import com.rpg.entity.ObjectUserData
-import com.rpg.game.systems.physics.bodies.{PhysicsObjectBase, PhysicsObjectSimple}
-import com.rpg.game.systems.physics.world.PhysicsObjectDefWrapper
+import com.rpg.game.systems.physics.objects.{PhysicsObjectBase, PhysicsObjectSimple}
+import com.rpg.game.systems.physics.world.ObjectData
+import com.rpg.game.systems.physics.world.add.PhysicsObjectDefWrapper
 
 class PolygonObject extends PhysicsObjectSimple with PhysicsObjectBase{
 
@@ -20,9 +20,9 @@ class PolygonObject extends PhysicsObjectSimple with PhysicsObjectBase{
 
     val fixtureDefOption = getFixtureDef(polygonShape, bodyType)
     val bodyDef = getBodyDef(x, y, bodyType)
-    val objectUserData = ObjectUserData("Polygon", false, mapObject.getName)
+    val objectData = ObjectData("Polygon", false, mapObject.getName)
 
-    PhysicsObjectDefWrapper(polygonShape, mapObject,bodyDef, fixtureDefOption, objectUserData)
+    PhysicsObjectDefWrapper(polygonShape, mapObject,bodyDef, fixtureDefOption, objectData)
 
 
   }

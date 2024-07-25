@@ -2,7 +2,8 @@ package com.rpg.game.config.gamesystems
 
 import com.rpg.entity.item.projectiles.projectile_systems.ProjectileMoveService
 import com.rpg.game.config.Config
-import com.rpg.game.systems.physics.world.{PhysicsObjectProducer, PhysicsObjectService}
+import com.rpg.game.systems.physics.world.remove.{RemoveObjectProducer, RemoveObjectService}
+import com.rpg.game.systems.physics.world.add.{PhysicsObjectProducer, PhysicsObjectService}
 import com.rpg.game.systems.rendering.RenderSystem
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHandler}
 import com.rpg.game.systems.rendering.services.world.WorldRenderingService
@@ -18,4 +19,6 @@ case class GameSystemsConfig (tickSystem: TickSystem,
                              worldRenderingService: WorldRenderingService,
                              objectRenderingService: ObjectRenderingService,
                              objectRenderingServiceHandler: ObjectRenderingServiceHandler,
-                              projectileMoveService: ProjectileMoveService) extends Config
+                              projectileMoveService: ProjectileMoveService,
+                              removeObjectProducer: RemoveObjectProducer,
+                              removeObjectService: RemoveObjectService) extends Config

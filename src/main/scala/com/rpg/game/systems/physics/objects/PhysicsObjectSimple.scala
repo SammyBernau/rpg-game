@@ -1,9 +1,9 @@
-package com.rpg.game.systems.physics.bodies
+package com.rpg.game.systems.physics.objects
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.{BodyDef, Fixture, FixtureDef}
-import com.rpg.game.systems.physics.world.PhysicsObjectDefWrapper
+import com.rpg.game.systems.physics.world.add.PhysicsObjectDefWrapper
 
 trait PhysicsObjectSimple {
   

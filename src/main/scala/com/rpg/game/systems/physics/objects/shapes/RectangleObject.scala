@@ -1,12 +1,12 @@
-package com.rpg.game.systems.physics.bodies.shapes
+package com.rpg.game.systems.physics.objects.shapes
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.{RectangleMapObject, TextureMapObject}
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.{BodyDef, Fixture, PolygonShape}
-import com.rpg.entity.ObjectUserData
-import com.rpg.game.systems.physics.bodies.{PhysicsObjectBase, PhysicsObjectComplex, PhysicsObjectSimple}
-import com.rpg.game.systems.physics.world.PhysicsObjectDefWrapper
+import com.rpg.game.systems.physics.objects.{PhysicsObjectBase, PhysicsObjectComplex, PhysicsObjectSimple}
+import com.rpg.game.systems.physics.world.ObjectData
+import com.rpg.game.systems.physics.world.add.PhysicsObjectDefWrapper
 
 class RectangleObject extends PhysicsObjectBase with PhysicsObjectSimple with PhysicsObjectComplex{
 
@@ -24,9 +24,9 @@ class RectangleObject extends PhysicsObjectBase with PhysicsObjectSimple with Ph
 
     val bodyDef = getBodyDef(x + width, y + height, bodyType)
     val fixtureDefOption = getFixtureDef(polygonShape, bodyType)
-    val objectUserData = ObjectUserData("Rectangle",false, mapObject.getName)
+    val objectData = ObjectData("Rectangle",false, mapObject.getName)
     
-    PhysicsObjectDefWrapper(polygonShape, mapObject,bodyDef,fixtureDefOption,objectUserData)
+    PhysicsObjectDefWrapper(polygonShape, mapObject,bodyDef,fixtureDefOption,objectData)
 
   }
 
@@ -40,9 +40,9 @@ class RectangleObject extends PhysicsObjectBase with PhysicsObjectSimple with Ph
     
     val bodyDef = getBodyDef(x + width, y + height, bodyType)
     val fixtureDefOption = getFixtureDef(polygonShape, bodyType)
-    val objectUserData = ObjectUserData("Rectangle",false,textureMapObject.getName)
+    val objectData = ObjectData("Rectangle",false,textureMapObject.getName)
 
-    PhysicsObjectDefWrapper(polygonShape, textureMapObject,bodyDef,fixtureDefOption,objectUserData)
+    PhysicsObjectDefWrapper(polygonShape, textureMapObject,bodyDef,fixtureDefOption,objectData)
     
   }
   

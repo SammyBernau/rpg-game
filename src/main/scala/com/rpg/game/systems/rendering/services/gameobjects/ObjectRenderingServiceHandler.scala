@@ -3,8 +3,8 @@ package com.rpg.game.systems.rendering.services.gameobjects
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.maps.tiled.TiledMap
-import com.rpg.entity.ObjectUserData
-import com.rpg.game.systems.physics.world.PhysicsObjectProducer
+import com.rpg.game.systems.physics.world.ObjectData
+import com.rpg.game.systems.physics.world.add.PhysicsObjectProducer
 
 import javax.inject.Inject
 
@@ -35,31 +35,15 @@ class ObjectRenderingServiceHandler @Inject(gameObjectCache: GameObjectCache, ph
   /**
    * Dynamically added objects need to have their texture added to the entity layer in order to be rendered
    *
-   * @param textureMapObject -> object with texture
+   * @param mapObject -> object
    */
   private def addToObjectLayer(mapObject: MapObject): Unit = entityLayer.add(mapObject)
 
 
   def addGameObject(mapObject: MapObject): Unit = {
-    addToObjectLayer(mapObject)
     physicsObjectProducer.produce(mapObject)
+    addToObjectLayer(mapObject)
   }
-
-  /**
-   * Adds a new obj with its texture to the screen
-   * This is used when you want to spawn a new object that was preloaded with the map, ie: bullets, enemies, etc.
-   *
-   * @param texture
-   * @param obj
-   */
-  def addNewObjWithTexture(texture: TextureMapObject, obj: MapObject): Unit = {
-    //        //Create collision box for new object
-    //        addObject(obj)
-    //
-    //        //load texture into texture map
-    //        addTextureMapObject(texture.getName, texture)
-  }
-
 
   /**
    * Removes texture and fixture from above lists so they dont get rendered
@@ -72,7 +56,7 @@ class ObjectRenderingServiceHandler @Inject(gameObjectCache: GameObjectCache, ph
 
     val texture = gameObject.mapObject.asInstanceOf[TextureMapObject]
     val fixture = gameObject.fixture
-    val userData = fixture.getBody.getUserData.asInstanceOf[ObjectUserData]
+    val userData = fixture.getBody.getUserData.asInstanceOf[ObjectData]
     if (userData != null && userData.isFlaggedForDelete) {
       entityLayer.remove(texture)
       gameObjectCache.remove(name)

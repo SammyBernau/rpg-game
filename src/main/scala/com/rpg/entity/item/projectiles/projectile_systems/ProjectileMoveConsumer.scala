@@ -3,12 +3,19 @@ package com.rpg.entity.item.projectiles.projectile_systems
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.Body
 import com.rpg.game.structure.Consumer
+import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObjectCache}
 
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class ProjectileMoveConsumer @Inject(gameObjectCache: GameObjectCache, projectileMoveService: ProjectileMoveService) extends Consumer {
+class ProjectileMoveConsumer @Inject(renderSystem: RenderSystem, gameObjectCache: GameObjectCache, projectileMoveService: ProjectileMoveService) extends Consumer with RenderListener {
+  
+  renderSystem.addListener(this)
+
+  override def renderListener(): Unit = {
+    consume()
+  }
   
   private def move(body: Body,speed: Float, angle: Float): Unit = synchronized {
 

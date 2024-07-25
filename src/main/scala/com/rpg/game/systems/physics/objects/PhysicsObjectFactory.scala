@@ -1,8 +1,8 @@
-package com.rpg.game.systems.physics.bodies
+package com.rpg.game.systems.physics.objects
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.{EllipseMapObject, PolygonMapObject, PolylineMapObject, RectangleMapObject, TextureMapObject}
-import com.rpg.game.systems.physics.bodies.shapes.{EllipseObject, PolygonObject, PolylineObject, PolylineObjectBoundingBox, RectangleObject, TextureObject}
+import com.rpg.game.systems.physics.objects.shapes.{EllipseObject, PolygonObject, PolylineObject, PolylineObjectBoundingBox, RectangleObject, TextureObject}
 
 object PhysicsObjectFactory {
 

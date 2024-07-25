@@ -3,19 +3,26 @@ package com.rpg.game.systems.physics.world.add
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.{Body, BodyDef, Fixture, FixtureDef, Joint, JointDef, World}
 import com.rpg.game.structure.Consumer
-import com.rpg.game.systems.physics.world.PhysicsObjectService
+import com.rpg.game.systems.physics.world.ObjectBody
+import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObjectCache}
 
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class PhysicsObjectConsumer @Inject()(gameObjectCache: GameObjectCache, physicsObjectService: PhysicsObjectService) extends Consumer {
+class PhysicsObjectConsumer @Inject(renderSystem: RenderSystem, world: World, gameObjectCache: GameObjectCache, physicsObjectService: PhysicsObjectService) extends Consumer with RenderListener{
   
-  val world = new World(new Vector2(0,0),true)
+  renderSystem.addListener(this)
 
-  def stepWorld(deltaTime: Float): Unit = world.step(deltaTime,6,2)
+  override def renderListener(): Unit = {
+    consume()
+  }
+  
+//  val world = new World(new Vector2(0,0),true)
+//
+//  def stepWorld(deltaTime: Float): Unit = world.step(deltaTime,6,2)
 
-  private def createBody(bodyDef: BodyDef): Body = world.createBody(bodyDef)
+  private def createObjectBody(bodyDef: BodyDef): ObjectBody = ObjectBody(world.createBody(bodyDef))
 
   private def createFixture(body: Body, fixtureDef: FixtureDef): Fixture = body.createFixture(fixtureDef)
 
@@ -38,18 +45,21 @@ class PhysicsObjectConsumer @Inject()(gameObjectCache: GameObjectCache, physicsO
         val mapObject = physicsObject.mapObject
         val bodyDef = physicsObject.body
         val maybeFixtureDef = physicsObject.maybeFixtureDef
-        val objectUserData = physicsObject.objectUserData
+        val objectData = physicsObject.objectData
 
-        val body = createBody(bodyDef)
-        body.setUserData(objectUserData)
+
+        if(objectData.getId == null) objectData.id = "generic_static_object"
+
+        val objectBody = createObjectBody(bodyDef)
+        objectBody.setObjectData(objectData)
 
         maybeFixtureDef match {
           case Some(fixtureDef) =>
-            val fixture = createFixture(body, fixtureDef)
+            val fixture = createFixture(objectBody.body, fixtureDef)
             val newGameObject = GameObject(mapObject, fixture)
             gameObjectCache.add(mapObject.getName, newGameObject)
           case None =>
-            val fixture = body.createFixture(shape, 0.0f)
+            val fixture = objectBody.body.createFixture(shape, 0.0f)
             val newGameObject = GameObject(mapObject, fixture)
             gameObjectCache.add(mapObject.getName, newGameObject)
         }

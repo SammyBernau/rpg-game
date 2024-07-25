@@ -1,12 +1,12 @@
-package com.rpg.game.systems.physics.bodies.shapes
+package com.rpg.game.systems.physics.objects.shapes
 
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.{PolylineMapObject, TextureMapObject}
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.{BodyDef, ChainShape, Fixture}
-import com.rpg.entity.ObjectUserData
-import com.rpg.game.systems.physics.bodies.{PhysicsObjectBase, PhysicsObjectComplex, PhysicsObjectSimple}
-import com.rpg.game.systems.physics.world.PhysicsObjectDefWrapper
+import com.rpg.game.systems.physics.objects.{PhysicsObjectBase, PhysicsObjectComplex, PhysicsObjectSimple}
+import com.rpg.game.systems.physics.world.ObjectData
+import com.rpg.game.systems.physics.world.add.PhysicsObjectDefWrapper
 
 class PolylineObjectBoundingBox extends PhysicsObjectBase with PhysicsObjectSimple with PhysicsObjectComplex{
 
@@ -30,9 +30,9 @@ class PolylineObjectBoundingBox extends PhysicsObjectBase with PhysicsObjectSimp
 
     val bodyDef = getBodyDef(x, y, bodyType)
     val fixtureDefOption = getFixtureDef(polyLineShape, bodyType)
-    val objectUserData = ObjectUserData("Polyline", false, mapObject.getName)
+    val objectData = ObjectData("Polyline", false, mapObject.getName)
         
-    PhysicsObjectDefWrapper(polyLineShape, mapObject,bodyDef,fixtureDefOption,objectUserData)
+    PhysicsObjectDefWrapper(polyLineShape, mapObject,bodyDef,fixtureDefOption,objectData)
   }
 
   override def getDefs(bodyType: BodyType, boundingBoxMapObject: MapObject, textureMapObject: TextureMapObject, x: Float, y: Float): PhysicsObjectDefWrapper = {
@@ -53,9 +53,9 @@ class PolylineObjectBoundingBox extends PhysicsObjectBase with PhysicsObjectSimp
 
     val bodyDef = getBodyDef(x, y, bodyType)
     val fixtureDefOption = getFixtureDef(polyLineShape, bodyType)
-    val objectUserData = ObjectUserData("Polyline", false, boundingBoxMapObject.getName)
+    val objectData = ObjectData("Polyline", false, boundingBoxMapObject.getName)
 
-    PhysicsObjectDefWrapper(polyLineShape, textureMapObject,bodyDef,fixtureDefOption,objectUserData)
+    PhysicsObjectDefWrapper(polyLineShape, textureMapObject,bodyDef,fixtureDefOption,objectData)
     
   }
   

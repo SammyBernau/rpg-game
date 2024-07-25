@@ -27,9 +27,10 @@ import com.rpg.game.config.map.TiledMapConfigService
 import com.rpg.game.{GameModule, RPG}
 import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.cursor.CustomCursor
-import com.rpg.game.systems.physics.Remover
 import com.rpg.game.systems.physics.collision.CollisionListener
+import com.rpg.game.systems.physics.world.WorldService
 import com.rpg.game.systems.physics.world.add.PhysicsObjectConsumer
+import com.rpg.game.systems.physics.world.remove.RemoveObjectConsumer
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHandler}
 import com.rpg.game.systems.rendering.RenderSystem
 import com.rpg.game.systems.rendering.services.world.WorldRenderingService
@@ -38,35 +39,51 @@ import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 class GameScreen(game: RPG) extends ScreenAdapter {
 
-  //Box2D.init() -> Either this has to be called or PhysicsObjectConsumer.world needs to be called before objectRenderingServiceHandler.parseObjectsFromMap() for box2d to work
+  //Box2D.init() -> Either this has to be called or WorldService.world needs to be called before objectRenderingServiceHandler.parseObjectsFromMap() for box2d to work
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
+
+  //Init physics world
+  private val worldService = new WorldService()
+  private val world = worldService.world
 
   //Game settings
   private val mapName = "assets/Tiled/Grassland.tmx" //Will change later so its not hardcoded
   private val tiledMapConfig = new TiledMapConfigService(mapName).loadConfig()
   //Game util systems
   private val gameSystemsConfig = new GameSystemsConfigService(tiledMapConfig.tiledMap).loadConfig()
+  private val renderSystem = gameSystemsConfig.renderSystem
   private val gameObjectCache = gameSystemsConfig.gameObjectCache
-  private val physicsObjectService = gameSystemsConfig.physicsObjectService
-  private val projectileMoveService = gameSystemsConfig.projectileMoveService
 
-  //initial game world creation
-  private val physicsObjectConsumer = new PhysicsObjectConsumer(gameObjectCache,physicsObjectService)
-  private val world = physicsObjectConsumer.world
+  //Init consumers
+    //Note: Consumers have to be added in this order (RemoveObjectConsumer -> ProjectileMoveConsumer -> PhysicsObjectConsumer) so that PhysicsObjectConsumer is on top
+    //TODO -> Switch RenderSystem to use a FIFO data structure
+  private val removeObjectConsumer = new RemoveObjectConsumer(
+    renderSystem,
+    world,
+    gameSystemsConfig.removeObjectService,
+    gameSystemsConfig.objectRenderingServiceHandler)
 
-  //Projectile moving
-  private val projectileMoveConsumer = new ProjectileMoveConsumer(gameObjectCache,projectileMoveService)
+  private val projectileMoveConsumer = new ProjectileMoveConsumer(
+    renderSystem,
+    gameObjectCache,
+    gameSystemsConfig.projectileMoveService)
 
-  //Initial physics objects creation of preloaded objects from object layer of TiledMap
-  private val objectRenderingServiceHandler = gameSystemsConfig.objectRenderingServiceHandler
-  objectRenderingServiceHandler.parseObjectsFromMap()
-  physicsObjectConsumer.consume()
+  private val physicsObjectConsumer = new PhysicsObjectConsumer(
+    renderSystem,
+    world,
+    gameObjectCache,
+    gameSystemsConfig.physicsObjectService)
 
   //Save configurations to be shared across files that need it
   private val currentMasterConfig = CurrentMasterConfig(tiledMapConfig, gameSystemsConfig)
 
+  //Initial physics objects creation of preloaded objects from object layer of TiledMap
+  private val objectRenderingServiceHandler = gameSystemsConfig.objectRenderingServiceHandler
+  objectRenderingServiceHandler.parseObjectsFromMap()
+  physicsObjectConsumer.consume() //THIS HAS TO BE CALLED BEFORE INJECTOR SINCE THINGS IN INJECTOR RELY ON THIS BEING CALLED
+
   //Create injections for GameModule
-  Guice.createInjector(new GameModule(world,currentMasterConfig))
+  Guice.createInjector(new GameModule(world, currentMasterConfig))
 
   override def show(): Unit = {
     val collisionListener = new CollisionListener
@@ -75,11 +92,11 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     val cursor = new CustomCursor(currentMasterConfig, game.batch)
   }
 
-  
+
   override def render(delta: Float): Unit = {
     Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-    
+
     //apply camera
     tiledMapConfig.viewport.apply()
 
@@ -90,21 +107,16 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     //Update render events
     gameSystemsConfig.renderSystem.updateListeners()
 
-    //Consume physic objects added to PhysicsObjectService
-    physicsObjectConsumer.consume()
-    //Consume move requests for newly created
-    projectileMoveConsumer.consume()
-    
     //ALL UPDATES MADE TO WORLD NEED TO BE CALLED BEFORE THIS (ie: creation, moving, updating of physic entities)
-    physicsObjectConsumer.stepWorld(DELTA_TIME)
+    worldService.stepWorld(DELTA_TIME)
 
     //render and camera
     gameSystemsConfig.objectRenderingService.setView(tiledMapConfig.viewport.getCamera.asInstanceOf[OrthographicCamera])
     gameSystemsConfig.objectRenderingService.render()
-    gameSystemsConfig.worldRenderingService.render(world,tiledMapConfig.viewport.getCamera.combined)
-    
+    gameSystemsConfig.worldRenderingService.render(world, tiledMapConfig.viewport.getCamera.combined)
+
     game.batch.begin()
-    game.font.draw(game.batch,s"Tick: ${gameSystemsConfig.tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
+    game.font.draw(game.batch, s"Tick: ${gameSystemsConfig.tickSystem.getCurrentTick}", Gdx.graphics.getWidth / 2.toFloat, 100)
     game.batch.end()
   }
 
@@ -135,7 +147,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   }
 
   override def resize(width: Int, height: Int): Unit = {
-    tiledMapConfig.viewport.update(width,height,true)
+    tiledMapConfig.viewport.update(width, height, true)
   }
 
   override def dispose(): Unit = {

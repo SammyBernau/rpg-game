@@ -67,6 +67,8 @@ class ObjectRenderingService @Inject(gameObjectCache: GameObjectCache, map: Tile
           textureMapObject.getOriginY, textureMapObject.getTextureRegion.getRegionWidth.toFloat, textureMapObject.getTextureRegion.getRegionHeight.toFloat,
           textureMapObject.getScaleX, textureMapObject.getScaleY, textureMapObject.getRotation)
       case None =>
+        //Projectiles are not always created or found within GameObjectCache before some render calls
+        //Does not crash or prevent the projectile from being created but returns as a None prior to returning a GameObject above
         println(s"No GameObject found with name: ${objectName}")
     }
 

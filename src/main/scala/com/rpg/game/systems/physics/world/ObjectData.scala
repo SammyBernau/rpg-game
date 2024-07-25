@@ -1,9 +1,9 @@
-package com.rpg.entity
+package com.rpg.game.systems.physics.world
 
 /**
  * Custom data holder for box2D body objects Userdata field
  */
-class ObjectUserData(objName: String, var isFlaggedForDelete: Boolean, id: String) {
+class ObjectData(objName: String, var isFlaggedForDelete: Boolean, var id: String) {
 
   def getObjName: String = objName
   def getId: String = id
