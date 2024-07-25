@@ -1,19 +1,24 @@
 package com.rpg.entity.animate.player
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
+import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.textures.EntityAnimations
-import com.rpg.game.config.CurrentSettings
-import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
+import com.rpg.game.config.CurrentMasterConfig
+import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 import javax.inject.Inject
 
-final class PlayerAnimation @Inject(currentWorld: CurrentSettings, tickSystem: TickSystem) extends TickListener {
+final class PlayerAnimation @Inject(currentMasterConfig: CurrentMasterConfig, tickSystem: TickSystem) extends TickListener {
   //Add to listener list
   tickSystem.addListener(this)
+  private val gameSystemsConfig = currentMasterConfig.gameSystemConfig
+  private val mapConfig = currentMasterConfig.tiledMapConfig
+  //GameObjects
+  private val gameObjectCache = gameSystemsConfig.gameObjectCache
   
   //walk/run vars
-  private val entityAnimations = EntityAnimations(currentWorld)
+  private val entityAnimations = EntityAnimations(currentMasterConfig)
   private val playerSkin = entityAnimations.Player
   private var lastDirection = "front"
 
@@ -25,8 +30,10 @@ final class PlayerAnimation @Inject(currentWorld: CurrentSettings, tickSystem: T
   private var cancelOtherDodgeDirections = false
 
   override def updateListener(tick: Long): Unit = {
-    val playerTexture = currentWorld.mapRenderer.getTextureMapObject("player_animation")
-    val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
+    val playerGameObject = gameObjectCache.get("player_animation").get
+    
+    val playerTexture = playerGameObject.mapObject.asInstanceOf[TextureMapObject]
+    val playerFixture = playerGameObject.fixture
 
     val w = Gdx.input.isKeyPressed(Input.Keys.W)
     val a = Gdx.input.isKeyPressed(Input.Keys.A)

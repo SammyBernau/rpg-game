@@ -1,6 +1,6 @@
 package com.rpg.entity
 
-import com.rpg.data.DataAccess
+import com.rpg.persistence.DataAccess
 import com.rpg.entity.data.EntityAccess
 
 /**

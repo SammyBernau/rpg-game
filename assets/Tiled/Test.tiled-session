@@ -17,17 +17,17 @@
         },
         "Grassland.tmx": {
             "expandedGroupLayers": [
-                4,
-                6
+                6,
+                4
             ],
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 8,
+            "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 829.375,
-                "y": 699.375
+                "x": 793.6666666666666,
+                "y": 697.8333333333333
             }
         },
         "NPC_test.tsx": {
@@ -63,8 +63,8 @@
             "scale": 0.75,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 798,
-                "y": 797.3333333333333
+                "x": 800,
+                "y": 800
             }
         },
         "basictiles.tsx": {

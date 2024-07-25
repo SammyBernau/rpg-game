@@ -1,34 +1,40 @@
 package com.rpg.entity.item.projectiles.projectile_systems
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.maps.objects.{RectangleMapObject, TextureMapObject}
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile
 import com.badlogic.gdx.math.{MathUtils, Rectangle, Vector2, Vector3}
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.{Gdx, Input}
-import com.rpg.entity.ObjectUserData
 import com.rpg.entity.item.projectiles.{Projectile, ProjectileSystem}
 import com.rpg.entity.textures.EntityAnimations
-import com.rpg.game.config.CurrentSettings
-import com.rpg.game.systems.physics_system.ObjectLayerObject
-import com.rpg.game.systems.physics_system.World.WORLD
-import com.rpg.game.systems.physics_system.collision.Collidable
-import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
+import com.rpg.game.config.CurrentMasterConfig
+import com.rpg.game.systems.physics.world.ObjectData
+import com.rpg.game.systems.rendering.services.gameobjects.GameObject
+import com.rpg.game.systems.tick.{TickListener, TickSystem}
 import org.lwjgl.system.windows.INPUT
 
 import javax.inject.Inject
 
-final class GhostFireballSystem @Inject(tickSystem: TickSystem,currentWorld: CurrentSettings) extends Projectile with TickListener {
+final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends Projectile with TickListener {
   //Add to listener list
   tickSystem.addListener(this)
 
-  private val playerFixture = currentWorld.mapRenderer.getFixture("player_animation")
-  private val entityAnimations = EntityAnimations(currentWorld)
-  private val ghostFireballTile = entityAnimations.GhostFireBall.tile
-  private val entityLayer = currentWorld.tiledMap.getLayers.get("entity")
-  private val SPAWN_DISTANCE = 50
+  private val gameSystemsConfig = currentMasterConfig.gameSystemConfig
+  private val mapConfig = currentMasterConfig.tiledMapConfig
+  private val projectileMoveService = gameSystemsConfig.projectileMoveService
 
+  private val objectRenderingServiceHandler = gameSystemsConfig.objectRenderingServiceHandler
+
+  //Grab player physics object
+  private val gameObjectCache = gameSystemsConfig.gameObjectCache
+  private val playerGameObject = gameObjectCache.get("player_animation").get
+  private val playerFixture = playerGameObject.fixture
+
+  //Fireball animation
+  private val entityAnimations = EntityAnimations(currentMasterConfig)
+  private val ghostFireballTile = entityAnimations.GhostFireBall.tile
+  private val SPAWN_DISTANCE = 50
+  private val SPEED = 200f
   private var ghostFireballCount = 0
   private var tickAtLastShot = 0L
 
@@ -40,12 +46,12 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem,currentWorld: Cur
     }
   }
 
-  override def create(): Unit = {
+  override def create(): Unit = synchronized {
     //Retrieve player's current position
     val playerPosition = playerFixture.getBody.getPosition
     val playerX = playerPosition.x
     val playerY = playerPosition.y
-    
+
     val mousePosition = getMouseCoordsInWorld
 
     val angle = calculateAngle(playerX, playerY, mousePosition.x, mousePosition.y)
@@ -59,65 +65,39 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem,currentWorld: Cur
 
     //Set bounding box just above player's head
     val name = ghostFireballTile.getProperties.get("type").toString + "_" + ghostFireballCount.toString
+
     //Retrieve bounding box that will be the collision box for fireball
     val rectangleMapObject = ghostFireballTile.getObjects.get(0).asInstanceOf[RectangleMapObject]
     rectangleMapObject.setName(name)
     rectangleMapObject.getRectangle.x = spawnX
     rectangleMapObject.getRectangle.y = spawnY
 
+    //This object is the one that holds both rectangleMapObject and TextureMapObject
+    val tiledMapTileMapObject = new TiledMapTileMapObject(ghostFireballTile, false, false)
+    tiledMapTileMapObject.setName(name)
+    tiledMapTileMapObject.getProperties.put("BodyType", "Dynamic")
 
-    val obj = new TiledMapTileMapObject(ghostFireballTile, false, false)
-    obj.setName(name)
-    obj.setX(spawnX)
-    obj.setY(spawnY)
-
-    //correct texture position and set rotation of texture
-    val textureMapObject = obj.asInstanceOf[TextureMapObject]
+    //textureMapObject holds the correct position of the bounding box and texture
+    val textureMapObject = tiledMapTileMapObject.asInstanceOf[TextureMapObject]
     setTexturePositionToWorldGridSystem(textureMapObject)
-    textureMapObject.setRotation(angle)
 
-    //add to texture and fixture lists to track for updating
-    currentWorld.mapRenderer.addNewObjWithTexture(textureMapObject, rectangleMapObject)
-    //adds sprite to entity layer to be drawn
-    currentWorld.mapRenderer.addToObjectLayer(textureMapObject)
+    //textureMapObject.setRotation((angle * MathUtils.degreesToRadians) - MathUtils.PI / 2)
+    //textureMapObject.setRotation(angle - (MathUtils.degreesToRadians * 90))
+    textureMapObject.setName(name)
+    textureMapObject.setX(spawnX)
+    textureMapObject.setY(spawnY)
 
-    //retrieve physics body of fireball
-    val fixture = currentWorld.mapRenderer.getFixture(name)
-    //set rotation of fireball physics body
-    fixture.getBody.setTransform(fixture.getBody.getPosition, angle - (MathUtils.degreesToRadians * 90))
-
-    val userData = ObjectUserData("GhostFireball", false, name)
-    fixture.getBody.setUserData(userData)
-
-    move(name, 200f, angle)
+    objectRenderingServiceHandler.addGameObject(tiledMapTileMapObject)
+    projectileMoveService.add(ProjectileMoveRequest(name,SPEED,angle))
 
     ghostFireballCount += 1
-  }
-
-  private def move(name: String, speed: Float, angle: Float): Unit = {
-    val mousePosition = getMouseCoordsInWorld
-
-    //Retrieve fireball's current position
-    val fireballFixture = currentWorld.mapRenderer.getFixture(name)
-    val fireballBody = fireballFixture.getBody
-    val fireballPosition = fireballBody.getPosition
-
-    //Stops ball from slowing down over time (constant speed)
-    fireballBody.setLinearDamping(0f)
-
-    //Calculate the force to be applied on the fireball
-    val forceX = MathUtils.cos(angle) * speed
-    val forceY = MathUtils.sin(angle) * speed
-
-    //Apply the force to the fireball
-    fireballBody.setLinearVelocity(forceX, forceY)
   }
 
   private def setTexturePositionToWorldGridSystem(textureMapObject: TextureMapObject): Unit = {
     val x = textureMapObject.getX
     val y = textureMapObject.getY
     val screenPosition = Vector3(x, y, 0)
-    val worldPosition = currentWorld.viewport.getCamera.unproject(screenPosition)
+    val worldPosition = mapConfig.viewport.getCamera.unproject(screenPosition)
 
     textureMapObject.setX(worldPosition.x)
     textureMapObject.setY(worldPosition.y)
@@ -125,6 +105,6 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem,currentWorld: Cur
 
   private def calculateAngle(x1: Float, y1: Float, x2: Float, y2: Float): Float = MathUtils.atan2(y2 - y1, x2 - x1)
 
-  private def getMouseCoordsInWorld: Vector2 = currentWorld.viewport.unproject(Vector2(Gdx.input.getX.toFloat, Gdx.input.getY.toFloat))
+  private def getMouseCoordsInWorld: Vector2 = mapConfig.viewport.unproject(Vector2(Gdx.input.getX.toFloat, Gdx.input.getY.toFloat))
 
 }

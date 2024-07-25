@@ -21,70 +21,102 @@ import com.rpg.entity.animate.entityconstructs.Humanoid
 import com.rpg.entity.animate.player
 import com.rpg.entity.animate.player.{Owner, Player, PlayerAction, PlayerAnimation}
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
-import com.rpg.entity.item.projectiles.projectile_systems.GhostFireballSystem
-import com.rpg.game.{GameModule, RPG, RendererWithObjects}
-import com.rpg.game.config.CurrentSettings
-import com.rpg.game.systems.cursor_system.{CursorBehavior, CustomCursor}
-import com.rpg.game.systems.physics_system.Remover
-import com.rpg.game.systems.physics_system.World.WORLD
-import com.rpg.game.systems.physics_system.collision.CollisionListener
-import com.rpg.game.systems.rendering_system.RenderSystem
-import com.rpg.game.systems.tick_system.{TickListener, TickSystem}
+import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveConsumer, ProjectileMoveService}
+import com.rpg.game.config.gamesystems.GameSystemsConfigService
+import com.rpg.game.config.map.TiledMapConfigService
+import com.rpg.game.{GameModule, RPG}
+import com.rpg.game.config.CurrentMasterConfig
+import com.rpg.game.systems.cursor.CustomCursor
+import com.rpg.game.systems.physics.collision.CollisionListener
+import com.rpg.game.systems.physics.world.WorldService
+import com.rpg.game.systems.physics.world.add.PhysicsObjectConsumer
+import com.rpg.game.systems.physics.world.remove.RemoveObjectConsumer
+import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHandler}
+import com.rpg.game.systems.rendering.RenderSystem
+import com.rpg.game.systems.rendering.services.world.WorldRenderingService
+import com.rpg.game.systems.tick.{TickListener, TickSystem}
 
 
 class GameScreen(game: RPG) extends ScreenAdapter {
-  
+
+  //Box2D.init() -> Either this has to be called or WorldService.world needs to be called before objectRenderingServiceHandler.parseObjectsFromMap() for box2d to work
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
 
-  //Game util systems
-  private val tickSystem = new TickSystem()
-  private val renderSystem = new RenderSystem()
-
+  //Init physics world
+  private val worldService = new WorldService()
+  private val world = worldService.world
 
   //Game settings
-  private val map = new TmxMapLoader().load("assets/Tiled/Grassland.tmx")
-  private val mapRenderer = new RendererWithObjects(map)
-  mapRenderer.parseObjectsFromMap()
-  private val tileSize = map.getLayers.get(0).asInstanceOf[TiledMapTileLayer].getTileWidth
-  private val viewport = new ExtendViewport((30 * tileSize).toFloat, (20 * tileSize).toFloat)
-  private val currentSettings = CurrentSettings(viewport, mapRenderer, map, new Box2DDebugRenderer())
+  private val mapName = "assets/Tiled/Grassland.tmx" //Will change later so its not hardcoded
+  private val tiledMapConfig = new TiledMapConfigService(mapName).loadConfig()
+  //Game util systems
+  private val gameSystemsConfig = new GameSystemsConfigService(tiledMapConfig.tiledMap).loadConfig()
+  private val renderSystem = gameSystemsConfig.renderSystem
+  private val gameObjectCache = gameSystemsConfig.gameObjectCache
 
-  private val injector = Guice.createInjector(new GameModule(tickSystem, renderSystem, currentSettings))
+  //Init consumers
+    //Note: Consumers have to be added in this order (RemoveObjectConsumer -> ProjectileMoveConsumer -> PhysicsObjectConsumer) so that PhysicsObjectConsumer is on top
+    //TODO -> Switch RenderSystem to use a FIFO data structure
+  private val removeObjectConsumer = new RemoveObjectConsumer(
+    renderSystem,
+    world,
+    gameSystemsConfig.removeObjectService,
+    gameSystemsConfig.objectRenderingServiceHandler)
+
+  private val projectileMoveConsumer = new ProjectileMoveConsumer(
+    renderSystem,
+    gameObjectCache,
+    gameSystemsConfig.projectileMoveService)
+
+  private val physicsObjectConsumer = new PhysicsObjectConsumer(
+    renderSystem,
+    world,
+    gameObjectCache,
+    gameSystemsConfig.physicsObjectService)
+
+  //Save configurations to be shared across files that need it
+  private val currentMasterConfig = CurrentMasterConfig(tiledMapConfig, gameSystemsConfig)
+
+  //Initial physics objects creation of preloaded objects from object layer of TiledMap
+  private val objectRenderingServiceHandler = gameSystemsConfig.objectRenderingServiceHandler
+  objectRenderingServiceHandler.parseObjectsFromMap()
+  physicsObjectConsumer.consume() //THIS HAS TO BE CALLED BEFORE INJECTOR SINCE THINGS IN INJECTOR RELY ON THIS BEING CALLED
+
+  //Create injections for GameModule
+  Guice.createInjector(new GameModule(world, currentMasterConfig))
 
   override def show(): Unit = {
     val collisionListener = new CollisionListener
-    WORLD.setContactListener(collisionListener)
-    currentSettings.worldRenderer.setDrawBodies(true)
-    val cursor = new CustomCursor(currentSettings, game.batch)
+    world.setContactListener(collisionListener)
+    gameSystemsConfig.worldRenderingService.setDrawBodies(true)
+    val cursor = new CustomCursor(currentMasterConfig, game.batch)
   }
 
-  
+
   override def render(delta: Float): Unit = {
     Gdx.gl.glClearColor(0, 0, 0, 0) //MAKE SURE TO CLEAR SCREEN OR CHANGE BACKGROUND AS PREVIOUS SCREEN WILL STILL BE THERE. TOOK ME FOREVER TO FIND THIS OUT!
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-    
+
     //apply camera
-    currentSettings.viewport.apply()
+    tiledMapConfig.viewport.apply()
 
     //Update tick events
-    tickSystem.render()
-    tickSystem.updateListeners()
+    gameSystemsConfig.tickSystem.render()
+    gameSystemsConfig.tickSystem.updateListeners()
 
     //Update render events
-    renderSystem.updateListeners()
-
+    gameSystemsConfig.renderSystem.updateListeners()
 
     //ALL UPDATES MADE TO WORLD NEED TO BE CALLED BEFORE THIS (ie: creation, moving, updating of physic entities)
-    WORLD.step(DELTA_TIME, 6,2)
+    worldService.stepWorld(DELTA_TIME)
 
     //render and camera
-    currentSettings.mapRenderer.setView(currentSettings.viewport.getCamera.asInstanceOf[OrthographicCamera])
-    currentSettings.mapRenderer.render()
-    currentSettings.worldRenderer.render(WORLD,currentSettings.viewport.getCamera.combined)
-
+    gameSystemsConfig.objectRenderingService.setView(tiledMapConfig.viewport.getCamera.asInstanceOf[OrthographicCamera])
+    gameSystemsConfig.objectRenderingService.render()
+    gameSystemsConfig.worldRenderingService.render(world, tiledMapConfig.viewport.getCamera.combined)
 
     game.batch.begin()
-    game.font.draw(game.batch,s"Tick: ${tickSystem.getCurrentTick}", Gdx.graphics.getWidth/2.toFloat, 100)
+    game.font.draw(game.batch, s"Tick: ${gameSystemsConfig.tickSystem.getCurrentTick}", Gdx.graphics.getWidth / 2.toFloat, 100)
     game.batch.end()
   }
 
@@ -104,7 +136,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
       speed = speed / Math.sqrt(2.0).toFloat
     }
 
-    val camera = currentSettings.viewport.getCamera
+    val camera = tiledMapConfig.viewport.getCamera
 
     if (w) camera.position.y = camera.position.y + speed * DELTA_TIME
     if (a) camera.position.x = camera.position.x - speed * DELTA_TIME
@@ -115,17 +147,13 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   }
 
   override def resize(width: Int, height: Int): Unit = {
-    currentSettings.viewport.update(width,height,true)
+    tiledMapConfig.viewport.update(width, height, true)
   }
 
   override def dispose(): Unit = {
     game.batch.dispose()
     game.font.dispose()
-    currentSettings.worldRenderer.dispose()
-    currentSettings.mapRenderer.dispose()
-    currentSettings.tiledMap.dispose()
-    tickSystem.dispose()
-    renderSystem.dispose()
+    currentMasterConfig.dispose()
   }
 
 

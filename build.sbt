@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets
 import sbt.IO._
 
 
-val libgdxVersion = "1.12.1"
+val libGdxVersion = "1.12.1"
 val artemisVersion = "2.3.0"
 logLevel := Level.Debug
 
@@ -18,19 +18,18 @@ assetsDirectory := {
   r
 }
 libraryDependencies ++= Seq(
-  "com.badlogicgames.gdx" % "gdx" % libgdxVersion,
-  "com.badlogicgames.gdx" % "gdx-backend-lwjgl3" % libgdxVersion,
-  "com.badlogicgames.gdx" % "gdx-platform" % libgdxVersion,
-  "com.badlogicgames.gdx" % "gdx-box2d-platform" % libgdxVersion classifier "natives-desktop",
-  "com.badlogicgames.gdx" % "gdx-freetype" % libgdxVersion,
+  "com.badlogicgames.gdx" % "gdx" % libGdxVersion,
+  "com.badlogicgames.gdx" % "gdx-backend-lwjgl3" % libGdxVersion,
+  "com.badlogicgames.gdx" % "gdx-platform" % libGdxVersion,
+  "com.badlogicgames.gdx" % "gdx-box2d-platform" % libGdxVersion classifier "natives-desktop",
+  "com.badlogicgames.gdx" % "gdx-freetype" % libGdxVersion,
+  "com.badlogicgames.gdx" % "gdx-box2d" % libGdxVersion,
+  "com.badlogicgames.gdx" % "gdx-lwjgl3-glfw-awt-macos" % libGdxVersion,
+  "com.badlogicgames.gdx" % "gdx-platform" % libGdxVersion classifier "natives-desktop",
+  "com.badlogicgames.gdx" % "gdx-jnigen-loader" % "2.3.1",
   "net.onedaybeard.artemis" % "artemis-odb" % artemisVersion,
-  "com.badlogicgames.gdx" % "gdx-lwjgl3-glfw-awt-macos" % libgdxVersion,
-  "com.badlogicgames.gdx" % "gdx-platform" % libgdxVersion classifier "natives-desktop",
   "com.google.inject" % "guice" % "5.1.0",
-  "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.14.2",
-  "com.badlogicgames.gdx" % "gdx-box2d" % "1.11.0",
-  "com.badlogicgames.gdx" % "gdx" % "1.11.0",
-  "com.badlogicgames.gdx" % "gdx-jnigen-loader" % "2.3.1"
+  "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.14.2"
 )
 javaOptions ++= Seq(
   "-XstartOnFirstThread"
