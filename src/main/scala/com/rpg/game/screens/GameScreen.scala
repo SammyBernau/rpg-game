@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.viewport.{ExtendViewport, Viewport}
 import com.google.inject.Guice
 import com.rpg.entity.animate.entityconstructs.Humanoid
 import com.rpg.entity.animate.player
-import com.rpg.entity.animate.player.{Owner, Player, PlayerAction, PlayerAnimation}
+import com.rpg.entity.animate.player.{Owner, Player, PlayerMovement, PlayerAnimation}
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveConsumer, ProjectileMoveService}
 import com.rpg.game.config.gamesystems.GameSystemsConfigService
@@ -49,8 +49,10 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   //Game settings
   private val mapName = "assets/Tiled/Grassland.tmx" //Will change later so its not hardcoded
   private val tiledMapConfig = new TiledMapConfigService(mapName).loadConfig()
+  private val viewport = tiledMapConfig.viewport
   //Game util systems
   private val gameSystemsConfig = new GameSystemsConfigService(tiledMapConfig.tiledMap).loadConfig()
+  private val tickSystem = gameSystemsConfig.tickSystem
   private val renderSystem = gameSystemsConfig.renderSystem
   private val gameObjectCache = gameSystemsConfig.gameObjectCache
 
@@ -98,22 +100,22 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
     //apply camera
-    tiledMapConfig.viewport.apply()
+    viewport.apply()
 
     //Update tick events
-    gameSystemsConfig.tickSystem.render()
-    gameSystemsConfig.tickSystem.updateListeners()
+    tickSystem.render()
+    tickSystem.updateListeners()
 
     //Update render events
-    gameSystemsConfig.renderSystem.updateListeners()
+    renderSystem.updateListeners()
 
     //ALL UPDATES MADE TO WORLD NEED TO BE CALLED BEFORE THIS (ie: creation, moving, updating of physic entities)
     worldService.stepWorld(DELTA_TIME)
 
     //render and camera
-    gameSystemsConfig.objectRenderingService.setView(tiledMapConfig.viewport.getCamera.asInstanceOf[OrthographicCamera])
+    gameSystemsConfig.objectRenderingService.setView(viewport.getCamera.asInstanceOf[OrthographicCamera])
     gameSystemsConfig.objectRenderingService.render()
-    gameSystemsConfig.worldRenderingService.render(world, tiledMapConfig.viewport.getCamera.combined)
+    gameSystemsConfig.worldRenderingService.render(world, viewport.getCamera.combined)
 
     game.batch.begin()
     game.font.draw(game.batch, s"Tick: ${gameSystemsConfig.tickSystem.getCurrentTick}", Gdx.graphics.getWidth / 2.toFloat, 100)
@@ -147,7 +149,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   }
 
   override def resize(width: Int, height: Int): Unit = {
-    tiledMapConfig.viewport.update(width, height, true)
+    viewport.update(width, height, true)
   }
 
   override def dispose(): Unit = {

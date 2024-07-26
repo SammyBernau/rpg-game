@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 
 //TODO fix jiggling of collision boxes over moving textures
-final class PlayerAction @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends TickListener{
+final class PlayerMovement @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends TickListener{
 
   tickSystem.addListener(this)
   
@@ -28,7 +28,6 @@ final class PlayerAction @Inject(tickSystem: TickSystem, currentMasterConfig: Cu
 
   override def updateListener(tick: Long): Unit = {
     playerMovement()
-    playerCameraZoom()
   }
   
   val player: Player = Player(10, "test", "test", Owner,
@@ -89,20 +88,6 @@ final class PlayerAction @Inject(tickSystem: TickSystem, currentMasterConfig: Cu
 
     mapConfig.viewport.getCamera.position.set(playerFixture.getBody.getTransform.getPosition.x, playerFixture.getBody.getTransform.getPosition.y, 0)
     mapConfig.viewport.getCamera.update()
-  }
-
-  private def playerCameraZoom(): Unit = {
-    val up = Gdx.input.isKeyPressed(Input.Keys.NUM_1)
-    val down = Gdx.input.isKeyPressed(Input.Keys.NUM_2)
-
-    val camera = mapConfig.viewport.getCamera.asInstanceOf[OrthographicCamera]
-
-    if (up) camera.zoom = camera.zoom - .01f
-    if (down) camera.zoom = camera.zoom + .01f
-
-    //TODO -> limit zoom when not testing
-
-    camera.update()
   }
 
 }

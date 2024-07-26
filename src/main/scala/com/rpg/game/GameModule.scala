@@ -2,7 +2,7 @@ package com.rpg.game
 
 import com.badlogic.gdx.physics.box2d.World
 import com.google.inject.AbstractModule
-import com.rpg.entity.animate.player.{PlayerAction, PlayerAnimation}
+import com.rpg.entity.animate.player.{PlayerMovement, PlayerAnimation, PlayerCameraZoom}
 import com.rpg.entity.item.projectiles.ProjectileSystem
 import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveConsumer, ProjectileMoveService}
 import com.rpg.game.config.{CurrentGameConfigurationHelper, CurrentMasterConfig}
@@ -58,9 +58,10 @@ class GameModule(world: World, currentMasterConfig: CurrentMasterConfig) extends
     //TickSystem (performs updates asynchronously)
     bind(classOf[TickSystem]).toInstance(currentMasterConfig.gameSystemConfig.tickSystem)
     //---Children of TickSystem---
-    bind(classOf[PlayerAction]).asEagerSingleton()
+    bind(classOf[PlayerMovement]).asEagerSingleton()
     bind(classOf[GhostFireballSystem]).asEagerSingleton()
     bind(classOf[PlayerAnimation]).asEagerSingleton()
+    bind(classOf[PlayerCameraZoom]).asEagerSingleton()
 
 
 
