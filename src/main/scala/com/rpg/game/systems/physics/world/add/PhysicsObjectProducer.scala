@@ -22,7 +22,6 @@ import javax.inject.Inject
  * @author Sam Bernau
  */
 
-//TODO -> add collision filtering
 class PhysicsObjectProducer @Inject(physicsObjectService: PhysicsObjectService) extends Producer[MapObject] {
 
   // Returns a fixtureDef and bodyDef based on object settings

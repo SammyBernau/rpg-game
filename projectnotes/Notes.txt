@@ -1,8 +1,4 @@
-TODO ITEMS in order of priority
-    - *get the game in a running state with player walking around* (fit everything else around this)
-    - figure out what unified collector I want to use (or create) to collect the updates necessary to display to player
-        - check EntityHandler for more details
-    - find best way to multi-thread updates in Tick.scala
+
     - THINK ABOUT WHAT DATA ROUTE I WANT
         - Just DataAccess
         - DataAccessFactory

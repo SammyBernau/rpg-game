@@ -16,13 +16,11 @@ import javax.inject.Inject
  * @author Sam Bernau
  */
 
-//TODO -> probably still need a map to track which objects to remove versus a map
 class ObjectRenderingService @Inject(gameObjectCache: GameObjectCache, map: TiledMap) extends OrthogonalTiledMapRenderer(map) {
 
   /**
    * Renders textures at the locations of their respective physic objects. Handles both preloaded textures and dynamically added ones
    */
-  //TODO -> dont have to do for loop, just grab name from object and find in map and update. This renderObject method already grabs all objects on tiled map
   override def renderObject(mapObject: MapObject): Unit = synchronized {
     mapObject match {
       case textureMapObject: TextureMapObject =>

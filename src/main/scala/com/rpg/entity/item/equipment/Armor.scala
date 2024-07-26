@@ -14,7 +14,7 @@ import com.rpg.entity.data.EntityAccess
  * @param physicalDefense: protection level against physical attacks
  * @param magicalDefense: protection level against magical attacks
  */
-//TODO convert material and covering to enums?
+//convert material and covering to enums?
 case class Armor(material: String,
                  price: Double,
                  weight: Double,

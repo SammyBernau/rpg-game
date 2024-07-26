@@ -9,7 +9,7 @@ import java.io.File
 
 class DataAccessModule extends AbstractModule {
 
-  val client: String = "local" //TODO change this so that it detects somehow if client is booting for local play or multiplayer
+  val client: String = "local" //change this so that it detects somehow if client is booting for local play or multiplayer
   override def configure(): Unit = {
     if(client.contains("local")) configureJson()
     else configureDatabase()

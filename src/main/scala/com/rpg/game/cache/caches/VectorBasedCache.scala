@@ -10,7 +10,6 @@ import com.rpg.game.cache.Cache
  * @tparam Type -> generic
  */
 
-//TODO -> Does it need to be a FIFO structure if requests will be added concurrently?
 trait VectorBasedCache[Type] extends Cache{
 
   protected var cache: Vector[Type] = Vector.empty

@@ -33,7 +33,7 @@ class EntityAnimations(currentMasterConfig: CurrentMasterConfig) {
   }
 
   object Player {
-    //TODO -> This can be done better
+    //This can be done better
     private val playerSpriteSheet: TiledMapTileSet = preLoadedTileSets.getTileSet("PlayerSpriteV2")
     private val playerFrames = getFramesAsMap(playerSpriteSheet)
 

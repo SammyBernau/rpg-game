@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class RemoveObjectProducer @Inject(removeObjectService: RemoveObjectService) extends Producer[Body] {
 
-  //TODO -> can technically run on another thread besides main
+  //can technically run on another thread besides main
   
   override def produce(body: Body): Unit = removeObjectService.add(body)
   

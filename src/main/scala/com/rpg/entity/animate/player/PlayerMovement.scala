@@ -16,8 +16,6 @@ import com.rpg.game.systems.tick.{TickListener, TickSystem}
 import javax.inject.Inject
 
 
-
-//TODO fix jiggling of collision boxes over moving textures
 final class PlayerMovement @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends TickListener{
 
   tickSystem.addListener(this)

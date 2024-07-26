@@ -59,13 +59,13 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   //Init consumers
     //Note: Consumers have to be added in this order (RemoveObjectConsumer -> ProjectileMoveConsumer -> PhysicsObjectConsumer) so that PhysicsObjectConsumer is on top
     //TODO -> Switch RenderSystem to use a FIFO data structure
-  private val removeObjectConsumer = new RemoveObjectConsumer(
+  new RemoveObjectConsumer(
     renderSystem,
     world,
     gameSystemsConfig.removeObjectService,
     gameSystemsConfig.objectRenderingServiceHandler)
 
-  private val projectileMoveConsumer = new ProjectileMoveConsumer(
+  new ProjectileMoveConsumer(
     renderSystem,
     gameObjectCache,
     gameSystemsConfig.projectileMoveService)

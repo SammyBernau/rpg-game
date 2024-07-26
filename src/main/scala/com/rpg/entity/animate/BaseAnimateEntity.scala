@@ -11,7 +11,7 @@ import com.rpg.entity.data.EntityAccess
 
 
 trait BaseAnimateEntity extends Entity {
-  //TODO think about what might change a lot and var might be more beneficial
+  //think about what might change a lot and var might be more beneficial
   /*name given*/
   val name: String
   /*experience level*/

@@ -26,7 +26,7 @@ class PlayerCameraZoom @Inject(tickSystem: TickSystem, currentMasterConfig: Curr
     if (up) camera.zoom = camera.zoom - .01f
     if (down) camera.zoom = camera.zoom + .01f
 
-    //TODO -> limit zoom when not testing
+    //limit zoom when not testing
 
     camera.update()
   }

@@ -7,7 +7,7 @@ import com.rpg.entity.animate.BaseAnimateEntity
  * The parameters name, level, age, stamina, strength, agility, intellect, spirit, criticalStrikeChance, haste, physicalDefense,
  * physicalDamage,magicDefense,magicDamage,sprintingSpeed,walkingSpeed,walkingState,x,y are all defined in [[BaseAnimateEntity]]
  */
-//TODO not sure if animals need any more params then base ones given in BaseEquipmentEntity
+//not sure if animals need any more params then base ones given in BaseEquipmentEntity
 case class Animal(name: String,
                   level: Double,
                   age: Int,

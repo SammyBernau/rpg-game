@@ -7,7 +7,7 @@ import com.rpg.entity.data.EntityAccess
  * An entity encompasses all game objects (player, items, enemies, etc.)
  * */
 trait Entity {
-  //TODO maybe add a size field to entity? A width/height as well?
+  //maybe add a size field to entity? A width/height as well?
   
   def entityAccess: EntityAccess
   
@@ -23,7 +23,7 @@ trait Entity {
    * For player entities:
       EntityName is always set to 'player'
    **/
-  //TODO if an item is meant to only ever have one occurrence in the game have some logic to check that only one exists
+  //if an item is meant to only ever have one occurrence in the game have some logic to check that only one exists
   def getEntityName: String
   /**
    * For non-player entities:

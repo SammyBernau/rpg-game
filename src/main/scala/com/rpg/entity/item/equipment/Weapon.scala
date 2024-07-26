@@ -17,7 +17,7 @@ import com.rpg.entity.data.EntityAccess
  * @param magicalDamage: damage caused by magical attack
  */
 
-//TODO convert material and weaponType to enums?
+//convert material and weaponType to enums?
 case class Weapon(material: String,
                   price: Double,
                   weight: Double,

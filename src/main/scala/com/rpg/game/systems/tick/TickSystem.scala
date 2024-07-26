@@ -9,7 +9,6 @@ import javax.inject.Inject
 import scala.collection.mutable
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutor, Future}
 
-//TODO check out interpolation in libGDX
 class TickSystem extends ListenerSystem[TickListener]  {
 
   //every .2f == 200 milliseconds or 5 ticks per second
