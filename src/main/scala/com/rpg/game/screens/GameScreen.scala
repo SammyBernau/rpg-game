@@ -88,7 +88,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   override def show(): Unit = {
     val collisionListener = new CollisionListener
     world.setContactListener(collisionListener)
-    gameSystemsConfig.worldRenderingService.setDrawBodies(true)
+    gameSystemsConfig.worldRenderingService.setDrawBodies(false)
     val cursor = new CustomCursor(currentMasterConfig, game.batch)
   }
 

@@ -83,6 +83,7 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterCon
 
     //textureMapObject.setRotation((angle * MathUtils.degreesToRadians) - MathUtils.PI / 2)
     //textureMapObject.setRotation(angle - (MathUtils.degreesToRadians * 90))
+    textureMapObject.setRotation(angle)
     textureMapObject.setName(name)
     textureMapObject.setX(spawnX)
     textureMapObject.setY(spawnY)
