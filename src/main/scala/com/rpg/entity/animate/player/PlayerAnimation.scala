@@ -5,20 +5,17 @@ import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentMasterConfig
+import com.rpg.game.config.map.TiledMapConfig
+import com.rpg.game.systems.rendering.services.gameobjects.GameObjectCache
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 import javax.inject.Inject
 
-final class PlayerAnimation @Inject(currentMasterConfig: CurrentMasterConfig, tickSystem: TickSystem) extends TickEvent {
-  //Add to listener list
-  tickSystem.addListener(this)
-  private val gameSystemsConfig = currentMasterConfig.gameSystemConfig
-  private val mapConfig = currentMasterConfig.tiledMapConfig
-  //GameObjects
-  private val gameObjectCache = gameSystemsConfig.gameObjectCache
+final class PlayerAnimation @Inject(tiledMapConfig: TiledMapConfig, gameObjectCache: GameObjectCache, val tickSystem: TickSystem) extends TickEvent {
+  
   
   //walk/run vars
-  private val entityAnimations = EntityAnimations(currentMasterConfig)
+  private val entityAnimations = EntityAnimations(tiledMapConfig)
   private val playerSkin = entityAnimations.Player
   private var lastDirection = "front"
 

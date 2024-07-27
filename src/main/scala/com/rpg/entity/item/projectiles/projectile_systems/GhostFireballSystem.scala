@@ -8,30 +8,25 @@ import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.item.projectiles.{Projectile, ProjectileSystem}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentMasterConfig
+import com.rpg.game.config.map.TiledMapConfig
 import com.rpg.game.systems.physics.world.ObjectData
-import com.rpg.game.systems.rendering.services.gameobjects.GameObject
+import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObjectCache, ObjectRenderingServiceHandler}
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 import org.lwjgl.system.windows.INPUT
 
 import javax.inject.Inject
 
-final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends Projectile with TickEvent {
-  //Add to listener list
-  tickSystem.addListener(this)
-
-  private val gameSystemsConfig = currentMasterConfig.gameSystemConfig
-  private val mapConfig = currentMasterConfig.tiledMapConfig
-  private val projectileMoveService = gameSystemsConfig.projectileMoveService
-
-  private val objectRenderingServiceHandler = gameSystemsConfig.objectRenderingServiceHandler
-
-  //Grab player physics object
-  private val gameObjectCache = gameSystemsConfig.gameObjectCache
+final class GhostFireballSystem @Inject(val tickSystem: TickSystem, 
+                                        tiledMapConfig: TiledMapConfig,
+                                        projectileMoveCache: ProjectileMoveCache,
+                                        objectRenderingServiceHandler: ObjectRenderingServiceHandler,
+                                        gameObjectCache: GameObjectCache) extends Projectile with TickEvent {
+  
   private val playerGameObject = gameObjectCache.get("player_animation").get
   private val playerFixture = playerGameObject.fixture
 
   //Fireball animation
-  private val entityAnimations = EntityAnimations(currentMasterConfig)
+  private val entityAnimations = EntityAnimations(tiledMapConfig)
   private val ghostFireballTile = entityAnimations.GhostFireBall.tile
   private val SPAWN_DISTANCE = 50
   private val SPEED = 200f
@@ -89,7 +84,7 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterCon
     textureMapObject.setY(spawnY)
 
     objectRenderingServiceHandler.addGameObject(tiledMapTileMapObject)
-    projectileMoveService.add(ProjectileMoveRequest(name,SPEED,angle))
+    projectileMoveCache.add(ProjectileMoveRequest(name,SPEED,angle))
 
     ghostFireballCount += 1
   }
@@ -98,7 +93,7 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterCon
     val x = textureMapObject.getX
     val y = textureMapObject.getY
     val screenPosition = Vector3(x, y, 0)
-    val worldPosition = mapConfig.viewport.getCamera.unproject(screenPosition)
+    val worldPosition = tiledMapConfig.viewport.getCamera.unproject(screenPosition)
 
     textureMapObject.setX(worldPosition.x)
     textureMapObject.setY(worldPosition.y)
@@ -106,6 +101,6 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterCon
 
   private def calculateAngle(x1: Float, y1: Float, x2: Float, y2: Float): Float = MathUtils.atan2(y2 - y1, x2 - x1)
 
-  private def getMouseCoordsInWorld: Vector2 = mapConfig.viewport.unproject(Vector2(Gdx.input.getX.toFloat, Gdx.input.getY.toFloat))
+  private def getMouseCoordsInWorld: Vector2 = tiledMapConfig.viewport.unproject(Vector2(Gdx.input.getX.toFloat, Gdx.input.getY.toFloat))
 
 }

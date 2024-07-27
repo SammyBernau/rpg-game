@@ -6,12 +6,14 @@ import com.badlogic.gdx.maps.tiled.{TiledMapTile, TiledMapTileSet, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile
 import com.rpg.game.config.CurrentMasterConfig
 import com.badlogic.gdx.graphics.g2d.{Animation, TextureRegion}
+import com.rpg.game.config.map.TiledMapConfig
 
+import javax.inject.Inject
 import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters.*
 
-class EntityAnimations(currentMasterConfig: CurrentMasterConfig) {
-  private val preLoadedTileSets = currentMasterConfig.tiledMapConfig.tiledMap.getTileSets
+class EntityAnimations (tiledMapConfig: TiledMapConfig) {
+  private val preLoadedTileSets = tiledMapConfig.tiledMap.getTileSets
   var frameDuration = .2f
   var dodgeFrameDuration = .5f
   // .2f perfect walk

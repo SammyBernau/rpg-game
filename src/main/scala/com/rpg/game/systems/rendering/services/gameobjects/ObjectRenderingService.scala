@@ -5,8 +5,9 @@ import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.MathUtils
+import com.rpg.game.config.map.TiledMapConfig
 
-import javax.inject.Inject
+import javax.inject.{Inject, Singleton}
 
 
 /**
@@ -16,7 +17,9 @@ import javax.inject.Inject
  * @author Sam Bernau
  */
 
-class ObjectRenderingService @Inject(gameObjectCache: GameObjectCache, map: TiledMap) extends OrthogonalTiledMapRenderer(map) {
+@Singleton
+class ObjectRenderingService @Inject(gameObjectCache: GameObjectCache, 
+                                     tiledMapConfig: TiledMapConfig) extends OrthogonalTiledMapRenderer(tiledMapConfig.tiledMap) {
 
   /**
    * Renders textures at the locations of their respective physic objects. Handles both preloaded textures and dynamically added ones
@@ -43,7 +46,8 @@ class ObjectRenderingService @Inject(gameObjectCache: GameObjectCache, map: Tile
       //fixture
       val fixture = gameObject.fixture
       val body = fixture.getBody
-      val bodyPosition = body.getTransform.getPosition //getTransform is used to get the position because if getPosition is called by itself, objects move very fast
+      //getTransform is used to get the position because if getPosition is called by itself, objects move very fast
+      val bodyPosition = body.getTransform.getPosition 
 
       //texture
       val textureWidth = textureMapObject.getTextureRegion.getRegionWidth
@@ -51,7 +55,8 @@ class ObjectRenderingService @Inject(gameObjectCache: GameObjectCache, map: Tile
       textureMapObject.setOriginX(textureWidth / 2f)
       textureMapObject.setOriginY(textureHeight / 2f)
 
-      //TODO -> collision boxes still not being drawn correctly. This is only happening with the player as its animation changes so it appears that the box is jiggling
+      //TODO -> collision boxes still not being drawn correctly. 
+      // This is only happening with the player as its animation changes so it appears that the box is jiggling
       val desiredX = (bodyPosition.x - textureMapObject.getOriginX)
       val desiredY = (bodyPosition.y - textureMapObject.getOriginY)
 

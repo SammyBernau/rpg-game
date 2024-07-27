@@ -4,94 +4,50 @@ import com.artemis.ComponentMapper
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.assets.loaders.AssetLoader
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
+import com.badlogic.gdx.graphics.{GL20, OrthographicCamera}
 import com.badlogic.gdx.graphics.g2d.{Sprite, TextureRegion}
 import com.badlogic.gdx.graphics.g3d.Environment
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute
+import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.{Application, Gdx, Input, InputAdapter, InputMultiplexer, Screen, ScreenAdapter}
-import com.badlogic.gdx.graphics.{Color, GL20, OrthographicCamera, Pixmap, Texture}
-import com.badlogic.gdx.maps.MapLayer
-import com.badlogic.gdx.maps.objects.{EllipseMapObject, PolygonMapObject, RectangleMapObject, TextureMapObject}
-import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapTileLayer, TmxMapLoader}
-import com.badlogic.gdx.math.{Rectangle, Vector2, Vector3}
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
-import com.badlogic.gdx.physics.box2d.{BodyDef, Box2D, Box2DDebugRenderer, CircleShape, ContactListener, Fixture, FixtureDef, PolygonShape, Shape, Transform, World}
-import com.badlogic.gdx.utils.viewport.{ExtendViewport, Viewport}
 import com.google.inject.Guice
-import com.rpg.entity.animate.entityconstructs.Humanoid
-import com.rpg.entity.animate.player
-import com.rpg.entity.animate.player.{Owner, Player, PlayerMovement, PlayerAnimation}
-import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
-import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveConsumer, ProjectileMoveCache}
-import com.rpg.game.config.gamesystems.GameSystemsConfigService
-import com.rpg.game.config.map.TiledMapConfigService
+import com.rpg.game.config.map.TiledMapConfig
 import com.rpg.game.{GameModule, RPG}
-import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.cursor.CustomCursor
 import com.rpg.game.systems.physics.collision.CollisionListener
 import com.rpg.game.systems.physics.world.WorldService
-import com.rpg.game.systems.physics.world.add.PhysicsObjectConsumer
-import com.rpg.game.systems.physics.world.remove.RemoveObjectConsumer
-import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHandler}
 import com.rpg.game.systems.rendering.RenderSystem
+import com.rpg.game.systems.rendering.services.gameobjects.ObjectRenderingService
 import com.rpg.game.systems.rendering.services.world.WorldRenderingService
-import com.rpg.game.systems.tick.{TickEvent, TickSystem}
+import com.rpg.game.systems.tick.TickSystem
 
 
 class GameScreen(game: RPG) extends ScreenAdapter {
 
   //Box2D.init() -> Either this has to be called or WorldService.world needs to be called before objectRenderingServiceHandler.parseObjectsFromMap() for box2d to work
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
-
-  //Init physics world
-  private val worldService = new WorldService()
-  private val world = worldService.world
+  
 
   //Game settings
   private val mapName = "assets/Tiled/Grassland.tmx" //Will change later so its not hardcoded
-  private val tiledMapConfig = new TiledMapConfigService(mapName).loadConfig()
-  private val viewport = tiledMapConfig.viewport
-  //Game util systems
-  private val gameSystemsConfig = new GameSystemsConfigService(tiledMapConfig.tiledMap).loadConfig()
-  private val tickSystem = gameSystemsConfig.tickSystem
-  private val renderSystem = gameSystemsConfig.renderSystem
-  private val gameObjectCache = gameSystemsConfig.gameObjectCache
-
-  //Init consumers
-    //Note: Consumers have to be added in this order (RemoveObjectConsumer -> ProjectileMoveConsumer -> PhysicsObjectConsumer) so that PhysicsObjectConsumer is on top
-    //TODO -> Switch RenderSystem to use a FIFO data structure
-  new RemoveObjectConsumer(
-    renderSystem,
-    world,
-    gameSystemsConfig.removeObjectService,
-    gameSystemsConfig.objectRenderingServiceHandler)
-
-  new ProjectileMoveConsumer(
-    renderSystem,
-    gameObjectCache,
-    gameSystemsConfig.projectileMoveService)
-
-  private val physicsObjectConsumer = new PhysicsObjectConsumer(
-    renderSystem,
-    world,
-    gameObjectCache,
-    gameSystemsConfig.physicsObjectService)
-
-  //Save configurations to be shared across files that need it
-  private val currentMasterConfig = CurrentMasterConfig(tiledMapConfig, gameSystemsConfig)
-
-  //Initial physics objects creation of preloaded objects from object layer of TiledMap
-  private val objectRenderingServiceHandler = gameSystemsConfig.objectRenderingServiceHandler
-  objectRenderingServiceHandler.parseObjectsFromMap()
-  physicsObjectConsumer.consume() //THIS HAS TO BE CALLED BEFORE INJECTOR SINCE THINGS IN INJECTOR RELY ON THIS BEING CALLED
 
   //Create injections for GameModule
-  Guice.createInjector(new GameModule(currentMasterConfig))
+  private val gameInjector = Guice.createInjector(new GameModule(mapName))
+  
+  private val worldService = gameInjector.getInstance(classOf[WorldService])
+  private val world = gameInjector.getInstance(classOf[World])
+  private val worldRenderingService = gameInjector.getInstance(classOf[WorldRenderingService])
+  private val viewport = gameInjector.getInstance(classOf[TiledMapConfig]).viewport
+  private val tickSystem = gameInjector.getInstance(classOf[TickSystem])
+  private val renderSystem = gameInjector.getInstance(classOf[RenderSystem])
+  private val objectRenderingService = gameInjector.getInstance(classOf[ObjectRenderingService])
 
+  
   override def show(): Unit = {
     val collisionListener = new CollisionListener
     world.setContactListener(collisionListener)
-    gameSystemsConfig.worldRenderingService.setDrawBodies(false)
-    val cursor = new CustomCursor(currentMasterConfig, game.batch)
+    worldRenderingService.setDrawBodies(false)
+    val cursor = new CustomCursor(viewport.getCamera, game.batch)
   }
 
 
@@ -113,12 +69,12 @@ class GameScreen(game: RPG) extends ScreenAdapter {
     worldService.stepWorld(DELTA_TIME)
 
     //render and camera
-    gameSystemsConfig.objectRenderingService.setView(viewport.getCamera.asInstanceOf[OrthographicCamera])
-    gameSystemsConfig.objectRenderingService.render()
-    gameSystemsConfig.worldRenderingService.render(world, viewport.getCamera.combined)
+    objectRenderingService.setView(viewport.getCamera.asInstanceOf[OrthographicCamera])
+    objectRenderingService.render()
+    worldRenderingService.render(world, viewport.getCamera.combined)
 
     game.batch.begin()
-    game.font.draw(game.batch, s"Tick: ${gameSystemsConfig.tickSystem.getCurrentTick}", Gdx.graphics.getWidth / 2.toFloat, 100)
+    game.font.draw(game.batch, s"Tick: ${tickSystem.getCurrentTick}", Gdx.graphics.getWidth / 2.toFloat, 100)
     game.batch.end()
   }
 
@@ -138,7 +94,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
       speed = speed / Math.sqrt(2.0).toFloat
     }
 
-    val camera = tiledMapConfig.viewport.getCamera
+    val camera = viewport.getCamera
 
     if (w) camera.position.y = camera.position.y + speed * DELTA_TIME
     if (a) camera.position.x = camera.position.x - speed * DELTA_TIME
@@ -155,7 +111,6 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   override def dispose(): Unit = {
     game.batch.dispose()
     game.font.dispose()
-    currentMasterConfig.dispose()
   }
 
 

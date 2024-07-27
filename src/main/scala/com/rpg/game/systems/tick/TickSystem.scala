@@ -8,7 +8,9 @@ import java.util.concurrent.{Callable, ConcurrentLinkedQueue, CountDownLatch, Ex
 import javax.inject.Inject
 import scala.collection.mutable
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutor, Future}
+import javax.inject.{Inject, Singleton}
 
+@Singleton
 class TickSystem extends EventSystem[TickEvent]  {
 
   //every .2f == 200 milliseconds or 5 ticks per second

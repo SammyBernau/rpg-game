@@ -2,40 +2,65 @@ package com.rpg.game
 
 import com.badlogic.gdx.physics.box2d.World
 import com.google.inject.AbstractModule
-import com.rpg.entity.animate.player.{PlayerMovement, PlayerAnimation, PlayerCameraZoom}
+import com.rpg.entity.animate.player.{PlayerAnimation, PlayerCameraZoom, PlayerMovement}
 import com.rpg.entity.item.projectiles.ProjectileSystem
-import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveConsumer, ProjectileMoveCache}
+import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveCache, ProjectileMoveConsumer}
+import com.rpg.game.config.map.{TiledMapConfig, TiledMapConfigService}
 import com.rpg.game.config.{CurrentGameConfigurationHelper, CurrentMasterConfig}
 import com.rpg.game.systems.EventSystem
-import com.rpg.game.systems.physics.world.add.{PhysicsObjectConsumer, PhysicsObjectCache}
-import com.rpg.game.systems.physics.world.remove.{RemoveObjectConsumer, RemoveObjectCache}
+import com.rpg.game.systems.physics.world.WorldService
+import com.rpg.game.systems.physics.world.add.{PhysicsObjectCache, PhysicsObjectConsumer, PhysicsObjectProducer}
+import com.rpg.game.systems.physics.world.remove.{RemoveObjectCache, RemoveObjectConsumer, RemoveObjectProducer}
 import com.rpg.game.systems.rendering.RenderSystem
-import com.rpg.game.systems.rendering.services.gameobjects.GameObjectCache
+import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHandler}
+import com.rpg.game.systems.rendering.services.world.WorldRenderingService
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 import scala.reflect.ClassTag
 
-class GameModule(currentMasterConfig: CurrentMasterConfig) extends AbstractModule{
+class GameModule(mapName: String) extends AbstractModule{
+
+  private val worldService = new WorldService()
+  private val tiledMapConfig = new TiledMapConfigService(mapName).loadConfig()
 
   override def configure(): Unit = {
 
+    // World/Map
+    bind(classOf[TiledMapConfig]).toInstance(tiledMapConfig)
+    bind(classOf[WorldService]).toInstance(worldService)
+    bind(classOf[World]).toInstance(worldService.world)
+
+    //Systems
+    bind(classOf[TickSystem])
+    bind(classOf[RenderSystem])
+
+    //Caches
+    bind(classOf[ProjectileMoveCache])
+    bind(classOf[RemoveObjectCache])
+    bind(classOf[GameObjectCache])
+    bind(classOf[PhysicsObjectCache])
 
 
-    //Game systems and caches
-    bind(classOf[CurrentMasterConfig]).toInstance(currentMasterConfig)
-    bind(classOf[GameObjectCache]).asEagerSingleton()
-    bind(classOf[PhysicsObjectCache]).asEagerSingleton()
-    bind(classOf[ProjectileMoveCache]).asEagerSingleton()
-    bind(classOf[RemoveObjectCache]).asEagerSingleton()
 
-    //RenderSystem (performs updates synchronously)
-    bind(classOf[RenderSystem]).toInstance(currentMasterConfig.gameSystemConfig.renderSystem)
+    //Producers
+    bind(classOf[PhysicsObjectProducer])
+    bind(classOf[RemoveObjectProducer])
+    bind(classOf[RemoveObjectProducer])
+
+    //Services
+    bind(classOf[WorldRenderingService])
+    bind(classOf[ObjectRenderingService])
+    bind(classOf[ObjectRenderingServiceHandler]).asEagerSingleton() //maybe make it singleton?
+
+    //Consumers
+    bind(classOf[PhysicsObjectConsumer]).asEagerSingleton()
+    bind(classOf[RemoveObjectConsumer])
+    bind(classOf[ProjectileMoveConsumer])
+    
     //---Children of RenderSystem---
     //bind(classOf[CurrentSettingsHelper]).toInstance(new CurrentSettingsHelper(renderSystem, currentSettings))
 
 
-    //TickSystem (performs updates asynchronously)
-    bind(classOf[TickSystem]).toInstance(currentMasterConfig.gameSystemConfig.tickSystem)
     //---Children of TickSystem---
     bind(classOf[PlayerMovement]).asEagerSingleton()
     bind(classOf[GhostFireballSystem]).asEagerSingleton()

@@ -2,13 +2,13 @@ package com.rpg.game.systems.cursor
 
 import com.badlogic.gdx.{Gdx, ScreenAdapter}
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.{Pixmap, Texture}
+import com.badlogic.gdx.graphics.{Camera, Pixmap, Texture}
 import com.badlogic.gdx.math.{Vector2, Vector3}
 import com.rpg.game.config.CurrentMasterConfig
 
 
 
-class CustomCursor(currentWorld: CurrentMasterConfig, batch: SpriteBatch) extends ScreenAdapter {
+class CustomCursor(camera: Camera, batch: SpriteBatch) extends ScreenAdapter {
 
   private val cursorFile = Gdx.files.internal("assets/ui/custom_cursor.png")
   private val customCursor = new Texture(cursorFile)

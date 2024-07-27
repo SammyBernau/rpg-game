@@ -5,8 +5,8 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.rpg.game.config.ConfigService
 
 class TiledMapConfigService(mapName: String) extends ConfigService {
-
-
+  
+  
   override def loadConfig(): TiledMapConfig = {
     val tiledMap = loadMap(mapName)
     val tileSize = getTileSize(tiledMap)

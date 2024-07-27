@@ -15,6 +15,8 @@ class PhysicsObjectConsumer @Inject(val renderSystem: RenderSystem,
                                     gameObjectCache: GameObjectCache,
                                     physicsObjectCache: PhysicsObjectCache) extends Consumer with RenderListener{
 
+  consume()
+  
   override def renderListener(): Unit = {
     consume()
   }

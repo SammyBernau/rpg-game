@@ -10,20 +10,16 @@ import com.rpg.entity.animate.entityconstructs.Humanoid
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentMasterConfig
+import com.rpg.game.config.map.TiledMapConfig
+import com.rpg.game.systems.rendering.services.gameobjects.GameObjectCache
 import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 import javax.inject.Inject
 
 
-final class PlayerMovement @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends TickEvent{
-
-  tickSystem.addListener(this)
+final class PlayerMovement @Inject(val tickSystem: TickSystem, tiledMapConfig: TiledMapConfig, gameObjectCache: GameObjectCache) extends TickEvent{
   
-  private val gameSystemsConfig = currentMasterConfig.gameSystemConfig
-  private val mapConfig = currentMasterConfig.tiledMapConfig
-  private val gameObjectCache = gameSystemsConfig.gameObjectCache
-
   override def tick(tick: Long): Unit = {
     playerMovement()
   }
@@ -84,8 +80,8 @@ final class PlayerMovement @Inject(tickSystem: TickSystem, currentMasterConfig: 
 //    playerFixture.getBody.setTransform(interpolatedPosition, playerFixture.getBody.getAngle)
 
 
-    mapConfig.viewport.getCamera.position.set(playerFixture.getBody.getTransform.getPosition.x, playerFixture.getBody.getTransform.getPosition.y, 0)
-    mapConfig.viewport.getCamera.update()
+    tiledMapConfig.viewport.getCamera.position.set(playerFixture.getBody.getTransform.getPosition.x, playerFixture.getBody.getTransform.getPosition.y, 0)
+    tiledMapConfig.viewport.getCamera.update()
   }
 
 }

@@ -3,6 +3,7 @@ package com.rpg.game.systems.rendering.services.gameobjects
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.maps.tiled.TiledMap
+import com.rpg.game.config.map.TiledMapConfig
 import com.rpg.game.systems.physics.world.ObjectData
 import com.rpg.game.systems.physics.world.add.PhysicsObjectProducer
 
@@ -15,9 +16,14 @@ import javax.inject.Inject
  * @param map -> Game map
  */
 
-class ObjectRenderingServiceHandler @Inject(gameObjectCache: GameObjectCache, physicsObjectProducer: PhysicsObjectProducer, map: TiledMap) {
-  
-  private val entityLayer = map.getLayers.get("entity").getObjects
+
+class ObjectRenderingServiceHandler @Inject(gameObjectCache: GameObjectCache, physicsObjectProducer: PhysicsObjectProducer, tiledMapConfig: TiledMapConfig) {
+
+  private val entityLayer = tiledMapConfig.tiledMap.getLayers.get("entity").getObjects
+
+
+  parseObjectsFromMap()
+
 
 
   /**
