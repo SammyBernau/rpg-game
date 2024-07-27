@@ -12,7 +12,7 @@ import javax.inject.{Inject, Singleton}
 
 @Singleton
 class TickSystem extends EventSystem[TickEvent]  {
-  
+
   //every .2f == 200 milliseconds or 5 ticks per second
   //every .1f == 100 milliseconds or 10 ticks per second
   private val TICK_TIMER_MAX: Float = .2f
@@ -22,6 +22,7 @@ class TickSystem extends EventSystem[TickEvent]  {
   //Multithreading
   private val threadPool = Executors.newFixedThreadPool(10)
   implicit val executionContext: ExecutionContextExecutor = ExecutionContext.fromExecutor(threadPool)
+
 
   def getCurrentTick: Long = tick
 

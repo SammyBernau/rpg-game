@@ -10,7 +10,7 @@ import com.rpg.game.systems.EventSystem
 import com.rpg.game.systems.physics.world.WorldService
 import com.rpg.game.systems.physics.world.add.{PhysicsObjectCache, PhysicsObjectConsumer, PhysicsObjectProducer}
 import com.rpg.game.systems.physics.world.remove.{RemoveObjectCache, RemoveObjectConsumer, RemoveObjectProducer}
-import com.rpg.game.systems.rendering.RenderSystem
+import com.rpg.game.systems.rendering.{RenderSystem, Scheduler}
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHandler}
 import com.rpg.game.systems.rendering.services.world.WorldRenderingService
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
@@ -32,6 +32,9 @@ class GameModule(mapName: String) extends AbstractModule{
     //Systems
     bind(classOf[TickSystem])
     bind(classOf[RenderSystem])
+    
+    // Schedulers
+    bind(classOf[Scheduler])
 
     //Caches
     bind(classOf[ProjectileMoveCache])

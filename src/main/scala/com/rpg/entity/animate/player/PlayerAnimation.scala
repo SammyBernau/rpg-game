@@ -5,13 +5,17 @@ import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.map.TiledMapConfig
+import com.rpg.game.systems.rendering.{RenderEvent, RenderSystem}
 import com.rpg.game.systems.rendering.services.gameobjects.GameObjectCache
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 import javax.inject.Inject
 
-final class PlayerAnimation @Inject(tiledMapConfig: TiledMapConfig, gameObjectCache: GameObjectCache, val tickSystem: TickSystem) extends TickEvent {
-  
+final class PlayerAnimation @Inject(tiledMapConfig: TiledMapConfig,
+                                    gameObjectCache: GameObjectCache,
+                                    val tickSystem: TickSystem,
+                                    val renderSystem: RenderSystem) extends RenderEvent {
+
   
   //walk/run vars
   private val entityAnimations = EntityAnimations(tiledMapConfig)
@@ -25,7 +29,12 @@ final class PlayerAnimation @Inject(tiledMapConfig: TiledMapConfig, gameObjectCa
   private var dodgeDirection = "front"
   private var cancelOtherDodgeDirections = false
 
-  override def tick(tick: Long): Unit = {
+  override def render(): Unit = {
+    val tick = tickSystem.getCurrentTick
+    animate(tick)
+  }
+
+  def animate(tick: Long): Unit = {
     val playerGameObject = gameObjectCache.get("player_animation").get
     
     val playerTexture = playerGameObject.mapObject.asInstanceOf[TextureMapObject]

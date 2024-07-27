@@ -9,18 +9,22 @@ import com.rpg.entity.item.projectiles.{Projectile, ProjectileSystem}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.map.TiledMapConfig
 import com.rpg.game.systems.physics.world.ObjectData
+import com.rpg.game.systems.rendering.{RenderEvent, RenderSystem, Scheduler}
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObjectCache, ObjectRenderingServiceHandler}
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 import org.lwjgl.system.windows.INPUT
 
 import javax.inject.Inject
+import scala.concurrent.Future
 
-final class GhostFireballSystem @Inject(val tickSystem: TickSystem, 
+final class GhostFireballSystem @Inject(val tickSystem: TickSystem,
+                                        val renderSystem: RenderSystem,
                                         tiledMapConfig: TiledMapConfig,
                                         projectileMoveCache: ProjectileMoveCache,
                                         objectRenderingServiceHandler: ObjectRenderingServiceHandler,
-                                        gameObjectCache: GameObjectCache) extends Projectile with TickEvent {
-  
+                                        gameObjectCache: GameObjectCache,
+                                        scheduler: Scheduler) extends Projectile with RenderEvent {
+
   private val playerGameObject = gameObjectCache.get("player_animation").get
   private val playerFixture = playerGameObject.fixture
 
@@ -32,15 +36,17 @@ final class GhostFireballSystem @Inject(val tickSystem: TickSystem,
   private var ghostFireballCount = 0
   private var tickAtLastShot = 0L
 
-  override def tick(tick: Long): Unit = {
-    val LEFT = Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)
+  override def render(): Unit = {
+    val LEFT = Gdx.input.isButtonPressed(Input.Buttons.LEFT)
+    val tick = tickSystem.getCurrentTick
     if (LEFT && (tick - tickAtLastShot > 1 || tick <= 1)) {
-      create()
+      scheduler.runAsync(create)
       tickAtLastShot = tick
     }
   }
 
-  override def create(): Unit = synchronized {
+
+  override def create(): Unit = {
     //Retrieve player's current position
     val playerPosition = playerFixture.getBody.getPosition
     val playerX = playerPosition.x
