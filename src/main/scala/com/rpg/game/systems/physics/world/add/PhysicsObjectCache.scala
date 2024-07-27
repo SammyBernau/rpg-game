@@ -6,6 +6,6 @@ import javax.inject.Singleton
 
 
 @Singleton
-class PhysicsObjectService extends VectorBasedCache[PhysicsObjectDefWrapper] {
+class PhysicsObjectCache extends VectorBasedCache[PhysicsObjectDefWrapper] {
   
 }

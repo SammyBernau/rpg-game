@@ -10,17 +10,15 @@ import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObje
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class PhysicsObjectConsumer @Inject(renderSystem: RenderSystem, world: World, gameObjectCache: GameObjectCache, physicsObjectService: PhysicsObjectService) extends Consumer with RenderListener{
-  
-  renderSystem.addListener(this)
+class PhysicsObjectConsumer @Inject(val renderSystem: RenderSystem,
+                                    world: World,
+                                    gameObjectCache: GameObjectCache,
+                                    physicsObjectCache: PhysicsObjectCache) extends Consumer with RenderListener{
 
   override def renderListener(): Unit = {
     consume()
   }
   
-//  val world = new World(new Vector2(0,0),true)
-//
-//  def stepWorld(deltaTime: Float): Unit = world.step(deltaTime,6,2)
 
   private def createObjectBody(bodyDef: BodyDef): ObjectBody = ObjectBody(world.createBody(bodyDef))
 
@@ -38,18 +36,16 @@ class PhysicsObjectConsumer @Inject(renderSystem: RenderSystem, world: World, ga
   
   private def createJoint(jointDef: JointDef): Joint = world.createJoint(jointDef)
 
-  override def consume(): Unit = synchronized {
-    if (physicsObjectService.getCache.nonEmpty) {
-      physicsObjectService.getCache.foreach { physicsObject =>
+  override def consume(): Unit = {
+      physicsObjectCache.getCache.foreach { physicsObject =>
         val shape = physicsObject.shape
         val mapObject = physicsObject.mapObject
         val bodyDef = physicsObject.body
         val maybeFixtureDef = physicsObject.maybeFixtureDef
         val objectData = physicsObject.objectData
 
-
-        if(objectData.getId == null) objectData.id = "generic_static_object"
-
+        objectData.id = Option(objectData.getId).getOrElse("generic_static_object")
+        
         val objectBody = createObjectBody(bodyDef)
         objectBody.setObjectData(objectData)
 
@@ -65,8 +61,7 @@ class PhysicsObjectConsumer @Inject(renderSystem: RenderSystem, world: World, ga
         }
         //Fulfill request by removing it from request list
         shape.dispose()
-        physicsObjectService.remove(physicsObject)
+        physicsObjectCache.remove(physicsObject)
       }
-    }
   }
 }

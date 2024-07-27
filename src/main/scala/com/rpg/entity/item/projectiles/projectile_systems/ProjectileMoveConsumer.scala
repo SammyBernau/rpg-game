@@ -10,9 +10,8 @@ import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObje
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class ProjectileMoveConsumer @Inject(renderSystem: RenderSystem, gameObjectCache: GameObjectCache, projectileMoveService: ProjectileMoveService) extends Consumer with RenderListener {
+class ProjectileMoveConsumer @Inject(val renderSystem: RenderSystem, gameObjectCache: GameObjectCache, projectileMoveService: ProjectileMoveCache) extends Consumer with RenderListener {
   
-  renderSystem.addListener(this)
 
   override def renderListener(): Unit = {
     consume()

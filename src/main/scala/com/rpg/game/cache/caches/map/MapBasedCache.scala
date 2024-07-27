@@ -2,12 +2,12 @@ package com.rpg.game.cache.caches.map
 
 import com.rpg.game.cache.Cache
 
-trait MapBasedCache[Key,Value] extends Cache {
-  protected var cache: Map[Key,Value] = Map.empty
+trait MapBasedCache[K,V] extends Cache {
+  protected var cache: Map[K,V] = Map.empty
   
-  def add(key: Key, value: Value): Unit = cache = cache + (key -> value)
-  def get(key: Key): Option[Value] = cache.get(key)
-  def getOrElse(key: Key, other: Value): Value = cache.getOrElse(key,other)
-  def remove(key: Key): Unit = cache = cache.removed(key)
-  def getCache: Map[Key,Value] = cache
+  def add(key: K, value: V): Unit = cache = cache + (key -> value)
+  def get(key: K): Option[V] = cache.get(key)
+  def getOrElse(key: K, other: V): V = cache.getOrElse(key,other)
+  def remove(key: K): Unit = cache = cache.removed(key)
+  def getCache: Map[K,V] = cache
 }

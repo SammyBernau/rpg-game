@@ -3,17 +3,17 @@ package com.rpg.entity.animate.player
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.game.config.CurrentMasterConfig
-import com.rpg.game.systems.tick.{TickListener, TickSystem}
+import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 import javax.inject.Inject
 
-class PlayerCameraZoom @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends TickListener {
+class PlayerCameraZoom @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends TickEvent {
 
   tickSystem.addListener(this)
 
   private val mapConfig = currentMasterConfig.tiledMapConfig
   
-  override def updateListener(tick: Long): Unit = {
+  override def tick(tick: Long): Unit = {
     cameraZoom()
   }
 

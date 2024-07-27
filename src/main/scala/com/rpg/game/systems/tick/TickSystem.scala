@@ -1,7 +1,7 @@
 package com.rpg.game.systems.tick
 
 import com.badlogic.gdx.{Application, ApplicationAdapter, Gdx, Screen, ScreenAdapter}
-import com.rpg.game.systems.ListenerSystem
+import com.rpg.game.systems.EventSystem
 
 import scala.jdk.CollectionConverters.*
 import java.util.concurrent.{Callable, ConcurrentLinkedQueue, CountDownLatch, ExecutorService, Executors}
@@ -9,7 +9,7 @@ import javax.inject.Inject
 import scala.collection.mutable
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutor, Future}
 
-class TickSystem extends ListenerSystem[TickListener]  {
+class TickSystem extends EventSystem[TickEvent]  {
 
   //every .2f == 200 milliseconds or 5 ticks per second
   //every .1f == 100 milliseconds or 10 ticks per second
@@ -40,7 +40,7 @@ class TickSystem extends ListenerSystem[TickListener]  {
     //Future to run each update in a separate thread
     listeners.foreach{listener =>
       Future {
-        listener.updateListener(getCurrentTick)
+        listener.tick(getCurrentTick)
       }
     }
   }

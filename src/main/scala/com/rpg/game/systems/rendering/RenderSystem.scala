@@ -3,11 +3,11 @@ package com.rpg.game.systems.rendering
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.rpg.game.config.CurrentMasterConfig
-import com.rpg.game.systems.ListenerSystem
+import com.rpg.game.systems.EventSystem
 
 import javax.inject.Inject
 
-class RenderSystem extends ListenerSystem[RenderListener]{
+class RenderSystem extends EventSystem[RenderListener]{
 
 //  override def render(): Unit = {
 //    currentSettings.viewport.apply()

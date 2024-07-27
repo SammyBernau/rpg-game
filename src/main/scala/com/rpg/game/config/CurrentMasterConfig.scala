@@ -30,9 +30,8 @@ case class CurrentMasterConfig @Inject(tiledMapConfig: TiledMapConfig, gameSyste
   }
 }
 
-class CurrentGameConfigurationHelper @Inject(world: World, renderSystem: RenderSystem, currentMasterConfiguration: CurrentMasterConfig) extends RenderListener {
-
-  renderSystem.addListener(this)
+class CurrentGameConfigurationHelper @Inject(world: World, val renderSystem: RenderSystem, currentMasterConfiguration: CurrentMasterConfig) extends RenderListener {
+  
   private val gameSystemConfiguration = currentMasterConfiguration.gameSystemConfig
   private val mapConfiguration = currentMasterConfiguration.tiledMapConfig
 

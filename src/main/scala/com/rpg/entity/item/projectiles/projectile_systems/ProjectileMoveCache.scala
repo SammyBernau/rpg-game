@@ -5,6 +5,6 @@ import com.rpg.game.cache.caches.VectorBasedCache
 import javax.inject.Singleton
 
 @Singleton
-class ProjectileMoveService extends VectorBasedCache[ProjectileMoveRequest]{
+class ProjectileMoveCache extends VectorBasedCache[ProjectileMoveRequest]{
 
 }

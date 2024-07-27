@@ -2,7 +2,7 @@ package com.rpg.game.systems
 
 import com.badlogic.gdx.ApplicationAdapter
 
-protected trait ListenerSystem[Type] extends Listener {
+protected trait EventSystem[Type] extends Event {
 
   var listeners: List[Type] = List.empty
 

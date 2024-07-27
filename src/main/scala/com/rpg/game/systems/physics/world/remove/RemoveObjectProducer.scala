@@ -5,7 +5,7 @@ import com.rpg.game.structure.Producer
 
 import javax.inject.Inject
 
-class RemoveObjectProducer @Inject(removeObjectService: RemoveObjectService) extends Producer[Body] {
+class RemoveObjectProducer @Inject(removeObjectService: RemoveObjectCache) extends Producer[Body] {
 
   //can technically run on another thread besides main
   

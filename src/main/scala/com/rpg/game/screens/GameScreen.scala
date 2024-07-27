@@ -21,7 +21,7 @@ import com.rpg.entity.animate.entityconstructs.Humanoid
 import com.rpg.entity.animate.player
 import com.rpg.entity.animate.player.{Owner, Player, PlayerMovement, PlayerAnimation}
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
-import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveConsumer, ProjectileMoveService}
+import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveConsumer, ProjectileMoveCache}
 import com.rpg.game.config.gamesystems.GameSystemsConfigService
 import com.rpg.game.config.map.TiledMapConfigService
 import com.rpg.game.{GameModule, RPG}
@@ -34,7 +34,7 @@ import com.rpg.game.systems.physics.world.remove.RemoveObjectConsumer
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHandler}
 import com.rpg.game.systems.rendering.RenderSystem
 import com.rpg.game.systems.rendering.services.world.WorldRenderingService
-import com.rpg.game.systems.tick.{TickListener, TickSystem}
+import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 
 class GameScreen(game: RPG) extends ScreenAdapter {
@@ -85,7 +85,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   physicsObjectConsumer.consume() //THIS HAS TO BE CALLED BEFORE INJECTOR SINCE THINGS IN INJECTOR RELY ON THIS BEING CALLED
 
   //Create injections for GameModule
-  Guice.createInjector(new GameModule(world, currentMasterConfig))
+  Guice.createInjector(new GameModule(currentMasterConfig))
 
   override def show(): Unit = {
     val collisionListener = new CollisionListener

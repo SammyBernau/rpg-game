@@ -10,12 +10,12 @@ import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.physics.world.ObjectData
 import com.rpg.game.systems.rendering.services.gameobjects.GameObject
-import com.rpg.game.systems.tick.{TickListener, TickSystem}
+import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 import org.lwjgl.system.windows.INPUT
 
 import javax.inject.Inject
 
-final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends Projectile with TickListener {
+final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends Projectile with TickEvent {
   //Add to listener list
   tickSystem.addListener(this)
 
@@ -38,7 +38,7 @@ final class GhostFireballSystem @Inject(tickSystem: TickSystem, currentMasterCon
   private var ghostFireballCount = 0
   private var tickAtLastShot = 0L
 
-  override def updateListener(tick: Long): Unit = {
+  override def tick(tick: Long): Unit = {
     val LEFT = Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)
     if (LEFT && (tick - tickAtLastShot > 1 || tick <= 1)) {
       create()

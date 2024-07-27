@@ -11,12 +11,12 @@ import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
-import com.rpg.game.systems.tick.{TickListener, TickSystem}
+import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 import javax.inject.Inject
 
 
-final class PlayerMovement @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends TickListener{
+final class PlayerMovement @Inject(tickSystem: TickSystem, currentMasterConfig: CurrentMasterConfig) extends TickEvent{
 
   tickSystem.addListener(this)
   
@@ -24,7 +24,7 @@ final class PlayerMovement @Inject(tickSystem: TickSystem, currentMasterConfig: 
   private val mapConfig = currentMasterConfig.tiledMapConfig
   private val gameObjectCache = gameSystemsConfig.gameObjectCache
 
-  override def updateListener(tick: Long): Unit = {
+  override def tick(tick: Long): Unit = {
     playerMovement()
   }
   

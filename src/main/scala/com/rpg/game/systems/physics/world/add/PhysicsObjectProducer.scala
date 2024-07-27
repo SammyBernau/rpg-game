@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.rpg.game.structure.Producer
 import com.rpg.game.systems.physics.objects.shapes.*
 import com.rpg.game.systems.physics.objects.{PhysicsObjectFactory, PhysicsObjectSimple}
-import com.rpg.game.systems.physics.world.add.{PhysicsObjectDefWrapper, PhysicsObjectService}
+import com.rpg.game.systems.physics.world.add.{PhysicsObjectDefWrapper, PhysicsObjectCache}
 
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ import javax.inject.Inject
  * @author Sam Bernau
  */
 
-class PhysicsObjectProducer @Inject(physicsObjectService: PhysicsObjectService) extends Producer[MapObject] {
+class PhysicsObjectProducer @Inject(physicsObjectCache: PhysicsObjectCache) extends Producer[MapObject] {
 
   // Returns a fixtureDef and bodyDef based on object settings
   // Currently no legitimate support for kinematic body types
@@ -44,7 +44,7 @@ class PhysicsObjectProducer @Inject(physicsObjectService: PhysicsObjectService) 
     val startedRequest = physicsObjectFactory.create(mapObject)
     val completedRequest = startedRequest.getDefs(bodyType, mapObject)
 
-    physicsObjectService.add(completedRequest)
+    physicsObjectCache.add(completedRequest)
   }
 
 

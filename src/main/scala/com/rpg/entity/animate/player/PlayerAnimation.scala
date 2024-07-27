@@ -5,11 +5,11 @@ import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.CurrentMasterConfig
-import com.rpg.game.systems.tick.{TickListener, TickSystem}
+import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 import javax.inject.Inject
 
-final class PlayerAnimation @Inject(currentMasterConfig: CurrentMasterConfig, tickSystem: TickSystem) extends TickListener {
+final class PlayerAnimation @Inject(currentMasterConfig: CurrentMasterConfig, tickSystem: TickSystem) extends TickEvent {
   //Add to listener list
   tickSystem.addListener(this)
   private val gameSystemsConfig = currentMasterConfig.gameSystemConfig
@@ -29,7 +29,7 @@ final class PlayerAnimation @Inject(currentMasterConfig: CurrentMasterConfig, ti
   private var dodgeDirection = "front"
   private var cancelOtherDodgeDirections = false
 
-  override def updateListener(tick: Long): Unit = {
+  override def tick(tick: Long): Unit = {
     val playerGameObject = gameObjectCache.get("player_animation").get
     
     val playerTexture = playerGameObject.mapObject.asInstanceOf[TextureMapObject]
