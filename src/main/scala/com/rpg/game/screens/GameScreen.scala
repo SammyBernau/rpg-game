@@ -60,7 +60,6 @@ class GameScreen(game: RPG) extends ScreenAdapter {
 
     //Update tick events
     tickSystem.render()
-    tickSystem.updateListeners()
 
     //Update render events
     renderSystem.updateListeners()

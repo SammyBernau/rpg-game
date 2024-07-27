@@ -37,21 +37,28 @@ class ProjectileMoveConsumer @Inject(val renderSystem: RenderSystem, gameObjectC
         val speed = projectileMoveRequest.speed
         val angle = projectileMoveRequest.angle
 
-        val gameObject = gameObjectCache.get(name).get
-        val fixture = gameObject.fixture
-        val body = fixture.getBody
-        val textureMapObject = gameObject.mapObject.asInstanceOf[TextureMapObject]
+        gameObjectCache
+          .get(name)
+          .fold{
+            println(s"Unable to complete move request for fireball with name: ${name}")
+            //projectileMoveService.remove(projectileMoveRequest)
+          }
+          { gameObject =>
+            val fixture = gameObject.fixture
+            val body = fixture.getBody
+            val textureMapObject = gameObject.mapObject.asInstanceOf[TextureMapObject]
 
 
-        textureMapObject.setRotation((textureMapObject.getRotation * MathUtils.radiansToDegrees) - 90)
+            textureMapObject.setRotation((textureMapObject.getRotation * MathUtils.radiansToDegrees) - 90)
 
-        
-        //set angle rotation of projectile body
-        body.setTransform(body.getPosition, angle - (MathUtils.degreesToRadians * 90))
 
-        //move projectile
-        move(body, speed, angle)
-        projectileMoveService.remove(projectileMoveRequest)
+            //set angle rotation of projectile body
+            body.setTransform(body.getPosition, angle - (MathUtils.degreesToRadians * 90))
+
+            //move projectile
+            move(body, speed, angle)
+            projectileMoveService.remove(projectileMoveRequest)
+          }
       }
     }
   }

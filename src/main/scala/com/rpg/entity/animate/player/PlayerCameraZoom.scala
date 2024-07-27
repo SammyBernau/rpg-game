@@ -3,16 +3,15 @@ package com.rpg.entity.animate.player
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.game.config.map.TiledMapConfig
-import com.rpg.game.systems.tick.{TickEvent, TickSystem}
+import com.rpg.game.systems.rendering.{RenderEvent, RenderSystem}
 
 import javax.inject.Inject
 
-class PlayerCameraZoom @Inject(val tickSystem: TickSystem, tiledMapConfig: TiledMapConfig) extends TickEvent {
-
-  tickSystem.addListener(this)
+class PlayerCameraZoom @Inject(val renderSystem: RenderSystem, tiledMapConfig: TiledMapConfig) extends RenderEvent {
   
   
-  override def tick(tick: Long): Unit = {
+  
+  override def render(): Unit = {
     cameraZoom()
   }
 

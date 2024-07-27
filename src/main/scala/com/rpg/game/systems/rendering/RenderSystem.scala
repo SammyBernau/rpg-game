@@ -6,6 +6,7 @@ import com.rpg.game.systems.EventSystem
 
 import javax.inject.Singleton
 
+@Singleton
 class RenderSystem extends EventSystem[RenderEvent]{
 
 //  override def render(): Unit = {

@@ -51,8 +51,8 @@ class GameModule(mapName: String) extends AbstractModule{
 
     //Consumers
     bind(classOf[PhysicsObjectConsumer]).asEagerSingleton()
-    bind(classOf[RemoveObjectConsumer])
-    bind(classOf[ProjectileMoveConsumer])
+    bind(classOf[RemoveObjectConsumer]).asEagerSingleton()
+    bind(classOf[ProjectileMoveConsumer]).asEagerSingleton()
 
     //---Children of RenderSystem---
     //bind(classOf[CurrentSettingsHelper]).toInstance(new CurrentSettingsHelper(renderSystem, currentSettings))

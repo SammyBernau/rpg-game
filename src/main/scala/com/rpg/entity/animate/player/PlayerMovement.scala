@@ -17,9 +17,9 @@ import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 import javax.inject.Inject
 
 
-final class PlayerMovement @Inject(val tickSystem: TickSystem, tiledMapConfig: TiledMapConfig, gameObjectCache: GameObjectCache) extends TickEvent {
+final class PlayerMovement @Inject(val renderSystem: RenderSystem, tiledMapConfig: TiledMapConfig, gameObjectCache: GameObjectCache) extends RenderEvent {
 
-  override def tick(tick: Long): Unit = {
+  override def render(): Unit = {
     playerMovement()
   }
   

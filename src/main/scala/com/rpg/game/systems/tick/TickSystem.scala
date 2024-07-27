@@ -35,6 +35,7 @@ class TickSystem extends EventSystem[TickEvent]  {
       if (tickTimer >= TICK_TIMER_MAX) {
         tickTimer -= TICK_TIMER_MAX
         tick += 1
+        updateListeners()
       }
   }
 
