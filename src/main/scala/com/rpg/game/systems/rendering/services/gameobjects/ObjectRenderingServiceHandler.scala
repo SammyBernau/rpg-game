@@ -30,7 +30,7 @@ class ObjectRenderingServiceHandler @Inject(gameObjectCache: GameObjectCache, ph
    * This method was completed with help from https://lyze.dev/2021/03/25/libGDX-Tiled-Box2D-example/
    * Current implementation only parses objects that were pre-loaded on map
    */
-  def parseObjectsFromMap(): Unit = {
+  private def parseObjectsFromMap(): Unit = {
 
     for (i <- 0 until entityLayer.getCount) {
       val obj = entityLayer.get(i)

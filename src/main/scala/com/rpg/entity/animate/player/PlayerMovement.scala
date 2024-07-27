@@ -9,17 +9,16 @@ import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.animate.entityconstructs.Humanoid
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.entity.textures.EntityAnimations
-import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.config.map.TiledMapConfig
 import com.rpg.game.systems.rendering.services.gameobjects.GameObjectCache
-import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
+import com.rpg.game.systems.rendering.{RenderEvent, RenderSystem}
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 import javax.inject.Inject
 
 
-final class PlayerMovement @Inject(val tickSystem: TickSystem, tiledMapConfig: TiledMapConfig, gameObjectCache: GameObjectCache) extends TickEvent{
-  
+final class PlayerMovement @Inject(val tickSystem: TickSystem, tiledMapConfig: TiledMapConfig, gameObjectCache: GameObjectCache) extends TickEvent {
+
   override def tick(tick: Long): Unit = {
     playerMovement()
   }
@@ -35,7 +34,6 @@ final class PlayerMovement @Inject(val tickSystem: TickSystem, tiledMapConfig: T
     val d = Gdx.input.isKeyPressed(Input.Keys.D)
     val space = Gdx.input.isKeyPressed(Input.Keys.SPACE)
     val shift = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
-
     var speed = if (shift) player.playerSettings.sprintingSpeed else player.playerSettings.walkingSpeed
 
     if ((w || s) && (a || d)) {

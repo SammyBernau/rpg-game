@@ -1,11 +1,11 @@
 package com.rpg.game.systems.rendering
 
 //RenderEvent
-trait RenderListener {
+trait RenderEvent {
   
-  val renderSystem: RenderSystem
+  protected val renderSystem: RenderSystem
   renderSystem.addListener(this)
   //Render
-  def renderListener(): Unit
+  def render(): Unit
 
 }

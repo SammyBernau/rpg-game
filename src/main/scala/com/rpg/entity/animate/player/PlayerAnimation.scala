@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
 import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.textures.EntityAnimations
-import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.config.map.TiledMapConfig
 import com.rpg.game.systems.rendering.services.gameobjects.GameObjectCache
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}

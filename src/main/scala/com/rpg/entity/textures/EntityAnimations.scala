@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.tiled.{TiledMapTile, TiledMapTileSet, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile
-import com.rpg.game.config.CurrentMasterConfig
 import com.badlogic.gdx.graphics.g2d.{Animation, TextureRegion}
 import com.rpg.game.config.map.TiledMapConfig
 

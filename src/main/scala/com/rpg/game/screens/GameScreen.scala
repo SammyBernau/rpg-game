@@ -26,14 +26,14 @@ class GameScreen(game: RPG) extends ScreenAdapter {
 
   //Box2D.init() -> Either this has to be called or WorldService.world needs to be called before objectRenderingServiceHandler.parseObjectsFromMap() for box2d to work
   private val DELTA_TIME: Float = Gdx.graphics.getDeltaTime
-  
+
 
   //Game settings
   private val mapName = "assets/Tiled/Grassland.tmx" //Will change later so its not hardcoded
 
   //Create injections for GameModule
   private val gameInjector = Guice.createInjector(new GameModule(mapName))
-  
+
   private val worldService = gameInjector.getInstance(classOf[WorldService])
   private val world = gameInjector.getInstance(classOf[World])
   private val worldRenderingService = gameInjector.getInstance(classOf[WorldRenderingService])
@@ -42,11 +42,11 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private val renderSystem = gameInjector.getInstance(classOf[RenderSystem])
   private val objectRenderingService = gameInjector.getInstance(classOf[ObjectRenderingService])
 
-  
+
   override def show(): Unit = {
     val collisionListener = new CollisionListener
     world.setContactListener(collisionListener)
-    worldRenderingService.setDrawBodies(false)
+    worldRenderingService.setDrawBodies(true)
     val cursor = new CustomCursor(viewport.getCamera, game.batch)
   }
 

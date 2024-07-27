@@ -6,7 +6,6 @@ import com.rpg.entity.animate.player.{PlayerAnimation, PlayerCameraZoom, PlayerM
 import com.rpg.entity.item.projectiles.ProjectileSystem
 import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveCache, ProjectileMoveConsumer}
 import com.rpg.game.config.map.{TiledMapConfig, TiledMapConfigService}
-import com.rpg.game.config.{CurrentGameConfigurationHelper, CurrentMasterConfig}
 import com.rpg.game.systems.EventSystem
 import com.rpg.game.systems.physics.world.WorldService
 import com.rpg.game.systems.physics.world.add.{PhysicsObjectCache, PhysicsObjectConsumer, PhysicsObjectProducer}
@@ -40,8 +39,6 @@ class GameModule(mapName: String) extends AbstractModule{
     bind(classOf[GameObjectCache])
     bind(classOf[PhysicsObjectCache])
 
-
-
     //Producers
     bind(classOf[PhysicsObjectProducer])
     bind(classOf[RemoveObjectProducer])
@@ -56,7 +53,7 @@ class GameModule(mapName: String) extends AbstractModule{
     bind(classOf[PhysicsObjectConsumer]).asEagerSingleton()
     bind(classOf[RemoveObjectConsumer])
     bind(classOf[ProjectileMoveConsumer])
-    
+
     //---Children of RenderSystem---
     //bind(classOf[CurrentSettingsHelper]).toInstance(new CurrentSettingsHelper(renderSystem, currentSettings))
 

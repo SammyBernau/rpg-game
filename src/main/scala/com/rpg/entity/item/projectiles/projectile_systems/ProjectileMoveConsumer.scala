@@ -4,16 +4,16 @@ import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.Body
 import com.rpg.game.structure.Consumer
-import com.rpg.game.systems.rendering.{RenderListener, RenderSystem}
+import com.rpg.game.systems.rendering.{RenderEvent, RenderSystem}
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObjectCache}
 
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class ProjectileMoveConsumer @Inject(val renderSystem: RenderSystem, gameObjectCache: GameObjectCache, projectileMoveService: ProjectileMoveCache) extends Consumer with RenderListener {
+class ProjectileMoveConsumer @Inject(val renderSystem: RenderSystem, gameObjectCache: GameObjectCache, projectileMoveService: ProjectileMoveCache) extends Consumer with RenderEvent {
   
 
-  override def renderListener(): Unit = {
+  override def render(): Unit = {
     consume()
   }
   

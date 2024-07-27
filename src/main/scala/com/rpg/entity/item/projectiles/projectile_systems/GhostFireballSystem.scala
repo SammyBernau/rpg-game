@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.item.projectiles.{Projectile, ProjectileSystem}
 import com.rpg.entity.textures.EntityAnimations
-import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.config.map.TiledMapConfig
 import com.rpg.game.systems.physics.world.ObjectData
 import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObjectCache, ObjectRenderingServiceHandler}

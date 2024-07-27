@@ -4,8 +4,6 @@ import com.badlogic.gdx.{Gdx, ScreenAdapter}
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.{Camera, Pixmap, Texture}
 import com.badlogic.gdx.math.{Vector2, Vector3}
-import com.rpg.game.config.CurrentMasterConfig
-
 
 
 class CustomCursor(camera: Camera, batch: SpriteBatch) extends ScreenAdapter {

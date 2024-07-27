@@ -2,12 +2,11 @@ package com.rpg.game.systems.rendering
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.systems.EventSystem
 
 import javax.inject.Singleton
 
-class RenderSystem extends EventSystem[RenderListener]{
+class RenderSystem extends EventSystem[RenderEvent]{
 
 //  override def render(): Unit = {
 //    currentSettings.viewport.apply()
@@ -17,7 +16,7 @@ class RenderSystem extends EventSystem[RenderListener]{
 //  }
 
   override def updateListeners(): Unit = {
-    listeners.foreach(_.renderListener())
+    listeners.foreach(_.render())
   }
   
   override def dispose(): Unit = super.dispose()

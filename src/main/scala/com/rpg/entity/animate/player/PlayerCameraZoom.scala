@@ -2,13 +2,12 @@ package com.rpg.entity.animate.player
 
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.{Gdx, Input}
-import com.rpg.game.config.CurrentMasterConfig
 import com.rpg.game.config.map.TiledMapConfig
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 import javax.inject.Inject
 
-class PlayerCameraZoom @Inject(tickSystem: TickSystem, tiledMapConfig: TiledMapConfig) extends TickEvent {
+class PlayerCameraZoom @Inject(val tickSystem: TickSystem, tiledMapConfig: TiledMapConfig) extends TickEvent {
 
   tickSystem.addListener(this)
   
