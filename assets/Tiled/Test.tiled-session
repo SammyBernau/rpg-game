@@ -23,11 +23,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 3,
+            "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 800,
-                "y": 799.6666666666666
+                "x": 695.3333333333333,
+                "y": 827.6666666666665
             }
         },
         "NPC_test.tsx": {
@@ -40,7 +40,7 @@
         },
         "Overworld.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 3,
+            "scaleInDock": 2,
             "scaleInEditor": 1.5
         },
         "PlayerSprite.tsx": {

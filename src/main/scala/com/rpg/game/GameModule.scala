@@ -7,12 +7,14 @@ import com.rpg.entity.item.projectiles.ProjectileSystem
 import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveCache, ProjectileMoveConsumer}
 import com.rpg.game.config.map.{TiledMapConfig, TiledMapConfigService}
 import com.rpg.game.systems.EventSystem
+import com.rpg.game.systems.concurrent.Scheduler
+import com.rpg.game.systems.event.tick.SubTickSystem
 import com.rpg.game.systems.physics.world.WorldService
 import com.rpg.game.systems.physics.world.add.{PhysicsObjectCache, PhysicsObjectConsumer, PhysicsObjectProducer}
 import com.rpg.game.systems.physics.world.remove.{RemoveObjectCache, RemoveObjectConsumer, RemoveObjectProducer}
-import com.rpg.game.systems.rendering.{RenderSystem, Scheduler}
-import com.rpg.game.systems.rendering.services.gameobjects.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHandler}
-import com.rpg.game.systems.rendering.services.world.WorldRenderingService
+import com.rpg.game.systems.rendering.RenderSystem
+import com.rpg.game.systems.rendering.gameobjects.{GameObjectCache, ObjectRenderingService, ObjectRenderingServiceHandler}
+import com.rpg.game.systems.rendering.world.WorldRenderingService
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 import scala.reflect.ClassTag
@@ -32,6 +34,7 @@ class GameModule(mapName: String) extends AbstractModule{
     //Systems
     bind(classOf[TickSystem])
     bind(classOf[RenderSystem])
+    bind(classOf[SubTickSystem])
     
     // Schedulers
     bind(classOf[Scheduler])

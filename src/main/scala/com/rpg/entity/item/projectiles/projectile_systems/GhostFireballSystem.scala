@@ -8,9 +8,10 @@ import com.badlogic.gdx.{Gdx, Input}
 import com.rpg.entity.item.projectiles.{Projectile, ProjectileSystem}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.map.TiledMapConfig
+import com.rpg.game.systems.concurrent.Scheduler
 import com.rpg.game.systems.physics.world.ObjectData
-import com.rpg.game.systems.rendering.{RenderEvent, RenderSystem, Scheduler}
-import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObjectCache, ObjectRenderingServiceHandler}
+import com.rpg.game.systems.rendering.gameobjects.{GameObject, GameObjectCache, ObjectRenderingServiceHandler}
+import com.rpg.game.systems.rendering.{RenderEvent, RenderSystem}
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 import org.lwjgl.system.windows.INPUT
 
@@ -32,7 +33,7 @@ final class GhostFireballSystem @Inject(val tickSystem: TickSystem,
   private val entityAnimations = EntityAnimations(tiledMapConfig)
   private val ghostFireballTile = entityAnimations.GhostFireBall.tile
   private val SPAWN_DISTANCE = 50
-  private val SPEED = 200f
+  private val SPEED = 5000f
   private var ghostFireballCount = 0
   private var tickAtLastShot = 0L
 
@@ -40,7 +41,7 @@ final class GhostFireballSystem @Inject(val tickSystem: TickSystem,
     val LEFT = Gdx.input.isButtonPressed(Input.Buttons.LEFT)
     val tick = tickSystem.getCurrentTick
     if (LEFT && (tick - tickAtLastShot > 1 || tick <= 1)) {
-      scheduler.runAsync(create)
+      scheduler.runAsync(() => create())
       tickAtLastShot = tick
     }
   }

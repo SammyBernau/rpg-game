@@ -16,8 +16,8 @@ class RenderSystem extends EventSystem[RenderEvent]{
 //    currentSettings.worldRenderer.render(WORLD, currentSettings.viewport.getCamera.combined)
 //  }
 
-  override def updateListeners(): Unit = {
-    listeners.foreach(_.render())
+  override def updateEvents(): Unit = {
+    events.foreach(_.render())
   }
   
   override def dispose(): Unit = super.dispose()

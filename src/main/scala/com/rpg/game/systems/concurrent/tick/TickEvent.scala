@@ -2,7 +2,7 @@ package com.rpg.game.systems.tick
 //TickEvent
 trait TickEvent {
   protected val tickSystem: TickSystem
-  tickSystem.addListener(this)
+  tickSystem.addEvent(this)
   //runTick or tick
   def tick(tick: Long): Unit
 }

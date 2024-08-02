@@ -14,11 +14,12 @@ import com.google.inject.Guice
 import com.rpg.game.config.map.TiledMapConfig
 import com.rpg.game.{GameModule, RPG}
 import com.rpg.game.systems.cursor.CustomCursor
+import com.rpg.game.systems.event.tick.SubTickSystem
 import com.rpg.game.systems.physics.collision.CollisionListener
 import com.rpg.game.systems.physics.world.WorldService
 import com.rpg.game.systems.rendering.RenderSystem
-import com.rpg.game.systems.rendering.services.gameobjects.ObjectRenderingService
-import com.rpg.game.systems.rendering.services.world.WorldRenderingService
+import com.rpg.game.systems.rendering.gameobjects.ObjectRenderingService
+import com.rpg.game.systems.rendering.world.WorldRenderingService
 import com.rpg.game.systems.tick.TickSystem
 
 
@@ -39,6 +40,7 @@ class GameScreen(game: RPG) extends ScreenAdapter {
   private val worldRenderingService = gameInjector.getInstance(classOf[WorldRenderingService])
   private val viewport = gameInjector.getInstance(classOf[TiledMapConfig]).viewport
   private val tickSystem = gameInjector.getInstance(classOf[TickSystem])
+  private val subTickSystem = gameInjector.getInstance(classOf[SubTickSystem])
   private val renderSystem = gameInjector.getInstance(classOf[RenderSystem])
   private val objectRenderingService = gameInjector.getInstance(classOf[ObjectRenderingService])
 
@@ -60,9 +62,10 @@ class GameScreen(game: RPG) extends ScreenAdapter {
 
     //Update tick events
     tickSystem.render()
+    subTickSystem.render()
 
     //Update render events
-    renderSystem.updateListeners()
+    renderSystem.updateEvents()
 
     //ALL UPDATES MADE TO WORLD NEED TO BE CALLED BEFORE THIS (ie: creation, moving, updating of physic entities)
     worldService.stepWorld(DELTA_TIME)

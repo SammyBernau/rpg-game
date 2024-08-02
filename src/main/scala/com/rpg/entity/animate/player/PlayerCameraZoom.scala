@@ -9,8 +9,6 @@ import javax.inject.Inject
 
 class PlayerCameraZoom @Inject(val renderSystem: RenderSystem, tiledMapConfig: TiledMapConfig) extends RenderEvent {
   
-  
-  
   override def render(): Unit = {
     cameraZoom()
   }

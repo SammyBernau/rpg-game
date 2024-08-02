@@ -36,15 +36,15 @@ class TickSystem extends EventSystem[TickEvent]  {
       if (tickTimer >= TICK_TIMER_MAX) {
         tickTimer -= TICK_TIMER_MAX
         tick += 1
-        updateListeners()
+        updateEvents()
       }
   }
 
-  override def updateListeners(): Unit = {
+  override def updateEvents(): Unit = {
     //Future to run each update in a separate thread
-    listeners.foreach{listener =>
+    events.foreach{event =>
       Future {
-        listener.tick(getCurrentTick)
+        event.tick(getCurrentTick)
       }
     }
   }

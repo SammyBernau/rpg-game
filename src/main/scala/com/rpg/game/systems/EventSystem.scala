@@ -2,22 +2,22 @@ package com.rpg.game.systems
 
 import com.badlogic.gdx.ApplicationAdapter
 
-protected trait EventSystem[Type] extends Event {
+protected trait EventSystem[A] extends Event {
 
-  var listeners: List[Type] = List.empty
+  var events: List[A] = List.empty
 
-  def addListener(listener: Type): Unit = synchronized {
-    listeners = listener :: listeners
+  def addEvent(event: A): Unit = synchronized {
+    events = event :: events
   }
 
-  def removeListener(listener: Type): Unit = synchronized {
-    listeners = listeners.filterNot(_ == listener)
+  def removeEvent(event: A): Unit = synchronized {
+    events = events.filterNot(_ == event)
   }
 
   override def dispose(): Unit = {
-    listeners = List.empty
+    events = List.empty
   }
   
-  def updateListeners(): Unit
+  def updateEvents(): Unit
   
 }

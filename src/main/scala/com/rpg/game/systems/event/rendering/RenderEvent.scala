@@ -4,7 +4,7 @@ package com.rpg.game.systems.rendering
 trait RenderEvent {
   
   protected val renderSystem: RenderSystem
-  renderSystem.addListener(this)
+  renderSystem.addEvent(this)
   //Render
   def render(): Unit
 

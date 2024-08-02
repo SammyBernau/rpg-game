@@ -1,4 +1,4 @@
-package com.rpg.game.systems.rendering
+package com.rpg.game.systems.concurrent
 
 import com.google.inject.Singleton
 

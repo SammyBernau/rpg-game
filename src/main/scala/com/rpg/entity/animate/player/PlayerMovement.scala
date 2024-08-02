@@ -10,16 +10,20 @@ import com.rpg.entity.animate.entityconstructs.Humanoid
 import com.rpg.entity.item.equipment.BaseHumanoidEquipmentSetup
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.map.TiledMapConfig
-import com.rpg.game.systems.rendering.services.gameobjects.GameObjectCache
+import com.rpg.game.systems.event.tick.{SubTickEvent, SubTickSystem}
+import com.rpg.game.systems.rendering.gameobjects.GameObjectCache
 import com.rpg.game.systems.rendering.{RenderEvent, RenderSystem}
 import com.rpg.game.systems.tick.{TickEvent, TickSystem}
 
 import javax.inject.Inject
 
 
-final class PlayerMovement @Inject(val renderSystem: RenderSystem, tiledMapConfig: TiledMapConfig, gameObjectCache: GameObjectCache) extends RenderEvent {
+final class PlayerMovement @Inject(val subTickSystem: SubTickSystem,
+                                   tiledMapConfig: TiledMapConfig,
+                                   gameObjectCache: GameObjectCache) extends SubTickEvent {
 
-  override def render(): Unit = {
+  //SubTickSystem -> 50 ticks per second for movement so its not based on fps
+  override def tick(tick: Long): Unit = {
     playerMovement()
   }
   
@@ -81,5 +85,5 @@ final class PlayerMovement @Inject(val renderSystem: RenderSystem, tiledMapConfi
     tiledMapConfig.viewport.getCamera.position.set(playerFixture.getBody.getTransform.getPosition.x, playerFixture.getBody.getTransform.getPosition.y, 0)
     tiledMapConfig.viewport.getCamera.update()
   }
-
+  
 }

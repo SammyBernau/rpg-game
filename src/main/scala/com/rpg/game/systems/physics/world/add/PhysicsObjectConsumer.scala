@@ -4,8 +4,8 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.{Body, BodyDef, Fixture, FixtureDef, Joint, JointDef, World}
 import com.rpg.game.structure.Consumer
 import com.rpg.game.systems.physics.world.ObjectBody
+import com.rpg.game.systems.rendering.gameobjects.{GameObject, GameObjectCache}
 import com.rpg.game.systems.rendering.{RenderEvent, RenderSystem}
-import com.rpg.game.systems.rendering.services.gameobjects.{GameObject, GameObjectCache}
 
 import javax.inject.{Inject, Singleton}
 

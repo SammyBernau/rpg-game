@@ -1,4 +1,4 @@
-package com.rpg.game.systems.rendering.services.world
+package com.rpg.game.systems.rendering.world
 
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import javax.inject.Singleton

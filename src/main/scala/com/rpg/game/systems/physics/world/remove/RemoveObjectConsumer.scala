@@ -4,8 +4,8 @@ import com.badlogic.gdx.physics.box2d.{Body, World}
 import com.badlogic.gdx.utils.Array
 import com.rpg.game.structure.Consumer
 import com.rpg.game.systems.physics.world.ObjectData
+import com.rpg.game.systems.rendering.gameobjects.ObjectRenderingServiceHandler
 import com.rpg.game.systems.rendering.{RenderEvent, RenderSystem}
-import com.rpg.game.systems.rendering.services.gameobjects.ObjectRenderingServiceHandler
 
 import javax.inject.Inject
 
