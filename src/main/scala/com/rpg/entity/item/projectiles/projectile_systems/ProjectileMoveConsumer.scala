@@ -55,7 +55,7 @@ class ProjectileMoveConsumer @Inject(val subTickSystem: SubTickSystem,
             val body = fixture.getBody
             val textureMapObject = gameObject.mapObject.asInstanceOf[TextureMapObject]
 
-            textureMapObject.setRotation((textureMapObject.getRotation * MathUtils.radiansToDegrees) - 90)
+            //textureMapObject.setRotation((textureMapObject.getRotation * MathUtils.radiansToDegrees) - 90)
 
             //set angle rotation of projectile body
             body.setTransform(body.getPosition, angle - (MathUtils.degreesToRadians * 90))

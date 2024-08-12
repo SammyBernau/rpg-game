@@ -28,7 +28,6 @@ class SubTickSystem extends EventSystem[SubTickEvent] {
     if (tickTimer >= TICK_TIMER_MAX) {
       tickTimer -= TICK_TIMER_MAX
       tick += 1
-      updateEvents()
     }
   }
 

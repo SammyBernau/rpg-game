@@ -33,7 +33,7 @@ final class GhostFireballSystem @Inject(val tickSystem: TickSystem,
   private val entityAnimations = EntityAnimations(tiledMapConfig)
   private val ghostFireballTile = entityAnimations.GhostFireBall.tile
   private val SPAWN_DISTANCE = 50
-  private val SPEED = 5000f
+  private val SPEED = 999999999999999f
   private var ghostFireballCount = 0
   private var tickAtLastShot = 0L
 
@@ -82,9 +82,9 @@ final class GhostFireballSystem @Inject(val tickSystem: TickSystem,
     val textureMapObject = tiledMapTileMapObject.asInstanceOf[TextureMapObject]
     setTexturePositionToWorldGridSystem(textureMapObject)
 
-    //textureMapObject.setRotation((angle * MathUtils.degreesToRadians) - MathUtils.PI / 2)
-    //textureMapObject.setRotation(angle - (MathUtils.degreesToRadians * 90))
-    textureMapObject.setRotation(angle)
+
+    //textureMapObject.setRotation(angle)
+    textureMapObject.setRotation((angle * MathUtils.radiansToDegrees) - 90)
     textureMapObject.setName(name)
     textureMapObject.setX(spawnX)
     textureMapObject.setY(spawnY)
