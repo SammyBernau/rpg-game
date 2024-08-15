@@ -33,7 +33,7 @@ final class GhostFireballSystem @Inject(val tickSystem: TickSystem,
   private val entityAnimations = EntityAnimations(tiledMapConfig)
   private val ghostFireballTile = entityAnimations.GhostFireBall.tile
   private val SPAWN_DISTANCE = 50
-  private val SPEED = 999999999999999f
+  private val SPEED = 1000f
   private var ghostFireballCount = 0
   private var tickAtLastShot = 0L
 

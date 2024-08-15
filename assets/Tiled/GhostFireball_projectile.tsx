@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="GhostFireball_projectile" class="projectile" tilewidth="17" tileheight="32" tilecount="1" columns="1">
- <properties>
-  <property name="BodyType" value="dynamic"/>
- </properties>
- <image source="../textures/samsRendition/humanoid/GhostFireball_projectile.png" width="17" height="32"/>
- <tile id="0" type="ghost_fireball">
+<tileset version="1.10" tiledversion="1.11.0" name="GhostFireballProjectileFull" tilewidth="11" tileheight="23" tilecount="7" columns="7">
+ <image source="../textures/samsRendition/humanoid/GhostFireballProjectileFull.png" width="80" height="40"/>
+ <tile id="0" type="ghost_fireball_f1">
+  <properties>
+   <property name="BodyType" value="dynamic"/>
+  </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="ghost_fireball" x="0" y="0" width="17" height="32">
-    <properties>
-     <property name="BodyType" value="dynamic"/>
-    </properties>
-   </object>
+   <object id="1" name="bounding_box" x="1" y="1" width="9" height="21"/>
+  </objectgroup>
+ </tile>
+ <tile id="1" type="ghost_fireball_f2">
+  <properties>
+   <property name="BodyType" value="dynamic"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" name="bounding_box" x="1" y="1" width="9" height="21"/>
+  </objectgroup>
+ </tile>
+ <tile id="2" type="ghost_fireball_f3">
+  <properties>
+   <property name="BodyType" value="dynamic"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" name="bounding_box" x="1" y="1" width="9" height="21"/>
   </objectgroup>
  </tile>
 </tileset>

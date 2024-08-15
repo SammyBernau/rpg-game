@@ -15,7 +15,7 @@ class TickSystem extends EventSystem[TickEvent]  {
 
   //every .2f == 200 milliseconds or 5 ticks per second
   //every .1f == 100 milliseconds or 10 ticks per second
-  private val TICK_TIMER_MAX: Float = .2f
+  private val TICK_TIMER_MAX: Float = 1.0f / 5.0f //.2f //1.0f / 5.0f
   private var tick: Long = 0
   private var tickTimer: Float = 0.0f
 

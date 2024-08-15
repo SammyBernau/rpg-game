@@ -5,7 +5,9 @@ import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.tiled.{TiledMapTile, TiledMapTileSet, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile
 import com.badlogic.gdx.graphics.g2d.{Animation, TextureRegion}
+import com.badlogic.gdx.utils
 import com.rpg.game.config.map.TiledMapConfig
+import com.badlogic.gdx.utils.Array
 
 import javax.inject.Inject
 import scala.collection.mutable.ArrayBuffer
@@ -14,7 +16,7 @@ import scala.jdk.CollectionConverters.*
 class EntityAnimations (tiledMapConfig: TiledMapConfig) {
   private val preLoadedTileSets = tiledMapConfig.tiledMap.getTileSets
   var frameDuration = .2f
-  var dodgeFrameDuration = .5f
+  private var dodgeFrameDuration = .5f
   // .2f perfect walk
   //.5 perfect run
 
@@ -31,6 +33,14 @@ class EntityAnimations (tiledMapConfig: TiledMapConfig) {
       .filter(tile => tile.getProperties.containsKey("type"))
       .toList
       .groupBy(tile => tile.getProperties.get("type").toString)
+  }
+
+  private def getTiledMapTiles(spriteSheet: TiledMapTileSet): Vector[TiledMapTile] = {
+    spriteSheet.iterator().asScala.toVector
+  }
+
+  private def getFrames(tiledMapTiles: Vector[TiledMapTile]): Array[TextureRegion] = {
+   Array[TextureRegion](tiledMapTiles.map(_.getTextureRegion).toArray[TextureRegion])
   }
 
   object Player {
@@ -101,10 +111,13 @@ class EntityAnimations (tiledMapConfig: TiledMapConfig) {
   //Stupid work around until another solution is found to load .tsx files individually that arent preloaded
   private val nonPreLoadedTileSets = new TmxMapLoader().load("assets/Tiled/SpriteUtils.tmx").getTileSets
   object GhostFireBall {
-    private val ghostFireballSpriteSheet: TiledMapTileSet = nonPreLoadedTileSets.getTileSet("GhostFireball_projectile")
-    private val frames = getFramesAsMap(ghostFireballSpriteSheet)
-    val tile: TiledMapTile = frames.getOrElse("ghost_fireball",List()).head
-    val textureRegion: TextureRegion = tile.getTextureRegion
+    private val ghostFireballSpriteSheet: TiledMapTileSet = nonPreLoadedTileSets.getTileSet("GhostFireballProjectileFull")
+    private val tiles = getTiledMapTiles(ghostFireballSpriteSheet)
+    private val frames = getFrames(tiles)
+
+    val animation = new Animation[TextureRegion](frameDuration,frames)
+    val tile: TiledMapTile = tiles.head
+
 
   }
 

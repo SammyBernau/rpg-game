@@ -17,6 +17,7 @@ assetsDirectory := {
   IO.createDirectory(r)
   r
 }
+
 libraryDependencies ++= Seq(
   "com.badlogicgames.gdx" % "gdx" % libGdxVersion,
   "com.badlogicgames.gdx" % "gdx-backend-lwjgl3" % libGdxVersion,

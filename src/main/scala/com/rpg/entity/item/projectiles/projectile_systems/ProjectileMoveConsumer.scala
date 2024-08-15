@@ -2,8 +2,8 @@ package com.rpg.entity.item.projectiles.projectile_systems
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.maps.objects.TextureMapObject
-import com.badlogic.gdx.math.MathUtils
-import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.math.{MathUtils, Vector2}
+import com.badlogic.gdx.physics.box2d.{Body, MassData}
 import com.rpg.game.structure.Consumer
 import com.rpg.game.systems.concurrent.Scheduler
 import com.rpg.game.systems.event.tick.{SubTickEvent, SubTickSystem}
@@ -29,13 +29,17 @@ class ProjectileMoveConsumer @Inject(val subTickSystem: SubTickSystem,
 
     //Stops ball from slowing down over time (constant speed)
     body.setLinearDamping(0f)
-
     //Calculate the force to be applied on the fireball
     val forceX = MathUtils.cos(angle) * speed
     val forceY = MathUtils.sin(angle) * speed
+    println(s"forceX: ${forceX}")
+    println(s"forceY: ${forceY}")
 
     //Apply the force to the fireball
+    println(s"Body Mass: ${body.getMass}")
     body.setLinearVelocity(forceX, forceY)
+    
+    
   }
 
   override def consume(): Unit = {
@@ -55,7 +59,9 @@ class ProjectileMoveConsumer @Inject(val subTickSystem: SubTickSystem,
             val body = fixture.getBody
             val textureMapObject = gameObject.mapObject.asInstanceOf[TextureMapObject]
 
-            //textureMapObject.setRotation((textureMapObject.getRotation * MathUtils.radiansToDegrees) - 90)
+            val massData = new MassData()
+            massData.mass = 1f
+            body.setMassData(massData)
 
             //set angle rotation of projectile body
             body.setTransform(body.getPosition, angle - (MathUtils.degreesToRadians * 90))
