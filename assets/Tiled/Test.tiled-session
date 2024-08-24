@@ -38,8 +38,8 @@
             "scale": 4,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 794.875,
-                "y": 696.875
+                "x": 800,
+                "y": 799.75
             }
         },
         "NPC_test.tsx": {

@@ -1,10 +1,11 @@
-package com.rpg.entity.item.projectiles.projectile_systems
+package com.rpg.entity.item.projectiles.projectile_systems.ghostfireball
 
 import com.badlogic.gdx.maps.objects.{RectangleMapObject, TextureMapObject}
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
 import com.badlogic.gdx.math.{MathUtils, Rectangle, Vector2, Vector3}
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.{Gdx, Input}
+import com.rpg.entity.item.projectiles.projectile_systems.{ProjectileMoveCache, ProjectileMoveRequest}
 import com.rpg.entity.item.projectiles.{Projectile, ProjectileSystem}
 import com.rpg.entity.textures.EntityAnimations
 import com.rpg.game.config.map.TiledMapConfig

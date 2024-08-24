@@ -9,7 +9,11 @@ import com.rpg.game.systems.rendering.{RenderEvent, RenderSystem}
 
 import javax.inject.Inject
 
-class RemoveObjectConsumer @Inject(val renderSystem: RenderSystem, world: World, removeObjectService: RemoveObjectCache, objectRenderingServiceHandler: ObjectRenderingServiceHandler) extends Consumer with RenderEvent {
+class RemoveObjectConsumer @Inject(val renderSystem: RenderSystem, 
+                                   world: World, 
+                                   removeObjectService: RemoveObjectCache, 
+                                   objectRenderingServiceHandler: ObjectRenderingServiceHandler) 
+  extends Consumer with RenderEvent {
   
   //must run on main thread since it updates physics world
   override def render(): Unit = {

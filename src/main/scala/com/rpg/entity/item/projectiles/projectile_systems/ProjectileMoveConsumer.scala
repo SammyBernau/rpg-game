@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.maps.objects.TextureMapObject
 import com.badlogic.gdx.math.{MathUtils, Vector2}
 import com.badlogic.gdx.physics.box2d.{Body, MassData}
+import com.rpg.entity.item.projectiles.projectile_systems.ghostfireball.GhostFireballAnimation
 import com.rpg.game.structure.Consumer
 import com.rpg.game.systems.concurrent.Scheduler
 import com.rpg.game.systems.event.tick.{SubTickEvent, SubTickSystem}
@@ -68,7 +69,6 @@ class ProjectileMoveConsumer @Inject(val subTickSystem: SubTickSystem,
 
             //move projectile
             move(body, speed, angle)
-
             //Remove projectile move request
             projectileMoveCache.remove(projectileMoveRequest)
           }

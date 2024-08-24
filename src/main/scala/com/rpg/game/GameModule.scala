@@ -4,7 +4,8 @@ import com.badlogic.gdx.physics.box2d.World
 import com.google.inject.AbstractModule
 import com.rpg.entity.animate.player.{PlayerAnimation, PlayerCameraZoom, PlayerMovement}
 import com.rpg.entity.item.projectiles.ProjectileSystem
-import com.rpg.entity.item.projectiles.projectile_systems.{GhostFireballSystem, ProjectileMoveCache, ProjectileMoveConsumer}
+import com.rpg.entity.item.projectiles.projectile_systems.ghostfireball.{GhostFireballAnimation, GhostFireballSystem}
+import com.rpg.entity.item.projectiles.projectile_systems.{ProjectileMoveCache, ProjectileMoveConsumer}
 import com.rpg.game.config.map.{TiledMapConfig, TiledMapConfigService}
 import com.rpg.game.systems.EventSystem
 import com.rpg.game.systems.concurrent.Scheduler
@@ -68,6 +69,7 @@ class GameModule(mapName: String) extends AbstractModule{
     bind(classOf[PlayerMovement]).asEagerSingleton()
     bind(classOf[GhostFireballSystem]).asEagerSingleton()
     bind(classOf[PlayerAnimation]).asEagerSingleton()
+    bind(classOf[GhostFireballAnimation]).asEagerSingleton()
     bind(classOf[PlayerCameraZoom]).asEagerSingleton()
 
 
