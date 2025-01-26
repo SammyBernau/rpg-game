@@ -46,7 +46,7 @@ final class PlayerAnimation @Inject(tiledMapConfig: TiledMapConfig,
     val space = Gdx.input.isKeyPressed(Input.Keys.SPACE)
     val shift = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
 
-    if (shift) entityAnimations.frameDuration = 0.5f else entityAnimations.frameDuration = .2f
+    if (shift) entityAnimations.Player.frameDuration = 0.5f else entityAnimations.Player.frameDuration = .2f
 
     val frameDivider_ish = 2f //2f works when TICK_TIMER_MAX is set to .1f and .2f (in terms of run/walk animations not stuttering)
 

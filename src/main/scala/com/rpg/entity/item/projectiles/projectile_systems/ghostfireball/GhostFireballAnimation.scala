@@ -29,7 +29,7 @@ final class GhostFireballAnimation @Inject(tiledMapConfig: TiledMapConfig,
       if(name != null) {
         if (name.contains("ghost_fireball")) {
           val textureMapObject = gamObject.mapObject.asInstanceOf[TextureMapObject]
-          textureMapObject.setTextureRegion(ghostFireballAnimation.getKeyFrame(tick, true))
+          textureMapObject.setTextureRegion(ghostFireballAnimation.getKeyFrame(tick.toFloat, true))
         }
       }
     }

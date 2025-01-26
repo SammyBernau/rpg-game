@@ -15,8 +15,6 @@ import scala.jdk.CollectionConverters.*
 
 class EntityAnimations (tiledMapConfig: TiledMapConfig) {
   private val preLoadedTileSets = tiledMapConfig.tiledMap.getTileSets
-  var frameDuration = .2f
-  private var dodgeFrameDuration = .5f
   // .2f perfect walk
   //.5 perfect run
 
@@ -44,6 +42,8 @@ class EntityAnimations (tiledMapConfig: TiledMapConfig) {
   }
 
   object Player {
+    var frameDuration = .2f
+    var dodgeFrameDuration = .5f
     //This can be done better
     private val playerSpriteSheet: TiledMapTileSet = preLoadedTileSets.getTileSet("PlayerSpriteV2")
     private val playerFrames = getFramesAsMap(playerSpriteSheet)
@@ -115,7 +115,7 @@ class EntityAnimations (tiledMapConfig: TiledMapConfig) {
     private val tiles = getTiledMapTiles(ghostFireballSpriteSheet)
     private val frames = getFrames(tiles)
 
-    val animation = new Animation[TextureRegion](frameDuration,frames)
+    val animation = new Animation[TextureRegion](.01f,frames)
     val tile: TiledMapTile = tiles.head
 
 
